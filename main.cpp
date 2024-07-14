@@ -127,8 +127,7 @@ private:
                       << ") to (" << row << ", " << col << ")" << std::endl;
 
             is_piece_selected = false;
-            selected_row = -1;
-            selected_col = -1;
+            this->clearSelectedChessPiecePosition();
             queue_draw();
         }
     }
