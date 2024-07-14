@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <vector>
 #include <map>
+#include "chess_resources.c"
 
 class ChessBoard : public Gtk::DrawingArea {
 public:
@@ -38,7 +39,7 @@ private:
 
     void load_pieces() {
         std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
-        std::cout << "Looking for pieces in: " << std::filesystem::absolute(pieces_path_) << std::endl;
+        // std::cout << "Looking for pieces in: " << std::filesystem::absolute(pieces_path_) << std::endl;
 
         std::vector<std::pair<std::string, std::string>> piece_files = {
             {"LK", "light_king.svg"},   
@@ -55,10 +56,10 @@ private:
             {"DP", "dark_pawn.svg"}
         };
 
-        for (const auto& [piece, file] : piece_files) {
+     for (const auto& [piece, file] : piece_files) {
             try {
-                auto file_path = pieces_path_ + file;
-                pieces[piece] = Gdk::Pixbuf::create_from_file(file_path);
+                auto resource_path = "chess_resources/images/" + file;
+                pieces[piece] = Gdk::Pixbuf::create_from_resource(resource_path);
             } catch (const Glib::Error& ex) {
                 std::cerr << "Error loading piece image: " << ex.what() << std::endl;
             }
@@ -136,7 +137,7 @@ private:
 class ChessWindow : public Gtk::Window {
 public:
     ChessWindow() {
-        set_title("Chess");
+        set_title("Chess GTKMM4");
         set_default_size(400, 400);
 
         // You can specify the path to the pieces directory here
@@ -150,6 +151,5 @@ private:
 
 int main(int argc, char** argv) {
     auto app = Gtk::Application::create("org.gtkmm.example");
-
     return app->make_window_and_run<ChessWindow>(argc, argv);
 }

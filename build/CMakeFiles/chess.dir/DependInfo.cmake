@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/ismael/Documents/chess-gtkmm4/build/chess_resources.c" "CMakeFiles/chess.dir/chess_resources.c.o" "gcc" "CMakeFiles/chess.dir/chess_resources.c.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/main.cpp" "CMakeFiles/chess.dir/main.cpp.o" "gcc" "CMakeFiles/chess.dir/main.cpp.o.d"
   )
 

@@ -129,6 +129,30 @@ chess/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/build
 .PHONY : chess/fast
 
+chess_resources.o: chess_resources.c.o
+.PHONY : chess_resources.o
+
+# target to build an object file
+chess_resources.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/chess_resources.c.o
+.PHONY : chess_resources.c.o
+
+chess_resources.i: chess_resources.c.i
+.PHONY : chess_resources.i
+
+# target to preprocess a source file
+chess_resources.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/chess_resources.c.i
+.PHONY : chess_resources.c.i
+
+chess_resources.s: chess_resources.c.s
+.PHONY : chess_resources.s
+
+# target to generate assembly for a file
+chess_resources.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/chess_resources.c.s
+.PHONY : chess_resources.c.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... chess"
+	@echo "... chess_resources.o"
+	@echo "... chess_resources.i"
+	@echo "... chess_resources.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
