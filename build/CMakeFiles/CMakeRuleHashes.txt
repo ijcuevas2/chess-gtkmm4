@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+c9eb34584b8282b57a54af25737b6dac chess_resources.c

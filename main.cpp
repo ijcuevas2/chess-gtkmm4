@@ -58,7 +58,7 @@ private:
 
      for (const auto& [piece, file] : piece_files) {
             try {
-                auto resource_path = "chess_resources/images/" + file;
+                auto resource_path = "/chess_resources/images/" + file;
                 pieces[piece] = Gdk::Pixbuf::create_from_resource(resource_path);
             } catch (const Glib::Error& ex) {
                 std::cerr << "Error loading piece image: " << ex.what() << std::endl;
