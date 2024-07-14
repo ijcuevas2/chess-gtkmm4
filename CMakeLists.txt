@@ -40,6 +40,22 @@ include_directories(${GTKMM_INCLUDE_DIRS} ${GLIB_INCLUDE_DIRS})
 add_executable(${PROJECT_NAME} 
     main.cpp 
     ${CHESS_RESOURCES}
+        src/ChessPieces/King.cpp
+        headers/ChessPieces/King.h
+        src/ChessPieces/Pawn.cpp
+        headers/ChessPieces/Pawn.h
+        src/ChessPieces/Bishop.cpp
+        headers/ChessPieces/Bishop.h
+        src/ChessPieces/Knight.cpp
+        headers/ChessPieces/Knight.h
+        src/ChessPieces/Rook.cpp
+        headers/ChessPieces/Rook.h
+        src/ChessPieces/Queen.cpp
+        headers/ChessPieces/Queen.h
+        src/ChessPieces/ChessPiece.cpp
+        headers/ChessPieces/ChessPiece.h
+        src/ChessPieces/Empty.cpp
+        headers/ChessPieces/Empty.h
 )
 
 # Link libraries
