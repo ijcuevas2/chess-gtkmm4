@@ -54,10 +54,12 @@ add_executable(${PROJECT_NAME}
         headers/ChessPieces/Queen.h
         src/ChessPieces/ChessPiece.cpp
         headers/ChessPieces/ChessPiece.h
-        src/ChessPieces/Empty.cpp
-        headers/ChessPieces/Empty.h
+        src/ChessPieces/EmptyPiece.cpp
+        headers/ChessPieces/EmptyPiece.h
         src/Coordinates.cpp
         headers/Coordinates.h
+        enum/Player.h
+        enum/PieceType.h
 )
 
 # Link libraries

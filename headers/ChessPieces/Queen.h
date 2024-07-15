@@ -4,10 +4,11 @@
 
 #ifndef CHESS_QUEEN_H
 #define CHESS_QUEEN_H
+#include "ChessPiece.h"
 
-
-class Queen {
-
+class Queen : ChessPiece {
+public:
+    bool canMove(Coordinates coordinates);
 };
 
 

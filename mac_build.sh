@@ -30,5 +30,4 @@ cmake \
     -DWITH_DBUS=OFF \
     ..
 
-make
-./chess
+make && ./chess

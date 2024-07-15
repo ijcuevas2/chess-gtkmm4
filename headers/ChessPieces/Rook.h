@@ -4,10 +4,11 @@
 
 #ifndef CHESS_ROOK_H
 #define CHESS_ROOK_H
+#include "ChessPiece.h"
 
-
-class Rook {
-
+class Rook : ChessPiece {
+public:
+    bool canMove(Coordinates coordinates);
 };
 
 

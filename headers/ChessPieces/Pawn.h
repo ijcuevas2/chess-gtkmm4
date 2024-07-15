@@ -4,10 +4,13 @@
 
 #ifndef CHESS_PAWN_H
 #define CHESS_PAWN_H
+#include "ChessPiece.h"
 
-
-class Pawn {
-
+class Pawn : ChessPiece {
+public:
+    bool canMove(Coordinates coordinates) {
+      return true;
+    }
 };
 
 

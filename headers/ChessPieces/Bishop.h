@@ -4,10 +4,11 @@
 
 #ifndef CHESS_BISHOP_H
 #define CHESS_BISHOP_H
+#include "ChessPiece.h"
 
-
-class Bishop {
-
+class Bishop : ChessPiece {
+public:
+    bool canMove(Coordinates coordinates);
 };
 
 

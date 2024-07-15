@@ -2707,3 +2707,58 @@ CMakeFiles/chess.dir/main.cpp.o
  /opt/homebrew/opt/freetype/include/freetype2/freetype/fttypes.h
  /opt/homebrew/opt/freetype/include/freetype2/ft2build.h
 
+CMakeFiles/chess.dir/src/ChessPieces/Bishop.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Bishop.cpp
+ /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Bishop.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+
+CMakeFiles/chess.dir/src/ChessPieces/ChessPiece.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/ChessPiece.cpp
+ /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+
+CMakeFiles/chess.dir/src/ChessPieces/King.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/King.cpp
+ /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/King.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Knight.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Knight.cpp
+ /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Knight.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Pawn.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Pawn.cpp
+ /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Pawn.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Queen.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Queen.cpp
+ /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Queen.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Rook.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Rook.cpp
+ /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
+

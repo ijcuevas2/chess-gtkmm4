@@ -2705,6 +2705,68 @@ CMakeFiles/chess.dir/main.cpp.o: /Users/ismael/Documents/chess-gtkmm4/main.cpp \
   /opt/homebrew/opt/freetype/include/freetype2/freetype/fttypes.h \
   /opt/homebrew/opt/freetype/include/freetype2/ft2build.h
 
+CMakeFiles/chess.dir/src/ChessPieces/Bishop.cpp.o: /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Bishop.cpp \
+  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Bishop.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+
+CMakeFiles/chess.dir/src/ChessPieces/ChessPiece.cpp.o: /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/ChessPiece.cpp \
+  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
+
+CMakeFiles/chess.dir/src/ChessPieces/King.cpp.o: /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/King.cpp \
+  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/King.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Knight.cpp.o: /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Knight.cpp \
+  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Knight.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Pawn.cpp.o: /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Pawn.cpp \
+  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Pawn.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Queen.cpp.o: /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Queen.cpp \
+  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Queen.h
+
+CMakeFiles/chess.dir/src/ChessPieces/Rook.cpp.o: /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Rook.cpp \
+  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
+
+
+/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Rook.cpp:
+
+/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Queen.cpp:
+
+/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Knight.cpp:
+
+/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/ChessPiece.cpp:
+
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Bishop.h:
+
+/Users/ismael/Documents/chess-gtkmm4/enum/Player.h:
+
+/Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h:
 
 /opt/homebrew/opt/freetype/include/freetype2/freetype/fttypes.h:
 
@@ -3184,6 +3246,8 @@ CMakeFiles/chess.dir/main.cpp.o: /Users/ismael/Documents/chess-gtkmm4/main.cpp \
 
 /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gdkmm/pixbufanimation.h:
 
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Pawn.h:
+
 /opt/homebrew/Cellar/pango/1.54.0/include/pango-1.0/pango/pango-features.h:
 
 /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gdkmm/graphene_rect.h:
@@ -3197,6 +3261,8 @@ CMakeFiles/chess.dir/main.cpp.o: /Users/ismael/Documents/chess-gtkmm4/main.cpp \
 /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gdkmm/event.h:
 
 /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gdkmm/drop.h:
+
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/King.h:
 
 /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gdkmm/dragsurfacesize.h:
 
@@ -3734,6 +3800,8 @@ CMakeFiles/chess.dir/main.cpp.o: /Users/ismael/Documents/chess-gtkmm4/main.cpp \
 
 /opt/homebrew/Cellar/graphene/1.10.8/include/graphene-1.0/graphene.h:
 
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h:
+
 /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gdkmm/clipboard.h:
 
 /opt/homebrew/Cellar/graphene/1.10.8/include/graphene-1.0/graphene-version.h:
@@ -3841,6 +3909,8 @@ CMakeFiles/chess.dir/main.cpp.o: /Users/ismael/Documents/chess-gtkmm4/main.cpp \
 /opt/homebrew/Cellar/glib/2.80.4/include/glib-2.0/gio/gtcpconnection.h:
 
 /opt/homebrew/Cellar/gtk4/4.14.4/include/gtk-4.0/gsk/gskpathbuilder.h:
+
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Knight.h:
 
 /opt/homebrew/Cellar/graphene/1.10.8/include/graphene-1.0/graphene-euler.h:
 
@@ -5656,6 +5726,8 @@ chess_resources.c:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__concepts/copyable.h:
 
+/Users/ismael/Documents/chess-gtkmm4/headers/Coordinates.h:
+
 /opt/homebrew/Cellar/gtk4/4.14.4/include/gtk-4.0/gtk/gtkframe.h:
 
 /opt/homebrew/Cellar/glibmm/2.80.0_1/include/giomm-2.68/giomm/dbusobject.h:
@@ -5885,6 +5957,8 @@ chess_resources.c:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__type_traits/remove_reference.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/sys/_types/_uuid_t.h:
+
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__algorithm/ranges_find.h:
 
@@ -6193,6 +6267,8 @@ chess_resources.c:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__atomic/atomic_flag.h:
 
 /opt/homebrew/Cellar/glibmm/2.80.0_1/include/giomm-2.68/giomm/settingsschemasource.h:
+
+/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Bishop.cpp:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__utility/auto_cast.h:
 
@@ -6826,6 +6902,8 @@ chess_resources.c:
 
 /opt/homebrew/Cellar/glibmm/2.80.0_1/include/glibmm-2.68/glibmm/checksum.h:
 
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Queen.h:
+
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/arm_neon.h:
 
 /opt/homebrew/Cellar/glib/2.80.4/include/glib-2.0/gio/gactiongroupexporter.h:
@@ -7118,6 +7196,8 @@ chess_resources.c:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/sys/_pthread/_pthread_mutex_t.h:
 
+/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/King.cpp:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/sys/_types/_ucontext.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/machine/signal.h:
@@ -7143,6 +7223,8 @@ chess_resources.c:
 /opt/homebrew/Cellar/glib/2.80.4/include/glib-2.0/gio/gemblemedicon.h:
 
 /opt/homebrew/Cellar/gtk4/4.14.4/include/gtk-4.0/gtk/deprecated/gtkrender.h:
+
+/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Pawn.cpp:
 
 /opt/homebrew/opt/freetype/include/freetype2/freetype/ftmoderr.h:
 
