@@ -39,7 +39,6 @@ private:
 
     void load_pieces() {
         std::cout << "Current working directory: " << std::filesystem::current_path() << std::endl;
-        // std::cout << "Looking for pieces in: " << std::filesystem::absolute(pieces_path_) << std::endl;
 
         std::vector<std::pair<std::string, std::string>> piece_files = {
             {"LK", "light_king.svg"},   
@@ -72,10 +71,12 @@ private:
         // Draw the board
         for (int row = 0; row < BOARD_SIZE; ++row) {
             for (int col = 0; col < BOARD_SIZE; ++col) {
-                if ((row + col) % 2 == 0)
-                    cr->set_source_rgb(1.0, 0.9, 0.8); // Light square
-                else
-                    cr->set_source_rgb(0.8, 0.6, 0.4); // Dark square
+                if ((row + col) % 2 == 0) {
+                  cr->set_source_rgb(1.0, 0.9, 0.8); // Light square
+                }
+                else {
+                  cr->set_source_rgb(0.8, 0.6, 0.4); // Dark square
+                }
 
                 cr->rectangle(col * cellSize, row * cellSize, cellSize, cellSize);
                 cr->fill();
