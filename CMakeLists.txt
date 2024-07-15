@@ -56,6 +56,8 @@ add_executable(${PROJECT_NAME}
         headers/ChessPieces/ChessPiece.h
         src/ChessPieces/Empty.cpp
         headers/ChessPieces/Empty.h
+        src/Coordinates.cpp
+        headers/Coordinates.h
 )
 
 # Link libraries
