@@ -66,7 +66,6 @@ add_executable(${PROJECT_NAME}
         headers/BoardSpace/BoardSpace.h
         src/HintMarker/HintMarker.cpp
         headers/HintMarker/HintMarker.h
-        main2.cpp
         src/ChessWindow/ChessWindow.cpp
         headers/ChessWindow/ChessWindow.h
         src/ChessBoard/ChessBoardView.cpp

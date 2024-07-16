@@ -3,3 +3,10 @@
 //
 
 #include "../../headers/ChessPieces/Knight.h"
+
+bool Knight::canMove(Coordinates coordinates) {
+  return false;
+}
+
+void Knight::afterPieceMoved(Coordinates coordinates) {
+}

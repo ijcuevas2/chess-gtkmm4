@@ -3,3 +3,9 @@
 //
 
 #include "../../headers/ChessPieces/Rook.h"
+bool Rook::canMove(Coordinates coordinates) {
+  return false;
+}
+
+void Rook::afterPieceMoved(Coordinates coordinates) {
+}

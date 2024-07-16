@@ -4,6 +4,9 @@
 
 #include "../../headers/ChessPieces/ChessPiece.h"
 
+ChessPiece::~ChessPiece() {
+}
+
 int ChessPiece::actualDistance(int source, int dest) {
   return source - dest;
 }
@@ -38,6 +41,16 @@ bool ChessPiece::canMove(Coordinates coordinates) {
   }
 
   return true;
+}
+
+void ChessPiece::afterPieceMoved(Coordinates coordinates) {
+}
+
+void ChessPiece::setChessPieceImagePath() {
+}
+
+bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
+  return false;
 }
 
 ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {

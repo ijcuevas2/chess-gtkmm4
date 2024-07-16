@@ -201,7 +201,6 @@ void Game::parseChessBoard(std::vector<std::vector<std::string>> chessBoard) {
   }
 }
 
-
 void Game::initializeBoard() {
     std::vector<std::vector<std::string>> chessBoard = {{"DR", "DN", "DB", "DQ", "DK", "DB", "DN", "DR"},
                                                         {"DP", "DP", "DP", "DP", "DP", "DP", "DP", "DP"},

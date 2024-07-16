@@ -3,6 +3,10 @@
 //
 
 #include "../../headers/BoardSpace/BoardSpace.h"
+
+BoardSpace::BoardSpace(ChessPiece *chessPiece, int xIndex, int yIndex) {
+}
+
 int BoardSpace::getXIndex() const {
   return xIndex;
 }
@@ -15,6 +19,10 @@ ChessPiece* BoardSpace::getChessPiece() {
   return chessPiece;
 }
 
+void BoardSpace::setChessPiece(ChessPiece *chessPiece) {
+  this->chessPiece = chessPiece;
+}
+
 PlayerID BoardSpace::getPlayerId() {
   if (chessPiece != NULL) {
     return chessPiece->getPlayerId();
@@ -22,3 +30,5 @@ PlayerID BoardSpace::getPlayerId() {
 
   return PlayerID::NONE;
 }
+
+

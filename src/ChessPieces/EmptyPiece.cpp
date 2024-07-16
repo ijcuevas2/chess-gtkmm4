@@ -4,3 +4,10 @@
 
 #include "../../headers/ChessPieces/EmptyPiece.h"
 
+
+bool EmptyPiece::canMove(Coordinates coordinates) {
+  return false;
+}
+
+void EmptyPiece::afterPieceMoved(Coordinates coordinates) {
+}
