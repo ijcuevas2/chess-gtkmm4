@@ -4,9 +4,9 @@
 
 #ifndef CHESS_CHESSBOARDMODEL_H
 #define CHESS_CHESSBOARDMODEL_H
+#include <gtkmm/drawingarea.h>
 
-
-class ChessBoardModel {
+class ChessBoardModel: public Gtk::DrawingArea {
 };
 
 
