@@ -5,11 +5,11 @@
 #ifndef CHESS_GAME_H
 #define CHESS_GAME_H
 
-#include "ChessPieces/ChessPiece.h"
+#include "../ChessPieces/ChessPiece.h"
 #include <vector>
 #include <iostream>
 #include <memory>
-#include "./BoardSpace.h"
+#include "../BoardSpace/BoardSpace.h"
 
 class Game {
 private:
@@ -36,8 +36,5 @@ public:
     PieceType parsePieceType(std::string pieceEncoding);
     ChessPiece* initChessPiece(std::string pieceEncoding);
 };
-
-
-
 
 #endif //CHESS_GAME_H

@@ -6,9 +6,11 @@
 #define CHESS_QUEEN_H
 #include "ChessPiece.h"
 
-class Queen : ChessPiece {
+class Queen : public virtual ChessPiece {
 public:
-    bool canMove(Coordinates coordinates);
+    Queen(PlayerID playerId) : ChessPiece(playerId, PieceType::QUEEN) {
+    }
+    bool canMove(Coordinates coordinates) override;
     bool canMoveDiagonal(Coordinates coordinates);
     bool canMoveHorizontal(Coordinates coordinates);
     void afterPieceMoved(Coordinates coordinates) override;

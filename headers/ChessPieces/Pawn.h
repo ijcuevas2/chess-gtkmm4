@@ -5,7 +5,6 @@
 #ifndef CHESS_PAWN_H
 #define CHESS_PAWN_H
 #include "ChessPiece.h"
-#include "../ChessMovementUtils.h"
 
 class Pawn : public virtual ChessPiece {
 private:
@@ -16,7 +15,7 @@ public:
     Pawn(PlayerID playerId): ChessPiece(playerId, PieceType::PAWN) {
     }
 
-    bool canMove(Coordinates coordinates);
+    bool canMove(Coordinates coordinates) override;
     bool isCorrectDirection(Coordinates coordinates);
     bool canMoveFirstTurn(Coordinates coordinates);
     bool canDiagonalCapture(Coordinates coordinates);

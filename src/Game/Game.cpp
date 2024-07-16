@@ -2,14 +2,14 @@
 // Created by Ismael Cuevas on 7/15/24.
 //
 
-#include "../headers/Game.h"
-#include "../headers/ChessPieces/Rook.h"
-#include "../headers/ChessPieces/Knight.h"
-#include "../headers/ChessPieces/Bishop.h"
-#include "../headers/ChessPieces/Queen.h"
-#include "../headers/ChessPieces/King.h"
-#include "../headers/ChessPieces/Pawn.h"
-#include "../headers/ChessPieces/EmptyPiece.h"
+#include "../../headers/Game/Game.h"
+#include "../../headers/ChessPieces/Rook.h"
+#include "../../headers/ChessPieces/Knight.h"
+#include "../../headers/ChessPieces/Bishop.h"
+#include "../../headers/ChessPieces/Queen.h"
+#include "../../headers/ChessPieces/King.h"
+#include "../../headers/ChessPieces/Pawn.h"
+#include "../../headers/ChessPieces/EmptyPiece.h"
 
 Game::Game() {
   for (int i = 0; i < boardSize; ++i) {

@@ -6,12 +6,14 @@
 #define CHESS_CHESSPIECE_H
 #include "../../enum/PieceType.h"
 #include "../../enum/Player.h"
-#include "../Coordinates.h"
+#include "../Coordinates/Coordinates.h"
 #include <iostream>
 
 class ChessPiece {
 public:
   void setChessPieceImagePath();
+  ChessPiece(PlayerID playerId, PieceType pieceType);
+  virtual ~ChessPiece();
 
   int actualDistance(int source, int dest);
   int absoluteDistance(int source, int dest);

@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include "chess_resources.c"
+#include "headers/ChessWindow/ChessWindow.h"
 
 class ChessBoard : public Gtk::DrawingArea {
 public:
@@ -23,10 +24,10 @@ private:
     std::vector<std::vector<std::string>> board = {
         {"DR", "DN", "DB", "DQ", "DK", "DB", "DN", "DR"},
         {"DP", "DP", "DP", "DP", "DP", "DP", "DP", "DP"},
-        {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "},
-        {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "},
-        {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "},
-        {"  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "},
+        {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
+        {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
+        {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
+        {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
         {"LP", "LP", "LP", "LP", "LP", "LP", "LP", "LP"},
         {"LR", "LN", "LB", "LQ", "LK", "LB", "LN", "LR"}
     };
@@ -93,7 +94,6 @@ private:
                     
                     Gdk::Cairo::set_source_pixbuf(cr, pixbuf, 0, 0);
                     cr->paint();
-                    
                     cr->restore();
                 }
             }
@@ -132,21 +132,6 @@ private:
             queue_draw();
         }
     }
-};
-
-class ChessWindow : public Gtk::Window {
-public:
-    ChessWindow() {
-        set_title("Chess GTKMM4");
-        set_default_size(400, 400);
-
-        // You can specify the path to the pieces directory here
-        m_chessBoard = Gtk::make_managed<ChessBoard>("../images/");
-        set_child(*m_chessBoard);
-    }
-
-private:
-    ChessBoard* m_chessBoard;
 };
 
 int main(int argc, char** argv) {

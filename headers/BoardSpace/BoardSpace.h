@@ -6,8 +6,8 @@
 #define CHESS_BOARDSPACE_H
 
 
-#include "ChessPieces/ChessPiece.h"
-#include "HintMarker.h"
+#include "../ChessPieces/ChessPiece.h"
+#include "../HintMarker/HintMarker.h"
 
 class BoardSpace {
 private:

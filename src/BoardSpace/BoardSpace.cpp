@@ -2,7 +2,7 @@
 // Created by Ismael Cuevas on 7/15/24.
 //
 
-#include "../headers/BoardSpace.h"
+#include "../../headers/BoardSpace/BoardSpace.h"
 int BoardSpace::getXIndex() const {
   return xIndex;
 }

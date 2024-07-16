@@ -6,9 +6,11 @@
 #define CHESS_BISHOP_H
 #include "ChessPiece.h"
 
-class Bishop : ChessPiece {
+class Bishop : public virtual ChessPiece {
 public:
-    bool canMove(Coordinates coordinates);
+    Bishop(PlayerID playerId) : ChessPiece(playerId, PieceType::BISHOP) {
+    }
+    bool canMove(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
 };
 

@@ -40,3 +40,9 @@ bool ChessPiece::canMove(Coordinates coordinates) {
   return true;
 }
 
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {
+  this->playerId = playerId;
+  this->pieceType = pieceType;
+  this->setChessPieceImagePath();
+}
+

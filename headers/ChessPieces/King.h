@@ -7,12 +7,14 @@
 #include "ChessPiece.h"
 #include "Rook.h"
 
-class King : ChessPiece {
+class King : public virtual ChessPiece {
 private:
     bool hasMoved;
     bool isInCheck;
 public:
-    bool canMove(Coordinates coordinates);
+    King(PlayerID playerId) : ChessPiece(playerId, PieceType::KING) {
+    }
+    bool canMove(Coordinates coordinates) override;
     bool HasMoved() const;
     bool IsInCheck() const;
     void afterPieceMoved(Coordinates coordinates) override;

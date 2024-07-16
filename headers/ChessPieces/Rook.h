@@ -6,9 +6,13 @@
 #define CHESS_ROOK_H
 #include "ChessPiece.h"
 
-class Rook : ChessPiece {
+class Rook : public virtual ChessPiece {
 public:
-    bool canMove(Coordinates coordinates);
+    Rook(PlayerID playerId) : ChessPiece(playerId, PieceType::ROOK) {
+    }
+
+    bool canMove(Coordinates coordinates) override;
+    void afterPieceMoved(Coordinates coordinates) override;
 };
 
 

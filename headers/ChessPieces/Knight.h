@@ -6,9 +6,12 @@
 #define CHESS_KNIGHT_H
 #include "ChessPiece.h"
 
-class Knight : ChessPiece {
+class Knight : public virtual ChessPiece {
 public:
-    bool canMove(Coordinates coordinates);
+    Knight(PlayerID playerId) : ChessPiece(playerId, PieceType::KNIGHT) {
+    }
+    bool canMove(Coordinates coordinates) override;
+    void afterPieceMoved(Coordinates coordinates) override;
 };
 
 

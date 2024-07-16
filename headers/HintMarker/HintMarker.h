@@ -8,7 +8,7 @@
 
 class HintMarker {
 public:
-    HintMarker()
+    HintMarker();
 };
 
 

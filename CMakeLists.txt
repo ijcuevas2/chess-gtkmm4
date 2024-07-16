@@ -56,18 +56,23 @@ add_executable(${PROJECT_NAME}
         headers/ChessPieces/ChessPiece.h
         src/ChessPieces/EmptyPiece.cpp
         headers/ChessPieces/EmptyPiece.h
-        src/Coordinates.cpp
-        headers/Coordinates.h
+        src/Coordinates/Coordinates.cpp
+        headers/Coordinates/Coordinates.h
         enum/Player.h
         enum/PieceType.h
-        src/Game.cpp
-        headers/Game.h
-        src/BoardSpace.cpp
-        headers/BoardSpace.h
-        src/HintMarker.cpp
-        headers/HintMarker.h
-        src/ChessMovementUtils.cpp
-        headers/ChessMovementUtils.h
+        src/Game/Game.cpp
+        headers/Game/Game.h
+        src/BoardSpace/BoardSpace.cpp
+        headers/BoardSpace/BoardSpace.h
+        src/HintMarker/HintMarker.cpp
+        headers/HintMarker/HintMarker.h
+        main2.cpp
+        src/ChessWindow/ChessWindow.cpp
+        headers/ChessWindow/ChessWindow.h
+        src/ChessBoard/ChessBoardView.cpp
+        headers/ChessBoard/ChessBoardView.h
+        src/ChessBoard/ChessBoardModel.cpp
+        headers/ChessBoard/ChessBoardModel.h
 )
 
 # Link libraries

@@ -177,6 +177,102 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+main2.o: main2.cpp.o
+.PHONY : main2.o
+
+# target to build an object file
+main2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/main2.cpp.o
+.PHONY : main2.cpp.o
+
+main2.i: main2.cpp.i
+.PHONY : main2.i
+
+# target to preprocess a source file
+main2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/main2.cpp.i
+.PHONY : main2.cpp.i
+
+main2.s: main2.cpp.s
+.PHONY : main2.s
+
+# target to generate assembly for a file
+main2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/main2.cpp.s
+.PHONY : main2.cpp.s
+
+src/BoardSpace/BoardSpace.o: src/BoardSpace/BoardSpace.cpp.o
+.PHONY : src/BoardSpace/BoardSpace.o
+
+# target to build an object file
+src/BoardSpace/BoardSpace.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.o
+.PHONY : src/BoardSpace/BoardSpace.cpp.o
+
+src/BoardSpace/BoardSpace.i: src/BoardSpace/BoardSpace.cpp.i
+.PHONY : src/BoardSpace/BoardSpace.i
+
+# target to preprocess a source file
+src/BoardSpace/BoardSpace.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.i
+.PHONY : src/BoardSpace/BoardSpace.cpp.i
+
+src/BoardSpace/BoardSpace.s: src/BoardSpace/BoardSpace.cpp.s
+.PHONY : src/BoardSpace/BoardSpace.s
+
+# target to generate assembly for a file
+src/BoardSpace/BoardSpace.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.s
+.PHONY : src/BoardSpace/BoardSpace.cpp.s
+
+src/ChessBoard/ChessBoardModel.o: src/ChessBoard/ChessBoardModel.cpp.o
+.PHONY : src/ChessBoard/ChessBoardModel.o
+
+# target to build an object file
+src/ChessBoard/ChessBoardModel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o
+.PHONY : src/ChessBoard/ChessBoardModel.cpp.o
+
+src/ChessBoard/ChessBoardModel.i: src/ChessBoard/ChessBoardModel.cpp.i
+.PHONY : src/ChessBoard/ChessBoardModel.i
+
+# target to preprocess a source file
+src/ChessBoard/ChessBoardModel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.i
+.PHONY : src/ChessBoard/ChessBoardModel.cpp.i
+
+src/ChessBoard/ChessBoardModel.s: src/ChessBoard/ChessBoardModel.cpp.s
+.PHONY : src/ChessBoard/ChessBoardModel.s
+
+# target to generate assembly for a file
+src/ChessBoard/ChessBoardModel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.s
+.PHONY : src/ChessBoard/ChessBoardModel.cpp.s
+
+src/ChessBoard/ChessBoardView.o: src/ChessBoard/ChessBoardView.cpp.o
+.PHONY : src/ChessBoard/ChessBoardView.o
+
+# target to build an object file
+src/ChessBoard/ChessBoardView.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o
+.PHONY : src/ChessBoard/ChessBoardView.cpp.o
+
+src/ChessBoard/ChessBoardView.i: src/ChessBoard/ChessBoardView.cpp.i
+.PHONY : src/ChessBoard/ChessBoardView.i
+
+# target to preprocess a source file
+src/ChessBoard/ChessBoardView.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.i
+.PHONY : src/ChessBoard/ChessBoardView.cpp.i
+
+src/ChessBoard/ChessBoardView.s: src/ChessBoard/ChessBoardView.cpp.s
+.PHONY : src/ChessBoard/ChessBoardView.s
+
+# target to generate assembly for a file
+src/ChessBoard/ChessBoardView.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.s
+.PHONY : src/ChessBoard/ChessBoardView.cpp.s
+
 src/ChessPieces/Bishop.o: src/ChessPieces/Bishop.cpp.o
 .PHONY : src/ChessPieces/Bishop.o
 
@@ -369,29 +465,101 @@ src/ChessPieces/Rook.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessPieces/Rook.cpp.s
 .PHONY : src/ChessPieces/Rook.cpp.s
 
-src/Coordinates.o: src/Coordinates.cpp.o
-.PHONY : src/Coordinates.o
+src/ChessWindow/ChessWindow.o: src/ChessWindow/ChessWindow.cpp.o
+.PHONY : src/ChessWindow/ChessWindow.o
 
 # target to build an object file
-src/Coordinates.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates.cpp.o
-.PHONY : src/Coordinates.cpp.o
+src/ChessWindow/ChessWindow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o
+.PHONY : src/ChessWindow/ChessWindow.cpp.o
 
-src/Coordinates.i: src/Coordinates.cpp.i
-.PHONY : src/Coordinates.i
+src/ChessWindow/ChessWindow.i: src/ChessWindow/ChessWindow.cpp.i
+.PHONY : src/ChessWindow/ChessWindow.i
 
 # target to preprocess a source file
-src/Coordinates.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates.cpp.i
-.PHONY : src/Coordinates.cpp.i
+src/ChessWindow/ChessWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.i
+.PHONY : src/ChessWindow/ChessWindow.cpp.i
 
-src/Coordinates.s: src/Coordinates.cpp.s
-.PHONY : src/Coordinates.s
+src/ChessWindow/ChessWindow.s: src/ChessWindow/ChessWindow.cpp.s
+.PHONY : src/ChessWindow/ChessWindow.s
 
 # target to generate assembly for a file
-src/Coordinates.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates.cpp.s
-.PHONY : src/Coordinates.cpp.s
+src/ChessWindow/ChessWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.s
+.PHONY : src/ChessWindow/ChessWindow.cpp.s
+
+src/Coordinates/Coordinates.o: src/Coordinates/Coordinates.cpp.o
+.PHONY : src/Coordinates/Coordinates.o
+
+# target to build an object file
+src/Coordinates/Coordinates.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.o
+.PHONY : src/Coordinates/Coordinates.cpp.o
+
+src/Coordinates/Coordinates.i: src/Coordinates/Coordinates.cpp.i
+.PHONY : src/Coordinates/Coordinates.i
+
+# target to preprocess a source file
+src/Coordinates/Coordinates.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.i
+.PHONY : src/Coordinates/Coordinates.cpp.i
+
+src/Coordinates/Coordinates.s: src/Coordinates/Coordinates.cpp.s
+.PHONY : src/Coordinates/Coordinates.s
+
+# target to generate assembly for a file
+src/Coordinates/Coordinates.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.s
+.PHONY : src/Coordinates/Coordinates.cpp.s
+
+src/Game/Game.o: src/Game/Game.cpp.o
+.PHONY : src/Game/Game.o
+
+# target to build an object file
+src/Game/Game.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Game/Game.cpp.o
+.PHONY : src/Game/Game.cpp.o
+
+src/Game/Game.i: src/Game/Game.cpp.i
+.PHONY : src/Game/Game.i
+
+# target to preprocess a source file
+src/Game/Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Game/Game.cpp.i
+.PHONY : src/Game/Game.cpp.i
+
+src/Game/Game.s: src/Game/Game.cpp.s
+.PHONY : src/Game/Game.s
+
+# target to generate assembly for a file
+src/Game/Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Game/Game.cpp.s
+.PHONY : src/Game/Game.cpp.s
+
+src/HintMarker/HintMarker.o: src/HintMarker/HintMarker.cpp.o
+.PHONY : src/HintMarker/HintMarker.o
+
+# target to build an object file
+src/HintMarker/HintMarker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o
+.PHONY : src/HintMarker/HintMarker.cpp.o
+
+src/HintMarker/HintMarker.i: src/HintMarker/HintMarker.cpp.i
+.PHONY : src/HintMarker/HintMarker.i
+
+# target to preprocess a source file
+src/HintMarker/HintMarker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.i
+.PHONY : src/HintMarker/HintMarker.cpp.i
+
+src/HintMarker/HintMarker.s: src/HintMarker/HintMarker.cpp.s
+.PHONY : src/HintMarker/HintMarker.s
+
+# target to generate assembly for a file
+src/HintMarker/HintMarker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.s
+.PHONY : src/HintMarker/HintMarker.cpp.s
 
 # Help Target
 help:
@@ -408,6 +576,18 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... main2.o"
+	@echo "... main2.i"
+	@echo "... main2.s"
+	@echo "... src/BoardSpace/BoardSpace.o"
+	@echo "... src/BoardSpace/BoardSpace.i"
+	@echo "... src/BoardSpace/BoardSpace.s"
+	@echo "... src/ChessBoard/ChessBoardModel.o"
+	@echo "... src/ChessBoard/ChessBoardModel.i"
+	@echo "... src/ChessBoard/ChessBoardModel.s"
+	@echo "... src/ChessBoard/ChessBoardView.o"
+	@echo "... src/ChessBoard/ChessBoardView.i"
+	@echo "... src/ChessBoard/ChessBoardView.s"
 	@echo "... src/ChessPieces/Bishop.o"
 	@echo "... src/ChessPieces/Bishop.i"
 	@echo "... src/ChessPieces/Bishop.s"
@@ -432,9 +612,18 @@ help:
 	@echo "... src/ChessPieces/Rook.o"
 	@echo "... src/ChessPieces/Rook.i"
 	@echo "... src/ChessPieces/Rook.s"
-	@echo "... src/Coordinates.o"
-	@echo "... src/Coordinates.i"
-	@echo "... src/Coordinates.s"
+	@echo "... src/ChessWindow/ChessWindow.o"
+	@echo "... src/ChessWindow/ChessWindow.i"
+	@echo "... src/ChessWindow/ChessWindow.s"
+	@echo "... src/Coordinates/Coordinates.o"
+	@echo "... src/Coordinates/Coordinates.i"
+	@echo "... src/Coordinates/Coordinates.s"
+	@echo "... src/Game/Game.o"
+	@echo "... src/Game/Game.i"
+	@echo "... src/Game/Game.s"
+	@echo "... src/HintMarker/HintMarker.o"
+	@echo "... src/HintMarker/HintMarker.i"
+	@echo "... src/HintMarker/HintMarker.s"
 .PHONY : help
 
 
