@@ -5,13 +5,29 @@
 #ifndef CHESS_PAWN_H
 #define CHESS_PAWN_H
 #include "ChessPiece.h"
+#include "../ChessMovementUtils.h"
 
-class Pawn : ChessPiece {
+class Pawn : public virtual ChessPiece {
+private:
+    bool isFirstMove = true;
+    int movedTwoSpacesTurn = -1;
+    bool isEnPassantEligible = false;
 public:
-    bool canMove(Coordinates coordinates) {
-      return true;
+    Pawn(PlayerID playerId): ChessPiece(playerId, PieceType::PAWN) {
     }
-};
 
+    bool canMove(Coordinates coordinates);
+    bool isCorrectDirection(Coordinates coordinates);
+    bool canMoveFirstTurn(Coordinates coordinates);
+    bool canDiagonalCapture(Coordinates coordinates);
+    bool canMoveSingleSpaceForward(Coordinates coordinates);
+    bool isDiagonalMove(Coordinates coordinates);
+    bool canCapture(Coordinates coordinates);
+    bool canEnPassantCapture(Coordinates coordinates);
+    void setUsedFirstMove();
+    void setMovedTwoSpacesTurn(Coordinates coordinates);
+    void afterPieceMoved(Coordinates coordinates) override;
+    int getMovedTwoSpacesTurn();
+};
 
 #endif //CHESS_PAWN_H

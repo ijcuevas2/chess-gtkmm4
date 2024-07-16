@@ -6,9 +6,12 @@
 #define CHESS_EMPTYPIECE_H
 #include "ChessPiece.h"
 
-class EmptyPiece : ChessPiece {
+class EmptyPiece : public virtual ChessPiece {
 public:
+    EmptyPiece()
+            : ChessPiece(PlayerID::NONE, PieceType::EMPTY_PIECE) { }
     bool canMove(Coordinates coordinates);
+    void afterPieceMoved(Coordinates coordinates) override;
 };
 
 

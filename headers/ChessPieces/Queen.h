@@ -9,7 +9,8 @@
 class Queen : ChessPiece {
 public:
     bool canMove(Coordinates coordinates);
+    bool canMoveDiagonal(Coordinates coordinates);
+    bool canMoveHorizontal(Coordinates coordinates);
+    void afterPieceMoved(Coordinates coordinates) override;
 };
-
-
 #endif //CHESS_QUEEN_H

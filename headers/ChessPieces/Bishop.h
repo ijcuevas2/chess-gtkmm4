@@ -9,6 +9,7 @@
 class Bishop : ChessPiece {
 public:
     bool canMove(Coordinates coordinates);
+    void afterPieceMoved(Coordinates coordinates) override;
 };
 
 
