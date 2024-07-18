@@ -155,38 +155,6 @@ PieceType Game::parsePieceType(std::string pieceEncoding) {
   }
 }
 
-ChessPiece* Game::initChessPiece(std::string pieceEncoding) {
-  PieceType pieceType = parsePieceType(pieceEncoding);
-  PlayerID playerId = parsePlayerId(pieceEncoding);
-  ChessPiece* piece = NULL;
-
-  switch (pieceType) {
-    case PieceType::ROOK:
-      piece = new Rook(playerId);
-      break;
-    case PieceType::KNIGHT:
-      piece = new Knight(playerId);
-      break;
-    case PieceType::BISHOP:
-      piece = new Bishop(playerId);
-      break;
-    case PieceType::QUEEN:
-      piece = new Queen(playerId);
-      break;
-    case PieceType::KING:
-      piece = new King(playerId);
-      break;
-    case PieceType::PAWN:
-      piece = new Pawn(playerId);
-      break;
-    case PieceType::EMPTY_PIECE:
-      piece = new EmptyPiece();
-      break;
-  }
-
-  return piece;
-}
-
 void Game::parseChessBoard(std::vector<std::vector<std::string>> chessBoard) {
   if (!isValidEncoding(chessBoard)) {
     return;

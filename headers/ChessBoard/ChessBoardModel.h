@@ -4,30 +4,27 @@
 
 #ifndef CHESS_CHESSBOARDMODEL_H
 #define CHESS_CHESSBOARDMODEL_H
-#include <gtkmm.h>
+#import <iostream>
+#import <vector>
+#include "../ChessPieces/ChessPiece.h"
+#include "../BoardSpace/BoardSpace.h"
 
-
-class ChessBoardModel: public Gtk::DrawingArea {
+class ChessBoardModel {
 public:
-    ChessBoardModel() {
-      set_content_width(400);
-      set_content_height(400);
-      set_draw_func(sigc::mem_fun(*this, &ChessBoardModel::on_draw));
-      add_controller(Gtk::GestureClick::create());
-      auto controller = Gtk::GestureClick::create();
-      controller->signal_pressed().connect(sigc::mem_fun(*this, &ChessBoardModel::on_pressed));
-      add_controller(controller);
-      load_pieces();
-    }
+    ChessBoardModel();
+    void initBoard();
+    int getBoardSize();
+    ChessPiece* getChessPiece(int row, int col);
+    BoardSpace* getBoardSpace(int row, int col);
+    void setBoardSpaceAtIndex(ChessPiece* chessPiece, int row, int col);
 
-    void on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height) {
-    }
-
-    void on_pressed(int n_press, double x, double y) {
-    }
-
-    void load_pieces(){
-    }
+    ChessPiece* initChessPiece(std::string pieceEncoding);
+    std::vector<std::vector<std::string>> getBoardConfig();
+    PieceType parsePieceType(std::string pieceEncoding);
+    bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
+private:
+    const int BOARD_SIZE = 8;
+    std::vector<std::vector<BoardSpace*>> board;
 };
 
 
