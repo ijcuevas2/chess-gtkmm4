@@ -28,19 +28,37 @@ void ChessBoardModel::initBoard() {
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
       std::string pieceEncoding = boardConfig[row][col];
-      ChessPiece* chessPiece = this->initChessPiece(pieceEncoding);
+      ChessPiece *chessPiece = this->initChessPiece(pieceEncoding);
       setBoardSpaceAtIndex(chessPiece, row, col);
     }
   }
 }
 
-void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece* chessPiece, int row, int col) {
-  BoardSpace* boardSpace = new BoardSpace(chessPiece, row, col);
+void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece *chessPiece, int row, int col) {
+  BoardSpace *boardSpace = new BoardSpace(chessPiece, row, col);
   this->board[row][col] = boardSpace;
 }
 
 int ChessBoardModel::getBoardSize() {
   return BOARD_SIZE;
+}
+
+PlayerID ChessBoardModel::parsePlayerId(std::string pieceEncoding) {
+  const char firstChar = pieceEncoding[0];
+  switch (firstChar) {
+    case 'D':
+      return PlayerID::PLAYER_DARK;
+      break;
+    case 'L':
+      return PlayerID::PLAYER_LIGHT;
+      break;
+    case 'E':
+      return PlayerID::NONE;
+      break;
+    default:
+      return PlayerID::NONE;
+      break;
+  }
 }
 
 PieceType ChessBoardModel::parsePieceType(std::string pieceEncoding) {
@@ -71,77 +89,75 @@ PieceType ChessBoardModel::parsePieceType(std::string pieceEncoding) {
       return PieceType::EMPTY_PIECE;
       break;
   }
+}
 
-  ChessPiece* ChessBoardModel::getChessPiece(int row, int col) {
-    if (this->board != nullptr) {
-      return this->board[row][col]->getChessPiece();
-    }
-
-    return nullptr;
+ChessPiece *ChessBoardModel::getChessPiece(int row, int col) {
+  if (this->board.size() != 0) {
+    return this->board[row][col]->getChessPiece();
   }
 
-  BoardSpace* ChessBoardModel::getBoardSpace(int row, int col) {
-    if (this->board != nullptr) {
-      return this->board[row][col];
-    }
+  return nullptr;
+}
 
-    return nullptr;
+BoardSpace *ChessBoardModel::getBoardSpace(int row, int col) {
+  if (this->board.size() != 0) {
+    return this->board[row][col];
   }
 
-  ChessPiece* ChessBoardModel::initChessPiece(std::string pieceEncoding) {
-    PieceType pieceType = parsePieceType(pieceEncoding);
-    PlayerID playerId = parsePlayerId(pieceEncoding);
-    ChessPiece* piece = NULL;
+  return nullptr;
+}
 
-    switch (pieceType) {
-      case PieceType::ROOK:
-        piece = new Rook(playerId);
-        break;
-      case PieceType::KNIGHT:
-        piece = new Knight(playerId);
-        break;
-      case PieceType::BISHOP:
-        piece = new Bishop(playerId);
-        break;
-      case PieceType::QUEEN:
-        piece = new Queen(playerId);
-        break;
-      case PieceType::KING:
-        piece = new King(playerId);
-        break;
-      case PieceType::PAWN:
-        piece = new Pawn(playerId);
-        break;
-      case PieceType::EMPTY_PIECE:
-        piece = new EmptyPiece();
-        break;
-    }
+ChessPiece *ChessBoardModel::initChessPiece(std::string pieceEncoding) {
+  PieceType pieceType = parsePieceType(pieceEncoding);
+  PlayerID playerId = parsePlayerId(pieceEncoding);
+  ChessPiece *piece = NULL;
 
-    return piece;
+  switch (pieceType) {
+    case PieceType::ROOK:
+      piece = new Rook(playerId);
+      break;
+    case PieceType::KNIGHT:
+      piece = new Knight(playerId);
+      break;
+    case PieceType::BISHOP:
+      piece = new Bishop(playerId);
+      break;
+    case PieceType::QUEEN:
+      piece = new Queen(playerId);
+      break;
+    case PieceType::KING:
+      piece = new King(playerId);
+      break;
+    case PieceType::PAWN:
+      piece = new Pawn(playerId);
+      break;
+    case PieceType::EMPTY_PIECE:
+      piece = new EmptyPiece();
+      break;
   }
 
-  bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> chessBoard) {
-    const int EXPECTED_NUM_ROWS = 8;
-    const int EXPECTED_NUM_SPACES = 8;
+  return piece;
+}
 
-    if (chessBoard.size() != EXPECTED_NUM_ROWS) {
+bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> chessBoard) {
+  const int EXPECTED_NUM_ROWS = 8;
+  const int EXPECTED_NUM_SPACES = 8;
+
+  if (chessBoard.size() != EXPECTED_NUM_ROWS) {
+    return false;
+  }
+
+  for (std::vector<std::string> &row: chessBoard) {
+    if (row.size() != EXPECTED_NUM_SPACES) {
       return false;
     }
 
-    for (std::vector<std::string> & row : chessBoard) {
-      if (row.size() != EXPECTED_NUM_SPACES) {
+    for (std::string &pieceEncoding: row) {
+      if (pieceEncoding.size() != 2) {
         return false;
       }
-
-      for (std::string & pieceEncoding : row) {
-        if (pieceEncoding.size() != 2) {
-          return false;
-        }
-      }
     }
-
-    return true;
   }
+
+  return true;
 }
-
-

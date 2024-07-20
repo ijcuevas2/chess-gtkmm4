@@ -36,7 +36,7 @@ class ChessBoardView : public Gtk::DrawingArea {
           cr->fill();
 
           // Draw the piece
-          std::string piece = board[row][col];
+          // std::string piece = chessBoardModel->board[row][col];
           if (piece != "  " && pieces.count(piece) > 0) {
             auto pixbuf = pieces[piece];
             double scale = static_cast<double>(cellSize) / std::max(pixbuf->get_width(), pixbuf->get_height());

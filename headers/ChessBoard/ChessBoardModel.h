@@ -8,8 +8,16 @@
 #import <vector>
 #include "../ChessPieces/ChessPiece.h"
 #include "../BoardSpace/BoardSpace.h"
+#include "../../headers/ChessPieces/Rook.h"
+#include "../../headers/ChessPieces/Knight.h"
+#include "../../headers/ChessPieces/Bishop.h"
+#include "../../headers/ChessPieces/Queen.h"
+#include "../../headers/ChessPieces/King.h"
+#include "../../headers/ChessPieces/Pawn.h"
+#include "../../headers/ChessPieces/EmptyPiece.h"
+#include "gtkmm.h"
 
-class ChessBoardModel {
+class ChessBoardModel : public Gtk::DrawingArea {
 public:
     ChessBoardModel();
     void initBoard();
@@ -21,6 +29,7 @@ public:
     ChessPiece* initChessPiece(std::string pieceEncoding);
     std::vector<std::vector<std::string>> getBoardConfig();
     PieceType parsePieceType(std::string pieceEncoding);
+    PlayerID parsePlayerId(std::string pieceEncoding);
     bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
 private:
     const int BOARD_SIZE = 8;

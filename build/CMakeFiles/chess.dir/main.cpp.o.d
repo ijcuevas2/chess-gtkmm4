@@ -2290,4 +2290,19 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Users/ismael/Documents/chess-gtkmm4/chess_resources.c \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardModel.h
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardModel.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/BoardSpace.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Rook.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Knight.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Bishop.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Queen.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/King.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/Rook.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Pawn.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h
