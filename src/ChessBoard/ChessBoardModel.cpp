@@ -185,7 +185,7 @@ void ChessBoardModel::load_pieces() {
           "dark_knight.svg"
   };
 
-  const std::string imageDir = "chess_resources/images/";
+  const std::string imageDir = "/chess_resources/images/";
 
   for (size_t i = 0; i < fileNames.size(); ++i) {
     try {
