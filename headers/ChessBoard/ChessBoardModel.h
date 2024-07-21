@@ -4,8 +4,10 @@
 
 #ifndef CHESS_CHESSBOARDMODEL_H
 #define CHESS_CHESSBOARDMODEL_H
-#import <iostream>
-#import <vector>
+#include <iostream>
+#include <vector>
+#include <filesystem>
+#include <map>
 #include "../ChessPieces/ChessPiece.h"
 #include "../BoardSpace/BoardSpace.h"
 #include "../../headers/ChessPieces/Rook.h"
@@ -16,6 +18,7 @@
 #include "../../headers/ChessPieces/Pawn.h"
 #include "../../headers/ChessPieces/EmptyPiece.h"
 #include "gtkmm.h"
+#include "../ChessImagesInfo/ChessImagesInfo.h"
 
 class ChessBoardModel : public Gtk::DrawingArea {
 public:
@@ -30,10 +33,14 @@ public:
     std::vector<std::vector<std::string>> getBoardConfig();
     PieceType parsePieceType(std::string pieceEncoding);
     PlayerID parsePlayerId(std::string pieceEncoding);
+    Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece* chessPiece);
     bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
+    void on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height);
 private:
     const int BOARD_SIZE = 8;
     std::vector<std::vector<BoardSpace*>> board;
+    ChessImagesInfo chessImagesInfo{};
+    void load_pieces();
 };
 
 

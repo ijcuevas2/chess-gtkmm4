@@ -2305,4 +2305,8 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/King.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Pawn.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/ChessImagesInfo.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../ChessPieces/ChessPiece.h

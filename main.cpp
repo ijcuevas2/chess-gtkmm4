@@ -56,6 +56,15 @@ private:
               {"DP", "dark_pawn.svg"}
       };
 
+      std::map<PieceType, std::map<PlayerID, std::string>> chessPieceMap = {
+              { PieceType::KING, {{ PlayerID::PLAYER_LIGHT, "light_king.svg" }, { PlayerID::PLAYER_DARK, "dark_king.svg"}}},
+              { PieceType::QUEEN, {{ PlayerID::PLAYER_LIGHT, "light_queen.svg" }, { PlayerID::PLAYER_DARK, "dark_queen.svg"}}},
+              { PieceType::ROOK, {{ PlayerID::PLAYER_LIGHT, "light_rook.svg" }, { PlayerID::PLAYER_DARK, "dark_rook.svg"}}},
+              { PieceType::BISHOP, {{ PlayerID::PLAYER_LIGHT, "light_bishop.svg" }, { PlayerID::PLAYER_DARK, "dark_bishop.svg"}}},
+              { PieceType::KNIGHT, {{ PlayerID::PLAYER_LIGHT, "light_knight.svg" }, { PlayerID::PLAYER_DARK, "dark_knight.svg"}}},
+              { PieceType::PAWN, {{ PlayerID::PLAYER_LIGHT, "light_pawn.svg" }, { PlayerID::PLAYER_DARK, "dark_pawn.svg"}}}
+      };
+
       for (const auto &[piece, file]: piece_files) {
         try {
           auto resource_path = "/chess_resources/images/" + file;

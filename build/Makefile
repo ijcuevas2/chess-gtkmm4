@@ -249,6 +249,30 @@ src/ChessBoard/ChessBoardView.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.s
 .PHONY : src/ChessBoard/ChessBoardView.cpp.s
 
+src/ChessImagesInfo/ChessImagesInfo.o: src/ChessImagesInfo/ChessImagesInfo.cpp.o
+.PHONY : src/ChessImagesInfo/ChessImagesInfo.o
+
+# target to build an object file
+src/ChessImagesInfo/ChessImagesInfo.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o
+.PHONY : src/ChessImagesInfo/ChessImagesInfo.cpp.o
+
+src/ChessImagesInfo/ChessImagesInfo.i: src/ChessImagesInfo/ChessImagesInfo.cpp.i
+.PHONY : src/ChessImagesInfo/ChessImagesInfo.i
+
+# target to preprocess a source file
+src/ChessImagesInfo/ChessImagesInfo.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.i
+.PHONY : src/ChessImagesInfo/ChessImagesInfo.cpp.i
+
+src/ChessImagesInfo/ChessImagesInfo.s: src/ChessImagesInfo/ChessImagesInfo.cpp.s
+.PHONY : src/ChessImagesInfo/ChessImagesInfo.s
+
+# target to generate assembly for a file
+src/ChessImagesInfo/ChessImagesInfo.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.s
+.PHONY : src/ChessImagesInfo/ChessImagesInfo.cpp.s
+
 src/ChessPieces/Bishop.o: src/ChessPieces/Bishop.cpp.o
 .PHONY : src/ChessPieces/Bishop.o
 
@@ -489,30 +513,6 @@ src/Coordinates/Coordinates.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.s
 .PHONY : src/Coordinates/Coordinates.cpp.s
 
-src/Game/Game.o: src/Game/Game.cpp.o
-.PHONY : src/Game/Game.o
-
-# target to build an object file
-src/Game/Game.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Game/Game.cpp.o
-.PHONY : src/Game/Game.cpp.o
-
-src/Game/Game.i: src/Game/Game.cpp.i
-.PHONY : src/Game/Game.i
-
-# target to preprocess a source file
-src/Game/Game.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Game/Game.cpp.i
-.PHONY : src/Game/Game.cpp.i
-
-src/Game/Game.s: src/Game/Game.cpp.s
-.PHONY : src/Game/Game.s
-
-# target to generate assembly for a file
-src/Game/Game.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Game/Game.cpp.s
-.PHONY : src/Game/Game.cpp.s
-
 src/HintMarker/HintMarker.o: src/HintMarker/HintMarker.cpp.o
 .PHONY : src/HintMarker/HintMarker.o
 
@@ -561,6 +561,9 @@ help:
 	@echo "... src/ChessBoard/ChessBoardView.o"
 	@echo "... src/ChessBoard/ChessBoardView.i"
 	@echo "... src/ChessBoard/ChessBoardView.s"
+	@echo "... src/ChessImagesInfo/ChessImagesInfo.o"
+	@echo "... src/ChessImagesInfo/ChessImagesInfo.i"
+	@echo "... src/ChessImagesInfo/ChessImagesInfo.s"
 	@echo "... src/ChessPieces/Bishop.o"
 	@echo "... src/ChessPieces/Bishop.i"
 	@echo "... src/ChessPieces/Bishop.s"
@@ -591,9 +594,6 @@ help:
 	@echo "... src/Coordinates/Coordinates.o"
 	@echo "... src/Coordinates/Coordinates.i"
 	@echo "... src/Coordinates/Coordinates.s"
-	@echo "... src/Game/Game.o"
-	@echo "... src/Game/Game.i"
-	@echo "... src/Game/Game.s"
 	@echo "... src/HintMarker/HintMarker.o"
 	@echo "... src/HintMarker/HintMarker.i"
 	@echo "... src/HintMarker/HintMarker.s"

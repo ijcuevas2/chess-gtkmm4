@@ -60,8 +60,6 @@ add_executable(${PROJECT_NAME}
         headers/Coordinates/Coordinates.h
         enum/Player.h
         enum/PieceType.h
-        src/Game/Game.cpp
-        headers/Game/Game.h
         src/BoardSpace/BoardSpace.cpp
         headers/BoardSpace/BoardSpace.h
         src/HintMarker/HintMarker.cpp
@@ -72,6 +70,8 @@ add_executable(${PROJECT_NAME}
         headers/ChessBoard/ChessBoardView.h
         src/ChessBoard/ChessBoardModel.cpp
         headers/ChessBoard/ChessBoardModel.h
+        src/ChessImagesInfo/ChessImagesInfo.cpp
+        headers/ChessImagesInfo/ChessImagesInfo.h
 )
 
 # Link libraries
