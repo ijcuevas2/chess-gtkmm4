@@ -11,6 +11,11 @@
 #include "../../enum/Player.h"
 #include "gtkmm.h"
 #include "../ChessPieces/ChessPiece.h"
+#include <giomm/resource.h>
+
+extern "C" {
+#include "chess_resources.h"
+};
 
 class ChessImagesInfo {
 public:

@@ -2309,4 +2309,4 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../ChessPieces/ChessPiece.h \
-  /Users/ismael/Documents/chess-gtkmm4/chess_resources.c
+  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h

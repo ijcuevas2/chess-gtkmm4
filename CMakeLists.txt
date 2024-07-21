@@ -16,30 +16,44 @@ if(NOT GLIB_COMPILE_RESOURCES)
     message(FATAL_ERROR "Could not find glib-compile-resources")
 endif()
 
-# Define a function to compile resources
-function(glib_compile_resources output_var input_file)
-    get_filename_component(input_file_name ${input_file} NAME_WE)
-    set(output_file "${CMAKE_CURRENT_BINARY_DIR}/${input_file_name}_resources.c")
-    add_custom_command(
-        OUTPUT ${output_file}
-        COMMAND ${GLIB_COMPILE_RESOURCES}
-        ARGS --target=${output_file} --generate-source ${input_file}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        DEPENDS ${input_file}
-    )
-    set(${output_var} ${output_file} PARENT_SCOPE)
-endfunction()
+# Define variables for resource files
+set(GRESOURCE_XML ${CMAKE_CURRENT_SOURCE_DIR}/chess.gresource.xml)
+set(GRESOURCE_C ${CMAKE_BINARY_DIR}/chess_resources.c)
+set(GRESOURCE_H ${CMAKE_BINARY_DIR}/chess_resources.h)
 
-# Compile the GResource file
-glib_compile_resources(CHESS_RESOURCES chess.gresource.xml)
+# Custom command to generate both .c and .h resource files
+add_custom_command(
+        OUTPUT ${GRESOURCE_C} ${GRESOURCE_H}
+        COMMAND ${GLIB_COMPILE_RESOURCES}
+        ARGS
+        --target=${GRESOURCE_C}
+        --generate-source
+        ${GRESOURCE_XML}
+        COMMAND ${GLIB_COMPILE_RESOURCES}
+        ARGS
+        --target=${GRESOURCE_H}
+        --generate-header
+        ${GRESOURCE_XML}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        DEPENDS ${GRESOURCE_XML}
+        COMMENT "Generating resource files"
+)
+
+# Custom target for resource compilation
+add_custom_target(chess_resources DEPENDS ${GRESOURCE_C} ${GRESOURCE_H})
 
 # Include directories
-include_directories(${GTKMM_INCLUDE_DIRS} ${GLIB_INCLUDE_DIRS})
+include_directories(
+        ${GTKMM_INCLUDE_DIRS}
+        ${GLIB_INCLUDE_DIRS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
+        ${CMAKE_BINARY_DIR}  # Include binary dir for generated files
+)
 
 # Add the executable
-add_executable(${PROJECT_NAME} 
-    main.cpp 
-    ${CHESS_RESOURCES}
+add_executable(${PROJECT_NAME}
+        main.cpp
+        ${GRESOURCE_C}
         src/ChessPieces/King.cpp
         headers/ChessPieces/King.h
         src/ChessPieces/Pawn.cpp
@@ -74,12 +88,11 @@ add_executable(${PROJECT_NAME}
         headers/ChessImagesInfo/ChessImagesInfo.h
 )
 
+# Add dependency on chess_resources
+add_dependencies(${PROJECT_NAME} chess_resources)
+
 # Link libraries
 target_link_libraries(${PROJECT_NAME} ${GTKMM_LIBRARIES} ${GLIB_LIBRARIES})
-
-# Set compiler flags
-target_compile_options(${PROJECT_NAME} PRIVATE ${GTKMM_CFLAGS_OTHER} ${GLIB_CFLAGS_OTHER})
-
 
 # Set compiler flags
 target_compile_options(${PROJECT_NAME} PRIVATE ${GTKMM_CFLAGS_OTHER} ${GLIB_CFLAGS_OTHER})

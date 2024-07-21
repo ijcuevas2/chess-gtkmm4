@@ -36,6 +36,7 @@ file(REMOVE_RECURSE
   "chess"
   "chess.pdb"
   "chess_resources.c"
+  "chess_resources.h"
 )
 
 # Per-language clean rules from dependency scanning.

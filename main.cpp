@@ -4,7 +4,6 @@
 #include <vector>
 #include <map>
 #include "headers/ChessWindow/ChessWindow.h"
-#include "chess_resources.c"
 
 int main(int argc, char **argv) {
   auto app = Gtk::Application::create("org.gtkmm.example");

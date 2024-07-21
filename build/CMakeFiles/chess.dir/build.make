@@ -70,8 +70,12 @@ include CMakeFiles/chess.dir/progress.make
 include CMakeFiles/chess.dir/flags.make
 
 chess_resources.c: /Users/ismael/Documents/chess-gtkmm4/chess.gresource.xml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/ismael/Documents/chess-gtkmm4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating chess_resources.c"
-	cd /Users/ismael/Documents/chess-gtkmm4 && /opt/homebrew/bin/glib-compile-resources --target=/Users/ismael/Documents/chess-gtkmm4/build/chess_resources.c --generate-source chess.gresource.xml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/ismael/Documents/chess-gtkmm4/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating resource files"
+	cd /Users/ismael/Documents/chess-gtkmm4 && /opt/homebrew/bin/glib-compile-resources --target=/Users/ismael/Documents/chess-gtkmm4/build/chess_resources.c --generate-source /Users/ismael/Documents/chess-gtkmm4/chess.gresource.xml
+	cd /Users/ismael/Documents/chess-gtkmm4 && /opt/homebrew/bin/glib-compile-resources --target=/Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h --generate-header /Users/ismael/Documents/chess-gtkmm4/chess.gresource.xml
+
+chess_resources.h: chess_resources.c
+	@$(CMAKE_COMMAND) -E touch_nocreate chess_resources.h
 
 CMakeFiles/chess.dir/main.cpp.o: CMakeFiles/chess.dir/flags.make
 CMakeFiles/chess.dir/main.cpp.o: /Users/ismael/Documents/chess-gtkmm4/main.cpp
@@ -365,6 +369,7 @@ CMakeFiles/chess.dir/clean:
 .PHONY : CMakeFiles/chess.dir/clean
 
 CMakeFiles/chess.dir/depend: chess_resources.c
+CMakeFiles/chess.dir/depend: chess_resources.h
 	cd /Users/ismael/Documents/chess-gtkmm4/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ismael/Documents/chess-gtkmm4 /Users/ismael/Documents/chess-gtkmm4 /Users/ismael/Documents/chess-gtkmm4/build /Users/ismael/Documents/chess-gtkmm4/build /Users/ismael/Documents/chess-gtkmm4/build/CMakeFiles/chess.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/chess.dir/depend
 

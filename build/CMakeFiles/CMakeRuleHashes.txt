@@ -1,2 +1,3 @@
 # Hashes of file build rules.
-c9eb34584b8282b57a54af25737b6dac chess_resources.c
+dd7ea53359de5b1584f09e8bdec0f137 CMakeFiles/chess_resources
+e7b39e7ae780a7aacbf3b024adebb704 chess_resources.c

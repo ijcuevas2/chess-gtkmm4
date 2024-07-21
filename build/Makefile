@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named chess_resources
+
+# Build rule for target.
+chess_resources: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 chess_resources
+.PHONY : chess_resources
+
+# fast build rule for target.
+chess_resources/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess_resources.dir/build.make CMakeFiles/chess_resources.dir/build
+.PHONY : chess_resources/fast
+
+#=============================================================================
 # Target rules for targets named chess
 
 # Build rule for target.
@@ -545,6 +558,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... chess_resources"
 	@echo "... chess"
 	@echo "... chess_resources.o"
 	@echo "... chess_resources.i"
