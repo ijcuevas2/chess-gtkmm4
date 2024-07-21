@@ -5,13 +5,13 @@
 #ifndef CHESS_CHESSWINDOW_H
 #define CHESS_CHESSWINDOW_H
 #include <gtkmm.h>
-#include "../ChessBoard/ChessBoardModel.h"
+#include "../ChessBoard/ChessBoardView.h"
 
 class ChessWindow : public Gtk::Window {
 public:
     ChessWindow();
 private:
-    ChessBoardModel* m_chessBoardModel;
+    ChessBoardView* m_chessBoardView;
 };
 
 

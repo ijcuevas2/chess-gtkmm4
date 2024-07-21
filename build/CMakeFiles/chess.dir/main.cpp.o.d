@@ -2289,6 +2289,7 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardView.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardModel.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/PieceType.h \

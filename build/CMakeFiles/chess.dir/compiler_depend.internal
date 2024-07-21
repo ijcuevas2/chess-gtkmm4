@@ -1367,6 +1367,7 @@ CMakeFiles/chess.dir/main.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardView.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h
  /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-deprecated.h
  /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-features.h
@@ -18065,6 +18066,7 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardView.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h
  /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-deprecated.h
  /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-features.h

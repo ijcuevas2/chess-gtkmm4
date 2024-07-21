@@ -1365,6 +1365,7 @@ CMakeFiles/chess.dir/main.cpp.o: /Users/ismael/Documents/chess-gtkmm4/main.cpp \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardView.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h \
   /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-deprecated.h \
   /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-features.h \
@@ -18050,6 +18051,7 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: /Users/ismael/Documents/
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardView.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h \
   /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-deprecated.h \
   /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-features.h \
@@ -19430,8 +19432,6 @@ CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o: /Users/ismael/Documents/ch
 
 /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/ChessPiece.cpp:
 
-/Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardView.h:
-
 /opt/homebrew/opt/freetype/include/freetype2/freetype/fttypes.h:
 
 /opt/homebrew/opt/freetype/include/freetype2/freetype/fterrdef.h:
@@ -20322,6 +20322,8 @@ CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o: /Users/ismael/Documents/ch
 
 /opt/homebrew/Cellar/gtk4/4.14.4/include/gtk-4.0/gtk/deprecated/gtkfilechooser.h:
 
+/opt/homebrew/Cellar/gtk4/4.14.4/include/gtk-4.0/gtk/deprecated/gtkentrycompletion.h:
+
 /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/range.h:
 
 /opt/homebrew/Cellar/gtk4/4.14.4/include/gtk-4.0/gtk/deprecated/gtkcombobox.h:
@@ -20909,6 +20911,8 @@ CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o: /Users/ismael/Documents/ch
 /opt/homebrew/Cellar/glibmm/2.80.0_1/include/giomm-2.68/giomm/cancellable.h:
 
 /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h:
+
+/Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardView.h:
 
 /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h:
 
@@ -24033,8 +24037,6 @@ chess_resources.c:
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/_types/_intmax_t.h:
 
 /opt/homebrew/Cellar/glibmm/2.80.0_1/include/glibmm-2.68/glibmm/variantiter.h:
-
-/opt/homebrew/Cellar/gtk4/4.14.4/include/gtk-4.0/gtk/deprecated/gtkentrycompletion.h:
 
 /opt/homebrew/Cellar/glib/2.80.4/include/glib-2.0/gio/gsimplepermission.h:
 

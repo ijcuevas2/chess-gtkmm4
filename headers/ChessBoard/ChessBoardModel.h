@@ -4,6 +4,7 @@
 
 #ifndef CHESS_CHESSBOARDMODEL_H
 #define CHESS_CHESSBOARDMODEL_H
+
 #include <iostream>
 #include <vector>
 #include <filesystem>
@@ -25,22 +26,19 @@ public:
     ChessBoardModel();
     void initBoard();
     int getBoardSize();
-    ChessPiece* getChessPiece(int row, int col);
-    BoardSpace* getBoardSpace(int row, int col);
-    void setBoardSpaceAtIndex(ChessPiece* chessPiece, int row, int col);
-
-    ChessPiece* initChessPiece(std::string pieceEncoding);
+    ChessPiece *getChessPiece(int row, int col);
+    BoardSpace *getBoardSpace(int row, int col);
+    void setBoardSpaceAtIndex(ChessPiece *chessPiece, int row, int col);
+    ChessPiece *initChessPiece(std::string pieceEncoding);
     std::vector<std::vector<std::string>> getBoardConfig();
     PieceType parsePieceType(std::string pieceEncoding);
     PlayerID parsePlayerId(std::string pieceEncoding);
-    Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece* chessPiece);
+    Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece *chessPiece);
     bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
-    void on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height);
 private:
     const int BOARD_SIZE = 8;
-    std::vector<std::vector<BoardSpace*>> board;
+    std::vector<std::vector<BoardSpace *>> board;
     ChessImagesInfo chessImagesInfo{};
-    void load_pieces();
 };
 
 
