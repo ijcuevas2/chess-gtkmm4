@@ -6,7 +6,6 @@
 
 ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
   initBoard();
-  load_pieces();
 }
 
 std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {

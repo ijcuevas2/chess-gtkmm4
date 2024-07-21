@@ -16,12 +16,16 @@ ChessImagesInfo::ChessImagesInfo() {
   std::vector<std::string> fileNames = {
           "light_king.svg",
           "dark_king.svg",
+          "light_queen.svg",
+          "dark_queen.svg",
           "light_rook.svg",
           "dark_rook.svg",
           "light_bishop.svg",
           "dark_bishop.svg",
           "light_knight.svg",
-          "dark_knight.svg"
+          "dark_knight.svg",
+          "dark_pawn.svg",
+          "light_pawn.svg"
   };
 
   setChessPieceMap(chessPieceMap);

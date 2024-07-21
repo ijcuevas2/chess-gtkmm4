@@ -1346,7 +1346,6 @@ CMakeFiles/chess.dir/main.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
- /Users/ismael/Documents/chess-gtkmm4/chess_resources.c
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Bishop.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/EmptyPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/King.h
@@ -1357,6 +1356,7 @@ CMakeFiles/chess.dir/main.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/HintMarker/HintMarker.h
  /Users/ismael/Documents/chess-gtkmm4/headers/BoardSpace/BoardSpace.h
+ /Users/ismael/Documents/chess-gtkmm4/chess_resources.c
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
@@ -4501,6 +4501,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/HintMarker/HintMarker.h
  /Users/ismael/Documents/chess-gtkmm4/headers/BoardSpace/BoardSpace.h
+ /Users/ismael/Documents/chess-gtkmm4/chess_resources.c
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
@@ -6812,6 +6813,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/HintMarker/HintMarker.h
  /Users/ismael/Documents/chess-gtkmm4/headers/BoardSpace/BoardSpace.h
+ /Users/ismael/Documents/chess-gtkmm4/chess_resources.c
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
@@ -9095,6 +9097,7 @@ CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/chess_resources.c
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
@@ -18051,6 +18054,7 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/HintMarker/HintMarker.h
  /Users/ismael/Documents/chess-gtkmm4/headers/BoardSpace/BoardSpace.h
+ /Users/ismael/Documents/chess-gtkmm4/chess_resources.c
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
