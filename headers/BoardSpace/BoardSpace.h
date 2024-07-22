@@ -11,8 +11,8 @@
 
 class BoardSpace {
 private:
-    ChessPiece *chessPiece;
-    HintMarker *hintMarker;
+    ChessPiece* chessPiecePtr;
+    HintMarker* hintMarkerPtr;
     bool hasDarkBackground;
     int xIndex;
     int yIndex;
@@ -21,12 +21,12 @@ public:
     int getXIndex() const;
     int getYIndex() const;
 
-    BoardSpace(ChessPiece* chessPiece, int xIndex, int yIndex);
+    BoardSpace(ChessPiece* chessPiecePtr, int xIndex, int yIndex);
     void setSelectedBackground();
     void setUnselectedBackground();
-    ChessPiece* getChessPiece();
+    ChessPiece* getChessPiecePtr();
     PlayerID getPlayerId();
-    void setChessPiece(ChessPiece* chessPiece);
+    void setChessPiecePtr(ChessPiece* chessPiecePtr);
     void initMarker();
     bool canMovePieceToIndex(int destX, int destY);
     void showHint();

@@ -12,15 +12,14 @@ ChessBoardView::ChessBoardView() {
   auto controller = Gtk::GestureClick::create();
   controller->signal_pressed().connect(sigc::mem_fun(*this, &ChessBoardView::on_pressed));
   add_controller(controller);
-  chessBoardModel = new ChessBoardModel();
 }
 
 void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height) {
-  int cellSize = std::min(width, height) / chessBoardModel->getBoardSize();
+  int cellSize = std::min(width, height) / chessBoardModel.getBoardSize();
 
   // Draw the board
-  for (int row = 0; row < chessBoardModel->getBoardSize(); ++row) {
-    for (int col = 0; col < chessBoardModel->getBoardSize(); ++col) {
+  for (int row = 0; row < chessBoardModel.getBoardSize(); ++row) {
+    for (int col = 0; col < chessBoardModel.getBoardSize(); ++col) {
       if ((row + col) % 2 == 0)
         cr->set_source_rgb(1.0, 0.9, 0.8); // Light square
       else
@@ -30,10 +29,9 @@ void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
       cr->fill();
 
       // Draw the piece
-      ChessPiece* chessPiece = chessBoardModel->getChessPiece(row, col);
-      if (chessPiece != nullptr) {
-
-        auto pixbuf = chessBoardModel->getPieceImageContent(chessPiece);
+      ChessPiece* chessPiece = chessBoardModel.getChessPiecePtr(row, col);
+      if (chessPiece != nullptr && chessPiece->getPieceType() != PieceType::EMPTY_PIECE) {
+        auto pixbuf = chessBoardModel.getPieceImageContent(chessPiece);
         double scale = static_cast<double>(cellSize) / std::max(pixbuf->get_width(), pixbuf->get_height());
 
         cr->save();
@@ -42,7 +40,6 @@ void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
 
         Gdk::Cairo::set_source_pixbuf(cr, pixbuf, 0, 0);
         cr->paint();
-
         cr->restore();
       }
     }
@@ -50,4 +47,6 @@ void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
 }
 
 void ChessBoardView::on_pressed(int n_press, double x, double y) {
+  int row = static_cast<int>(y * chessBoardModel.getBoardSize() / get_height());
+  int col = static_cast<int>(x * chessBoardModel.getBoardSize() / get_width());
 }

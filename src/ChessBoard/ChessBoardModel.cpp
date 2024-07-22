@@ -91,16 +91,18 @@ PieceType ChessBoardModel::parsePieceType(std::string pieceEncoding) {
   }
 }
 
-ChessPiece *ChessBoardModel::getChessPiece(int row, int col) {
-  if (this->board.size() != 0) {
-    return this->board[row][col]->getChessPiece();
+ChessPiece *ChessBoardModel::getChessPiecePtr(int row, int col) {
+  const int currentBoardSize = this->board.size();
+  if (currentBoardSize != 0) {
+    return this->board[row][col]->getChessPiecePtr();
   }
 
   return nullptr;
 }
 
-BoardSpace *ChessBoardModel::getBoardSpace(int row, int col) {
-  if (this->board.size() != 0) {
+BoardSpace *ChessBoardModel::getBoardSpacePtr(int row, int col) {
+  const int currentBoardSize = this->board.size();
+  if (currentBoardSize != 0) {
     return this->board[row][col];
   }
 
@@ -164,4 +166,16 @@ bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> ches
 
 Glib::RefPtr<Gdk::Pixbuf> ChessBoardModel::getPieceImageContent(ChessPiece* chessPiece) {
   return chessImagesInfo.getPieceImageContent(chessPiece);
+}
+
+sigc::signal<void()> & ChessBoardModel::signal_initialized() {
+  return m_signal_initialized;
+}
+
+void ChessBoardModel::setSelectedChessPiece(ChessPiece* chessPiecePtr) {
+  this->selectedPiecePtr = chessPiecePtr;
+}
+
+ChessPiece* ChessBoardModel::getSelectedChessPiece() {
+  return this->selectedPiecePtr;
 }

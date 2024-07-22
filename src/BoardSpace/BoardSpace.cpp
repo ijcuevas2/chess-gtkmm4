@@ -4,7 +4,10 @@
 
 #include "../../headers/BoardSpace/BoardSpace.h"
 
-BoardSpace::BoardSpace(ChessPiece *chessPiece, int xIndex, int yIndex) {
+BoardSpace::BoardSpace(ChessPiece *chessPiecePtr, int xIndex, int yIndex) {
+  this->chessPiecePtr = chessPiecePtr;
+  this->xIndex = xIndex;
+  this->yIndex = yIndex;
 }
 
 int BoardSpace::getXIndex() const {
@@ -15,17 +18,17 @@ int BoardSpace::getYIndex() const {
   return yIndex;
 }
 
-ChessPiece* BoardSpace::getChessPiece() {
-  return chessPiece;
+ChessPiece* BoardSpace::getChessPiecePtr() {
+  return chessPiecePtr;
 }
 
-void BoardSpace::setChessPiece(ChessPiece *chessPiece) {
-  this->chessPiece = chessPiece;
+void BoardSpace::setChessPiecePtr(ChessPiece *chessPiecePtr) {
+  this->chessPiecePtr = chessPiecePtr;
 }
 
 PlayerID BoardSpace::getPlayerId() {
-  if (chessPiece != NULL) {
-    return chessPiece->getPlayerId();
+  if (chessPiecePtr != NULL) {
+    return chessPiecePtr->getPlayerId();
   }
 
   return PlayerID::NONE;

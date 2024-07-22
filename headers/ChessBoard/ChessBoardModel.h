@@ -20,14 +20,16 @@
 #include "../../headers/ChessPieces/EmptyPiece.h"
 #include "gtkmm.h"
 #include "../ChessImagesInfo/ChessImagesInfo.h"
+#include <glibmm/signalproxy.h>
+#include <sigc++/signal.h>
 
 class ChessBoardModel : public Gtk::DrawingArea {
 public:
     ChessBoardModel();
     void initBoard();
     int getBoardSize();
-    ChessPiece *getChessPiece(int row, int col);
-    BoardSpace *getBoardSpace(int row, int col);
+    ChessPiece *getChessPiecePtr(int row, int col);
+    BoardSpace *getBoardSpacePtr(int row, int col);
     void setBoardSpaceAtIndex(ChessPiece *chessPiece, int row, int col);
     ChessPiece *initChessPiece(std::string pieceEncoding);
     std::vector<std::vector<std::string>> getBoardConfig();
@@ -35,10 +37,15 @@ public:
     PlayerID parsePlayerId(std::string pieceEncoding);
     Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece *chessPiece);
     bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
+    sigc::signal<void()> & signal_initialized();
+    void setSelectedChessPiece(ChessPiece* chessPiecePtr);
+    ChessPiece* getSelectedChessPiece();
 private:
     const int BOARD_SIZE = 8;
     std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
+    ChessPiece* selectedPiecePtr;
+    sigc::signal<void()> m_signal_initialized;
 };
 
 
