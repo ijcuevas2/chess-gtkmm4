@@ -7,6 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find the required packages
 find_package(PkgConfig REQUIRED)
+pkg_check_modules(HARFBUZZ REQUIRED harfbuzz)
+include_directories(${HARFBUZZ_INCLUDE_DIRS})
 pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
 
