@@ -37,7 +37,7 @@ public:
     bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
 private:
     const int BOARD_SIZE = 8;
-    std::vector<std::vector<BoardSpace *>> board;
+    std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
 };
 
