@@ -34,4 +34,6 @@ PlayerID BoardSpace::getPlayerId() {
   return PlayerID::NONE;
 }
 
+void BoardSpace::clearChessPiecePtr() {
+}
 

@@ -28,9 +28,10 @@ public:
     ChessBoardModel();
     void initBoard();
     int getBoardSize();
-    ChessPiece *getChessPiecePtr(int row, int col);
-    BoardSpace *getBoardSpacePtr(int row, int col);
-    void setBoardSpaceAtIndex(ChessPiece *chessPiece, int row, int col);
+    ChessPiece* getChessPiecePtr(int row, int col);
+    BoardSpace* getBoardSpacePtr(int row, int col);
+    void setChessPieceAtIndex(ChessPiece* chessPiece, int row, int col);
+    void setBoardSpaceAtIndex(ChessPiece* chessPiece, int row, int col);
     ChessPiece *initChessPiece(std::string pieceEncoding);
     std::vector<std::vector<std::string>> getBoardConfig();
     PieceType parsePieceType(std::string pieceEncoding);
@@ -38,13 +39,15 @@ public:
     Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece *chessPiece);
     bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
     sigc::signal<void()> & signal_initialized();
-    void setSelectedChessPiece(ChessPiece* chessPiecePtr);
-    ChessPiece* getSelectedChessPiece();
+    void setSelectedBoardSpacePtr(BoardSpace* boardSpacePtr);
+    BoardSpace* getSelectedBoardSpacePtr();
+    bool hasSelectedBoardSpacePtr();
+    void clearSelectedBoardSpacePtr();
 private:
     const int BOARD_SIZE = 8;
     std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
-    ChessPiece* selectedPiecePtr;
+    BoardSpace* selectedBoardSpacePtr;
     sigc::signal<void()> m_signal_initialized;
 };
 

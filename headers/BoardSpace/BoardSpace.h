@@ -25,6 +25,7 @@ public:
     void setSelectedBackground();
     void setUnselectedBackground();
     ChessPiece* getChessPiecePtr();
+    void clearChessPiecePtr();
     PlayerID getPlayerId();
     void setChessPiecePtr(ChessPiece* chessPiecePtr);
     void initMarker();

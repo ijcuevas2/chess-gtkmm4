@@ -59,3 +59,6 @@ ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {
   this->setChessPieceImagePath();
 }
 
+void ChessPiece::clearChessPiece() {
+  pieceType = PieceType::EMPTY_PIECE;
+}

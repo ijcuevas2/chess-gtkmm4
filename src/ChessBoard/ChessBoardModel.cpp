@@ -34,6 +34,12 @@ void ChessBoardModel::initBoard() {
   }
 }
 
+void ChessBoardModel::setChessPieceAtIndex(ChessPiece *chessPiece, int row, int col) {
+  if (this->board[row][col] != nullptr) {
+    this->board[row][col]->setChessPiecePtr(chessPiece);
+  }
+}
+
 void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece *chessPiece, int row, int col) {
   BoardSpace *boardSpace = new BoardSpace(chessPiece, row, col);
   this->board[row][col] = boardSpace;
@@ -172,10 +178,18 @@ sigc::signal<void()> & ChessBoardModel::signal_initialized() {
   return m_signal_initialized;
 }
 
-void ChessBoardModel::setSelectedChessPiece(ChessPiece* chessPiecePtr) {
-  this->selectedPiecePtr = chessPiecePtr;
+void ChessBoardModel::setSelectedBoardSpacePtr(BoardSpace* boardSpacePtr) {
+  this->selectedBoardSpacePtr = boardSpacePtr;
 }
 
-ChessPiece* ChessBoardModel::getSelectedChessPiece() {
-  return this->selectedPiecePtr;
+BoardSpace* ChessBoardModel::getSelectedBoardSpacePtr() {
+  return this->selectedBoardSpacePtr;
+}
+
+bool ChessBoardModel::hasSelectedBoardSpacePtr() {
+  return this->selectedBoardSpacePtr != nullptr;
+}
+
+void ChessBoardModel::clearSelectedBoardSpacePtr() {
+  this->selectedBoardSpacePtr = nullptr;
 }

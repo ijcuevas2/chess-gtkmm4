@@ -14,16 +14,14 @@ public:
   void setChessPieceImagePath();
   ChessPiece(PlayerID playerId, PieceType pieceType);
   virtual ~ChessPiece();
-
   int actualDistance(int source, int dest);
   int absoluteDistance(int source, int dest);
-
   virtual bool canMove(Coordinates coordinates) = 0;
   virtual void afterPieceMoved(Coordinates coordinates) = 0;
   bool isPieceBlockingPath(Coordinates coordinates);
   PlayerID getPlayerId();
   PieceType getPieceType();
-
+  void clearChessPiece();
 protected:
   PieceType pieceType;
   PlayerID playerId;

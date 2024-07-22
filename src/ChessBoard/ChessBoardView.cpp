@@ -49,4 +49,15 @@ void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width,
 void ChessBoardView::on_pressed(int n_press, double x, double y) {
   int row = static_cast<int>(y * chessBoardModel.getBoardSize() / get_height());
   int col = static_cast<int>(x * chessBoardModel.getBoardSize() / get_width());
+
+  if (!chessBoardModel.hasSelectedBoardSpacePtr()) {
+    chessBoardModel.setSelectedBoardSpacePtr(chessBoardModel.getBoardSpacePtr(row, col));
+  } else {
+    BoardSpace* selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
+    ChessPiece* chessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
+    chessBoardModel.setChessPieceAtIndex(chessPiecePtr, row, col);
+    chessPiecePtr->clearChessPiece();
+    chessBoardModel.clearSelectedBoardSpacePtr();
+    queue_draw();
+  }
 }
