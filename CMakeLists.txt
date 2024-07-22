@@ -5,6 +5,12 @@ project(chess)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Set build type to Debug
+set(CMAKE_BUILD_TYPE Debug)
+
+# Add debug flags
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
+
 # Find the required packages
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(HARFBUZZ REQUIRED harfbuzz)
