@@ -52,6 +52,8 @@ include_directories(
         ${CMAKE_BINARY_DIR}  # Include binary dir for generated files
 )
 
+# link_directories(${GTKMM_LIBRARY_DIRS})
+
 # Add the executable
 add_executable(${PROJECT_NAME}
         main.cpp
