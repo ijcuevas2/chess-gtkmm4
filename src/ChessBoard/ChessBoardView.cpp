@@ -54,9 +54,13 @@ void ChessBoardView::on_pressed(int n_press, double x, double y) {
     chessBoardModel.setSelectedBoardSpacePtr(chessBoardModel.getBoardSpacePtr(row, col));
   } else {
     BoardSpace* selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
-    ChessPiece* chessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
-    chessBoardModel.setChessPieceAtIndex(chessPiecePtr, row, col);
-    chessPiecePtr->clearChessPiece();
+    ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
+    ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
+    if (targetChessPiecePtr != srcChessPiecePtr) {
+      chessBoardModel.copyChessPieceToIndex(srcChessPiecePtr, row, col);
+      srcChessPiecePtr->clearChessPiece();
+    }
+
     chessBoardModel.clearSelectedBoardSpacePtr();
     queue_draw();
   }

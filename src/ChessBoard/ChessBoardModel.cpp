@@ -34,14 +34,15 @@ void ChessBoardModel::initBoard() {
   }
 }
 
-void ChessBoardModel::setChessPieceAtIndex(ChessPiece *chessPiece, int row, int col) {
+void ChessBoardModel::copyChessPieceToIndex(ChessPiece *sourceChessPiecePtr, int row, int col) {
   if (this->board[row][col] != nullptr) {
-    this->board[row][col]->setChessPiecePtr(chessPiece);
+    ChessPiece* targetChessPiecePtr = this->board[row][col]->getChessPiecePtr();
+    targetChessPiecePtr->copyChessPiece(sourceChessPiecePtr);
   }
 }
 
-void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece *chessPiece, int row, int col) {
-  BoardSpace *boardSpace = new BoardSpace(chessPiece, row, col);
+void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
+  BoardSpace *boardSpace = new BoardSpace(chessPiecePtr, row, col);
   this->board[row][col] = boardSpace;
 }
 

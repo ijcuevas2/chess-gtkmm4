@@ -23,6 +23,19 @@ PlayerID ChessPiece::getPlayerId() {
   return playerId;
 }
 
+void ChessPiece::setPlayerId(PlayerID playerId) {
+  this->playerId = playerId;
+}
+
+void ChessPiece::setPieceType(PieceType pieceType) {
+  this->pieceType = pieceType;
+}
+
+void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
+  this->setPlayerId(chessPiecePtr->playerId);
+  this->setPieceType(chessPiecePtr->pieceType);
+}
+
 bool ChessPiece::canMove(Coordinates coordinates) {
   if (coordinates.getSrcX() < 0 || coordinates.getSrcX() > 7) {
     return false;
@@ -46,9 +59,6 @@ bool ChessPiece::canMove(Coordinates coordinates) {
 void ChessPiece::afterPieceMoved(Coordinates coordinates) {
 }
 
-void ChessPiece::setChessPieceImagePath() {
-}
-
 bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
   return false;
 }
@@ -56,7 +66,6 @@ bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
 ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {
   this->playerId = playerId;
   this->pieceType = pieceType;
-  this->setChessPieceImagePath();
 }
 
 void ChessPiece::clearChessPiece() {

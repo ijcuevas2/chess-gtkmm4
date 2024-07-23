@@ -30,8 +30,8 @@ public:
     int getBoardSize();
     ChessPiece* getChessPiecePtr(int row, int col);
     BoardSpace* getBoardSpacePtr(int row, int col);
-    void setChessPieceAtIndex(ChessPiece* chessPiece, int row, int col);
-    void setBoardSpaceAtIndex(ChessPiece* chessPiece, int row, int col);
+    void copyChessPieceToIndex(ChessPiece* sourceChessPiecePtr, int row, int col);
+    void setBoardSpaceAtIndex(ChessPiece* chessPiecePtr, int row, int col);
     ChessPiece *initChessPiece(std::string pieceEncoding);
     std::vector<std::vector<std::string>> getBoardConfig();
     PieceType parsePieceType(std::string pieceEncoding);
