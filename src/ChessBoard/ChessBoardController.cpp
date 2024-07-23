@@ -3,9 +3,6 @@
 //
 
 #include "ChessBoard/ChessBoardController.h"
-ChessBoardController::ChessBoardController(ChessBoardModel & chessBoardModel) : chessBoardModel(chessBoardModel) {
-}
-
 void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height) {
   int cellSize = std::min(width, height) / chessBoardModel.getBoardSize();
 

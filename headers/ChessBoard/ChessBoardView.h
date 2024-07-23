@@ -15,8 +15,7 @@ public:
     void on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height);
     void on_pressed(int n_press, double x, double y);
 private:
-    ChessBoardModel chessBoardModel{};
-    ChessBoardController chessBoardController{chessBoardModel};
+    ChessBoardController chessBoardController;
 };
 
 

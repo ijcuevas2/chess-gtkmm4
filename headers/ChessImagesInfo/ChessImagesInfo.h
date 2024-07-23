@@ -28,5 +28,4 @@ private:
     std::map<std::string, Glib::RefPtr<Gdk::Pixbuf>> piecesContentMap;
 };
 
-
 #endif //CHESS_CHESSIMAGESINFO_H
