@@ -4,8 +4,8 @@
 
 #include "../../headers/ChessPieces/Queen.h"
 
-bool Queen::canMove(Coordinates coordinates) {
-  bool baseCanMove = ChessPiece::canMove(coordinates);
+bool Queen::canMoveToTarget(Coordinates coordinates) {
+  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
   if (!baseCanMove) {
     return false;
   }

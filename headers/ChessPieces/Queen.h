@@ -10,7 +10,7 @@ class Queen : public virtual ChessPiece {
 public:
     Queen(PlayerID playerId) : ChessPiece(playerId, PieceType::QUEEN) {
     }
-    bool canMove(Coordinates coordinates) override;
+    bool canMoveToTarget(Coordinates coordinates) override;
     bool canMoveDiagonal(Coordinates coordinates);
     bool canMoveHorizontal(Coordinates coordinates);
     void afterPieceMoved(Coordinates coordinates) override;

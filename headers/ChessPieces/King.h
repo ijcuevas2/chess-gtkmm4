@@ -14,7 +14,7 @@ private:
 public:
     King(PlayerID playerId) : ChessPiece(playerId, PieceType::KING) {
     }
-    bool canMove(Coordinates coordinates) override;
+    bool canMoveToTarget(Coordinates coordinates) override;
     bool HasMoved() const;
     bool IsInCheck() const;
     void afterPieceMoved(Coordinates coordinates) override;

@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/chess.dir/main.cpp.o.d"
   "CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.o"
   "CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.o.d"
+  "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.o"
+  "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.o.d"
   "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o"
   "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o.d"
   "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o"

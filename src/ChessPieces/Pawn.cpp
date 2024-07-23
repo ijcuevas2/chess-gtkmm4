@@ -4,8 +4,8 @@
 
 #include "../../headers/ChessPieces/Pawn.h"
 
-bool Pawn::canMove(Coordinates coordinates) {
-  return false;
+bool Pawn::canMoveToTarget(Coordinates coordinates) {
+  return true;
 }
 
 void Pawn::afterPieceMoved(Coordinates coordinates) {

@@ -6,7 +6,7 @@
 
 ChessWindow::ChessWindow() {
   set_title("Chess GTKMM4");
-  set_default_size(400, 400);
+  set_default_size(450, 450);
 
   // You can specify the path to the pieces directory here
   m_chessBoardView = Gtk::make_managed<ChessBoardView>();

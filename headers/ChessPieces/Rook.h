@@ -11,7 +11,7 @@ public:
     Rook(PlayerID playerId) : ChessPiece(playerId, PieceType::ROOK) {
     }
 
-    bool canMove(Coordinates coordinates) override;
+    bool canMoveToTarget(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
 };
 

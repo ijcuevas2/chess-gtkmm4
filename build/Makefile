@@ -214,6 +214,30 @@ src/BoardSpace/BoardSpace.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.s
 .PHONY : src/BoardSpace/BoardSpace.cpp.s
 
+src/ChessBoard/ChessBoardController.o: src/ChessBoard/ChessBoardController.cpp.o
+.PHONY : src/ChessBoard/ChessBoardController.o
+
+# target to build an object file
+src/ChessBoard/ChessBoardController.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.o
+.PHONY : src/ChessBoard/ChessBoardController.cpp.o
+
+src/ChessBoard/ChessBoardController.i: src/ChessBoard/ChessBoardController.cpp.i
+.PHONY : src/ChessBoard/ChessBoardController.i
+
+# target to preprocess a source file
+src/ChessBoard/ChessBoardController.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.i
+.PHONY : src/ChessBoard/ChessBoardController.cpp.i
+
+src/ChessBoard/ChessBoardController.s: src/ChessBoard/ChessBoardController.cpp.s
+.PHONY : src/ChessBoard/ChessBoardController.s
+
+# target to generate assembly for a file
+src/ChessBoard/ChessBoardController.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.s
+.PHONY : src/ChessBoard/ChessBoardController.cpp.s
+
 src/ChessBoard/ChessBoardModel.o: src/ChessBoard/ChessBoardModel.cpp.o
 .PHONY : src/ChessBoard/ChessBoardModel.o
 
@@ -569,6 +593,9 @@ help:
 	@echo "... src/BoardSpace/BoardSpace.o"
 	@echo "... src/BoardSpace/BoardSpace.i"
 	@echo "... src/BoardSpace/BoardSpace.s"
+	@echo "... src/ChessBoard/ChessBoardController.o"
+	@echo "... src/ChessBoard/ChessBoardController.i"
+	@echo "... src/ChessBoard/ChessBoardController.s"
 	@echo "... src/ChessBoard/ChessBoardModel.o"
 	@echo "... src/ChessBoard/ChessBoardModel.i"
 	@echo "... src/ChessBoard/ChessBoardModel.s"

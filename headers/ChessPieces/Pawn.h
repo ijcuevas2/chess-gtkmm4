@@ -15,7 +15,7 @@ public:
     Pawn(PlayerID playerId): ChessPiece(playerId, PieceType::PAWN) {
     }
 
-    bool canMove(Coordinates coordinates) override;
+    bool canMoveToTarget(Coordinates coordinates) override;
     bool isCorrectDirection(Coordinates coordinates);
     bool canMoveFirstTurn(Coordinates coordinates);
     bool canDiagonalCapture(Coordinates coordinates);

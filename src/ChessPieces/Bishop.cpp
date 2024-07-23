@@ -4,8 +4,8 @@
 
 #include "../../headers/ChessPieces/Bishop.h"
 
-bool Bishop::canMove(Coordinates coordinates) {
-  bool baseCanMove = ChessPiece::canMove(coordinates);
+bool Bishop::canMoveToTarget(Coordinates coordinates) {
+  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
   if (!baseCanMove) {
     return false;
   }
