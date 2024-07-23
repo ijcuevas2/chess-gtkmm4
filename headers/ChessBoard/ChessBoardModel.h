@@ -32,8 +32,8 @@ public:
     BoardSpace* getBoardSpacePtr(int row, int col);
     void assignChessPieceToBoardSpaceIndex(ChessPiece* sourceChessPiecePtr, int row, int col);
     void setBoardSpaceAtIndex(ChessPiece* chessPiecePtr, int row, int col);
-    ChessPiece *initChessPiece(std::string pieceEncoding);
-    ChessPiece *initChessPiece(PieceType pieceType, PlayerID playerId);
+    ChessPiece* initChessPiece(std::string pieceEncoding);
+    ChessPiece* initChessPiece(PieceType pieceType, PlayerID playerId);
     std::vector<std::vector<std::string>> getBoardConfig();
     PieceType parsePieceType(std::string pieceEncoding);
     PlayerID parsePlayerId(std::string pieceEncoding);
@@ -44,6 +44,8 @@ public:
     bool hasSelectedBoardSpacePtr();
     void clearSelectedBoardSpacePtr();
     bool isSelectedBoardSpacePtr(int row, int col);
+    bool isBoardSpaceOccupied(int row, int col);
+    bool isTurnPlayersChessPiece(ChessPiece* chessPiece, int targetRow, int targetCol);
 private:
     const int BOARD_SIZE = 8;
     std::vector<std::vector<BoardSpace*>> board;

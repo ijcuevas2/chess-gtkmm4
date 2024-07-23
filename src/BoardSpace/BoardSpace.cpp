@@ -36,4 +36,3 @@ PlayerID BoardSpace::getPlayerId() {
 
 void BoardSpace::clearChessPiecePtr() {
 }
-

@@ -203,3 +203,18 @@ bool ChessBoardModel::hasSelectedBoardSpacePtr() {
 void ChessBoardModel::clearSelectedBoardSpacePtr() {
   this->selectedBoardSpacePtr = nullptr;
 }
+
+bool ChessBoardModel::isBoardSpaceOccupied(int row, int col) {
+  ChessPiece* chessPiece = this->getChessPiecePtr(row, col);
+  PieceType pieceType = chessPiece->getPieceType();
+  bool isOccupied = pieceType != PieceType::EMPTY_PIECE;
+  return isOccupied;
+}
+
+bool ChessBoardModel::isTurnPlayersChessPiece(ChessPiece *chessPiece, int targetRow, int targetCol) {
+  PlayerID playerId = chessPiece->getPlayerId();
+  ChessPiece* targetChessPiece = getChessPiecePtr(targetRow, targetCol);
+  PlayerID targetPlayerId = targetChessPiece->getPlayerId();
+  bool isTurnPlayersChessPiece = targetPlayerId == playerId;
+  return isTurnPlayersChessPiece;
+}

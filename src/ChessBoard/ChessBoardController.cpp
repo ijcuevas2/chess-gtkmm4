@@ -57,7 +57,8 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
 
     ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
     bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(coordinates);
-    if (canMoveToTarget) {
+    bool isTargetTurnPlayersChessPiece = chessBoardModel.isTurnPlayersChessPiece(srcChessPiecePtr, row, col);
+    if (canMoveToTarget && !isTargetTurnPlayersChessPiece) {
       ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
       bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
       if (isDifferentPiece) {
