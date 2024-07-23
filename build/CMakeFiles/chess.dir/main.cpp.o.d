@@ -1477,26 +1477,26 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /opt/homebrew/Cellar/pango/1.54.0/include/pango-1.0/pango/pango-coverage.h \
   /opt/homebrew/Cellar/pango/1.54.0/include/pango-1.0/pango/pango-version-macros.h \
   /opt/homebrew/Cellar/pango/1.54.0/include/pango-1.0/pango/pango-features.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-blob.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-common.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-blob.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-common.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/inttypes.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/inttypes.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/inttypes.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/xlocale/_inttypes.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-buffer.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-unicode.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-font.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-face.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-map.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-set.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-draw.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-paint.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-deprecated.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-shape.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-shape-plan.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-style.h \
-  /opt/homebrew/Cellar/harfbuzz/8.5.0/include/harfbuzz/hb-version.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-buffer.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-unicode.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-font.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-face.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-map.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-set.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-draw.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-paint.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-deprecated.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-shape.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-shape-plan.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-style.h \
+  /opt/homebrew/Cellar/harfbuzz/9.0.0/include/harfbuzz/hb-version.h \
   /opt/homebrew/Cellar/pango/1.54.0/include/pango-1.0/pango/pango-types.h \
   /opt/homebrew/Cellar/pango/1.54.0/include/pango-1.0/pango/pango-gravity.h \
   /opt/homebrew/Cellar/pango/1.54.0/include/pango-1.0/pango/pango-matrix.h \
@@ -2287,4 +2287,27 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/directory_options.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/path_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/u8path.h
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/u8path.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardView.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardModel.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/BoardSpace.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Rook.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Knight.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Bishop.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Queen.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/King.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/Rook.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Pawn.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/ChessImagesInfo.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h

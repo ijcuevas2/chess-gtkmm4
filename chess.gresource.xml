@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/chess_resources">
+    <file>images/dark_bishop.svg</file>
+    <file>images/dark_knight.svg</file>
+    <file>images/dark_queen.svg</file>
+    <file>images/dark_king.svg</file>
+    <file>images/dark_pawn.svg</file>
+    <file>images/dark_rook.svg</file>
+    <file>images/light_bishop.svg</file>
+    <file>images/light_knight.svg</file>
+    <file>images/light_queen.svg</file>
+    <file>images/light_king.svg</file>
+    <file>images/light_pawn.svg</file>
+    <file>images/light_rook.svg</file>
+  </gresource>
+</gresources>
