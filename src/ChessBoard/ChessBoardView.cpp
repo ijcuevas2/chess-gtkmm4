@@ -5,8 +5,8 @@
 #include "../../headers/ChessBoard/ChessBoardView.h"
 
 ChessBoardView::ChessBoardView() {
-  set_content_width(400);
-  set_content_height(400);
+  set_content_width(450);
+  set_content_height(450);
   set_draw_func(sigc::mem_fun(*this, &ChessBoardView::on_draw));
   add_controller(Gtk::GestureClick::create());
   auto controller = Gtk::GestureClick::create();
