@@ -65,3 +65,4 @@ void ChessBoardView::on_pressed(int n_press, double x, double y) {
     queue_draw();
   }
 }
+
