@@ -40,7 +40,9 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
     PieceType pieceType = sourceChessPiecePtr->getPieceType();
     ChessPiece* targetChessPiecePtr = initChessPiece(pieceType, playerId);
     ChessPiece* oldPiecePtr = this->getChessPiecePtr(row, col);
-    delete oldPiecePtr;
+    if (oldPiecePtr != nullptr) {
+      delete oldPiecePtr;
+    }
     this->board[row][col]->setChessPiecePtr(targetChessPiecePtr);
   }
 }
@@ -184,7 +186,22 @@ Glib::RefPtr<Gdk::Pixbuf> ChessBoardModel::getPieceImageContent(ChessPiece* ches
 }
 
 void ChessBoardModel::setSelectedBoardSpacePtr(BoardSpace* boardSpacePtr) {
-  this->selectedBoardSpacePtr = boardSpacePtr;
+  ChessPiece* chessPiecePtr = boardSpacePtr->getChessPiecePtr();
+
+  if (chessPiecePtr != nullptr) {
+    bool isActualChessPiece = !isEmptyPiece(chessPiecePtr);
+    if (isActualChessPiece) {
+      this->selectedBoardSpacePtr = boardSpacePtr;
+    }
+  }
+}
+
+bool ChessBoardModel::isEmptyPiece(ChessPiece *chessPiecePtr) {
+  if (chessPiecePtr != nullptr) {
+    return chessPiecePtr->getPieceType() == PieceType::EMPTY_PIECE;
+  }
+
+  return false;
 }
 
 bool ChessBoardModel::isSelectedBoardSpacePtr(int row, int col) {
@@ -217,4 +234,10 @@ bool ChessBoardModel::isTurnPlayersChessPiece(ChessPiece *chessPiece, int target
   PlayerID targetPlayerId = targetChessPiece->getPlayerId();
   bool isTurnPlayersChessPiece = targetPlayerId == playerId;
   return isTurnPlayersChessPiece;
+}
+
+void ChessBoardModel::clearSelectedBoardSpace() {
+  this->selectedBoardSpacePtr->clearChessPiecePtr();
+  EmptyPiece* emptyPiece = new EmptyPiece();
+  this->selectedBoardSpacePtr->setChessPiecePtr(emptyPiece);
 }

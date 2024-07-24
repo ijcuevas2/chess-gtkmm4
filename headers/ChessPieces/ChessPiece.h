@@ -24,7 +24,6 @@ public:
   void setPlayerId(PlayerID playerId);
   void setPieceType(PieceType pieceType);
   void copyChessPiece(ChessPiece* chessPiece);
-  void clearChessPiece();
 protected:
   PieceType pieceType;
   PlayerID playerId;

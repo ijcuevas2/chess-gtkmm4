@@ -63,7 +63,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
       bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
       if (isDifferentPiece) {
         chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
-        srcChessPiecePtr->clearChessPiece();
+        chessBoardModel.clearSelectedBoardSpace();
       }
     }
 

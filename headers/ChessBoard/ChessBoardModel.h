@@ -43,9 +43,12 @@ public:
     BoardSpace* getSelectedBoardSpacePtr();
     bool hasSelectedBoardSpacePtr();
     void clearSelectedBoardSpacePtr();
+    bool isEmptyPiece(ChessPiece* chessPiecePtr);
     bool isSelectedBoardSpacePtr(int row, int col);
     bool isBoardSpaceOccupied(int row, int col);
     bool isTurnPlayersChessPiece(ChessPiece* chessPiece, int targetRow, int targetCol);
+    void clearChessPiecePtr(ChessPiece* chessPiecePtr);
+    void clearSelectedBoardSpace();
 private:
     const int BOARD_SIZE = 8;
     std::vector<std::vector<BoardSpace*>> board;

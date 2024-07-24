@@ -67,7 +67,3 @@ ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {
   this->playerId = playerId;
   this->pieceType = pieceType;
 }
-
-void ChessPiece::clearChessPiece() {
-  pieceType = PieceType::EMPTY_PIECE;
-}
