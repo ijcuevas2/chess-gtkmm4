@@ -28,6 +28,10 @@ private:
     Gtk::PopoverMenuBar* m_menuBar;
     Glib::RefPtr<Gio::SimpleAction> m_newGameAction;
     Glib::RefPtr<Gio::SimpleAction> m_exitAction;
+
+    Gtk::Box* m_toolbar;
+    Gtk::Button* m_undoButton;
+    void on_undo_clicked();
 };
 
 #endif //CHESS_CHESSBOARDVIEW_H

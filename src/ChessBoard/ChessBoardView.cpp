@@ -3,10 +3,14 @@
 //
 
 #include "../../headers/ChessBoard/ChessBoardView.h"
+#include <iostream>
 
 ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
-  m_drawingArea.set_content_width(450);
-  m_drawingArea.set_content_height(450);
+  int width = 450;
+  int height = 450;
+  m_drawingArea.set_content_width(width);
+  m_drawingArea.set_content_height(height);
+
   m_drawingArea.set_draw_func(sigc::mem_fun(*this, &ChessBoardView::on_draw));
 
   auto controller = Gtk::GestureClick::create();
@@ -42,8 +46,26 @@ ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
   // Create the menu bar
   m_menuBar = Gtk::make_managed<Gtk::PopoverMenuBar>(m_menuModel);
 
+  // Create the toolbar
+  m_toolbar = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL);
+  m_toolbar->set_spacing(5);
+  m_toolbar->set_margin(5);
+
+  // Add a spacer to push the undo button to the right
+  auto spacer = Gtk::make_managed<Gtk::Label>();
+  spacer->set_hexpand(true);
+  m_toolbar->append(*spacer);
+
+  // Add the undo button to the toolbar
+  m_undoButton = Gtk::make_managed<Gtk::Button>("Undo");
+  m_undoButton->signal_clicked().connect(sigc::mem_fun(*this, &ChessBoardView::on_undo_clicked));
+  m_toolbar->append(*m_undoButton);
+
   // Add the menu bar to the box
   append(*m_menuBar);
+
+  // Add the toolbar to the box
+  append(*m_toolbar);
 
   // Add the drawing area to the box
   append(m_drawingArea);
@@ -70,7 +92,6 @@ void ChessBoardView::clearBoard() {
 
 void ChessBoardView::on_new_game_clicked() {
   // Handle new game action
-  // Implement your new game logic here
   clearBoard();
   initBoard();
   m_drawingArea.queue_draw();
@@ -80,4 +101,9 @@ void ChessBoardView::on_exit_clicked() {
   // Handle exit action
   auto app = Gtk::Application::get_default();
   app->quit();
+}
+
+void ChessBoardView::on_undo_clicked() {
+  // Implement undo logic here
+  std::cout << "Undo clicked" << std::endl;
 }
