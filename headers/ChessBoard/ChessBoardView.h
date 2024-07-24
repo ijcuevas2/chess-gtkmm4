@@ -7,6 +7,7 @@
 #include <gtkmm.h>
 #include "ChessBoardModel.h"
 #include "../ChessImagesInfo/ChessImagesInfo.h"
+#include "ChessBoard/ChessBoardController.h"
 
 class ChessBoardView : public Gtk::DrawingArea {
 public:
@@ -14,7 +15,7 @@ public:
     void on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height);
     void on_pressed(int n_press, double x, double y);
 private:
-    ChessBoardModel chessBoardModel{};
+    ChessBoardController chessBoardController;
 };
 
 

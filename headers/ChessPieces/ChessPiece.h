@@ -16,7 +16,7 @@ public:
   virtual ~ChessPiece();
   int actualDistance(int source, int dest);
   int absoluteDistance(int source, int dest);
-  virtual bool canMove(Coordinates coordinates) = 0;
+  virtual bool canMoveToTarget(Coordinates coordinates) = 0;
   virtual void afterPieceMoved(Coordinates coordinates) = 0;
   bool isPieceBlockingPath(Coordinates coordinates);
   PlayerID getPlayerId();
@@ -24,7 +24,6 @@ public:
   void setPlayerId(PlayerID playerId);
   void setPieceType(PieceType pieceType);
   void copyChessPiece(ChessPiece* chessPiece);
-  void clearChessPiece();
 protected:
   PieceType pieceType;
   PlayerID playerId;

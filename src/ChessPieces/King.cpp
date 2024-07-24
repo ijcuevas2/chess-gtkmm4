@@ -4,7 +4,7 @@
 
 #include "../../headers/ChessPieces/King.h"
 
-bool King::canMove(Coordinates coordinates) {
+bool King::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 

@@ -4,14 +4,14 @@
 
 #include "../../headers/ChessPieces/Bishop.h"
 
-bool Bishop::canMove(Coordinates coordinates) {
-  bool baseCanMove = ChessPiece::canMove(coordinates);
+bool Bishop::canMoveToTarget(Coordinates coordinates) {
+  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
   if (!baseCanMove) {
     return false;
   }
 
-  const int xAbsDistance = absoluteDistance(coordinates.getSrcX(), coordinates.getTgtY());
-  const int yAbsDistance = absoluteDistance(coordinates.getSrcY(), coordinates.getTgtX());
+  const int xAbsDistance = absoluteDistance(coordinates.getSrcX(), coordinates.getTgtX());
+  const int yAbsDistance = absoluteDistance(coordinates.getSrcY(), coordinates.getTgtY());
   bool isValidPath = xAbsDistance == yAbsDistance;
   if (isValidPath) {
     bool isPieceBlockingPathValue = isPieceBlockingPath(coordinates);

@@ -2310,4 +2310,5 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../ChessPieces/ChessPiece.h \
-  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h

@@ -24,10 +24,8 @@ public:
     void setPiecesContentMap(std::map<std::string, Glib::RefPtr<Gdk::Pixbuf>> piecesContentMap);
     Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece* chessPiece);
 private:
-    std::string getPieceImagePath(ChessPiece* chessPiece);
     std::map<PieceType, std::map<PlayerID, std::string>> chessPieceMap;
     std::map<std::string, Glib::RefPtr<Gdk::Pixbuf>> piecesContentMap;
 };
-
 
 #endif //CHESS_CHESSIMAGESINFO_H

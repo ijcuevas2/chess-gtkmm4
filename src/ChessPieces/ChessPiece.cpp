@@ -36,7 +36,7 @@ void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
   this->setPieceType(chessPiecePtr->pieceType);
 }
 
-bool ChessPiece::canMove(Coordinates coordinates) {
+bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   if (coordinates.getSrcX() < 0 || coordinates.getSrcX() > 7) {
     return false;
   }
@@ -66,8 +66,4 @@ bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
 ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {
   this->playerId = playerId;
   this->pieceType = pieceType;
-}
-
-void ChessPiece::clearChessPiece() {
-  pieceType = PieceType::EMPTY_PIECE;
 }

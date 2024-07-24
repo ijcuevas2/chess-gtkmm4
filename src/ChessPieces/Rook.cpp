@@ -3,7 +3,7 @@
 //
 
 #include "../../headers/ChessPieces/Rook.h"
-bool Rook::canMove(Coordinates coordinates) {
+bool Rook::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 

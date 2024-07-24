@@ -10,7 +10,7 @@ class Bishop : public virtual ChessPiece {
 public:
     Bishop(PlayerID playerId) : ChessPiece(playerId, PieceType::BISHOP) {
     }
-    bool canMove(Coordinates coordinates) override;
+    bool canMoveToTarget(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
 };
 

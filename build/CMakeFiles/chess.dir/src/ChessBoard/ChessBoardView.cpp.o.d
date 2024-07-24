@@ -2309,4 +2309,5 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessImagesInfo/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessImagesInfo/../ChessPieces/ChessPiece.h \
-  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h

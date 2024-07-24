@@ -5,7 +5,7 @@
 #include "../../headers/ChessPieces/EmptyPiece.h"
 
 
-bool EmptyPiece::canMove(Coordinates coordinates) {
+bool EmptyPiece::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
