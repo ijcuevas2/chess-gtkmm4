@@ -70,3 +70,11 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     chessBoardModel.clearSelectedBoardSpacePtr();
   }
 }
+
+void ChessBoardController::initBoard() {
+  chessBoardModel.initBoard();
+}
+
+void ChessBoardController::clearBoard() {
+  chessBoardModel.clearBoard();
+}

@@ -42,6 +42,7 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
     ChessPiece* oldPiecePtr = this->getChessPiecePtr(row, col);
     if (oldPiecePtr != nullptr) {
       delete oldPiecePtr;
+      oldPiecePtr = nullptr;
     }
     this->board[row][col]->setChessPiecePtr(targetChessPiecePtr);
   }
@@ -240,4 +241,17 @@ void ChessBoardModel::clearSelectedBoardSpace() {
   this->selectedBoardSpacePtr->clearChessPiecePtr();
   EmptyPiece* emptyPiece = new EmptyPiece();
   this->selectedBoardSpacePtr->setChessPiecePtr(emptyPiece);
+}
+
+void ChessBoardModel::clearBoard() {
+  for (int row = 0; row < BOARD_SIZE; ++row) {
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+      board[row][col]->clearChessPiecePtr();
+      BoardSpace* boardSpacePtr = board[row][col];
+      if (boardSpacePtr != nullptr) {
+        delete boardSpacePtr;
+        board[row][col] = nullptr;
+      }
+    }
+  }
 }
