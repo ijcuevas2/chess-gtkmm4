@@ -49,11 +49,18 @@ public:
     bool isTurnPlayersChessPiece(ChessPiece* chessPiece, int targetRow, int targetCol);
     void clearChessPiecePtr(ChessPiece* chessPiecePtr);
     void clearSelectedBoardSpace();
+    void clearBoard();
+    PlayerID getTurnPlayerId();
+    void updateTurnPlayerId();
+    bool isTurnPlayer(ChessPiece* chessPiecePtr);
+    bool isTurnPlayer(PlayerID playerId);
 private:
     const int BOARD_SIZE = 8;
+    int currentTurn = 1;
     std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
     BoardSpace* selectedBoardSpacePtr;
+    PlayerID turnPlayerId{PlayerID::PLAYER_LIGHT};
 };
 
 
