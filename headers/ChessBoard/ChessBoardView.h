@@ -21,6 +21,7 @@ private:
     void on_exit_clicked();
     void initBoard();
     void clearBoard();
+    void updateLabel();
 
     ChessBoardController chessBoardController;
     Gtk::DrawingArea m_drawingArea;
@@ -31,6 +32,7 @@ private:
 
     Gtk::Box* m_toolbar;
     Gtk::Button* m_undoButton;
+    Gtk::Label* m_currentPlayerLabel;
     void on_undo_clicked();
 };
 

@@ -1,7 +1,3 @@
-//
-// Created by Ismael Cuevas on 7/16/24.
-//
-
 #include "../../headers/ChessBoard/ChessBoardView.h"
 #include <iostream>
 
@@ -51,6 +47,11 @@ ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
   m_toolbar->set_spacing(5);
   m_toolbar->set_margin(5);
 
+  // Add the current player turn label to the left side of the toolbar
+  m_currentPlayerLabel = Gtk::make_managed<Gtk::Label>("Current Turn: Light");
+  m_currentPlayerLabel->set_halign(Gtk::Align::START);
+  m_toolbar->append(*m_currentPlayerLabel);
+
   // Add a spacer to push the undo button to the right
   auto spacer = Gtk::make_managed<Gtk::Label>();
   spacer->set_hexpand(true);
@@ -79,7 +80,17 @@ void ChessBoardView::on_pressed(int n_press, double x, double y) {
   int height = m_drawingArea.get_height();
   int width = m_drawingArea.get_width();
   chessBoardController.on_pressed(n_press, x, y, width, height);
+  updateLabel();
   m_drawingArea.queue_draw();
+}
+
+void ChessBoardView::updateLabel() {
+  PlayerID playerId = chessBoardController.getTurnPlayerId();
+  bool isLightPlayer = playerId == PlayerID::PLAYER_LIGHT;
+  std::string turnLabel = isLightPlayer ? "Current Turn: Light" : "Current Turn: Dark";
+  if (m_currentPlayerLabel != nullptr) {
+    m_currentPlayerLabel->set_text(turnLabel);
+  }
 }
 
 void ChessBoardView::initBoard() {

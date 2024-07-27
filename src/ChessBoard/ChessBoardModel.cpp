@@ -190,8 +190,8 @@ void ChessBoardModel::setSelectedBoardSpacePtr(BoardSpace* boardSpacePtr) {
   ChessPiece* chessPiecePtr = boardSpacePtr->getChessPiecePtr();
 
   if (chessPiecePtr != nullptr) {
-    bool isActualChessPiece = !isEmptyPiece(chessPiecePtr);
-    if (isActualChessPiece) {
+    bool isTurnPlayerBool = isTurnPlayer(chessPiecePtr);
+    if (isTurnPlayerBool) {
       this->selectedBoardSpacePtr = boardSpacePtr;
     }
   }
@@ -254,4 +254,28 @@ void ChessBoardModel::clearBoard() {
       }
     }
   }
+
+  turnPlayerId = PlayerID::PLAYER_LIGHT;
+}
+
+PlayerID ChessBoardModel::getTurnPlayerId() {
+  return turnPlayerId;
+}
+
+void ChessBoardModel::updateTurnPlayerId() {
+  if (turnPlayerId == PlayerID::PLAYER_LIGHT) {
+    turnPlayerId = PlayerID::PLAYER_DARK;
+  } else if (turnPlayerId == PlayerID::PLAYER_DARK) {
+    turnPlayerId = PlayerID::PLAYER_LIGHT;
+    currentTurn++;
+  }
+}
+
+bool ChessBoardModel::isTurnPlayer(ChessPiece* chessPiecePtr) {
+  PlayerID playerId = chessPiecePtr->getPlayerId();
+  return isTurnPlayer(playerId);
+}
+
+bool ChessBoardModel::isTurnPlayer(PlayerID playerId) {
+  return turnPlayerId == playerId;
 }
