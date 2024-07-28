@@ -6,6 +6,11 @@
 
 ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
   initBoard();
+  chessBoardMediator.getPawnMovementSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::handlePawnMovement));
+  chessBoardMediator.getKingMovementSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::handleKingMovement));
+  chessBoardMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
+  chessBoardMediator.getIsBoardIndexOccupiedSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
+  chessBoardMediator.getMovedTwoSpacesTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getMovedTwoSpacesTurn));
 }
 
 std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {
@@ -19,6 +24,17 @@ std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {
           {"LP", "LP", "LP", "LP", "LP", "LP", "LP", "LP"},
           {"LR", "LN", "LB", "LQ", "LK", "LB", "LN", "LR"}
   };
+
+//  std::vector<std::vector<std::string>> boardConfig = {
+//          {"DR", "DN", "DB", "DQ", "DK", "DB", "DN", "DR"},
+//          {"DP", "DP", "DP", "EE", "DP", "DP", "DP", "DP"},
+//          {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
+//          {"EE", "EE", "EE", "DP", "LP", "EE", "EE", "EE"},
+//          {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
+//          {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
+//          {"LP", "LP", "LP", "LP", "EE", "LP", "LP", "LP"},
+//          {"LR", "LN", "LB", "LQ", "LK", "LB", "LN", "LR"}
+//  };
 
   return boardConfig;
 }
@@ -36,20 +52,17 @@ void ChessBoardModel::initBoard() {
 
 void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessPiecePtr, int row, int col) {
   if (this->board[row][col] != nullptr) {
-    PlayerID playerId = sourceChessPiecePtr->getPlayerId();
-    PieceType pieceType = sourceChessPiecePtr->getPieceType();
-    ChessPiece* targetChessPiecePtr = initChessPiece(pieceType, playerId);
     ChessPiece* oldPiecePtr = this->getChessPiecePtr(row, col);
     if (oldPiecePtr != nullptr) {
       delete oldPiecePtr;
       oldPiecePtr = nullptr;
     }
-    this->board[row][col]->setChessPiecePtr(targetChessPiecePtr);
+    this->board[row][col]->setChessPiecePtr(sourceChessPiecePtr);
   }
 }
 
 void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
-  BoardSpace *boardSpace = new BoardSpace(chessPiecePtr, row, col);
+  BoardSpace* boardSpace = new BoardSpace(chessPiecePtr, row, col);
   this->board[row][col] = boardSpace;
 }
 
@@ -61,10 +74,10 @@ PlayerID ChessBoardModel::parsePlayerId(std::string pieceEncoding) {
   const char firstChar = pieceEncoding[0];
   switch (firstChar) {
     case 'D':
-      return PlayerID::PLAYER_DARK;
+      return PlayerID::PLAYER_BLACK;
       break;
     case 'L':
-      return PlayerID::PLAYER_LIGHT;
+      return PlayerID::PLAYER_WHITE;
       break;
     case 'E':
       return PlayerID::NONE;
@@ -114,7 +127,7 @@ ChessPiece *ChessBoardModel::getChessPiecePtr(int row, int col) {
   return nullptr;
 }
 
-BoardSpace *ChessBoardModel::getBoardSpacePtr(int row, int col) {
+BoardSpace* ChessBoardModel::getBoardSpacePtr(int row, int col) {
   const int currentBoardSize = this->board.size();
   if (currentBoardSize != 0) {
     return this->board[row][col];
@@ -123,8 +136,8 @@ BoardSpace *ChessBoardModel::getBoardSpacePtr(int row, int col) {
   return nullptr;
 }
 
-ChessPiece *ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID playerId) {
-  ChessPiece *piece = NULL;
+ChessPiece* ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID playerId) {
+  ChessPiece* piece = NULL;
   switch (pieceType) {
     case PieceType::ROOK:
       piece = new Rook(playerId);
@@ -139,10 +152,10 @@ ChessPiece *ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID player
       piece = new Queen(playerId);
       break;
     case PieceType::KING:
-      piece = new King(playerId);
+      piece = new King(playerId, chessBoardMediator);
       break;
     case PieceType::PAWN:
-      piece = new Pawn(playerId);
+      piece = new Pawn(playerId, chessBoardMediator);
       break;
     case PieceType::EMPTY_PIECE:
       piece = new EmptyPiece();
@@ -238,7 +251,6 @@ bool ChessBoardModel::isTurnPlayersChessPiece(ChessPiece *chessPiece, int target
 }
 
 void ChessBoardModel::clearSelectedBoardSpace() {
-  this->selectedBoardSpacePtr->clearChessPiecePtr();
   EmptyPiece* emptyPiece = new EmptyPiece();
   this->selectedBoardSpacePtr->setChessPiecePtr(emptyPiece);
 }
@@ -255,7 +267,13 @@ void ChessBoardModel::clearBoard() {
     }
   }
 
-  turnPlayerId = PlayerID::PLAYER_LIGHT;
+  turnPlayerId = PlayerID::PLAYER_WHITE;
+}
+
+void ChessBoardModel::handlePawnMovement(const Coordinates & coordinates) {
+}
+
+void ChessBoardModel::handleKingMovement(const Coordinates & coordinates) {
 }
 
 PlayerID ChessBoardModel::getTurnPlayerId() {
@@ -263,10 +281,10 @@ PlayerID ChessBoardModel::getTurnPlayerId() {
 }
 
 void ChessBoardModel::updateTurnPlayerId() {
-  if (turnPlayerId == PlayerID::PLAYER_LIGHT) {
-    turnPlayerId = PlayerID::PLAYER_DARK;
-  } else if (turnPlayerId == PlayerID::PLAYER_DARK) {
-    turnPlayerId = PlayerID::PLAYER_LIGHT;
+  if (turnPlayerId == PlayerID::PLAYER_WHITE) {
+    turnPlayerId = PlayerID::PLAYER_BLACK;
+  } else if (turnPlayerId == PlayerID::PLAYER_BLACK) {
+    turnPlayerId = PlayerID::PLAYER_WHITE;
     currentTurn++;
   }
 }
@@ -278,4 +296,20 @@ bool ChessBoardModel::isTurnPlayer(ChessPiece* chessPiecePtr) {
 
 bool ChessBoardModel::isTurnPlayer(PlayerID playerId) {
   return turnPlayerId == playerId;
+}
+
+int ChessBoardModel::getCurrentTurn() {
+  return currentTurn;
+}
+
+int ChessBoardModel::getMovedTwoSpacesTurn(int row, int col) {
+  ChessPiece *chessPiece = getChessPiecePtr(row, col);
+  if (chessPiece != NULL && chessPiece->getPieceType() == PieceType::PAWN) {
+    // TODO: INVESTIGATE DYNAMIC CAST
+    Pawn *pawn = dynamic_cast<Pawn*>(chessPiece);
+    int turn = pawn->getMovedTwoSpacesTurn();
+    return turn;
+  }
+
+  return -1;
 }

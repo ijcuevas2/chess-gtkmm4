@@ -18,6 +18,7 @@
 #include "../../headers/ChessPieces/King.h"
 #include "../../headers/ChessPieces/Pawn.h"
 #include "../../headers/ChessPieces/EmptyPiece.h"
+#include "../../headers/ChessBoardMediator/ChessBoardMediator.h"
 #include "gtkmm.h"
 #include "../ChessImagesInfo/ChessImagesInfo.h"
 #include <glibmm/signalproxy.h>
@@ -54,13 +55,18 @@ public:
     void updateTurnPlayerId();
     bool isTurnPlayer(ChessPiece* chessPiecePtr);
     bool isTurnPlayer(PlayerID playerId);
+    int getCurrentTurn();
+    void handlePawnMovement(const Coordinates & coordinates);
+    void handleKingMovement(const Coordinates & coordinates);
+    int getMovedTwoSpacesTurn(int row, int col);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
     std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
+    ChessBoardMediator chessBoardMediator{};
     BoardSpace* selectedBoardSpacePtr;
-    PlayerID turnPlayerId{PlayerID::PLAYER_LIGHT};
+    PlayerID turnPlayerId{PlayerID::PLAYER_WHITE};
 };
 
 

@@ -6,26 +6,26 @@
 
 ChessImagesInfo::ChessImagesInfo() {
   std::map<PieceType, std::map<PlayerID, std::string>> chessPieceMap = {
-          {PieceType::KING,   {{PlayerID::PLAYER_LIGHT, "light_king.svg"},   {PlayerID::PLAYER_DARK, "dark_king.svg"}}},
-          {PieceType::QUEEN,  {{PlayerID::PLAYER_LIGHT, "light_queen.svg"},  {PlayerID::PLAYER_DARK, "dark_queen.svg"}}},
-          {PieceType::ROOK,   {{PlayerID::PLAYER_LIGHT, "light_rook.svg"},   {PlayerID::PLAYER_DARK, "dark_rook.svg"}}},
-          {PieceType::BISHOP, {{PlayerID::PLAYER_LIGHT, "light_bishop.svg"}, {PlayerID::PLAYER_DARK, "dark_bishop.svg"}}},
-          {PieceType::KNIGHT, {{PlayerID::PLAYER_LIGHT, "light_knight.svg"}, {PlayerID::PLAYER_DARK, "dark_knight.svg"}}},
-          {PieceType::PAWN,   {{PlayerID::PLAYER_LIGHT, "light_pawn.svg"},   {PlayerID::PLAYER_DARK, "dark_pawn.svg"}}}
+          {PieceType::KING,   {{PlayerID::PLAYER_WHITE, "white_king.svg"},   {PlayerID::PLAYER_BLACK, "black_king.svg"}}},
+          {PieceType::QUEEN,  {{PlayerID::PLAYER_WHITE, "white_queen.svg"},  {PlayerID::PLAYER_BLACK, "black_queen.svg"}}},
+          {PieceType::ROOK,   {{PlayerID::PLAYER_WHITE, "white_rook.svg"},   {PlayerID::PLAYER_BLACK, "black_rook.svg"}}},
+          {PieceType::BISHOP, {{PlayerID::PLAYER_WHITE, "white_bishop.svg"}, {PlayerID::PLAYER_BLACK, "black_bishop.svg"}}},
+          {PieceType::KNIGHT, {{PlayerID::PLAYER_WHITE, "white_knight.svg"}, {PlayerID::PLAYER_BLACK, "black_knight.svg"}}},
+          {PieceType::PAWN,   {{PlayerID::PLAYER_WHITE, "white_pawn.svg"},   {PlayerID::PLAYER_BLACK, "black_pawn.svg"}}}
   };
   std::vector<std::string> fileNames = {
-          "light_king.svg",
-          "dark_king.svg",
-          "light_queen.svg",
-          "dark_queen.svg",
-          "light_rook.svg",
-          "dark_rook.svg",
-          "light_bishop.svg",
-          "dark_bishop.svg",
-          "light_knight.svg",
-          "dark_knight.svg",
-          "dark_pawn.svg",
-          "light_pawn.svg"
+          "white_king.svg",
+          "white_queen.svg",
+          "white_rook.svg",
+          "white_bishop.svg",
+          "white_knight.svg",
+          "white_pawn.svg",
+          "black_king.svg",
+          "black_queen.svg",
+          "black_rook.svg",
+          "black_bishop.svg",
+          "black_knight.svg",
+          "black_pawn.svg"
   };
 
   setChessPieceMap(chessPieceMap);

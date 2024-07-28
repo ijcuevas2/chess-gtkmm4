@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/ChessBoardController.cpp" "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/ChessBoardModel.cpp" "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/ChessBoardView.cpp" "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o.d"
+  "/Users/ismael/Documents/chess-gtkmm4/src/ChessBoardMediator/ChessBoardMediator.cpp" "CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/ChessImagesInfo.cpp" "CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Bishop.cpp" "CMakeFiles/chess.dir/src/ChessPieces/Bishop.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessPieces/Bishop.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/ChessPiece.cpp" "CMakeFiles/chess.dir/src/ChessPieces/ChessPiece.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessPieces/ChessPiece.cpp.o.d"

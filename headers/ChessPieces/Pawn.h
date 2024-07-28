@@ -5,14 +5,17 @@
 #ifndef CHESS_PAWN_H
 #define CHESS_PAWN_H
 #include "ChessPiece.h"
+#include "ChessBoardMediator/ChessBoardMediator.h"
 
 class Pawn : public virtual ChessPiece {
 private:
     bool isFirstMove = true;
     int movedTwoSpacesTurn = -1;
     bool isEnPassantEligible = false;
+    ChessBoardMediator & chessBoardMediator;
 public:
-    Pawn(PlayerID playerId): ChessPiece(playerId, PieceType::PAWN) {
+    Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN),
+                                                                      chessBoardMediator(chessBoardMediator) {
     }
 
     bool canMoveToTarget(Coordinates coordinates) override;

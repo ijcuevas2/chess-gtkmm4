@@ -10,8 +10,8 @@ bool Knight::canMoveToTarget(Coordinates coordinates) {
     return false;
   }
 
-  int xAbsDistance = absoluteDistance(coordinates.getSrcX(), coordinates.getTgtX());
-  int yAbsDistance = absoluteDistance(coordinates.getSrcY(), coordinates.getTgtY());
+  int xAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
+  int yAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
 
   bool isValidPath = (xAbsDistance == 2 && yAbsDistance == 1) || (yAbsDistance == 2 && xAbsDistance == 1);
   return isValidPath;
