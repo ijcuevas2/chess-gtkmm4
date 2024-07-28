@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o.d"
   "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o"
   "CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o.d"
+  "CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.o"
+  "CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.o.d"
   "CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o"
   "CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o.d"
   "CMakeFiles/chess.dir/src/ChessPieces/Bishop.cpp.o"

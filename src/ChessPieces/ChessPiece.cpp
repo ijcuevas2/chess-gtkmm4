@@ -37,19 +37,19 @@ void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
 }
 
 bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
-  if (coordinates.getSrcX() < 0 || coordinates.getSrcX() > 7) {
+  if (coordinates.getSrcRow() < 0 || coordinates.getSrcRow() > 7) {
     return false;
   }
 
-  if (coordinates.getSrcY() < 0 || coordinates.getSrcY() > 7) {
+  if (coordinates.getSrcCol() < 0 || coordinates.getSrcCol() > 7) {
     return false;
   }
 
-  if (coordinates.getTgtX() < 0 || coordinates.getTgtX() > 7) {
+  if (coordinates.getTgtRow() < 0 || coordinates.getTgtRow() > 7) {
     return false;
   }
 
-  if (coordinates.getTgtY() < 0 || coordinates.getTgtY() > 7) {
+  if (coordinates.getTgtCol() < 0 || coordinates.getTgtCol() > 7) {
     return false;
   }
 

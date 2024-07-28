@@ -50,14 +50,15 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
   int col = static_cast<int>(x * chessBoardModel.getBoardSize() / width);
 
 
-  if (!chessBoardModel.hasSelectedBoardSpacePtr()) {
+  bool hasSelectedBoardSpacePtr = chessBoardModel.hasSelectedBoardSpacePtr();
+  if (!hasSelectedBoardSpacePtr) {
     chessBoardModel.setSelectedBoardSpacePtr(chessBoardModel.getBoardSpacePtr(row, col));
   } else {
     BoardSpace* selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
     ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
     bool isTurnPlayer = chessBoardModel.isTurnPlayer(srcChessPiecePtr);
 
-    Coordinates coordinates(selectedBoardSpacePtr->getXIndex(), selectedBoardSpacePtr->getYIndex(), row, col);
+    Coordinates coordinates(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
 
     bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(coordinates);
     bool isTargetTurnPlayersChessPiece = chessBoardModel.isTurnPlayersChessPiece(srcChessPiecePtr, row, col);
@@ -65,6 +66,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
       ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
       bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
       if (isDifferentPiece) {
+        srcChessPiecePtr->afterPieceMoved(coordinates);
         chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
         chessBoardModel.clearSelectedBoardSpace();
         chessBoardModel.updateTurnPlayerId();

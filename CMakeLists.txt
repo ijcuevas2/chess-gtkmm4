@@ -98,6 +98,8 @@ add_executable(${PROJECT_NAME}
         headers/ChessImagesInfo/ChessImagesInfo.h
         src/ChessBoard/ChessBoardController.cpp
         headers/ChessBoard/ChessBoardController.h
+        headers/ChessBoardMediator/ChessBoardMediator.h
+        src/ChessBoardMediator/ChessBoardMediator.cpp
 )
 
 # Add dependency on chess_resources

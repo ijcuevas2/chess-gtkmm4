@@ -2303,8 +2303,11 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Queen.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/King.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/Rook.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Pawn.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessBoardMediator/ChessBoardMediator.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessImagesInfo/ChessImagesInfo.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessImagesInfo/../../enum/Player.h \

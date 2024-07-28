@@ -8,30 +8,19 @@
 
 class Coordinates {
 private:
-    int _srcX;
-    int _srcY;
-    int _tgtX;
-    int _tgtY;
+    int _srcRow;
+    int _srcCol;
+    int _tgtRow;
+    int _tgtCol;
 
 public:
-    explicit Coordinates(): _srcX(0), _srcY(0), _tgtX(0), _tgtY(0) {}
-    explicit Coordinates(int srcX, int srcY, int tgtX, int tgtY): _srcX (srcX), _srcY(srcY), _tgtX(tgtX), _tgtY(tgtY) {}
+    explicit Coordinates();
+    explicit Coordinates(int srcRow, int srcCol, int tgtRow, int tgtCol);
 
-    int getSrcX() const {
-      return _srcX;
-    }
-
-    int getSrcY() const {
-      return _srcY;
-    }
-
-    int getTgtX() const {
-      return _tgtX;
-    }
-
-    int getTgtY() const {
-      return _tgtY;
-    }
+    int getSrcRow() const;
+    int getSrcCol() const;
+    int getTgtRow() const;
+    int getTgtCol() const;
 };
 
 

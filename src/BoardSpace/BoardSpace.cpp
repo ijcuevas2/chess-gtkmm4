@@ -4,18 +4,18 @@
 
 #include "../../headers/BoardSpace/BoardSpace.h"
 
-BoardSpace::BoardSpace(ChessPiece *chessPiecePtr, int xIndex, int yIndex) {
+BoardSpace::BoardSpace(ChessPiece *chessPiecePtr, int row, int col) {
   this->chessPiecePtr = chessPiecePtr;
-  this->xIndex = xIndex;
-  this->yIndex = yIndex;
+  this->row = row;
+  this->col = col;
 }
 
-int BoardSpace::getXIndex() const {
-  return xIndex;
+int BoardSpace::getRow() const {
+  return row;
 }
 
-int BoardSpace::getYIndex() const {
-  return yIndex;
+int BoardSpace::getCol() const {
+  return col;
 }
 
 ChessPiece* BoardSpace::getChessPiecePtr() {

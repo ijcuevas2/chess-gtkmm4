@@ -14,14 +14,14 @@ private:
     ChessPiece* chessPiecePtr;
     HintMarker* hintMarkerPtr;
     bool hasDarkBackground;
-    int xIndex;
-    int yIndex;
+    int row;
+    int col;
 
 public:
-    int getXIndex() const;
-    int getYIndex() const;
+    int getCol() const;
+    int getRow() const;
 
-    BoardSpace(ChessPiece* chessPiecePtr, int xIndex, int yIndex);
+    BoardSpace(ChessPiece* chessPiecePtr, int row, int col);
     void setSelectedBackground();
     void setUnselectedBackground();
     ChessPiece* getChessPiecePtr();

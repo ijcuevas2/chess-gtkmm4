@@ -48,7 +48,7 @@ ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
   m_toolbar->set_margin(5);
 
   // Add the current player turn label to the left side of the toolbar
-  m_currentPlayerLabel = Gtk::make_managed<Gtk::Label>("Current Turn: Light");
+  m_currentPlayerLabel = Gtk::make_managed<Gtk::Label>("Current Turn: White");
   m_currentPlayerLabel->set_halign(Gtk::Align::START);
   m_toolbar->append(*m_currentPlayerLabel);
 
@@ -86,8 +86,8 @@ void ChessBoardView::on_pressed(int n_press, double x, double y) {
 
 void ChessBoardView::updateLabel() {
   PlayerID playerId = chessBoardController.getTurnPlayerId();
-  bool isLightPlayer = playerId == PlayerID::PLAYER_LIGHT;
-  std::string turnLabel = isLightPlayer ? "Current Turn: Light" : "Current Turn: Dark";
+  bool isWhiteTurn = playerId == PlayerID::PLAYER_WHITE;
+  std::string turnLabel = isWhiteTurn ? "Current Turn: White" : "Current Turn: Black";
   if (m_currentPlayerLabel != nullptr) {
     m_currentPlayerLabel->set_text(turnLabel);
   }
@@ -106,6 +106,7 @@ void ChessBoardView::on_new_game_clicked() {
   clearBoard();
   initBoard();
   m_drawingArea.queue_draw();
+  this->updateLabel();
 }
 
 void ChessBoardView::on_exit_clicked() {

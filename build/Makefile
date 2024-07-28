@@ -286,6 +286,30 @@ src/ChessBoard/ChessBoardView.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.s
 .PHONY : src/ChessBoard/ChessBoardView.cpp.s
 
+src/ChessBoardMediator/ChessBoardMediator.o: src/ChessBoardMediator/ChessBoardMediator.cpp.o
+.PHONY : src/ChessBoardMediator/ChessBoardMediator.o
+
+# target to build an object file
+src/ChessBoardMediator/ChessBoardMediator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.o
+.PHONY : src/ChessBoardMediator/ChessBoardMediator.cpp.o
+
+src/ChessBoardMediator/ChessBoardMediator.i: src/ChessBoardMediator/ChessBoardMediator.cpp.i
+.PHONY : src/ChessBoardMediator/ChessBoardMediator.i
+
+# target to preprocess a source file
+src/ChessBoardMediator/ChessBoardMediator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.i
+.PHONY : src/ChessBoardMediator/ChessBoardMediator.cpp.i
+
+src/ChessBoardMediator/ChessBoardMediator.s: src/ChessBoardMediator/ChessBoardMediator.cpp.s
+.PHONY : src/ChessBoardMediator/ChessBoardMediator.s
+
+# target to generate assembly for a file
+src/ChessBoardMediator/ChessBoardMediator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.s
+.PHONY : src/ChessBoardMediator/ChessBoardMediator.cpp.s
+
 src/ChessImagesInfo/ChessImagesInfo.o: src/ChessImagesInfo/ChessImagesInfo.cpp.o
 .PHONY : src/ChessImagesInfo/ChessImagesInfo.o
 
@@ -602,6 +626,9 @@ help:
 	@echo "... src/ChessBoard/ChessBoardView.o"
 	@echo "... src/ChessBoard/ChessBoardView.i"
 	@echo "... src/ChessBoard/ChessBoardView.s"
+	@echo "... src/ChessBoardMediator/ChessBoardMediator.o"
+	@echo "... src/ChessBoardMediator/ChessBoardMediator.i"
+	@echo "... src/ChessBoardMediator/ChessBoardMediator.s"
 	@echo "... src/ChessImagesInfo/ChessImagesInfo.o"
 	@echo "... src/ChessImagesInfo/ChessImagesInfo.i"
 	@echo "... src/ChessImagesInfo/ChessImagesInfo.s"

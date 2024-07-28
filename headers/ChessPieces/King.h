@@ -6,13 +6,16 @@
 #define CHESS_KING_H
 #include "ChessPiece.h"
 #include "Rook.h"
+#include "ChessBoardMediator/ChessBoardMediator.h"
 
 class King : public virtual ChessPiece {
 private:
     bool hasMoved;
     bool isInCheck;
+    ChessBoardMediator & chessBoardMediator;
 public:
-    King(PlayerID playerId) : ChessPiece(playerId, PieceType::KING) {
+    King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING),
+                                                                      chessBoardMediator(chessBoardMediator) {
     }
     bool canMoveToTarget(Coordinates coordinates) override;
     bool HasMoved() const;
