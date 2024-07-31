@@ -8,8 +8,8 @@
 
 class EmptyPiece : public virtual ChessPiece {
 public:
-    EmptyPiece()
-            : ChessPiece(PlayerID::NONE, PieceType::EMPTY_PIECE) { }
+    EmptyPiece(ChessBoardMediator & chessBoardMediator)
+            : ChessPiece(PlayerID::NONE, PieceType::EMPTY_PIECE, chessBoardMediator) { }
     bool canMoveToTarget(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
 };

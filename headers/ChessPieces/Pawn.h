@@ -12,10 +12,8 @@ private:
     bool isFirstMove = true;
     int movedTwoSpacesTurn = -1;
     bool isEnPassantEligible = false;
-    ChessBoardMediator & chessBoardMediator;
 public:
-    Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN),
-                                                                      chessBoardMediator(chessBoardMediator) {
+    Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN, chessBoardMediator) {
     }
 
     bool canMoveToTarget(Coordinates coordinates) override;

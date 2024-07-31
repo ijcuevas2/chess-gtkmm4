@@ -8,11 +8,15 @@
 
 class Rook : public virtual ChessPiece {
 public:
-    Rook(PlayerID playerId) : ChessPiece(playerId, PieceType::ROOK) {
+    Rook(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::ROOK, chessBoardMediator) {
     }
 
     bool canMoveToTarget(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
+    void setHasMoved();
+    bool getHasMoved();
+private:
+    bool hasMoved = false;
 };
 
 

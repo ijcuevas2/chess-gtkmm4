@@ -40,3 +40,15 @@ void BoardSpace::clearChessPiecePtr() {
     chessPiecePtr = nullptr;
   }
 }
+
+bool BoardSpace::getShowMarker() {
+  return showMarkerValue;
+}
+
+void BoardSpace::showMarker() {
+  showMarkerValue = true;
+}
+
+void BoardSpace::hideMarker() {
+  showMarkerValue = false;
+}

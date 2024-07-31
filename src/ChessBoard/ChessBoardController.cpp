@@ -9,23 +9,32 @@ void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int 
   // Draw the board
   for (int row = 0; row < chessBoardModel.getBoardSize(); ++row) {
     for (int col = 0; col < chessBoardModel.getBoardSize(); ++col) {
+      // Set the fill color for the rectangle
       if ((row + col) % 2 == 0) {
         cr->set_source_rgb(1.0, 0.9, 0.8);
-      }
-      else {
+      } else {
         cr->set_source_rgb(0.8, 0.6, 0.4);
       }
 
+      // Create the rectangle path
       cr->rectangle(col * cellSize, row * cellSize, cellSize, cellSize);
-      if (this->chessBoardModel.isSelectedBoardSpacePtr(row, col)) {
+
+      BoardSpace* boardSpace = chessBoardModel.getBoardSpacePtr(row, col);
+      bool showMarker = boardSpace->getShowMarker();
+
+      if (chessBoardModel.isSelectedBoardSpacePtr(row, col) || showMarker) {
         cr->set_line_width(4.0);
         cr->fill_preserve();
         cr->set_source_rgb(1.0, 0.65, 0.0);
-        cr->fill();
+        cr->fill_preserve();
       } else {
-        cr->fill();
+        cr->fill_preserve();
       }
 
+      // Add black outline
+      cr->set_source_rgb(0.0, 0.0, 0.0);  // Set color to black
+      cr->set_line_width(1.0);  // Set line width for the outline
+      cr->stroke();  // Draw the outline
 
       // Draw the piece
       ChessPiece* chessPiece = chessBoardModel.getChessPiecePtr(row, col);
@@ -49,30 +58,38 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
   int row = static_cast<int>(y * chessBoardModel.getBoardSize() / height);
   int col = static_cast<int>(x * chessBoardModel.getBoardSize() / width);
 
-
   bool hasSelectedBoardSpacePtr = chessBoardModel.hasSelectedBoardSpacePtr();
   if (!hasSelectedBoardSpacePtr) {
-    chessBoardModel.setSelectedBoardSpacePtr(chessBoardModel.getBoardSpacePtr(row, col));
+    BoardSpace* boardSpacePtr = chessBoardModel.getBoardSpacePtr(row, col);
+    bool isTurnPlayer = chessBoardModel.isTurnPlayer(boardSpacePtr);
+    if (isTurnPlayer) {
+      chessBoardModel.setSelectedBoardSpacePtr(boardSpacePtr);
+      chessBoardModel.showHintMarkers(boardSpacePtr);
+    }
   } else {
     BoardSpace* selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
-    ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
-    bool isTurnPlayer = chessBoardModel.isTurnPlayer(srcChessPiecePtr);
+    bool isSelectedBoardSpacePtr = chessBoardModel.isSelectedBoardSpacePtr(row, col);
+    if (!isSelectedBoardSpacePtr) {
+      ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
+      bool isTurnPlayer = chessBoardModel.isTurnPlayer(srcChessPiecePtr);
+      Coordinates coordinates(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
 
-    Coordinates coordinates(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
-
-    bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(coordinates);
-    bool isTargetTurnPlayersChessPiece = chessBoardModel.isTurnPlayersChessPiece(srcChessPiecePtr, row, col);
-    if (canMoveToTarget && !isTargetTurnPlayersChessPiece && isTurnPlayer) {
-      ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
-      bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
-      if (isDifferentPiece) {
-        srcChessPiecePtr->afterPieceMoved(coordinates);
-        chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
-        chessBoardModel.clearSelectedBoardSpace();
-        chessBoardModel.updateTurnPlayerId();
+      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(coordinates);
+      bool isTargetTurnPlayersChessPiece = chessBoardModel.isTurnPlayersChessPiece(srcChessPiecePtr, row, col);
+      if (canMoveToTarget && !isTargetTurnPlayersChessPiece && isTurnPlayer) {
+        ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
+        bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
+        if (isDifferentPiece) {
+          srcChessPiecePtr->afterPieceMoved(coordinates);
+          chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
+          chessBoardModel.clearSelectedBoardSpace();
+          chessBoardModel.updateTurnPlayerId();
+          fenModel.saveBoardState();
+        }
       }
     }
 
+    chessBoardModel.hideHintMarkers();
     chessBoardModel.clearSelectedBoardSpacePtr();
   }
 }

@@ -38,8 +38,6 @@ void Pawn::afterPieceMoved(Coordinates coordinates) {
     setUsedFirstMove();
     setMovedTwoSpacesTurn(coordinates);
   }
-
-  //ChessMovementUtils::handlePawnPromotion(coordinates);
 }
 
 void Pawn::setMovedTwoSpacesTurn(Coordinates coordinates) {

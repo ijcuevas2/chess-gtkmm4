@@ -6,8 +6,6 @@
 
 ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
   initBoard();
-  chessBoardMediator.getPawnMovementSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::handlePawnMovement));
-  chessBoardMediator.getKingMovementSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::handleKingMovement));
   chessBoardMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
   chessBoardMediator.getIsBoardIndexOccupiedSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
   chessBoardMediator.getMovedTwoSpacesTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getMovedTwoSpacesTurn));
@@ -140,16 +138,16 @@ ChessPiece* ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID player
   ChessPiece* piece = NULL;
   switch (pieceType) {
     case PieceType::ROOK:
-      piece = new Rook(playerId);
+      piece = new Rook(playerId, chessBoardMediator);
       break;
     case PieceType::KNIGHT:
-      piece = new Knight(playerId);
+      piece = new Knight(playerId, chessBoardMediator);
       break;
     case PieceType::BISHOP:
-      piece = new Bishop(playerId);
+      piece = new Bishop(playerId, chessBoardMediator);
       break;
     case PieceType::QUEEN:
-      piece = new Queen(playerId);
+      piece = new Queen(playerId, chessBoardMediator);
       break;
     case PieceType::KING:
       piece = new King(playerId, chessBoardMediator);
@@ -158,7 +156,7 @@ ChessPiece* ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID player
       piece = new Pawn(playerId, chessBoardMediator);
       break;
     case PieceType::EMPTY_PIECE:
-      piece = new EmptyPiece();
+      piece = new EmptyPiece(chessBoardMediator);
       break;
   }
 
@@ -218,9 +216,13 @@ bool ChessBoardModel::isEmptyPiece(ChessPiece *chessPiecePtr) {
   return false;
 }
 
+bool ChessBoardModel::isSelectedBoardSpacePtr(BoardSpace* boardSpacePtr) {
+  return boardSpacePtr == this->selectedBoardSpacePtr;
+}
+
 bool ChessBoardModel::isSelectedBoardSpacePtr(int row, int col) {
-  BoardSpace* boardSpace = this->board[row][col];
-  return boardSpace == this->selectedBoardSpacePtr;
+  BoardSpace* boardSpacePtr = this->board[row][col];
+  return boardSpacePtr == this->selectedBoardSpacePtr;
 }
 
 BoardSpace* ChessBoardModel::getSelectedBoardSpacePtr() {
@@ -251,7 +253,7 @@ bool ChessBoardModel::isTurnPlayersChessPiece(ChessPiece *chessPiece, int target
 }
 
 void ChessBoardModel::clearSelectedBoardSpace() {
-  EmptyPiece* emptyPiece = new EmptyPiece();
+  EmptyPiece* emptyPiece = new EmptyPiece(chessBoardMediator);
   this->selectedBoardSpacePtr->setChessPiecePtr(emptyPiece);
 }
 
@@ -270,12 +272,6 @@ void ChessBoardModel::clearBoard() {
   turnPlayerId = PlayerID::PLAYER_WHITE;
 }
 
-void ChessBoardModel::handlePawnMovement(const Coordinates & coordinates) {
-}
-
-void ChessBoardModel::handleKingMovement(const Coordinates & coordinates) {
-}
-
 PlayerID ChessBoardModel::getTurnPlayerId() {
   return turnPlayerId;
 }
@@ -289,6 +285,11 @@ void ChessBoardModel::updateTurnPlayerId() {
   }
 }
 
+bool ChessBoardModel::isTurnPlayer(BoardSpace* boardSpacePtr) {
+  ChessPiece* chessPiecePtr = boardSpacePtr->getChessPiecePtr();
+  return isTurnPlayer(chessPiecePtr);
+}
+
 bool ChessBoardModel::isTurnPlayer(ChessPiece* chessPiecePtr) {
   PlayerID playerId = chessPiecePtr->getPlayerId();
   return isTurnPlayer(playerId);
@@ -300,6 +301,35 @@ bool ChessBoardModel::isTurnPlayer(PlayerID playerId) {
 
 int ChessBoardModel::getCurrentTurn() {
   return currentTurn;
+}
+
+int ChessBoardModel::getHalfMoveClock() {
+  return halfMoveClock;
+}
+
+void ChessBoardModel::showHintMarkers(BoardSpace* boardSpacePtr) {
+  ChessPiece* chessPiecePtr = boardSpacePtr->getChessPiecePtr();
+  int srcRow = boardSpacePtr->getRow();
+  int srcCol = boardSpacePtr->getCol();
+
+  for (int row = 0; row < BOARD_SIZE; ++row) {
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+      BoardSpace* boardSpace = getBoardSpacePtr(row, col);
+      Coordinates coordinates(srcRow, srcCol, row, col);
+      if (chessPiecePtr->canMoveToTarget(coordinates)) {
+        boardSpace->showMarker();
+      }
+    }
+  }
+}
+
+void ChessBoardModel::hideHintMarkers() {
+  for (int row = 0; row < BOARD_SIZE; ++row) {
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+      BoardSpace* boardSpace = getBoardSpacePtr(row, col);
+      boardSpace->hideMarker();
+    }
+  }
 }
 
 int ChessBoardModel::getMovedTwoSpacesTurn(int row, int col) {

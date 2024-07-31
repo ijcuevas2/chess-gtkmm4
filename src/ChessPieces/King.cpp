@@ -9,4 +9,13 @@ bool King::canMoveToTarget(Coordinates coordinates) {
 }
 
 void King::afterPieceMoved(Coordinates coordinates) {
+  this->setHasMoved();
+}
+
+bool King::getHasMoved() {
+  return hasMoved;
+}
+
+void King::setHasMoved() {
+  this->hasMoved = true;
 }

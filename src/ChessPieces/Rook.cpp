@@ -21,5 +21,14 @@ bool Rook::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
+bool Rook::getHasMoved() {
+  return hasMoved;
+}
+
+void Rook::setHasMoved() {
+  hasMoved = true;
+}
+
 void Rook::afterPieceMoved(Coordinates coordinates) {
+  setHasMoved();
 }

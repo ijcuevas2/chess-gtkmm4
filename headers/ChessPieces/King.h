@@ -12,13 +12,12 @@ class King : public virtual ChessPiece {
 private:
     bool hasMoved;
     bool isInCheck;
-    ChessBoardMediator & chessBoardMediator;
 public:
-    King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING),
-                                                                      chessBoardMediator(chessBoardMediator) {
+    King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING, chessBoardMediator) {
     }
     bool canMoveToTarget(Coordinates coordinates) override;
-    bool HasMoved() const;
+    bool getHasMoved();
+    void setHasMoved();
     bool IsInCheck() const;
     void afterPieceMoved(Coordinates coordinates) override;
     std::vector<Rook*> rooksEligibleForCastling();

@@ -2295,6 +2295,8 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessPieces/../Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../BoardSpace/BoardSpace.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \
@@ -2304,8 +2306,6 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Queen.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/King.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessPieces/Rook.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Pawn.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessBoardMediator/ChessBoardMediator.h \
@@ -2314,4 +2314,6 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/FenModel/FenModel.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h

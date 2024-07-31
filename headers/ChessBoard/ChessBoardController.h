@@ -6,6 +6,7 @@
 #define CHESS_CHESSBOARDCONTROLLER_H
 #include <gtkmm.h>
 #include "ChessBoardModel.h"
+#include "FenModel/FenModel.h"
 
 class ChessBoardController {
 public:
@@ -16,6 +17,7 @@ public:
     PlayerID getTurnPlayerId();
 private:
     ChessBoardModel chessBoardModel{};
+    FenModel fenModel{chessBoardModel};
 };
 
 

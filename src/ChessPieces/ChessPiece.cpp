@@ -63,7 +63,5 @@ bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
   return false;
 }
 
-ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {
-  this->playerId = playerId;
-  this->pieceType = pieceType;
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
 }

@@ -45,6 +45,7 @@ public:
     bool hasSelectedBoardSpacePtr();
     void clearSelectedBoardSpacePtr();
     bool isEmptyPiece(ChessPiece* chessPiecePtr);
+    bool isSelectedBoardSpacePtr(BoardSpace* boardSpacePtr);
     bool isSelectedBoardSpacePtr(int row, int col);
     bool isBoardSpaceOccupied(int row, int col);
     bool isTurnPlayersChessPiece(ChessPiece* chessPiece, int targetRow, int targetCol);
@@ -53,15 +54,20 @@ public:
     void clearBoard();
     PlayerID getTurnPlayerId();
     void updateTurnPlayerId();
+    bool isTurnPlayer(BoardSpace* boardSpacePtr);
     bool isTurnPlayer(ChessPiece* chessPiecePtr);
     bool isTurnPlayer(PlayerID playerId);
     int getCurrentTurn();
+    int getHalfMoveClock();
     void handlePawnMovement(const Coordinates & coordinates);
     void handleKingMovement(const Coordinates & coordinates);
     int getMovedTwoSpacesTurn(int row, int col);
+    void showHintMarkers(BoardSpace* boardSpacePtr);
+    void hideHintMarkers();
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
+    int halfMoveClock = 0;
     std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
     ChessBoardMediator chessBoardMediator{};

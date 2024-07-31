@@ -7,12 +7,13 @@
 #include "../../enum/PieceType.h"
 #include "../../enum/Player.h"
 #include "../Coordinates/Coordinates.h"
+#include "ChessBoardMediator/ChessBoardMediator.h"
 #include <iostream>
 
 class ChessPiece {
 public:
   void setChessPieceImagePath();
-  ChessPiece(PlayerID playerId, PieceType pieceType);
+  ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator);
   virtual ~ChessPiece();
   int actualDistance(int source, int dest);
   int absoluteDistance(int source, int dest);
@@ -27,5 +28,6 @@ public:
 protected:
   PieceType pieceType;
   PlayerID playerId;
+  ChessBoardMediator & chessBoardMediator;
 };
 #endif //CHESS_CHESSPIECE_H

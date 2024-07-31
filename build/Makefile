@@ -574,6 +574,30 @@ src/Coordinates/Coordinates.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.s
 .PHONY : src/Coordinates/Coordinates.cpp.s
 
+src/FenModel/FenModel.o: src/FenModel/FenModel.cpp.o
+.PHONY : src/FenModel/FenModel.o
+
+# target to build an object file
+src/FenModel/FenModel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o
+.PHONY : src/FenModel/FenModel.cpp.o
+
+src/FenModel/FenModel.i: src/FenModel/FenModel.cpp.i
+.PHONY : src/FenModel/FenModel.i
+
+# target to preprocess a source file
+src/FenModel/FenModel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.i
+.PHONY : src/FenModel/FenModel.cpp.i
+
+src/FenModel/FenModel.s: src/FenModel/FenModel.cpp.s
+.PHONY : src/FenModel/FenModel.s
+
+# target to generate assembly for a file
+src/FenModel/FenModel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.s
+.PHONY : src/FenModel/FenModel.cpp.s
+
 src/HintMarker/HintMarker.o: src/HintMarker/HintMarker.cpp.o
 .PHONY : src/HintMarker/HintMarker.o
 
@@ -662,6 +686,9 @@ help:
 	@echo "... src/Coordinates/Coordinates.o"
 	@echo "... src/Coordinates/Coordinates.i"
 	@echo "... src/Coordinates/Coordinates.s"
+	@echo "... src/FenModel/FenModel.o"
+	@echo "... src/FenModel/FenModel.i"
+	@echo "... src/FenModel/FenModel.s"
 	@echo "... src/HintMarker/HintMarker.o"
 	@echo "... src/HintMarker/HintMarker.i"
 	@echo "... src/HintMarker/HintMarker.s"

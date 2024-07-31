@@ -8,7 +8,7 @@
 
 class Bishop : public virtual ChessPiece {
 public:
-    Bishop(PlayerID playerId) : ChessPiece(playerId, PieceType::BISHOP) {
+    Bishop(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::BISHOP, chessBoardMediator) {
     }
     bool canMoveToTarget(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
