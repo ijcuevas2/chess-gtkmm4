@@ -335,7 +335,6 @@ void ChessBoardModel::hideHintMarkers() {
 int ChessBoardModel::getMovedTwoSpacesTurn(int row, int col) {
   ChessPiece *chessPiece = getChessPiecePtr(row, col);
   if (chessPiece != NULL && chessPiece->getPieceType() == PieceType::PAWN) {
-    // TODO: INVESTIGATE DYNAMIC CAST
     Pawn *pawn = dynamic_cast<Pawn*>(chessPiece);
     int turn = pawn->getMovedTwoSpacesTurn();
     return turn;
