@@ -39,6 +39,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o.d"
   "CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o"
   "CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o.d"
+  "CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.o"
+  "CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.o.d"
   "chess"
   "chess.pdb"
   "chess_resources.c"

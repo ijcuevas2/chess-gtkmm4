@@ -14,3 +14,11 @@ sigc::signal<bool(int, int)> ChessBoardMediator::getIsBoardIndexOccupiedSignal()
 sigc::signal<int(int, int)> ChessBoardMediator::getMovedTwoSpacesTurnSignal() {
   return getMovedTwoSpacesTurn;
 }
+
+sigc::signal<bool(PlayerID)> ChessBoardMediator::getIsTurnPlayerSignal() {
+  return isTurnPlayer;
+}
+
+sigc::signal<bool(PlayerID, int, int)> ChessBoardMediator::getIsTurnPlayersChessPieceSignal() {
+  return isTurnPlayersChessPiece;
+}

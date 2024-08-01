@@ -64,7 +64,6 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     bool isTurnPlayer = chessBoardModel.isTurnPlayer(boardSpacePtr);
     if (isTurnPlayer) {
       chessBoardModel.setSelectedBoardSpacePtr(boardSpacePtr);
-      chessBoardModel.showHintMarkers(boardSpacePtr);
     }
   } else {
     BoardSpace* selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
@@ -75,8 +74,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
       Coordinates coordinates(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
 
       bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(coordinates);
-      bool isTargetTurnPlayersChessPiece = chessBoardModel.isTurnPlayersChessPiece(srcChessPiecePtr, row, col);
-      if (canMoveToTarget && !isTargetTurnPlayersChessPiece && isTurnPlayer) {
+      if (canMoveToTarget) {
         ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {

@@ -2297,6 +2297,8 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../Coordinates/Coordinates.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../headers/MathUtils/MathUtils.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/BoardSpace.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \

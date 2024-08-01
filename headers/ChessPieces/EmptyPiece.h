@@ -12,6 +12,8 @@ public:
             : ChessPiece(PlayerID::NONE, PieceType::EMPTY_PIECE, chessBoardMediator) { }
     bool canMoveToTarget(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
+    bool isPieceBlockingPath(Coordinates coordinates) override;
+    Coordinates getNextCoordinates(Coordinates coordinates) override;
 };
 
 

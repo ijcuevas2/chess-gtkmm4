@@ -193,10 +193,32 @@ std::string FenModel::getCastlingAvailability() {
   return castlingAvailabilityEncoding;
 }
 
+bool FenModel::isRook(ChessPiece* chessPiecePtr) {
+  if (chessPiecePtr != nullptr) {
+    return chessPiecePtr->getPieceType() == PieceType::ROOK;
+  }
+
+  return false;
+}
+
+bool FenModel::isKing(ChessPiece* chessPiecePtr) {
+  if (chessPiecePtr != nullptr) {
+    return chessPiecePtr->getPieceType() == PieceType::KING;
+  }
+
+  return false;
+}
+
 bool FenModel::canCastle(int rookRow, int rookCol, int kingRow, int kingCol) {
   Rook* rookPtr = dynamic_cast<Rook*>(chessBoardModel.getChessPiecePtr(rookRow, rookCol));
-  bool hasRookMoved = rookPtr->getHasMoved();
   King* kingPtr = dynamic_cast<King*>(chessBoardModel.getChessPiecePtr(kingRow, kingCol));
-  bool hasKingMoved = kingPtr->getHasMoved();
+  bool hasRookMoved = true;
+  bool hasKingMoved = true;
+
+  if (isRook(rookPtr) && isKing(kingPtr)) {
+    hasRookMoved = rookPtr->getHasMoved();
+    hasKingMoved = kingPtr->getHasMoved();
+  }
+
   return !hasRookMoved && !hasKingMoved;
 }

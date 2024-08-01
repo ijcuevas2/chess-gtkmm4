@@ -4,22 +4,22 @@
 
 #include "../../headers/ChessPieces/Queen.h"
 
-bool Queen::canMoveToTarget(Coordinates coordinates) {
-  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
-  if (!baseCanMove) {
-    return false;
-  }
-
-  bool isHorizontalMovable = canMoveHorizontal(coordinates);
-  bool isDiagonalMovable = canMoveDiagonal(coordinates);
-  bool isValidPath = isHorizontalMovable || isDiagonalMovable;
-  if (isValidPath) {
-    bool isPieceBlockingPathValue = isPieceBlockingPath(coordinates);
-    return !isPieceBlockingPathValue;
-  }
-
-  return false;
-}
+//bool Queen::canMoveToTarget(Coordinates coordinates) {
+//  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
+//  if (!baseCanMove) {
+//    return false;
+//  }
+//
+//  bool isHorizontalMovable = canMoveHorizontal(coordinates);
+//  bool isDiagonalMovable = canMoveDiagonal(coordinates);
+//  bool isValidPath = isHorizontalMovable || isDiagonalMovable;
+//  if (isValidPath) {
+//    bool isPieceBlockingPathValue = isPieceBlockingPath(coordinates);
+//    return !isPieceBlockingPathValue;
+//  }
+//
+//  return false;
+//}
 
 bool Queen::canMoveDiagonal(Coordinates coordinates) {
   const int xAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
@@ -36,4 +36,12 @@ bool Queen::canMoveHorizontal(Coordinates coordinates) {
 }
 
 void Queen::afterPieceMoved(Coordinates coordinates) {
+}
+
+bool Queen::isPieceBlockingPath(Coordinates coordinates) {
+  return false;
+}
+
+Coordinates Queen::getNextCoordinates(Coordinates coordinates) {
+  return Coordinates(0, 0, 0, 0);
 }

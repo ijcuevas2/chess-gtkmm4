@@ -15,6 +15,7 @@ private:
 public:
     King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING, chessBoardMediator) {
     }
+
     bool canMoveToTarget(Coordinates coordinates) override;
     bool getHasMoved();
     void setHasMoved();
@@ -23,6 +24,8 @@ public:
     std::vector<Rook*> rooksEligibleForCastling();
     void addRookEligibleForCastling(std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
     void addRookEligibleForCastlingHelper(Rook* rookPtr, std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
+    bool isPieceBlockingPath(Coordinates coordinates) override;
+    Coordinates getNextCoordinates(Coordinates coordinates) override;
 };
 
 

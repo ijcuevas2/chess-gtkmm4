@@ -19,3 +19,11 @@ bool Knight::canMoveToTarget(Coordinates coordinates) {
 
 void Knight::afterPieceMoved(Coordinates coordinates) {
 }
+
+bool Knight::isPieceBlockingPath(Coordinates coordinates) {
+  return false;
+}
+
+Coordinates Knight::getNextCoordinates(Coordinates coordinates) {
+  return Coordinates(0, 0, 0, 0);
+}

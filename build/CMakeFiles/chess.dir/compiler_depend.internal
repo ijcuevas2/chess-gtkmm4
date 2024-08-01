@@ -1347,6 +1347,7 @@ CMakeFiles/chess.dir/main.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
@@ -1367,6 +1368,7 @@ CMakeFiles/chess.dir/main.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessImagesInfo/ChessImagesInfo.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
@@ -3647,10 +3649,12 @@ CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/HintMarker/HintMarker.h
@@ -5947,6 +5951,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Bishop.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/EmptyPiece.h
@@ -5964,6 +5969,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardController.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessImagesInfo/ChessImagesInfo.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
@@ -8264,6 +8270,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
@@ -8283,6 +8290,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessImagesInfo/ChessImagesInfo.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
@@ -10579,6 +10587,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
@@ -10601,6 +10610,7 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardView.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessImagesInfo/ChessImagesInfo.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
@@ -12877,6 +12887,7 @@ CMakeFiles/chess.dir/src/ChessBoardMediator/ChessBoardMediator.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-deprecated.h
@@ -15152,12 +15163,14 @@ CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessImagesInfo/ChessImagesInfo.h
@@ -17433,10 +17446,12 @@ CMakeFiles/chess.dir/src/ChessPieces/Bishop.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Bishop.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
@@ -19712,10 +19727,12 @@ CMakeFiles/chess.dir/src/ChessPieces/ChessPiece.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /opt/homebrew/Cellar/cairo/1.18.0/include/cairo/cairo-deprecated.h
@@ -21990,10 +22007,12 @@ CMakeFiles/chess.dir/src/ChessPieces/EmptyPiece.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/EmptyPiece.h
@@ -24269,10 +24288,12 @@ CMakeFiles/chess.dir/src/ChessPieces/King.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/King.h
@@ -26549,10 +26570,12 @@ CMakeFiles/chess.dir/src/ChessPieces/Knight.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Knight.h
@@ -28828,10 +28851,12 @@ CMakeFiles/chess.dir/src/ChessPieces/Pawn.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Pawn.h
@@ -31107,10 +31132,12 @@ CMakeFiles/chess.dir/src/ChessPieces/Queen.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Queen.h
@@ -33386,10 +33413,12 @@ CMakeFiles/chess.dir/src/ChessPieces/Rook.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdbool.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
@@ -35685,6 +35714,7 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
@@ -35707,6 +35737,7 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessImagesInfo/ChessImagesInfo.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
@@ -38009,6 +38040,7 @@ CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdint.h
  /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h
+ /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Bishop.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/EmptyPiece.h
@@ -38026,6 +38058,7 @@ CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessImagesInfo/ChessImagesInfo.h
  /Users/ismael/Documents/chess-gtkmm4/enum/PieceType.h
  /Users/ismael/Documents/chess-gtkmm4/enum/Player.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/ChessPiece.h
  /Users/ismael/Documents/chess-gtkmm4/headers/ChessPieces/Rook.h
@@ -39396,4 +39429,9 @@ CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o
 CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o
  /Users/ismael/Documents/chess-gtkmm4/src/HintMarker/HintMarker.cpp
  /Users/ismael/Documents/chess-gtkmm4/headers/HintMarker/HintMarker.h
+
+CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.o
+ /Users/ismael/Documents/chess-gtkmm4/src/MathUtils/MathUtils.cpp
+ /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h
+ /Users/ismael/Documents/chess-gtkmm4/headers/MathUtils/MathUtils.h
 

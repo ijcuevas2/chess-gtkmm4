@@ -49,6 +49,7 @@ public:
     bool isSelectedBoardSpacePtr(int row, int col);
     bool isBoardSpaceOccupied(int row, int col);
     bool isTurnPlayersChessPiece(ChessPiece* chessPiece, int targetRow, int targetCol);
+    bool isTurnPlayersChessPieceHelper(PlayerID playerId, int targetRow, int targetCol);
     void clearChessPiecePtr(ChessPiece* chessPiecePtr);
     void clearSelectedBoardSpace();
     void clearBoard();
@@ -56,11 +57,9 @@ public:
     void updateTurnPlayerId();
     bool isTurnPlayer(BoardSpace* boardSpacePtr);
     bool isTurnPlayer(ChessPiece* chessPiecePtr);
-    bool isTurnPlayer(PlayerID playerId);
+    bool isTurnPlayerHelper(PlayerID playerId);
     int getCurrentTurn();
     int getHalfMoveClock();
-    void handlePawnMovement(const Coordinates & coordinates);
-    void handleKingMovement(const Coordinates & coordinates);
     int getMovedTwoSpacesTurn(int row, int col);
     void showHintMarkers(BoardSpace* boardSpacePtr);
     void hideHintMarkers();

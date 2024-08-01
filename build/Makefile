@@ -622,6 +622,30 @@ src/HintMarker/HintMarker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.s
 .PHONY : src/HintMarker/HintMarker.cpp.s
 
+src/MathUtils/MathUtils.o: src/MathUtils/MathUtils.cpp.o
+.PHONY : src/MathUtils/MathUtils.o
+
+# target to build an object file
+src/MathUtils/MathUtils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.o
+.PHONY : src/MathUtils/MathUtils.cpp.o
+
+src/MathUtils/MathUtils.i: src/MathUtils/MathUtils.cpp.i
+.PHONY : src/MathUtils/MathUtils.i
+
+# target to preprocess a source file
+src/MathUtils/MathUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.i
+.PHONY : src/MathUtils/MathUtils.cpp.i
+
+src/MathUtils/MathUtils.s: src/MathUtils/MathUtils.cpp.s
+.PHONY : src/MathUtils/MathUtils.s
+
+# target to generate assembly for a file
+src/MathUtils/MathUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.s
+.PHONY : src/MathUtils/MathUtils.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -692,6 +716,9 @@ help:
 	@echo "... src/HintMarker/HintMarker.o"
 	@echo "... src/HintMarker/HintMarker.i"
 	@echo "... src/HintMarker/HintMarker.s"
+	@echo "... src/MathUtils/MathUtils.o"
+	@echo "... src/MathUtils/MathUtils.i"
+	@echo "... src/MathUtils/MathUtils.s"
 .PHONY : help
 
 

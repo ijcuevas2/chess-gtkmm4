@@ -19,3 +19,11 @@ bool King::getHasMoved() {
 void King::setHasMoved() {
   this->hasMoved = true;
 }
+
+bool King::isPieceBlockingPath(Coordinates coordinates) {
+  return false;
+}
+
+Coordinates King::getNextCoordinates(Coordinates coordinates) {
+  return Coordinates(0, 0, 0, 0);
+}

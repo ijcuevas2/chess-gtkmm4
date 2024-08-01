@@ -30,6 +30,8 @@ private:
     bool canWhiteQueenSideRookCastle();
     bool canWhiteKingSideRookCastle();
     std::string getCastlingAvailability();
+    bool isRook(ChessPiece* chessPiecePtr);
+    bool isKing(ChessPiece* chessPiecePtr);
 };
 
 #endif //CHESS_FENMODEL_H

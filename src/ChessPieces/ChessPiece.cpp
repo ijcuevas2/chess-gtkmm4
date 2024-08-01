@@ -53,14 +53,26 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
     return false;
   }
 
-  return true;
+  int srcRow = coordinates.getSrcRow();
+  int srcCol = coordinates.getSrcCol();
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+
+  const int xAbsDistance = absoluteDistance(srcRow, tgtRow);
+  const int yAbsDistance = absoluteDistance(srcCol, tgtCol);
+
+  bool isValidPath = xAbsDistance == yAbsDistance;
+  if (isValidPath) {
+    bool isClearPath = !isPieceBlockingPath(coordinates);
+    bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
+    bool isOpponentsChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
+    return isClearPath && isTurnPlayer && isOpponentsChessPiece;
+  }
+
+  return false;
 }
 
 void ChessPiece::afterPieceMoved(Coordinates coordinates) {
-}
-
-bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
-  return false;
 }
 
 ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {

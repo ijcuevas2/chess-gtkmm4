@@ -116,3 +116,11 @@ bool Pawn::canEnPassantCapture(Coordinates coordinates) {
 void Pawn::setUsedFirstMove() {
   this->isFirstMove = false;
 }
+
+bool Pawn::isPieceBlockingPath(Coordinates coordinates) {
+  return false;
+}
+
+Coordinates Pawn::getNextCoordinates(Coordinates coordinates) {
+  return Coordinates(0, 0, 0, 0);
+}
