@@ -3,7 +3,6 @@
 //
 
 #include "../../headers/ChessPieces/King.h"
-
 bool King::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
