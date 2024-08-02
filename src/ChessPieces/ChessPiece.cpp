@@ -74,8 +74,8 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   if (isValidPath) {
     bool isClearPath = !isPieceBlockingPath(coordinates);
     bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
-    bool isOpponentsChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
-    return isClearPath && isTurnPlayer && isOpponentsChessPiece;
+    bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
+    return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
   }
 
   return false;
