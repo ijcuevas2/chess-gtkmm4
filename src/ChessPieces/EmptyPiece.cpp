@@ -9,13 +9,6 @@ bool EmptyPiece::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
-void EmptyPiece::afterPieceMoved(Coordinates coordinates) {
-}
-
-bool EmptyPiece::isPieceBlockingPath(Coordinates coordinates) {
+bool EmptyPiece::getIsValidPath(Coordinates coordinates) {
   return false;
-}
-
-Coordinates EmptyPiece::getNextCoordinates(Coordinates coordinates) {
-  return Coordinates(0, 0, 0, 0);
 }

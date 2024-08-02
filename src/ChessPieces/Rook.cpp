@@ -47,7 +47,3 @@ void Rook::afterPieceMoved(Coordinates coordinates) {
 bool Rook::isPieceBlockingPath(Coordinates coordinates) {
   return false;
 }
-
-Coordinates Rook::getNextCoordinates(Coordinates coordinates) {
-  return Coordinates(0, 0, 0, 0);
-}

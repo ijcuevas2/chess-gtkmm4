@@ -20,12 +20,12 @@ public:
     bool getHasMoved();
     void setHasMoved();
     bool IsInCheck() const;
+    bool getIsValidPath(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
     std::vector<Rook*> rooksEligibleForCastling();
     void addRookEligibleForCastling(std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
     void addRookEligibleForCastlingHelper(Rook* rookPtr, std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
     bool isPieceBlockingPath(Coordinates coordinates) override;
-    Coordinates getNextCoordinates(Coordinates coordinates) override;
 };
 
 

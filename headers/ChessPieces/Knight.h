@@ -12,9 +12,6 @@ public:
     }
 
     bool getIsValidPath(Coordinates coordinates) override;
-    bool canMoveToTarget(Coordinates coordinates) override;
-    void afterPieceMoved(Coordinates coordinates) override;
-    bool isPieceBlockingPath(Coordinates coordinates) override;
 };
 
 

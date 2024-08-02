@@ -24,6 +24,6 @@ bool King::isPieceBlockingPath(Coordinates coordinates) {
   return false;
 }
 
-Coordinates King::getNextCoordinates(Coordinates coordinates) {
-  return Coordinates(0, 0, 0, 0);
+bool King::getIsValidPath(Coordinates coordinates) {
+  return false;
 }

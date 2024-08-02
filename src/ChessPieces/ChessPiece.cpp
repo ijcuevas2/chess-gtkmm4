@@ -75,12 +75,16 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
-Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
-  return Coordinates(0, 0, 0, 0);
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
+}
+
+bool ChessPiece::getIsValidPath(Coordinates coordinates) {
+  return false;
+}
+
+bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
+  return false;
 }
 
 void ChessPiece::afterPieceMoved(Coordinates coordinates) {
-}
-
-ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
 }
