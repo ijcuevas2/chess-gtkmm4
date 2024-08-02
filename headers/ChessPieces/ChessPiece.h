@@ -18,11 +18,12 @@ public:
   virtual ~ChessPiece();
   int actualDistance(int source, int dest);
   int absoluteDistance(int source, int dest);
-  virtual bool canMoveToTarget(Coordinates coordinates);
   bool canMoveToTargetHelper(Coordinates coordinates);
-  virtual void afterPieceMoved(Coordinates coordinates) = 0;
+  virtual bool getIsValidPath(Coordinates coordinates);
+  virtual bool canMoveToTarget(Coordinates coordinates);
+  virtual void afterPieceMoved(Coordinates coordinates);
   virtual bool isPieceBlockingPath(Coordinates coordinates) = 0;
-  virtual Coordinates getNextCoordinates(Coordinates coordinates) = 0;
+  virtual Coordinates getNextCoordinates(Coordinates coordinates);
   PlayerID getPlayerId();
   PieceType getPieceType();
   void setPlayerId(PlayerID playerId);

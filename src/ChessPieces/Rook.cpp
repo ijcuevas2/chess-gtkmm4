@@ -21,6 +21,17 @@
 //  return false;
 //}
 
+bool Rook::getIsValidPath(Coordinates coordinates) {
+  int srcRow = coordinates.getSrcRow();
+  int srcCol = coordinates.getSrcCol();
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  int xAbsDiff = absoluteDistance(srcRow, tgtRow);
+  int yAbsDiff = absoluteDistance(srcCol, tgtCol);
+  bool isValidPath = (xAbsDiff != 0 && yAbsDiff == 0) || (xAbsDiff == 0 && yAbsDiff != 0);
+  return isValidPath;
+}
+
 bool Rook::getHasMoved() {
   return hasMoved;
 }

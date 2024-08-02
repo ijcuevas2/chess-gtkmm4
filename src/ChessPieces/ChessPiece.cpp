@@ -62,23 +62,21 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
     return false;
   }
 
-  int srcRow = coordinates.getSrcRow();
-  int srcCol = coordinates.getSrcCol();
-  int tgtRow = coordinates.getTgtRow();
-  int tgtCol = coordinates.getTgtCol();
-
-  const int xAbsDistance = absoluteDistance(srcRow, tgtRow);
-  const int yAbsDistance = absoluteDistance(srcCol, tgtCol);
-
-  bool isValidPath = xAbsDistance == yAbsDistance;
+  bool isValidPath = getIsValidPath(coordinates);
   if (isValidPath) {
     bool isClearPath = !isPieceBlockingPath(coordinates);
     bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
+    int tgtRow = coordinates.getTgtRow();
+    int tgtCol = coordinates.getTgtCol();
     bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
     return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
   }
 
   return false;
+}
+
+Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
+  return Coordinates(0, 0, 0, 0);
 }
 
 void ChessPiece::afterPieceMoved(Coordinates coordinates) {

@@ -4,31 +4,6 @@
 
 #include "../../headers/ChessPieces/Bishop.h"
 
-//bool Bishop::canMoveToTarget(Coordinates coordinates) {
-//  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
-//  if (!baseCanMove) {
-//    return false;
-//  }
-//
-//  int srcRow = coordinates.getSrcRow();
-//  int srcCol = coordinates.getSrcCol();
-//  int tgtRow = coordinates.getTgtRow();
-//  int tgtCol = coordinates.getTgtCol();
-//
-//  const int xAbsDistance = absoluteDistance(srcRow, tgtRow);
-//  const int yAbsDistance = absoluteDistance(srcCol, tgtCol);
-//
-//  bool isValidPath = xAbsDistance == yAbsDistance;
-//  if (isValidPath) {
-//    bool isClearPath = !isPieceBlockingPath(coordinates);
-//    bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
-//    bool isOpponentsChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
-//    return isClearPath && isTurnPlayer && isOpponentsChessPiece;
-//  }
-//
-//  return false;
-//}
-
 Coordinates Bishop::getNextCoordinates(Coordinates coordinates) {
   int newSrcRow = coordinates.getSrcRow();
   int newSrcCol = coordinates.getSrcCol();
@@ -54,6 +29,17 @@ bool Bishop::isPieceBlockingPath(Coordinates coordinates) {
   }
 
   return false;
+}
+
+bool Bishop::getIsValidPath(Coordinates coordinates) {
+  int srcRow = coordinates.getSrcRow();
+  int srcCol = coordinates.getSrcCol();
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  const int xAbsDistance = absoluteDistance(srcRow, tgtRow);
+  const int yAbsDistance = absoluteDistance(srcCol, tgtCol);
+  bool isValidPathValue = xAbsDistance == yAbsDistance;
+  return isValidPathValue;
 }
 
 void Bishop::afterPieceMoved(Coordinates coordinates) {

@@ -16,5 +16,6 @@ public:
     void afterPieceMoved(Coordinates coordinates) override;
     bool isPieceBlockingPath(Coordinates coordinates) override;
     Coordinates getNextCoordinates(Coordinates coordinates) override;
+    bool getIsValidPath(Coordinates coordinates) override;
 };
 #endif //CHESS_QUEEN_H

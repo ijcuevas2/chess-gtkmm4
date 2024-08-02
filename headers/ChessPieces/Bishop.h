@@ -11,6 +11,7 @@ public:
     Bishop(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::BISHOP, chessBoardMediator) {
     }
     // bool canMoveToTarget(Coordinates coordinates) override;
+    bool getIsValidPath(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
     bool isPieceBlockingPath(Coordinates coordinates) override;
     Coordinates getNextCoordinates(Coordinates coordinates) override;

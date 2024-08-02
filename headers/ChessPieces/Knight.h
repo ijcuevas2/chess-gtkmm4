@@ -11,10 +11,10 @@ public:
     Knight(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::KNIGHT, chessBoardMediator) {
     }
 
+    bool getIsValidPath(Coordinates coordinates) override;
     bool canMoveToTarget(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
     bool isPieceBlockingPath(Coordinates coordinates) override;
-    Coordinates getNextCoordinates(Coordinates coordinates) override;
 };
 
 
