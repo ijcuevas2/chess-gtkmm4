@@ -36,7 +36,7 @@ void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
   this->setPieceType(chessPiecePtr->pieceType);
 }
 
-bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
+bool ChessPiece::canMoveToTargetHelper(Coordinates coordinates) {
   if (coordinates.getSrcRow() < 0 || coordinates.getSrcRow() > 7) {
     return false;
   }
@@ -50,6 +50,15 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   }
 
   if (coordinates.getTgtCol() < 0 || coordinates.getTgtCol() > 7) {
+    return false;
+  }
+
+  return true;
+}
+
+bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
+  bool canMoveToTargetHelperVal = canMoveToTargetHelper(coordinates);
+  if (canMoveToTargetHelperVal == false) {
     return false;
   }
 

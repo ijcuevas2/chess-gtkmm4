@@ -5,7 +5,7 @@
 #include "../../headers/ChessPieces/Pawn.h"
 
 bool Pawn::canMoveToTarget(Coordinates coordinates) {
-  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
+  bool baseCanMove = ChessPiece::canMoveToTargetHelper(coordinates);
   if (!baseCanMove) {
     return false;
   }
