@@ -77,10 +77,6 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
-bool ChessPiece::getIsValidPath(Coordinates coordinates) {
-  return false;
-}
-
 bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
   bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
   coordinates = getNextCoordinates(coordinates);
@@ -104,4 +100,8 @@ Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
 }
 
 void ChessPiece::afterPieceMoved(Coordinates coordinates) {
+}
+
+bool ChessPiece::getIsValidPath(Coordinates coordinates) {
+  return false;
 }

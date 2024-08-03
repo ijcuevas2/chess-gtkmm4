@@ -124,7 +124,3 @@ bool Pawn::isPieceBlockingPath(Coordinates coordinates) {
 bool Pawn::getIsValidPath(Coordinates coordinates) {
   return false;
 }
-
-Coordinates Pawn::getNextCoordinates(Coordinates coordinates) {
-  return Coordinates(0, 0, 0, 0);
-}

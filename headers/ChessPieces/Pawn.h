@@ -29,7 +29,6 @@ public:
     void afterPieceMoved(Coordinates coordinates) override;
     bool isPieceBlockingPath(Coordinates coordinates) override;
     bool getIsValidPath(Coordinates coordinates) override;
-    Coordinates getNextCoordinates(Coordinates coordinates) override;
     int getMovedTwoSpacesTurn();
 };
 
