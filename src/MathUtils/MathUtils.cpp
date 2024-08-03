@@ -24,3 +24,29 @@ bool MathUtils::isSourceEqualToTarget(Coordinates coordinates) {
   bool hasEqualRows = coordinates.getSrcRow() == coordinates.getTgtRow();
   return hasEqualCols && hasEqualRows;
 }
+
+Coordinates MathUtils::getNewDiagonalCoordinates(Coordinates coordinates) {
+  int newSrcRow = coordinates.getSrcRow();
+  int newSrcCol = coordinates.getSrcCol();
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  newSrcRow = MathUtils::getNextCoordinate(newSrcRow, tgtRow);
+  newSrcCol = MathUtils::getNextCoordinate(newSrcCol, tgtCol);
+  Coordinates newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
+  return newCoordinates;
+}
+
+Coordinates MathUtils::getNewHorizontalCoordinates(Coordinates coordinates) {
+  int newSrcRow = coordinates.getSrcRow();
+  int newSrcCol = coordinates.getSrcCol();
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  if (newSrcCol == tgtCol) {
+    newSrcRow = MathUtils::getNextCoordinate(newSrcRow, tgtRow);
+  } else {
+    newSrcCol = MathUtils::getNextCoordinate(newSrcCol, tgtCol);
+  }
+
+  Coordinates newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
+  return newCoordinates;
+}

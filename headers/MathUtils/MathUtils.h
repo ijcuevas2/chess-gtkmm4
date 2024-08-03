@@ -12,6 +12,8 @@ class MathUtils {
 public:
     static int getNextCoordinate(int source, int dest);
     static bool isSourceEqualToTarget(Coordinates coordinates);
+    static Coordinates getNewDiagonalCoordinates(Coordinates coordinates);
+    static Coordinates getNewHorizontalCoordinates(Coordinates coordinates);
 private:
     static int isPositive(int num);
 };

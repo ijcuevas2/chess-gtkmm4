@@ -98,7 +98,9 @@ bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
 }
 
 Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
-  return Coordinates(0, 0, 0, 0);
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  return Coordinates(tgtRow, tgtCol, tgtRow, tgtCol);
 }
 
 void ChessPiece::afterPieceMoved(Coordinates coordinates) {

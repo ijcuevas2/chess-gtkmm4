@@ -15,17 +15,7 @@ bool Rook::getIsValidPath(Coordinates coordinates) {
 }
 
 Coordinates Rook::getNextCoordinates(Coordinates coordinates) {
-  int newSrcRow = coordinates.getSrcRow();
-  int newSrcCol = coordinates.getSrcCol();
-  int tgtRow = coordinates.getTgtRow();
-  int tgtCol = coordinates.getTgtCol();
-  if (newSrcCol == tgtCol) {
-    newSrcRow = MathUtils::getNextCoordinate(newSrcRow, tgtRow);
-  } else {
-    newSrcCol = MathUtils::getNextCoordinate(newSrcCol, tgtCol);
-  }
-
-  Coordinates newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
+  Coordinates newCoordinates = MathUtils::getNewHorizontalCoordinates(coordinates);
   return newCoordinates;
 }
 

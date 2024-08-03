@@ -24,10 +24,12 @@ bool Queen::canMoveHorizontal(Coordinates coordinates) {
   return canMove;
 }
 
-bool Queen::isPieceBlockingPath(Coordinates coordinates) {
-  return false;
-}
-
 Coordinates Queen::getNextCoordinates(Coordinates coordinates) {
-  return Coordinates(0, 0, 0, 0);
+  if (canMoveHorizontal(coordinates)) {
+    Coordinates newCoordinates = MathUtils::getNewHorizontalCoordinates(coordinates);
+    return newCoordinates;
+  } else {
+    Coordinates newCoordinates = MathUtils::getNewDiagonalCoordinates(coordinates);
+    return newCoordinates;
+  }
 }

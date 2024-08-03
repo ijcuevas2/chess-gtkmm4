@@ -13,7 +13,6 @@ public:
 
     bool canMoveDiagonal(Coordinates coordinates);
     bool canMoveHorizontal(Coordinates coordinates);
-    bool isPieceBlockingPath(Coordinates coordinates) override;
     Coordinates getNextCoordinates(Coordinates coordinates) override;
     bool getIsValidPath(Coordinates coordinates) override;
 };
