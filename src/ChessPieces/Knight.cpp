@@ -13,3 +13,7 @@ bool Knight::getIsValidPath(Coordinates coordinates) {
   bool isValidPath = (xAbsDistance == 2 && yAbsDistance == 1) || (yAbsDistance == 2 && xAbsDistance == 1);
   return isValidPath;
 }
+
+bool Knight::isPieceBlockingPath(Coordinates coordinates) {
+  return false;
+}

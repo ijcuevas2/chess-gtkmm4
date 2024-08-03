@@ -12,6 +12,7 @@ public:
     }
 
     bool getIsValidPath(Coordinates coordinates) override;
+    bool isPieceBlockingPath(Coordinates coordinates) override;
 };
 
 

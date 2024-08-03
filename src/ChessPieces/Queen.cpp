@@ -24,9 +24,6 @@ bool Queen::canMoveHorizontal(Coordinates coordinates) {
   return canMove;
 }
 
-void Queen::afterPieceMoved(Coordinates coordinates) {
-}
-
 bool Queen::isPieceBlockingPath(Coordinates coordinates) {
   return false;
 }

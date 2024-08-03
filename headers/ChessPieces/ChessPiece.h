@@ -20,6 +20,7 @@ public:
   int absoluteDistance(int source, int dest);
   bool canMoveToTargetHelper(Coordinates coordinates);
   virtual bool getIsValidPath(Coordinates coordinates) = 0;
+  virtual Coordinates getNextCoordinates(Coordinates coordinates);
   virtual bool canMoveToTarget(Coordinates coordinates);
   virtual void afterPieceMoved(Coordinates coordinates);
   virtual bool isPieceBlockingPath(Coordinates coordinates);

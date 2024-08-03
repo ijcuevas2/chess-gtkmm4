@@ -3,6 +3,8 @@
 //
 
 #include "../../headers/ChessPieces/ChessPiece.h"
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
+}
 
 ChessPiece::~ChessPiece() {
 }
@@ -75,15 +77,28 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
-ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
-}
-
 bool ChessPiece::getIsValidPath(Coordinates coordinates) {
   return false;
 }
 
 bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
+  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+  coordinates = getNextCoordinates(coordinates);
+  while (!isSourceEqualToTarget) {
+    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(), coordinates.getSrcCol());
+    if (isOccupied) {
+      return true;
+    }
+
+    coordinates = getNextCoordinates(coordinates);
+    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+  }
+
   return false;
+}
+
+Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
+  return Coordinates(0, 0, 0, 0);
 }
 
 void ChessPiece::afterPieceMoved(Coordinates coordinates) {
