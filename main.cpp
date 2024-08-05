@@ -1,8 +1,4 @@
 #include <gtkmm.h>
-#include <iostream>
-#include <filesystem>
-#include <vector>
-#include <map>
 #include "headers/ChessWindow/ChessWindow.h"
 
 int main(int argc, char **argv) {

@@ -3,23 +3,19 @@
 //
 
 #include "../../headers/ChessPieces/Bishop.h"
-
-bool Bishop::canMoveToTarget(Coordinates coordinates) {
-  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
-  if (!baseCanMove) {
-    return false;
-  }
-
-  const int xAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
-  const int yAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
-  bool isValidPath = xAbsDistance == yAbsDistance;
-  if (isValidPath) {
-    bool isPieceBlockingPathValue = isPieceBlockingPath(coordinates);
-    return !isPieceBlockingPathValue;
-  }
-
-  return false;
+bool Bishop::getIsValidPath(Coordinates coordinates) {
+  int srcRow = coordinates.getSrcRow();
+  int srcCol = coordinates.getSrcCol();
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  const int xAbsDistance = absoluteDistance(srcRow, tgtRow);
+  const int yAbsDistance = absoluteDistance(srcCol, tgtCol);
+  bool isValidPathValue = xAbsDistance == yAbsDistance;
+  return isValidPathValue;
 }
 
-void Bishop::afterPieceMoved(Coordinates coordinates) {
+Coordinates Bishop::getNextCoordinates(Coordinates coordinates) {
+  Coordinates newCoordinates = MathUtils::getNewDiagonalCoordinates(coordinates);
+  return newCoordinates;
 }
+

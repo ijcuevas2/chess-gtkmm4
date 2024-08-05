@@ -2276,4 +2276,8 @@ CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/../../headers/ChessImagesInfo/../ChessPieces/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/../../headers/ChessImagesInfo/../ChessPieces/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/../../headers/ChessImagesInfo/../ChessPieces/../Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/../../headers/ChessImagesInfo/../ChessPieces/../../headers/MathUtils/MathUtils.h \
   /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h

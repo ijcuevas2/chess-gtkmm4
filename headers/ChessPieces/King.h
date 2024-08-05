@@ -12,18 +12,20 @@ class King : public virtual ChessPiece {
 private:
     bool hasMoved;
     bool isInCheck;
-    ChessBoardMediator & chessBoardMediator;
 public:
-    King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING),
-                                                                      chessBoardMediator(chessBoardMediator) {
+    King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING, chessBoardMediator) {
     }
+
     bool canMoveToTarget(Coordinates coordinates) override;
-    bool HasMoved() const;
+    bool getHasMoved();
+    void setHasMoved();
     bool IsInCheck() const;
+    bool getIsValidPath(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
     std::vector<Rook*> rooksEligibleForCastling();
     void addRookEligibleForCastling(std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
     void addRookEligibleForCastlingHelper(Rook* rookPtr, std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
+    bool isPieceBlockingPath(Coordinates coordinates) override;
 };
 
 

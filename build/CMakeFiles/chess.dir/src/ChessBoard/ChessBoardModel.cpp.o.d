@@ -901,15 +901,6 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/../Coordinates/Coordinates.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/BoardSpace.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Rook.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Knight.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Bishop.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Queen.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/King.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm.h \
   /opt/homebrew/Cellar/glibmm/2.80.0_1/include/glibmm-2.68/glibmm.h \
@@ -2304,6 +2295,17 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o: \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowcontrols.h \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowhandle.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/../../headers/MathUtils/MathUtils.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/BoardSpace.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Rook.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Knight.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Bishop.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Queen.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/King.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/Pawn.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../../headers/ChessBoardMediator/ChessBoardMediator.h \

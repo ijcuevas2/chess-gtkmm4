@@ -6,20 +6,21 @@
 #define CHESS_CHESSBOARDMEDIATOR_H
 #include <gtkmm.h>
 #include "Coordinates/Coordinates.h"
+#include "../enum/Player.h"
 
 class ChessBoardMediator {
 public:
-    sigc::signal<void(const Coordinates &)> getPawnMovementSignal();
-    sigc::signal<void(const Coordinates &)> getKingMovementSignal();
     sigc::signal<int()> getCurrentTurnSignal();
     sigc::signal<bool(int, int)> getIsBoardIndexOccupiedSignal();
     sigc::signal<int(int, int)> getMovedTwoSpacesTurnSignal();
+    sigc::signal<bool(PlayerID)> getIsTurnPlayerSignal();
+    sigc::signal<bool(PlayerID, int, int)> getIsTurnPlayersChessPieceSignal();
 private:
-    sigc::signal<void(const Coordinates &)> handlePawnMovement;
-    sigc::signal<void(const Coordinates &)> handleKingMovement;
     sigc::signal<int()> getCurrentTurn;
     sigc::signal<bool(int, int)> isBoardIndexOccupied;
     sigc::signal<int(int, int)> getMovedTwoSpacesTurn;
+    sigc::signal<bool(PlayerID)> isTurnPlayer;
+    sigc::signal<bool(PlayerID, int, int)> isTurnPlayersChessPiece;
 };
 
 

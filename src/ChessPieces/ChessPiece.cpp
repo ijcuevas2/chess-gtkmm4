@@ -3,6 +3,8 @@
 //
 
 #include "../../headers/ChessPieces/ChessPiece.h"
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
+}
 
 ChessPiece::~ChessPiece() {
 }
@@ -36,7 +38,7 @@ void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
   this->setPieceType(chessPiecePtr->pieceType);
 }
 
-bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
+bool ChessPiece::canMoveToTargetHelper(Coordinates coordinates) {
   if (coordinates.getSrcRow() < 0 || coordinates.getSrcRow() > 7) {
     return false;
   }
@@ -56,14 +58,50 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   return true;
 }
 
-void ChessPiece::afterPieceMoved(Coordinates coordinates) {
-}
+bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
+  bool canMoveToTargetHelperVal = canMoveToTargetHelper(coordinates);
+  if (canMoveToTargetHelperVal == false) {
+    return false;
+  }
 
-bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
+  bool isValidPath = getIsValidPath(coordinates);
+  if (isValidPath) {
+    bool isClearPath = !isPieceBlockingPath(coordinates);
+    bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
+    int tgtRow = coordinates.getTgtRow();
+    int tgtCol = coordinates.getTgtCol();
+    bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
+    return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
+  }
+
   return false;
 }
 
-ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType) {
-  this->playerId = playerId;
-  this->pieceType = pieceType;
+bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
+  coordinates = getNextCoordinates(coordinates);
+  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+  while (!isSourceEqualToTarget) {
+    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(), coordinates.getSrcCol());
+    if (isOccupied) {
+      return true;
+    }
+
+    coordinates = getNextCoordinates(coordinates);
+    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+  }
+
+  return false;
+}
+
+Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  return Coordinates(tgtRow, tgtCol, tgtRow, tgtCol);
+}
+
+void ChessPiece::afterPieceMoved(Coordinates coordinates) {
+}
+
+bool ChessPiece::getIsValidPath(Coordinates coordinates) {
+  return false;
 }

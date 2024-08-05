@@ -8,11 +8,12 @@
 
 class Queen : public virtual ChessPiece {
 public:
-    Queen(PlayerID playerId) : ChessPiece(playerId, PieceType::QUEEN) {
+    Queen(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::QUEEN, chessBoardMediator) {
     }
-    bool canMoveToTarget(Coordinates coordinates) override;
+
     bool canMoveDiagonal(Coordinates coordinates);
     bool canMoveHorizontal(Coordinates coordinates);
-    void afterPieceMoved(Coordinates coordinates) override;
+    Coordinates getNextCoordinates(Coordinates coordinates) override;
+    bool getIsValidPath(Coordinates coordinates) override;
 };
 #endif //CHESS_QUEEN_H

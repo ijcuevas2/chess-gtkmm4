@@ -100,6 +100,10 @@ add_executable(${PROJECT_NAME}
         headers/ChessBoard/ChessBoardController.h
         headers/ChessBoardMediator/ChessBoardMediator.h
         src/ChessBoardMediator/ChessBoardMediator.cpp
+        src/FenModel/FenModel.cpp
+        headers/FenModel/FenModel.h
+        src/MathUtils/MathUtils.cpp
+        headers/MathUtils/MathUtils.h
 )
 
 # Add dependency on chess_resources

@@ -9,5 +9,6 @@ bool EmptyPiece::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
-void EmptyPiece::afterPieceMoved(Coordinates coordinates) {
+bool EmptyPiece::getIsValidPath(Coordinates coordinates) {
+  return false;
 }

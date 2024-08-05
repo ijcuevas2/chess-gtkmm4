@@ -2268,6 +2268,9 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/widgetpaintable.h \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowcontrols.h \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowhandle.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardView.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardModel.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/filesystem \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/copy_options.h \
@@ -2288,13 +2291,14 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/path_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/u8path.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/ChessWindow.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardView.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/ChessBoardModel.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../headers/MathUtils/MathUtils.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/BoardSpace.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \
@@ -2304,8 +2308,6 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Queen.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/King.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/Rook.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Pawn.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessBoardMediator/ChessBoardMediator.h \
@@ -2314,4 +2316,6 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/FenModel/FenModel.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h

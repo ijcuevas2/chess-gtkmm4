@@ -3,23 +3,31 @@
 //
 
 #include "../../headers/ChessPieces/Rook.h"
-bool Rook::canMoveToTarget(Coordinates coordinates) {
-  bool baseCanMove = ChessPiece::canMoveToTarget(coordinates);
-  if (!baseCanMove) {
-    return false;
-  }
-
-  int xAbsDiff = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
-  int yAbsDiff = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
-
+bool Rook::getIsValidPath(Coordinates coordinates) {
+  int srcRow = coordinates.getSrcRow();
+  int srcCol = coordinates.getSrcCol();
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  int xAbsDiff = absoluteDistance(srcRow, tgtRow);
+  int yAbsDiff = absoluteDistance(srcCol, tgtCol);
   bool isValidPath = (xAbsDiff != 0 && yAbsDiff == 0) || (xAbsDiff == 0 && yAbsDiff != 0);
-  if (isValidPath) {
-    bool isPieceBlockingPathValue = isPieceBlockingPath(coordinates);
-    return !isPieceBlockingPathValue;
-  }
+  return isValidPath;
+}
 
-  return false;
+Coordinates Rook::getNextCoordinates(Coordinates coordinates) {
+  Coordinates newCoordinates = MathUtils::getNewHorizontalCoordinates(coordinates);
+  return newCoordinates;
 }
 
 void Rook::afterPieceMoved(Coordinates coordinates) {
+  setHasMoved();
 }
+
+bool Rook::getHasMoved() {
+  return hasMoved;
+}
+
+void Rook::setHasMoved() {
+  hasMoved = true;
+}
+

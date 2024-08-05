@@ -3,14 +3,6 @@
 //
 
 #include "ChessBoardMediator/ChessBoardMediator.h"
-sigc::signal<void(const Coordinates &)> ChessBoardMediator::getPawnMovementSignal() {
-  return handlePawnMovement;
-}
-
-sigc::signal<void(const Coordinates &)> ChessBoardMediator::getKingMovementSignal() {
-  return handleKingMovement;
-}
-
 sigc::signal<int()> ChessBoardMediator::getCurrentTurnSignal() {
   return getCurrentTurn;
 }
@@ -21,4 +13,12 @@ sigc::signal<bool(int, int)> ChessBoardMediator::getIsBoardIndexOccupiedSignal()
 
 sigc::signal<int(int, int)> ChessBoardMediator::getMovedTwoSpacesTurnSignal() {
   return getMovedTwoSpacesTurn;
+}
+
+sigc::signal<bool(PlayerID)> ChessBoardMediator::getIsTurnPlayerSignal() {
+  return isTurnPlayer;
+}
+
+sigc::signal<bool(PlayerID, int, int)> ChessBoardMediator::getIsTurnPlayersChessPieceSignal() {
+  return isTurnPlayersChessPiece;
 }
