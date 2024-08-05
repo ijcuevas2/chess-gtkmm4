@@ -5,6 +5,18 @@
 #ifndef CHESS_COORDINATES_H
 #define CHESS_COORDINATES_H
 
+class SinglePieceCoordinates {
+private:
+    int row;
+    int col;
+public:
+    SinglePieceCoordinates();
+    SinglePieceCoordinates(int row, int col);
+    int getRow();
+    int getCol();
+    void setRow(int row);
+    void setCol(int col);
+};
 
 class Coordinates {
 private:

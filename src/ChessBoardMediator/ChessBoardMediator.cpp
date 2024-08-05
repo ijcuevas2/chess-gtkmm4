@@ -22,3 +22,11 @@ sigc::signal<bool(PlayerID)> ChessBoardMediator::getIsTurnPlayerSignal() {
 sigc::signal<bool(PlayerID, int, int)> ChessBoardMediator::getIsTurnPlayersChessPieceSignal() {
   return isTurnPlayersChessPiece;
 }
+
+sigc::signal<void(PlayerID, int, int)> ChessBoardMediator::getUpdateKingPositionSignal() {
+  return updateKingPosition;
+}
+
+sigc::signal<bool(PlayerID, Coordinates)> ChessBoardMediator::getCanOpponentsPiecesPutKingInCheckSignal() {
+  return canOpponentsPiecesPutKingInCheck;
+}

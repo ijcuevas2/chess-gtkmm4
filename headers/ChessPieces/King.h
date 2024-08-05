@@ -3,8 +3,7 @@
 //
 
 #ifndef CHESS_KING_H
-#define CHESS_KING_H
-#include "ChessPiece.h"
+#define CHESS_KING_H #include "ChessPiece.h"
 #include "Rook.h"
 #include "ChessBoardMediator/ChessBoardMediator.h"
 
@@ -16,15 +15,13 @@ public:
     King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING, chessBoardMediator) {
     }
 
+    std::vector<Coordinates> getAdjacentCoordinates(Coordinates coordinates);
     bool canMoveToTarget(Coordinates coordinates) override;
     bool getHasMoved();
     void setHasMoved();
-    bool IsInCheck() const;
+    bool getIsInCheck();
     bool getIsValidPath(Coordinates coordinates) override;
     void afterPieceMoved(Coordinates coordinates) override;
-    std::vector<Rook*> rooksEligibleForCastling();
-    void addRookEligibleForCastling(std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
-    void addRookEligibleForCastlingHelper(Rook* rookPtr, std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
     bool isPieceBlockingPath(Coordinates coordinates) override;
 };
 

@@ -11,6 +11,7 @@ ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
   chessBoardMediator.getMovedTwoSpacesTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getMovedTwoSpacesTurn));
   chessBoardMediator.getIsTurnPlayerSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayerHelper));
   chessBoardMediator.getIsTurnPlayersChessPieceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayersChessPieceHelper));
+  chessBoardMediator.getUpdateKingPositionSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::updateKingPosition));
 }
 
 std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {
@@ -33,10 +34,18 @@ void ChessBoardModel::initBoard() {
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
       std::string pieceEncoding = boardConfig[row][col];
-      ChessPiece *chessPiece = this->initChessPiece(pieceEncoding);
-      setBoardSpaceAtIndex(chessPiece, row, col);
+      ChessPiece *chessPiecePtr = this->initChessPiece(pieceEncoding);
+      if (isKingChessPiecePtr(chessPiecePtr)) {
+        updateKingPosition(chessPiecePtr->getPlayerId(), row, col);
+      }
+
+      setBoardSpaceAtIndex(chessPiecePtr, row, col);
     }
   }
+}
+
+bool ChessBoardModel::isKingChessPiecePtr(ChessPiece* chessPiecePtr) {
+  return chessPiecePtr->getPieceType() == PieceType::KING;
 }
 
 void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessPiecePtr, int row, int col) {
@@ -337,4 +346,29 @@ int ChessBoardModel::getMovedTwoSpacesTurn(int row, int col) {
   }
 
   return -1;
+}
+
+void ChessBoardModel::updateKingPosition(PlayerID playerId, int row, int col) {
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    whiteKingCoordinates.setRow(row);
+    whiteKingCoordinates.setCol(col);
+  } else if (playerId == PlayerID::PLAYER_BLACK) {
+    blackKingCoordinates.setRow(row);
+    blackKingCoordinates.setCol(col);
+  }
+}
+
+bool ChessBoardModel::canOpponentsPiecesPutKingInCheck(PlayerID playerId, Coordinates coordinates) {
+  int tgtRow = coordinates.getTgtRow();
+  int tgtCol = coordinates.getTgtCol();
+  for (int row = 0; row < BOARD_SIZE; ++row) {
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(tgtRow, tgtCol);
+      Coordinates currCoordinates(row, col, tgtRow, tgtCol);
+      bool isCurrChessPieceAbleToCheck = chessPiecePtr->canMoveToTarget(currCoordinates);
+      if (isCurrChessPieceAbleToCheck) {
+        return true;
+      }
+    }
+  }
 }

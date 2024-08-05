@@ -4,11 +4,14 @@
 
 #include "../../headers/ChessPieces/King.h"
 bool King::canMoveToTarget(Coordinates coordinates) {
-  return false;
+}
+
+std::vector<Coordinates> King::getAdjacentCoordinates(Coordinates coordinates) {
 }
 
 void King::afterPieceMoved(Coordinates coordinates) {
   this->setHasMoved();
+  this->chessBoardMediator.getUpdateKingPositionSignal().emit(playerId, coordinates.getTgtRow(), coordinates.getTgtCol());
 }
 
 bool King::getHasMoved() {
@@ -25,4 +28,8 @@ bool King::isPieceBlockingPath(Coordinates coordinates) {
 
 bool King::getIsValidPath(Coordinates coordinates) {
   return false;
+}
+
+bool King::getIsInCheck() {
+  return this->isInCheck;
 }

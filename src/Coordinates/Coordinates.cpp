@@ -24,3 +24,25 @@ int Coordinates::getTgtRow() const {
 int Coordinates::getTgtCol() const {
   return _tgtCol;
 }
+
+SinglePieceCoordinates::SinglePieceCoordinates(): row(0), col(0) {
+}
+
+SinglePieceCoordinates::SinglePieceCoordinates(int row, int col): row(row), col(col) {
+}
+
+void SinglePieceCoordinates::setRow(int row) {
+  this->row = row;
+}
+
+void SinglePieceCoordinates::setCol(int col) {
+  this->col = col;
+}
+
+int SinglePieceCoordinates::getRow() {
+  return row;
+}
+
+int SinglePieceCoordinates::getCol() {
+  return col;
+}

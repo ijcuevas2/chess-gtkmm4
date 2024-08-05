@@ -50,7 +50,9 @@ public:
     bool isBoardSpaceOccupied(int row, int col);
     bool isTurnPlayersChessPiece(ChessPiece* chessPiece, int targetRow, int targetCol);
     bool isTurnPlayersChessPieceHelper(PlayerID playerId, int targetRow, int targetCol);
+    bool isKingChessPiecePtr(ChessPiece* chessPiecePtr);
     void clearChessPiecePtr(ChessPiece* chessPiecePtr);
+    void updateKingPosition(PlayerID playerId, int row, int col);
     void clearSelectedBoardSpace();
     void clearBoard();
     PlayerID getTurnPlayerId();
@@ -58,11 +60,14 @@ public:
     bool isTurnPlayer(BoardSpace* boardSpacePtr);
     bool isTurnPlayer(ChessPiece* chessPiecePtr);
     bool isTurnPlayerHelper(PlayerID playerId);
+    bool canOpponentsPiecesPutKingInCheck(PlayerID playerId, Coordinates coordinates);
     int getCurrentTurn();
     int getHalfMoveClock();
     int getMovedTwoSpacesTurn(int row, int col);
     void showHintMarkers(BoardSpace* boardSpacePtr);
     void hideHintMarkers();
+    SinglePieceCoordinates whiteKingCoordinates;
+    SinglePieceCoordinates blackKingCoordinates;
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
