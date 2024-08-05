@@ -24,11 +24,11 @@ public:
   virtual bool canMoveToTarget(Coordinates coordinates);
   virtual void afterPieceMoved(Coordinates coordinates);
   virtual bool isPieceBlockingPath(Coordinates coordinates);
+  void copyChessPiece(ChessPiece* chessPiecePtr);
   PlayerID getPlayerId();
   PieceType getPieceType();
   void setPlayerId(PlayerID playerId);
   void setPieceType(PieceType pieceType);
-  void copyChessPiece(ChessPiece* chessPiece);
 protected:
   PieceType pieceType;
   PlayerID playerId;

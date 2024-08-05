@@ -4,8 +4,15 @@
 
 #include "MathUtils/MathUtils.h"
 
-int MathUtils::isPositive(int num) {
+bool MathUtils::isPositive(int num) {
   return num < 0;
+}
+
+bool MathUtils::isPositiveVerticalDirection(Coordinates coordinates) {
+  int srcRow = coordinates.getSrcRow();
+  int tgtRow = coordinates.getTgtRow();
+  const int direction = tgtRow - srcRow;
+  return direction > 0;
 }
 
 int MathUtils::getNextCoordinate(int source, int dest) {

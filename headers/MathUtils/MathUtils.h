@@ -14,8 +14,8 @@ public:
     static bool isSourceEqualToTarget(Coordinates coordinates);
     static Coordinates getNewDiagonalCoordinates(Coordinates coordinates);
     static Coordinates getNewHorizontalCoordinates(Coordinates coordinates);
-private:
-    static int isPositive(int num);
+    static bool isPositive(int num);
+    static bool isPositiveVerticalDirection(Coordinates coordinates);
 };
 
 

@@ -78,8 +78,8 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
 }
 
 bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
-  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
   coordinates = getNextCoordinates(coordinates);
+  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
   while (!isSourceEqualToTarget) {
     bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(), coordinates.getSrcCol());
     if (isOccupied) {

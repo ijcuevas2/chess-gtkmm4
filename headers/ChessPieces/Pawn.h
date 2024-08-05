@@ -16,7 +16,6 @@ public:
     Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN, chessBoardMediator) {
     }
 
-    bool canMoveToTarget(Coordinates coordinates) override;
     bool isCorrectDirection(Coordinates coordinates);
     bool canMoveFirstTurn(Coordinates coordinates);
     bool canDiagonalCapture(Coordinates coordinates);
@@ -26,6 +25,7 @@ public:
     bool canEnPassantCapture(Coordinates coordinates);
     void setUsedFirstMove();
     void setMovedTwoSpacesTurn(Coordinates coordinates);
+    bool isMovingByTwoSpaces(Coordinates coordinates);
     void afterPieceMoved(Coordinates coordinates) override;
     bool isPieceBlockingPath(Coordinates coordinates) override;
     bool getIsValidPath(Coordinates coordinates) override;
