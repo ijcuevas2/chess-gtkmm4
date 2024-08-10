@@ -2294,9 +2294,9 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../enum/Player.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../Point2DPair/Point2DPair.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/Coordinates/Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Point2DPair/Point2DPair.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/../../headers/MathUtils/MathUtils.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../BoardSpace/BoardSpace.h \
@@ -2310,6 +2310,7 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Pawn.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../../headers/ChessBoardMediator/ChessBoardMediator.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/ChessImagesInfo.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \

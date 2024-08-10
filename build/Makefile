@@ -550,30 +550,6 @@ src/ChessWindow/ChessWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.s
 .PHONY : src/ChessWindow/ChessWindow.cpp.s
 
-src/Coordinates/Coordinates.o: src/Coordinates/Coordinates.cpp.o
-.PHONY : src/Coordinates/Coordinates.o
-
-# target to build an object file
-src/Coordinates/Coordinates.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.o
-.PHONY : src/Coordinates/Coordinates.cpp.o
-
-src/Coordinates/Coordinates.i: src/Coordinates/Coordinates.cpp.i
-.PHONY : src/Coordinates/Coordinates.i
-
-# target to preprocess a source file
-src/Coordinates/Coordinates.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.i
-.PHONY : src/Coordinates/Coordinates.cpp.i
-
-src/Coordinates/Coordinates.s: src/Coordinates/Coordinates.cpp.s
-.PHONY : src/Coordinates/Coordinates.s
-
-# target to generate assembly for a file
-src/Coordinates/Coordinates.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Coordinates/Coordinates.cpp.s
-.PHONY : src/Coordinates/Coordinates.cpp.s
-
 src/FenModel/FenModel.o: src/FenModel/FenModel.cpp.o
 .PHONY : src/FenModel/FenModel.o
 
@@ -646,6 +622,54 @@ src/MathUtils/MathUtils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.s
 .PHONY : src/MathUtils/MathUtils.cpp.s
 
+src/Point2D/Point2D.o: src/Point2D/Point2D.cpp.o
+.PHONY : src/Point2D/Point2D.o
+
+# target to build an object file
+src/Point2D/Point2D.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Point2D/Point2D.cpp.o
+.PHONY : src/Point2D/Point2D.cpp.o
+
+src/Point2D/Point2D.i: src/Point2D/Point2D.cpp.i
+.PHONY : src/Point2D/Point2D.i
+
+# target to preprocess a source file
+src/Point2D/Point2D.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Point2D/Point2D.cpp.i
+.PHONY : src/Point2D/Point2D.cpp.i
+
+src/Point2D/Point2D.s: src/Point2D/Point2D.cpp.s
+.PHONY : src/Point2D/Point2D.s
+
+# target to generate assembly for a file
+src/Point2D/Point2D.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Point2D/Point2D.cpp.s
+.PHONY : src/Point2D/Point2D.cpp.s
+
+src/Point2DPair/Point2DPair.o: src/Point2DPair/Point2DPair.cpp.o
+.PHONY : src/Point2DPair/Point2DPair.o
+
+# target to build an object file
+src/Point2DPair/Point2DPair.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Point2DPair/Point2DPair.cpp.o
+.PHONY : src/Point2DPair/Point2DPair.cpp.o
+
+src/Point2DPair/Point2DPair.i: src/Point2DPair/Point2DPair.cpp.i
+.PHONY : src/Point2DPair/Point2DPair.i
+
+# target to preprocess a source file
+src/Point2DPair/Point2DPair.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Point2DPair/Point2DPair.cpp.i
+.PHONY : src/Point2DPair/Point2DPair.cpp.i
+
+src/Point2DPair/Point2DPair.s: src/Point2DPair/Point2DPair.cpp.s
+.PHONY : src/Point2DPair/Point2DPair.s
+
+# target to generate assembly for a file
+src/Point2DPair/Point2DPair.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Point2DPair/Point2DPair.cpp.s
+.PHONY : src/Point2DPair/Point2DPair.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -707,9 +731,6 @@ help:
 	@echo "... src/ChessWindow/ChessWindow.o"
 	@echo "... src/ChessWindow/ChessWindow.i"
 	@echo "... src/ChessWindow/ChessWindow.s"
-	@echo "... src/Coordinates/Coordinates.o"
-	@echo "... src/Coordinates/Coordinates.i"
-	@echo "... src/Coordinates/Coordinates.s"
 	@echo "... src/FenModel/FenModel.o"
 	@echo "... src/FenModel/FenModel.i"
 	@echo "... src/FenModel/FenModel.s"
@@ -719,6 +740,12 @@ help:
 	@echo "... src/MathUtils/MathUtils.o"
 	@echo "... src/MathUtils/MathUtils.i"
 	@echo "... src/MathUtils/MathUtils.s"
+	@echo "... src/Point2D/Point2D.o"
+	@echo "... src/Point2D/Point2D.i"
+	@echo "... src/Point2D/Point2D.s"
+	@echo "... src/Point2DPair/Point2DPair.o"
+	@echo "... src/Point2DPair/Point2DPair.i"
+	@echo "... src/Point2DPair/Point2DPair.s"
 .PHONY : help
 
 

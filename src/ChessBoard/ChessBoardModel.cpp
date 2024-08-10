@@ -320,7 +320,7 @@ void ChessBoardModel::showHintMarkers(BoardSpace* boardSpacePtr) {
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
       BoardSpace* boardSpace = getBoardSpacePtr(row, col);
-      Coordinates coordinates(srcRow, srcCol, row, col);
+      Point2DPair coordinates(srcRow, srcCol, row, col);
       if (chessPiecePtr->canMoveToTarget(coordinates)) {
         boardSpace->showMarker();
       }
@@ -358,13 +358,13 @@ void ChessBoardModel::updateKingPosition(PlayerID playerId, int row, int col) {
   }
 }
 
-bool ChessBoardModel::canOpponentsPiecesPutKingInCheck(PlayerID playerId, Coordinates coordinates) {
+bool ChessBoardModel::canOpponentsPiecesPutKingInCheck(PlayerID playerId, Point2DPair coordinates) {
   int tgtRow = coordinates.getTgtRow();
   int tgtCol = coordinates.getTgtCol();
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
       ChessPiece* chessPiecePtr = getChessPiecePtr(tgtRow, tgtCol);
-      Coordinates currCoordinates(row, col, tgtRow, tgtCol);
+      Point2DPair currCoordinates(row, col, tgtRow, tgtCol);
       bool isCurrChessPieceAbleToCheck = chessPiecePtr->canMoveToTarget(currCoordinates);
       if (isCurrChessPieceAbleToCheck) {
         return true;

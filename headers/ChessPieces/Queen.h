@@ -11,9 +11,9 @@ public:
     Queen(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::QUEEN, chessBoardMediator) {
     }
 
-    bool canMoveDiagonal(Coordinates coordinates);
-    bool canMoveHorizontal(Coordinates coordinates);
-    Coordinates getNextCoordinates(Coordinates coordinates) override;
-    bool getIsValidPath(Coordinates coordinates) override;
+    bool canMoveDiagonal(Point2DPair coordinates);
+    bool canMoveHorizontal(Point2DPair coordinates);
+    Point2DPair getNextCoordinates(Point2DPair coordinates) override;
+    bool getIsValidPath(Point2DPair coordinates) override;
 };
 #endif //CHESS_QUEEN_H

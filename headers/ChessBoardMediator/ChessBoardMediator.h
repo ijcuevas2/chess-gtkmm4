@@ -5,7 +5,7 @@
 #ifndef CHESS_CHESSBOARDMEDIATOR_H
 #define CHESS_CHESSBOARDMEDIATOR_H
 #include <gtkmm.h>
-#include "Coordinates/Coordinates.h"
+#include "Point2DPair/Point2DPair.h"
 #include "../enum/Player.h"
 
 class ChessBoardMediator {
@@ -16,7 +16,7 @@ public:
     sigc::signal<bool(PlayerID)> getIsTurnPlayerSignal();
     sigc::signal<bool(PlayerID, int, int)> getIsTurnPlayersChessPieceSignal();
     sigc::signal<void(PlayerID, int, int)> getUpdateKingPositionSignal();
-    sigc::signal<bool(PlayerID, Coordinates)> getCanOpponentsPiecesPutKingInCheckSignal();
+    sigc::signal<bool(PlayerID, Point2DPair)> getCanOpponentsPiecesPutKingInCheckSignal();
 private:
     sigc::signal<int()> getCurrentTurn;
     sigc::signal<bool(int, int)> isBoardIndexOccupied;
@@ -24,7 +24,7 @@ private:
     sigc::signal<bool(PlayerID)> isTurnPlayer;
     sigc::signal<bool(PlayerID, int, int)> isTurnPlayersChessPiece;
     sigc::signal<void(PlayerID, int, int)> updateKingPosition;
-    sigc::signal<bool(PlayerID, Coordinates)> canOpponentsPiecesPutKingInCheck;
+    sigc::signal<bool(PlayerID, Point2DPair)> canOpponentsPiecesPutKingInCheck;
 };
 
 

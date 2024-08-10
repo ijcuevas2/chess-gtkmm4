@@ -4,7 +4,7 @@
 
 #include "../../headers/ChessPieces/Pawn.h"
 
-bool Pawn::getIsValidPath(Coordinates coordinates) {
+bool Pawn::getIsValidPath(Point2DPair coordinates) {
   bool isCorrectDirectionValue = isCorrectDirection(coordinates);
   if (!isCorrectDirectionValue) {
     return false;
@@ -20,7 +20,7 @@ bool Pawn::getIsValidPath(Coordinates coordinates) {
   }
 }
 
-bool Pawn::canMoveFirstTurn(Coordinates coordinates) {
+bool Pawn::canMoveFirstTurn(Point2DPair coordinates) {
   int xAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
   int yAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
 
@@ -28,7 +28,7 @@ bool Pawn::canMoveFirstTurn(Coordinates coordinates) {
   return canMove;
 }
 
-void Pawn::afterPieceMoved(Coordinates coordinates) {
+void Pawn::afterPieceMoved(Point2DPair coordinates) {
   if (isFirstMove) {
     setUsedFirstMove();
     setMovedTwoSpacesTurn(coordinates);
@@ -36,7 +36,7 @@ void Pawn::afterPieceMoved(Coordinates coordinates) {
 }
 
 
-void Pawn::setMovedTwoSpacesTurn(Coordinates coordinates) {
+void Pawn::setMovedTwoSpacesTurn(Point2DPair coordinates) {
   bool movedTwoSpacesResult = isMovingByTwoSpaces(coordinates);
   if (movedTwoSpacesResult) {
     int turn = chessBoardMediator.getCurrentTurnSignal().emit();
@@ -44,7 +44,7 @@ void Pawn::setMovedTwoSpacesTurn(Coordinates coordinates) {
   }
 }
 
-bool Pawn::isMovingByTwoSpaces(Coordinates coordinates) {
+bool Pawn::isMovingByTwoSpaces(Point2DPair coordinates) {
   int absoluteDistanceValue = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
   bool movedTwoSpacesResult = absoluteDistanceValue == 2;
   return movedTwoSpacesResult;
@@ -54,7 +54,7 @@ int Pawn::getMovedTwoSpacesTurn() {
   return this->movedTwoSpacesTurn;
 }
 
-bool Pawn::isCorrectDirection(Coordinates coordinates) {
+bool Pawn::isCorrectDirection(Point2DPair coordinates) {
   int yDistance = coordinates.getTgtRow() - coordinates.getSrcRow();
   if (playerId == PlayerID::PLAYER_WHITE) {
     return yDistance < 0;
@@ -65,7 +65,7 @@ bool Pawn::isCorrectDirection(Coordinates coordinates) {
   return false;
 }
 
-bool Pawn::canCapture(Coordinates coordinates) {
+bool Pawn::canCapture(Point2DPair coordinates) {
   bool isDiagonalMoveValue = isDiagonalMove(coordinates);
   if (isDiagonalMoveValue) {
     bool canDiagonalCaptureValue = canDiagonalCapture(coordinates);
@@ -82,20 +82,20 @@ bool Pawn::canCapture(Coordinates coordinates) {
   return false;
 }
 
-bool Pawn::canDiagonalCapture(Coordinates coordinates) {
+bool Pawn::canDiagonalCapture(Point2DPair coordinates) {
   bool isIndexOccupiedResult = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(),
                                                                                        coordinates.getSrcCol());
   return isIndexOccupiedResult;
 }
 
-bool Pawn::isDiagonalMove(Coordinates coordinates) {
+bool Pawn::isDiagonalMove(Point2DPair coordinates) {
   int xAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
   int yAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
   bool isDiagonalMoveResult = xAbsDistance == 1 && yAbsDistance == 1;
   return isDiagonalMoveResult;
 }
 
-bool Pawn::canMoveSingleSpaceForward(Coordinates coordinates) {
+bool Pawn::canMoveSingleSpaceForward(Point2DPair coordinates) {
   int xAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
   int yAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
 
@@ -105,7 +105,7 @@ bool Pawn::canMoveSingleSpaceForward(Coordinates coordinates) {
   return canMove;
 }
 
-bool Pawn::canEnPassantCapture(Coordinates coordinates) {
+bool Pawn::canEnPassantCapture(Point2DPair coordinates) {
   bool isIndexOccupiedValue = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(),
                                                                                       coordinates.getSrcCol());
   if (!isIndexOccupiedValue) {
@@ -122,7 +122,7 @@ void Pawn::setUsedFirstMove() {
   this->isFirstMove = false;
 }
 
-bool Pawn::isPieceBlockingPath(Coordinates coordinates) {
+bool Pawn::isPieceBlockingPath(Point2DPair coordinates) {
   bool positiveVerticalDirection = MathUtils::isPositiveVerticalDirection(coordinates);
   int direction = positiveVerticalDirection ? 1 : -1;
   int nextRowCoordinate = coordinates.getSrcRow() + direction;

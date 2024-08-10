@@ -6,16 +6,16 @@
 #define CHESS_MATHUTILS_H
 
 
-#include "Coordinates/Coordinates.h"
+#include "Point2DPair/Point2DPair.h"
 
 class MathUtils {
 public:
     static int getNextCoordinate(int source, int dest);
-    static bool isSourceEqualToTarget(Coordinates coordinates);
-    static Coordinates getNewDiagonalCoordinates(Coordinates coordinates);
-    static Coordinates getNewHorizontalCoordinates(Coordinates coordinates);
+    static bool isSourceEqualToTarget(Point2DPair coordinates);
+    static Point2DPair getNewDiagonalCoordinates(Point2DPair coordinates);
+    static Point2DPair getNewHorizontalCoordinates(Point2DPair coordinates);
     static bool isPositive(int num);
-    static bool isPositiveVerticalDirection(Coordinates coordinates);
+    static bool isPositiveVerticalDirection(Point2DPair coordinates);
 };
 
 

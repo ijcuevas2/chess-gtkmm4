@@ -3,7 +3,7 @@
 //
 
 #include "../../headers/ChessPieces/Knight.h"
-bool Knight::getIsValidPath(Coordinates coordinates) {
+bool Knight::getIsValidPath(Point2DPair coordinates) {
   int srcRow = coordinates.getSrcRow();
   int srcCol = coordinates.getSrcCol();
   int tgtRow = coordinates.getTgtRow();
@@ -14,6 +14,6 @@ bool Knight::getIsValidPath(Coordinates coordinates) {
   return isValidPath;
 }
 
-bool Knight::isPieceBlockingPath(Coordinates coordinates) {
+bool Knight::isPieceBlockingPath(Point2DPair coordinates) {
   return false;
 }

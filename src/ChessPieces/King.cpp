@@ -3,13 +3,13 @@
 //
 
 #include "../../headers/ChessPieces/King.h"
-bool King::canMoveToTarget(Coordinates coordinates) {
+bool King::canMoveToTarget(Point2DPair coordinates) {
 }
 
-std::vector<Coordinates> King::getAdjacentCoordinates(Coordinates coordinates) {
+std::vector<Point2DPair> King::getAdjacentCoordinates(Point2DPair coordinates) {
 }
 
-void King::afterPieceMoved(Coordinates coordinates) {
+void King::afterPieceMoved(Point2DPair coordinates) {
   this->setHasMoved();
   this->chessBoardMediator.getUpdateKingPositionSignal().emit(playerId, coordinates.getTgtRow(), coordinates.getTgtCol());
 }
@@ -22,11 +22,11 @@ void King::setHasMoved() {
   this->hasMoved = true;
 }
 
-bool King::isPieceBlockingPath(Coordinates coordinates) {
+bool King::isPieceBlockingPath(Point2DPair coordinates) {
   return false;
 }
 
-bool King::getIsValidPath(Coordinates coordinates) {
+bool King::getIsValidPath(Point2DPair coordinates) {
   return false;
 }
 

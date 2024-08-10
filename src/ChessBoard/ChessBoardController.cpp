@@ -70,7 +70,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     bool isSelectedBoardSpacePtr = chessBoardModel.isSelectedBoardSpacePtr(row, col);
     if (!isSelectedBoardSpacePtr) {
       ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
-      Coordinates coordinates(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
+      Point2DPair coordinates(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
       bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(coordinates);
       if (canMoveToTarget) {
         ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);

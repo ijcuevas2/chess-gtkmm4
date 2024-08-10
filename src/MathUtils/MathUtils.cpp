@@ -8,7 +8,7 @@ bool MathUtils::isPositive(int num) {
   return num < 0;
 }
 
-bool MathUtils::isPositiveVerticalDirection(Coordinates coordinates) {
+bool MathUtils::isPositiveVerticalDirection(Point2DPair coordinates) {
   int srcRow = coordinates.getSrcRow();
   int tgtRow = coordinates.getTgtRow();
   const int direction = tgtRow - srcRow;
@@ -26,24 +26,24 @@ int MathUtils::getNextCoordinate(int source, int dest) {
   return source;
 }
 
-bool MathUtils::isSourceEqualToTarget(Coordinates coordinates) {
+bool MathUtils::isSourceEqualToTarget(Point2DPair coordinates) {
   bool hasEqualCols = coordinates.getSrcCol() == coordinates.getTgtCol();
   bool hasEqualRows = coordinates.getSrcRow() == coordinates.getTgtRow();
   return hasEqualCols && hasEqualRows;
 }
 
-Coordinates MathUtils::getNewDiagonalCoordinates(Coordinates coordinates) {
+Point2DPair MathUtils::getNewDiagonalCoordinates(Point2DPair coordinates) {
   int newSrcRow = coordinates.getSrcRow();
   int newSrcCol = coordinates.getSrcCol();
   int tgtRow = coordinates.getTgtRow();
   int tgtCol = coordinates.getTgtCol();
   newSrcRow = MathUtils::getNextCoordinate(newSrcRow, tgtRow);
   newSrcCol = MathUtils::getNextCoordinate(newSrcCol, tgtCol);
-  Coordinates newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
+  Point2DPair newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
   return newCoordinates;
 }
 
-Coordinates MathUtils::getNewHorizontalCoordinates(Coordinates coordinates) {
+Point2DPair MathUtils::getNewHorizontalCoordinates(Point2DPair coordinates) {
   int newSrcRow = coordinates.getSrcRow();
   int newSrcCol = coordinates.getSrcCol();
   int tgtRow = coordinates.getTgtRow();
@@ -54,6 +54,6 @@ Coordinates MathUtils::getNewHorizontalCoordinates(Coordinates coordinates) {
     newSrcCol = MathUtils::getNextCoordinate(newSrcCol, tgtCol);
   }
 
-  Coordinates newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
+  Point2DPair newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
   return newCoordinates;
 }

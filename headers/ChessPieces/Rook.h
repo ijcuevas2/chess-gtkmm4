@@ -11,9 +11,9 @@ public:
     Rook(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::ROOK, chessBoardMediator) {
     }
 
-    bool getIsValidPath(Coordinates coordinates) override;
-    Coordinates getNextCoordinates(Coordinates coordinates) override;
-    void afterPieceMoved(Coordinates coordinates) override;
+    bool getIsValidPath(Point2DPair coordinates) override;
+    Point2DPair getNextCoordinates(Point2DPair coordinates) override;
+    void afterPieceMoved(Point2DPair coordinates) override;
     void setHasMoved();
     bool getHasMoved();
 private:

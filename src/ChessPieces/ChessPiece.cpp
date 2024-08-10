@@ -38,7 +38,7 @@ void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
   this->setPieceType(chessPiecePtr->pieceType);
 }
 
-bool ChessPiece::canMoveToTargetHelper(Coordinates coordinates) {
+bool ChessPiece::hasValidCoordinates(Point2DPair coordinates) {
   if (coordinates.getSrcRow() < 0 || coordinates.getSrcRow() > 7) {
     return false;
   }
@@ -58,9 +58,9 @@ bool ChessPiece::canMoveToTargetHelper(Coordinates coordinates) {
   return true;
 }
 
-bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
-  bool canMoveToTargetHelperVal = canMoveToTargetHelper(coordinates);
-  if (canMoveToTargetHelperVal == false) {
+bool ChessPiece::canMoveToTarget(Point2DPair coordinates) {
+  bool hasValidCoordinatesVal = hasValidCoordinates(coordinates);
+  if (hasValidCoordinatesVal == false) {
     return false;
   }
 
@@ -77,7 +77,7 @@ bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
   return false;
 }
 
-bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
+bool ChessPiece::isPieceBlockingPath(Point2DPair coordinates) {
   coordinates = getNextCoordinates(coordinates);
   bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
   while (!isSourceEqualToTarget) {
@@ -93,15 +93,15 @@ bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
   return false;
 }
 
-Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
+Point2DPair ChessPiece::getNextCoordinates(Point2DPair coordinates) {
   int tgtRow = coordinates.getTgtRow();
   int tgtCol = coordinates.getTgtCol();
-  return Coordinates(tgtRow, tgtCol, tgtRow, tgtCol);
+  return Point2DPair(tgtRow, tgtCol, tgtRow, tgtCol);
 }
 
-void ChessPiece::afterPieceMoved(Coordinates coordinates) {
+void ChessPiece::afterPieceMoved(Point2DPair coordinates) {
 }
 
-bool ChessPiece::getIsValidPath(Coordinates coordinates) {
+bool ChessPiece::getIsValidPath(Point2DPair coordinates) {
   return false;
 }

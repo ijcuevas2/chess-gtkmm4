@@ -3,7 +3,7 @@
 //
 
 #include "../../headers/ChessPieces/Bishop.h"
-bool Bishop::getIsValidPath(Coordinates coordinates) {
+bool Bishop::getIsValidPath(Point2DPair coordinates) {
   int srcRow = coordinates.getSrcRow();
   int srcCol = coordinates.getSrcCol();
   int tgtRow = coordinates.getTgtRow();
@@ -14,8 +14,8 @@ bool Bishop::getIsValidPath(Coordinates coordinates) {
   return isValidPathValue;
 }
 
-Coordinates Bishop::getNextCoordinates(Coordinates coordinates) {
-  Coordinates newCoordinates = MathUtils::getNewDiagonalCoordinates(coordinates);
+Point2DPair Bishop::getNextCoordinates(Point2DPair coordinates) {
+  Point2DPair newCoordinates = MathUtils::getNewDiagonalCoordinates(coordinates);
   return newCoordinates;
 }
 

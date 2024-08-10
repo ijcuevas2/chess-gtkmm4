@@ -16,19 +16,19 @@ public:
     Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN, chessBoardMediator) {
     }
 
-    bool isCorrectDirection(Coordinates coordinates);
-    bool canMoveFirstTurn(Coordinates coordinates);
-    bool canDiagonalCapture(Coordinates coordinates);
-    bool canMoveSingleSpaceForward(Coordinates coordinates);
-    bool isDiagonalMove(Coordinates coordinates);
-    bool canCapture(Coordinates coordinates);
-    bool canEnPassantCapture(Coordinates coordinates);
+    bool isCorrectDirection(Point2DPair coordinates);
+    bool canMoveFirstTurn(Point2DPair coordinates);
+    bool canDiagonalCapture(Point2DPair coordinates);
+    bool canMoveSingleSpaceForward(Point2DPair coordinates);
+    bool isDiagonalMove(Point2DPair coordinates);
+    bool canCapture(Point2DPair coordinates);
+    bool canEnPassantCapture(Point2DPair coordinates);
     void setUsedFirstMove();
-    void setMovedTwoSpacesTurn(Coordinates coordinates);
-    bool isMovingByTwoSpaces(Coordinates coordinates);
-    void afterPieceMoved(Coordinates coordinates) override;
-    bool isPieceBlockingPath(Coordinates coordinates) override;
-    bool getIsValidPath(Coordinates coordinates) override;
+    void setMovedTwoSpacesTurn(Point2DPair coordinates);
+    bool isMovingByTwoSpaces(Point2DPair coordinates);
+    void afterPieceMoved(Point2DPair coordinates) override;
+    bool isPieceBlockingPath(Point2DPair coordinates) override;
+    bool getIsValidPath(Point2DPair coordinates) override;
     int getMovedTwoSpacesTurn();
 };
 

@@ -80,8 +80,8 @@ add_executable(${PROJECT_NAME}
         headers/ChessPieces/ChessPiece.h
         src/ChessPieces/EmptyPiece.cpp
         headers/ChessPieces/EmptyPiece.h
-        src/Coordinates/Coordinates.cpp
-        headers/Coordinates/Coordinates.h
+        src/Point2DPair/Point2DPair.cpp
+        headers/Point2DPair/Point2DPair.h
         enum/Player.h
         enum/PieceType.h
         src/BoardSpace/BoardSpace.cpp
@@ -104,6 +104,8 @@ add_executable(${PROJECT_NAME}
         headers/FenModel/FenModel.h
         src/MathUtils/MathUtils.cpp
         headers/MathUtils/MathUtils.h
+        headers/Point2D/Point2D.h
+        src/Point2D/Point2D.cpp
 )
 
 # Add dependency on chess_resources

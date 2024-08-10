@@ -18,6 +18,7 @@
 #include "../../headers/ChessPieces/King.h"
 #include "../../headers/ChessPieces/Pawn.h"
 #include "../../headers/ChessPieces/EmptyPiece.h"
+#include "Point2D/Point2D.h"
 #include "../../headers/ChessBoardMediator/ChessBoardMediator.h"
 #include "gtkmm.h"
 #include "../ChessImagesInfo/ChessImagesInfo.h"
@@ -60,14 +61,14 @@ public:
     bool isTurnPlayer(BoardSpace* boardSpacePtr);
     bool isTurnPlayer(ChessPiece* chessPiecePtr);
     bool isTurnPlayerHelper(PlayerID playerId);
-    bool canOpponentsPiecesPutKingInCheck(PlayerID playerId, Coordinates coordinates);
+    bool canOpponentsPiecesPutKingInCheck(PlayerID playerId, Point2DPair coordinates);
     int getCurrentTurn();
     int getHalfMoveClock();
     int getMovedTwoSpacesTurn(int row, int col);
     void showHintMarkers(BoardSpace* boardSpacePtr);
     void hideHintMarkers();
-    SinglePieceCoordinates whiteKingCoordinates;
-    SinglePieceCoordinates blackKingCoordinates;
+    Point2D whiteKingCoordinates;
+    Point2D blackKingCoordinates;
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;

@@ -27,6 +27,6 @@ sigc::signal<void(PlayerID, int, int)> ChessBoardMediator::getUpdateKingPosition
   return updateKingPosition;
 }
 
-sigc::signal<bool(PlayerID, Coordinates)> ChessBoardMediator::getCanOpponentsPiecesPutKingInCheckSignal() {
+sigc::signal<bool(PlayerID, Point2DPair)> ChessBoardMediator::getCanOpponentsPiecesPutKingInCheckSignal() {
   return canOpponentsPiecesPutKingInCheck;
 }

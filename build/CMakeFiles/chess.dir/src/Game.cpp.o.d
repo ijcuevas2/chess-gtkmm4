@@ -4,7 +4,7 @@ CMakeFiles/chess.dir/src/Game.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/../headers/ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/src/../headers/ChessPieces/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/../headers/ChessPieces/../../enum/Player.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/../headers/ChessPieces/../Coordinates.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/../headers/ChessPieces/../Point2DPair.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/iostream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__assert \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__config \
