@@ -16,14 +16,14 @@ public:
     King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING, chessBoardMediator) {
     }
 
-    std::vector<Point2DPair> getAdjacentCoordinates(Point2DPair coordinates);
-    bool canMoveToTarget(Point2DPair coordinates) override;
+    std::vector<Point2DPair> getAdjacentCoordinates(Point2DPair point2DPair);
+    bool canMoveToTarget(Point2DPair point2DPair) override;
     bool getHasMoved();
     void setHasMoved();
     bool getIsInCheck();
-    bool getIsValidPath(Point2DPair coordinates) override;
-    void afterPieceMoved(Point2DPair coordinates) override;
-    bool isPieceBlockingPath(Point2DPair coordinates) override;
+    bool getIsValidPath(Point2DPair point2DPair) override;
+    void afterPieceMoved(Point2DPair point2DPair) override;
+    bool isPieceBlockingPath(Point2DPair point2DPair) override;
 };
 
 

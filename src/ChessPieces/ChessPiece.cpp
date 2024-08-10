@@ -38,38 +38,38 @@ void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
   this->setPieceType(chessPiecePtr->pieceType);
 }
 
-bool ChessPiece::hasValidCoordinates(Point2DPair coordinates) {
-  if (coordinates.getSrcRow() < 0 || coordinates.getSrcRow() > 7) {
+bool ChessPiece::hasValidCoordinates(Point2DPair point2DPair) {
+  if  (point2DPair.getSrcRow() < 0 || point2DPair.getSrcRow() > 7) {
     return false;
   }
 
-  if (coordinates.getSrcCol() < 0 || coordinates.getSrcCol() > 7) {
+  if  (point2DPair.getSrcCol() < 0 || point2DPair.getSrcCol() > 7) {
     return false;
   }
 
-  if (coordinates.getTgtRow() < 0 || coordinates.getTgtRow() > 7) {
+  if  (point2DPair.getTgtRow() < 0 || point2DPair.getTgtRow() > 7) {
     return false;
   }
 
-  if (coordinates.getTgtCol() < 0 || coordinates.getTgtCol() > 7) {
+  if  (point2DPair.getTgtCol() < 0 || point2DPair.getTgtCol() > 7) {
     return false;
   }
 
   return true;
 }
 
-bool ChessPiece::canMoveToTarget(Point2DPair coordinates) {
-  bool hasValidCoordinatesVal = hasValidCoordinates(coordinates);
+bool ChessPiece::canMoveToTarget(Point2DPair point2DPair) {
+  bool hasValidCoordinatesVal = hasValidCoordinates (point2DPair);
   if (hasValidCoordinatesVal == false) {
     return false;
   }
 
-  bool isValidPath = getIsValidPath(coordinates);
+  bool isValidPath = getIsValidPath (point2DPair);
   if (isValidPath) {
-    bool isClearPath = !isPieceBlockingPath(coordinates);
+    bool isClearPath = !isPieceBlockingPath (point2DPair);
     bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
-    int tgtRow = coordinates.getTgtRow();
-    int tgtCol = coordinates.getTgtCol();
+    int tgtRow = point2DPair.getTgtRow();
+    int tgtCol = point2DPair.getTgtCol();
     bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
     return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
   }
@@ -77,31 +77,31 @@ bool ChessPiece::canMoveToTarget(Point2DPair coordinates) {
   return false;
 }
 
-bool ChessPiece::isPieceBlockingPath(Point2DPair coordinates) {
-  coordinates = getNextCoordinates(coordinates);
-  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+bool ChessPiece::isPieceBlockingPath(Point2DPair point2DPair) {
+  point2DPair = getNextCoordinates (point2DPair);
+  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget (point2DPair);
   while (!isSourceEqualToTarget) {
-    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(), coordinates.getSrcCol());
+    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit (point2DPair.getSrcRow(), point2DPair.getSrcCol());
     if (isOccupied) {
       return true;
     }
 
-    coordinates = getNextCoordinates(coordinates);
-    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+    point2DPair = getNextCoordinates (point2DPair);
+    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget (point2DPair);
   }
 
   return false;
 }
 
-Point2DPair ChessPiece::getNextCoordinates(Point2DPair coordinates) {
-  int tgtRow = coordinates.getTgtRow();
-  int tgtCol = coordinates.getTgtCol();
+Point2DPair ChessPiece::getNextCoordinates(Point2DPair point2DPair) {
+  int tgtRow = point2DPair.getTgtRow();
+  int tgtCol = point2DPair.getTgtCol();
   return Point2DPair(tgtRow, tgtCol, tgtRow, tgtCol);
 }
 
-void ChessPiece::afterPieceMoved(Point2DPair coordinates) {
+void ChessPiece::afterPieceMoved(Point2DPair point2DPair) {
 }
 
-bool ChessPiece::getIsValidPath(Point2DPair coordinates) {
+bool ChessPiece::getIsValidPath(Point2DPair point2DPair) {
   return false;
 }

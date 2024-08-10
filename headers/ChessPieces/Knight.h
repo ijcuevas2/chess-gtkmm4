@@ -11,8 +11,8 @@ public:
     Knight(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::KNIGHT, chessBoardMediator) {
     }
 
-    bool getIsValidPath(Point2DPair coordinates) override;
-    bool isPieceBlockingPath(Point2DPair coordinates) override;
+    bool getIsValidPath(Point2DPair point2DPair) override;
+    bool isPieceBlockingPath(Point2DPair point2DPair) override;
 };
 
 

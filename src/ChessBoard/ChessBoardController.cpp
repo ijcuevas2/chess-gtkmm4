@@ -70,13 +70,13 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     bool isSelectedBoardSpacePtr = chessBoardModel.isSelectedBoardSpacePtr(row, col);
     if (!isSelectedBoardSpacePtr) {
       ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
-      Point2DPair coordinates(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
-      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(coordinates);
+      Point2DPair point2DPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
+      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget (point2DPair);
       if (canMoveToTarget) {
         ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {
-          srcChessPiecePtr->afterPieceMoved(coordinates);
+          srcChessPiecePtr->afterPieceMoved (point2DPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
           chessBoardModel.updateTurnPlayerId();
