@@ -20,8 +20,6 @@ set(CMAKE_C_COMPILER_FRONTEND_VARIANT "GNU")
 set(CMAKE_C_SIMULATE_VERSION "")
 
 
-
-
 set(CMAKE_AR "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar")
 set(CMAKE_C_COMPILER_AR "")
 set(CMAKE_RANLIB "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib")
@@ -35,7 +33,7 @@ set(CMAKE_C_COMPILER_LINKER_VERSION 1053.12)
 set(CMAKE_C_COMPILER_LINKER_FRONTEND_VARIANT GNU)
 set(CMAKE_MT "")
 set(CMAKE_TAPI "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/tapi")
-set(CMAKE_COMPILER_IS_GNUCC )
+set(CMAKE_COMPILER_IS_GNUCC)
 set(CMAKE_C_COMPILER_LOADED 1)
 set(CMAKE_C_COMPILER_WORKS TRUE)
 set(CMAKE_C_ABI_COMPILED TRUE)
@@ -54,25 +52,22 @@ set(CMAKE_C_COMPILER_ABI "")
 set(CMAKE_C_BYTE_ORDER "LITTLE_ENDIAN")
 set(CMAKE_C_LIBRARY_ARCHITECTURE "")
 
-if(CMAKE_C_SIZEOF_DATA_PTR)
-  set(CMAKE_SIZEOF_VOID_P "${CMAKE_C_SIZEOF_DATA_PTR}")
-endif()
+if (CMAKE_C_SIZEOF_DATA_PTR)
+    set(CMAKE_SIZEOF_VOID_P "${CMAKE_C_SIZEOF_DATA_PTR}")
+endif ()
 
-if(CMAKE_C_COMPILER_ABI)
-  set(CMAKE_INTERNAL_PLATFORM_ABI "${CMAKE_C_COMPILER_ABI}")
-endif()
+if (CMAKE_C_COMPILER_ABI)
+    set(CMAKE_INTERNAL_PLATFORM_ABI "${CMAKE_C_COMPILER_ABI}")
+endif ()
 
-if(CMAKE_C_LIBRARY_ARCHITECTURE)
-  set(CMAKE_LIBRARY_ARCHITECTURE "")
-endif()
+if (CMAKE_C_LIBRARY_ARCHITECTURE)
+    set(CMAKE_LIBRARY_ARCHITECTURE "")
+endif ()
 
 set(CMAKE_C_CL_SHOWINCLUDES_PREFIX "")
-if(CMAKE_C_CL_SHOWINCLUDES_PREFIX)
-  set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_C_CL_SHOWINCLUDES_PREFIX}")
-endif()
-
-
-
+if (CMAKE_C_CL_SHOWINCLUDES_PREFIX)
+    set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_C_CL_SHOWINCLUDES_PREFIX}")
+endif ()
 
 
 set(CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include")

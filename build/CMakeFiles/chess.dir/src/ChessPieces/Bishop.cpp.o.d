@@ -2275,6 +2275,7 @@ CMakeFiles/chess.dir/src/ChessPieces/Bishop.cpp.o: \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowcontrols.h \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowhandle.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2DPair/Point2DPair.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/../../headers/MathUtils/MathUtils.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/iostream

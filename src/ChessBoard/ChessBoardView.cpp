@@ -1,7 +1,7 @@
 #include "../../headers/ChessBoard/ChessBoardView.h"
 #include <iostream>
 
-ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
+ChessBoardView::ChessBoardView(sigc::signal<std::string()> & handleOnLoadClickedSignal) : Gtk::Box(Gtk::Orientation::VERTICAL), handleOnLoadClickedSignal(handleOnLoadClickedSignal) {
   int width = 450;
   int height = 450;
   m_drawingArea.set_content_width(width);
@@ -21,22 +21,34 @@ ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
   // Create actions
   m_newGameAction = Gio::SimpleAction::create("new_game");
   m_exitAction = Gio::SimpleAction::create("exit");
+  m_saveAction = Gio::SimpleAction::create("save");
+  m_loadAction = Gio::SimpleAction::create("load");
 
   // Connect action signals using lambda functions
-  m_newGameAction->signal_activate().connect([this](const Glib::VariantBase&) {
-      this->on_new_game_clicked();
+  m_newGameAction->signal_activate().connect([this](const Glib::VariantBase &) {
+      this->onNewGameClicked();
   });
-  m_exitAction->signal_activate().connect([this](const Glib::VariantBase&) {
-      this->on_exit_clicked();
+  m_exitAction->signal_activate().connect([this](const Glib::VariantBase &) {
+      this->onExitClicked();
+  });
+  m_saveAction->signal_activate().connect([this](const Glib::VariantBase &) {
+      this->onSaveClicked();
+  });
+  m_loadAction->signal_activate().connect([this](const Glib::VariantBase &) {
+      this->onLoadClicked();
   });
 
   // Add actions to the application
   auto app = Gtk::Application::get_default();
   app->add_action(m_newGameAction);
   app->add_action(m_exitAction);
+  app->add_action(m_saveAction);
+  app->add_action(m_loadAction);
 
   // Add menu items
   fileMenu->append("New Game", "app.new_game");
+  fileMenu->append("Save", "app.save");
+  fileMenu->append("Load", "app.load");
   fileMenu->append("Exit", "app.exit");
 
   // Create the menu bar
@@ -59,7 +71,7 @@ ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
 
   // Add the undo button to the toolbar
   m_undoButton = Gtk::make_managed<Gtk::Button>("Undo");
-  m_undoButton->signal_clicked().connect(sigc::mem_fun(*this, &ChessBoardView::on_undo_clicked));
+  m_undoButton->signal_clicked().connect(sigc::mem_fun(*this, &ChessBoardView::onUndoClicked));
   m_toolbar->append(*m_undoButton);
 
   // Add the menu bar to the box
@@ -72,7 +84,7 @@ ChessBoardView::ChessBoardView() : Gtk::Box(Gtk::Orientation::VERTICAL) {
   append(m_drawingArea);
 }
 
-void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height) {
+void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height) {
   chessBoardController.on_draw(cr, width, height);
 }
 
@@ -101,7 +113,7 @@ void ChessBoardView::clearBoard() {
   chessBoardController.clearBoard();
 }
 
-void ChessBoardView::on_new_game_clicked() {
+void ChessBoardView::onNewGameClicked() {
   // Handle new game action
   clearBoard();
   initBoard();
@@ -109,13 +121,24 @@ void ChessBoardView::on_new_game_clicked() {
   this->updateLabel();
 }
 
-void ChessBoardView::on_exit_clicked() {
+void ChessBoardView::onSaveClicked() {
+  // Handle save action
+  chessBoardController.saveStateToFile();
+}
+
+void ChessBoardView::onLoadClicked() {
+  // Handle load action
+  this->handleOnLoadClickedSignal.emit();
+}
+
+void ChessBoardView::onExitClicked() {
   // Handle exit action
   auto app = Gtk::Application::get_default();
   app->quit();
 }
 
-void ChessBoardView::on_undo_clicked() {
+void ChessBoardView::onUndoClicked() {
   // Implement undo logic here
   std::cout << "Undo clicked" << std::endl;
 }
+

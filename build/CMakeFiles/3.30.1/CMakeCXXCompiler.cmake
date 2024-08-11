@@ -22,8 +22,6 @@ set(CMAKE_CXX_COMPILER_FRONTEND_VARIANT "GNU")
 set(CMAKE_CXX_SIMULATE_VERSION "")
 
 
-
-
 set(CMAKE_AR "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar")
 set(CMAKE_CXX_COMPILER_AR "")
 set(CMAKE_RANLIB "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib")
@@ -37,7 +35,7 @@ set(CMAKE_CXX_COMPILER_LINKER_VERSION 1053.12)
 set(CMAKE_CXX_COMPILER_LINKER_FRONTEND_VARIANT GNU)
 set(CMAKE_MT "")
 set(CMAKE_TAPI "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/tapi")
-set(CMAKE_COMPILER_IS_GNUCXX )
+set(CMAKE_COMPILER_IS_GNUCXX)
 set(CMAKE_CXX_COMPILER_LOADED 1)
 set(CMAKE_CXX_COMPILER_WORKS TRUE)
 set(CMAKE_CXX_ABI_COMPILED TRUE)
@@ -49,12 +47,12 @@ set(CMAKE_CXX_SOURCE_FILE_EXTENSIONS C;M;c++;cc;cpp;cxx;m;mm;mpp;CPP;ixx;cppm;cc
 set(CMAKE_CXX_IGNORE_EXTENSIONS inl;h;hpp;HPP;H;o;O;obj;OBJ;def;DEF;rc;RC)
 
 foreach (lang IN ITEMS C OBJC OBJCXX)
-  if (CMAKE_${lang}_COMPILER_ID_RUN)
-    foreach(extension IN LISTS CMAKE_${lang}_SOURCE_FILE_EXTENSIONS)
-      list(REMOVE_ITEM CMAKE_CXX_SOURCE_FILE_EXTENSIONS ${extension})
-    endforeach()
-  endif()
-endforeach()
+    if (CMAKE_${lang}_COMPILER_ID_RUN)
+        foreach (extension IN LISTS CMAKE_${lang}_SOURCE_FILE_EXTENSIONS)
+            list(REMOVE_ITEM CMAKE_CXX_SOURCE_FILE_EXTENSIONS ${extension})
+        endforeach ()
+    endif ()
+endforeach ()
 
 set(CMAKE_CXX_LINKER_PREFERENCE 30)
 set(CMAKE_CXX_LINKER_PREFERENCE_PROPAGATES 1)
@@ -66,25 +64,22 @@ set(CMAKE_CXX_COMPILER_ABI "")
 set(CMAKE_CXX_BYTE_ORDER "LITTLE_ENDIAN")
 set(CMAKE_CXX_LIBRARY_ARCHITECTURE "")
 
-if(CMAKE_CXX_SIZEOF_DATA_PTR)
-  set(CMAKE_SIZEOF_VOID_P "${CMAKE_CXX_SIZEOF_DATA_PTR}")
-endif()
+if (CMAKE_CXX_SIZEOF_DATA_PTR)
+    set(CMAKE_SIZEOF_VOID_P "${CMAKE_CXX_SIZEOF_DATA_PTR}")
+endif ()
 
-if(CMAKE_CXX_COMPILER_ABI)
-  set(CMAKE_INTERNAL_PLATFORM_ABI "${CMAKE_CXX_COMPILER_ABI}")
-endif()
+if (CMAKE_CXX_COMPILER_ABI)
+    set(CMAKE_INTERNAL_PLATFORM_ABI "${CMAKE_CXX_COMPILER_ABI}")
+endif ()
 
-if(CMAKE_CXX_LIBRARY_ARCHITECTURE)
-  set(CMAKE_LIBRARY_ARCHITECTURE "")
-endif()
+if (CMAKE_CXX_LIBRARY_ARCHITECTURE)
+    set(CMAKE_LIBRARY_ARCHITECTURE "")
+endif ()
 
 set(CMAKE_CXX_CL_SHOWINCLUDES_PREFIX "")
-if(CMAKE_CXX_CL_SHOWINCLUDES_PREFIX)
-  set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_CXX_CL_SHOWINCLUDES_PREFIX}")
-endif()
-
-
-
+if (CMAKE_CXX_CL_SHOWINCLUDES_PREFIX)
+    set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_CXX_CL_SHOWINCLUDES_PREFIX}")
+endif ()
 
 
 set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include;/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include")

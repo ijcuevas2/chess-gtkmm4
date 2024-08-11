@@ -14,11 +14,15 @@ private:
 
 public:
     explicit Point2DPair();
+
     explicit Point2DPair(int srcRow, int srcCol, int tgtRow, int tgtCol);
 
     int getSrcRow() const;
+
     int getSrcCol() const;
+
     int getTgtRow() const;
+
     int getTgtCol() const;
 };
 

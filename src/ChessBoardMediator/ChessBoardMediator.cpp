@@ -3,6 +3,7 @@
 //
 
 #include "ChessBoardMediator/ChessBoardMediator.h"
+
 sigc::signal<int()> ChessBoardMediator::getCurrentTurnSignal() {
   return getCurrentTurn;
 }
@@ -25,6 +26,10 @@ sigc::signal<bool(PlayerID, int, int)> ChessBoardMediator::getIsTurnPlayersChess
 
 sigc::signal<void(PlayerID, int, int)> ChessBoardMediator::getUpdateKingPositionSignal() {
   return updateKingPosition;
+}
+
+sigc::signal<bool(Point2D)> ChessBoardMediator::getIsKingOccupyingSpaceSignal() {
+  return isKingOccupyingSpace;
 }
 
 sigc::signal<bool(PlayerID, Point2DPair)> ChessBoardMediator::getCanOpponentsPiecesPutKingInCheckSignal() {

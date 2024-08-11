@@ -5,6 +5,8 @@
 #ifndef CHESS_PLAYER_H
 #define CHESS_PLAYER_H
 
-enum class PlayerID { PLAYER_BLACK, PLAYER_WHITE, NONE };
+enum class PlayerID {
+    PLAYER_BLACK, PLAYER_WHITE, NONE
+};
 
 #endif //CHESS_PLAYER_H

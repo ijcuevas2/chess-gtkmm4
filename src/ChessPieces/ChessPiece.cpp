@@ -3,7 +3,9 @@
 //
 
 #include "../../headers/ChessPieces/ChessPiece.h"
-ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
+
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator &chessBoardMediator) : playerId(
+        playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
 }
 
 ChessPiece::~ChessPiece() {
@@ -33,25 +35,37 @@ void ChessPiece::setPieceType(PieceType pieceType) {
   this->pieceType = pieceType;
 }
 
-void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
+void ChessPiece::copyChessPiece(ChessPiece *chessPiecePtr) {
   this->setPlayerId(chessPiecePtr->playerId);
   this->setPieceType(chessPiecePtr->pieceType);
 }
 
-bool ChessPiece::hasValidCoordinates(Point2DPair point2DPair) {
-  if  (point2DPair.getSrcRow() < 0 || point2DPair.getSrcRow() > 7) {
+bool ChessPiece::isValidPoint2D(Point2D point2D) {
+  if (point2D.getRow() < 0 || point2D.getRow() > 7) {
     return false;
   }
 
-  if  (point2DPair.getSrcCol() < 0 || point2DPair.getSrcCol() > 7) {
+  if (point2D.getCol() < 0 || point2D.getCol() > 7) {
     return false;
   }
 
-  if  (point2DPair.getTgtRow() < 0 || point2DPair.getTgtRow() > 7) {
+  return true;
+}
+
+bool ChessPiece::isValidPoint2DPair(Point2DPair point2DPair) {
+  if (point2DPair.getSrcRow() < 0 || point2DPair.getSrcRow() > 7) {
     return false;
   }
 
-  if  (point2DPair.getTgtCol() < 0 || point2DPair.getTgtCol() > 7) {
+  if (point2DPair.getSrcCol() < 0 || point2DPair.getSrcCol() > 7) {
+    return false;
+  }
+
+  if (point2DPair.getTgtRow() < 0 || point2DPair.getTgtRow() > 7) {
+    return false;
+  }
+
+  if (point2DPair.getTgtCol() < 0 || point2DPair.getTgtCol() > 7) {
     return false;
   }
 
@@ -59,18 +73,19 @@ bool ChessPiece::hasValidCoordinates(Point2DPair point2DPair) {
 }
 
 bool ChessPiece::canMoveToTarget(Point2DPair point2DPair) {
-  bool hasValidCoordinatesVal = hasValidCoordinates (point2DPair);
+  bool hasValidCoordinatesVal = isValidPoint2DPair(point2DPair);
   if (hasValidCoordinatesVal == false) {
     return false;
   }
 
-  bool isValidPath = getIsValidPath (point2DPair);
+  bool isValidPath = getIsValidPath(point2DPair);
   if (isValidPath) {
-    bool isClearPath = !isPieceBlockingPath (point2DPair);
+    bool isClearPath = !isPieceBlockingPath(point2DPair);
     bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
     int tgtRow = point2DPair.getTgtRow();
     int tgtCol = point2DPair.getTgtCol();
-    bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
+    bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow,
+                                                                                                 tgtCol);
     return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
   }
 
@@ -78,16 +93,17 @@ bool ChessPiece::canMoveToTarget(Point2DPair point2DPair) {
 }
 
 bool ChessPiece::isPieceBlockingPath(Point2DPair point2DPair) {
-  point2DPair = getNextCoordinates (point2DPair);
-  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget (point2DPair);
+  point2DPair = getNextCoordinates(point2DPair);
+  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(point2DPair);
   while (!isSourceEqualToTarget) {
-    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit (point2DPair.getSrcRow(), point2DPair.getSrcCol());
+    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getSrcRow(),
+                                                                              point2DPair.getSrcCol());
     if (isOccupied) {
       return true;
     }
 
-    point2DPair = getNextCoordinates (point2DPair);
-    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget (point2DPair);
+    point2DPair = getNextCoordinates(point2DPair);
+    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(point2DPair);
   }
 
   return false;

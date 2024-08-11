@@ -3,7 +3,8 @@
 //
 
 #include "ChessBoard/ChessBoardController.h"
-void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int width, int height) {
+
+void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height) {
   int cellSize = std::min(width, height) / chessBoardModel.getBoardSize();
 
   // Draw the board
@@ -19,7 +20,7 @@ void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int 
       // Create the rectangle path
       cr->rectangle(col * cellSize, row * cellSize, cellSize, cellSize);
 
-      BoardSpace* boardSpace = chessBoardModel.getBoardSpacePtr(row, col);
+      BoardSpace *boardSpace = chessBoardModel.getBoardSpacePtr(row, col);
       bool showMarker = boardSpace->getShowMarker();
 
       if (chessBoardModel.isSelectedBoardSpacePtr(row, col) || showMarker) {
@@ -37,7 +38,7 @@ void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context>& cr, int 
       cr->stroke();  // Draw the outline
 
       // Draw the piece
-      ChessPiece* chessPiece = chessBoardModel.getChessPiecePtr(row, col);
+      ChessPiece *chessPiece = chessBoardModel.getChessPiecePtr(row, col);
       if (chessPiece != nullptr && chessPiece->getPieceType() != PieceType::EMPTY_PIECE) {
         auto pixbuf = chessBoardModel.getPieceImageContent(chessPiece);
         double scale = static_cast<double>(cellSize) / std::max(pixbuf->get_width(), pixbuf->get_height());
@@ -60,26 +61,27 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
 
   bool hasSelectedBoardSpacePtr = chessBoardModel.hasSelectedBoardSpacePtr();
   if (!hasSelectedBoardSpacePtr) {
-    BoardSpace* boardSpacePtr = chessBoardModel.getBoardSpacePtr(row, col);
+    BoardSpace *boardSpacePtr = chessBoardModel.getBoardSpacePtr(row, col);
     bool isTurnPlayer = chessBoardModel.isTurnPlayer(boardSpacePtr);
     if (isTurnPlayer) {
       chessBoardModel.setSelectedBoardSpacePtr(boardSpacePtr);
     }
   } else {
-    BoardSpace* selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
+    BoardSpace *selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
     bool isSelectedBoardSpacePtr = chessBoardModel.isSelectedBoardSpacePtr(row, col);
     if (!isSelectedBoardSpacePtr) {
-      ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
+      ChessPiece *srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
       Point2DPair point2DPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
-      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget (point2DPair);
+      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(point2DPair);
       if (canMoveToTarget) {
-        ChessPiece* targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
+        ChessPiece *targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {
-          srcChessPiecePtr->afterPieceMoved (point2DPair);
+          srcChessPiecePtr->afterPieceMoved(point2DPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
           chessBoardModel.updateTurnPlayerId();
+          chessBoardModel.calculateKingIsInCheck(chessBoardModel.getTurnPlayerId());
           fenModel.saveBoardState();
         }
       }
@@ -88,6 +90,14 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     chessBoardModel.hideHintMarkers();
     chessBoardModel.clearSelectedBoardSpacePtr();
   }
+}
+
+void ChessBoardController::saveStateToFile() {
+  fenModel.saveStateToFile();
+}
+
+void ChessBoardController::loadStateFromFile() {
+  fenModel.loadStateFromFile();
 }
 
 void ChessBoardController::initBoard() {

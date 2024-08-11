@@ -1,7 +1,6 @@
 CMakeFiles/chess.dir/src/ChessPieces/King.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/King.cpp \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/King.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/../../enum/PieceType.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/../../enum/Player.h \
@@ -2276,6 +2275,8 @@ CMakeFiles/chess.dir/src/ChessPieces/King.cpp.o: \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowcontrols.h \
   /opt/homebrew/Cellar/gtkmm4/4.14.0/include/gtkmm-4.0/gtkmm/windowhandle.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2DPair/Point2DPair.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/../../headers/MathUtils/MathUtils.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/iostream
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/iostream \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/../../headers/ChessPieces/Rook.h

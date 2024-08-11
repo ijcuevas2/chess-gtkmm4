@@ -20,9 +20,9 @@ pkg_check_modules(GLIB REQUIRED glib-2.0)
 
 # Find glib-compile-resources
 find_program(GLIB_COMPILE_RESOURCES NAMES glib-compile-resources)
-if(NOT GLIB_COMPILE_RESOURCES)
+if (NOT GLIB_COMPILE_RESOURCES)
     message(FATAL_ERROR "Could not find glib-compile-resources")
-endif()
+endif ()
 
 # Define variables for resource files
 set(GRESOURCE_XML ${CMAKE_CURRENT_SOURCE_DIR}/chess.gresource.xml)

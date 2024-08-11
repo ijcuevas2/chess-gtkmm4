@@ -3,10 +3,11 @@
 //
 
 #include "Point2D/Point2D.h"
-Point2D::Point2D(): row(0), col(0) {
+
+Point2D::Point2D() : row(0), col(0) {
 }
 
-Point2D::Point2D(int row, int col): row(row), col(col) {
+Point2D::Point2D(int row, int col) : row(row), col(col) {
 }
 
 void Point2D::setRow(int row) {

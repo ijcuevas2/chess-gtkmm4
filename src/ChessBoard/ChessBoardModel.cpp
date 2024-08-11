@@ -7,11 +7,15 @@
 ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
   initBoard();
   chessBoardMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
-  chessBoardMediator.getIsBoardIndexOccupiedSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
-  chessBoardMediator.getMovedTwoSpacesTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getMovedTwoSpacesTurn));
+  chessBoardMediator.getIsBoardIndexOccupiedSignal().connect(
+          sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
+  chessBoardMediator.getMovedTwoSpacesTurnSignal().connect(
+          sigc::mem_fun(*this, &ChessBoardModel::getMovedTwoSpacesTurn));
   chessBoardMediator.getIsTurnPlayerSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayerHelper));
-  chessBoardMediator.getIsTurnPlayersChessPieceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayersChessPieceHelper));
+  chessBoardMediator.getIsTurnPlayersChessPieceSignal().connect(
+          sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayersChessPieceHelper));
   chessBoardMediator.getUpdateKingPositionSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::updateKingPosition));
+  chessBoardMediator.getIsKingOccupyingSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isKingOccupyingSpace));
 }
 
 std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {
@@ -44,13 +48,13 @@ void ChessBoardModel::initBoard() {
   }
 }
 
-bool ChessBoardModel::isKingChessPiecePtr(ChessPiece* chessPiecePtr) {
+bool ChessBoardModel::isKingChessPiecePtr(ChessPiece *chessPiecePtr) {
   return chessPiecePtr->getPieceType() == PieceType::KING;
 }
 
 void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessPiecePtr, int row, int col) {
   if (this->board[row][col] != nullptr) {
-    ChessPiece* oldPiecePtr = this->getChessPiecePtr(row, col);
+    ChessPiece *oldPiecePtr = this->getChessPiecePtr(row, col);
     if (oldPiecePtr != nullptr) {
       delete oldPiecePtr;
       oldPiecePtr = nullptr;
@@ -60,7 +64,7 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
 }
 
 void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
-  BoardSpace* boardSpace = new BoardSpace(chessPiecePtr, row, col);
+  BoardSpace *boardSpace = new BoardSpace(chessPiecePtr, row, col);
   this->board[row][col] = boardSpace;
 }
 
@@ -125,7 +129,7 @@ ChessPiece *ChessBoardModel::getChessPiecePtr(int row, int col) {
   return nullptr;
 }
 
-BoardSpace* ChessBoardModel::getBoardSpacePtr(int row, int col) {
+BoardSpace *ChessBoardModel::getBoardSpacePtr(int row, int col) {
   const int currentBoardSize = this->board.size();
   if (currentBoardSize != 0) {
     return this->board[row][col];
@@ -134,8 +138,8 @@ BoardSpace* ChessBoardModel::getBoardSpacePtr(int row, int col) {
   return nullptr;
 }
 
-ChessPiece* ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID playerId) {
-  ChessPiece* piece = NULL;
+ChessPiece *ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID playerId) {
+  ChessPiece *piece = NULL;
   switch (pieceType) {
     case PieceType::ROOK:
       piece = new Rook(playerId, chessBoardMediator);
@@ -193,12 +197,12 @@ bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> ches
   return true;
 }
 
-Glib::RefPtr<Gdk::Pixbuf> ChessBoardModel::getPieceImageContent(ChessPiece* chessPiece) {
+Glib::RefPtr<Gdk::Pixbuf> ChessBoardModel::getPieceImageContent(ChessPiece *chessPiece) {
   return chessImagesInfo.getPieceImageContent(chessPiece);
 }
 
-void ChessBoardModel::setSelectedBoardSpacePtr(BoardSpace* boardSpacePtr) {
-  ChessPiece* chessPiecePtr = boardSpacePtr->getChessPiecePtr();
+void ChessBoardModel::setSelectedBoardSpacePtr(BoardSpace *boardSpacePtr) {
+  ChessPiece *chessPiecePtr = boardSpacePtr->getChessPiecePtr();
 
   if (chessPiecePtr != nullptr) {
     bool isTurnPlayerBool = isTurnPlayer(chessPiecePtr);
@@ -217,16 +221,16 @@ bool ChessBoardModel::isEmptyPiece(ChessPiece *chessPiecePtr) {
   return false;
 }
 
-bool ChessBoardModel::isSelectedBoardSpacePtr(BoardSpace* boardSpacePtr) {
+bool ChessBoardModel::isSelectedBoardSpacePtr(BoardSpace *boardSpacePtr) {
   return boardSpacePtr == this->selectedBoardSpacePtr;
 }
 
 bool ChessBoardModel::isSelectedBoardSpacePtr(int row, int col) {
-  BoardSpace* boardSpacePtr = this->board[row][col];
+  BoardSpace *boardSpacePtr = this->board[row][col];
   return boardSpacePtr == this->selectedBoardSpacePtr;
 }
 
-BoardSpace* ChessBoardModel::getSelectedBoardSpacePtr() {
+BoardSpace *ChessBoardModel::getSelectedBoardSpacePtr() {
   return this->selectedBoardSpacePtr;
 }
 
@@ -239,7 +243,7 @@ void ChessBoardModel::clearSelectedBoardSpacePtr() {
 }
 
 bool ChessBoardModel::isBoardSpaceOccupied(int row, int col) {
-  ChessPiece* chessPiece = this->getChessPiecePtr(row, col);
+  ChessPiece *chessPiece = this->getChessPiecePtr(row, col);
   PieceType pieceType = chessPiece->getPieceType();
   bool isOccupied = pieceType != PieceType::EMPTY_PIECE;
   return isOccupied;
@@ -251,14 +255,14 @@ bool ChessBoardModel::isTurnPlayersChessPiece(ChessPiece *chessPiece, int tgtRow
 }
 
 bool ChessBoardModel::isTurnPlayersChessPieceHelper(PlayerID playerId, int tgtRow, int tgtCol) {
-  ChessPiece* targetChessPiece = getChessPiecePtr(tgtRow, tgtCol);
+  ChessPiece *targetChessPiece = getChessPiecePtr(tgtRow, tgtCol);
   PlayerID targetPlayerId = targetChessPiece->getPlayerId();
   bool isTurnPlayersChessPiece = targetPlayerId == playerId;
   return isTurnPlayersChessPiece;
 }
 
 void ChessBoardModel::clearSelectedBoardSpace() {
-  EmptyPiece* emptyPiece = new EmptyPiece(chessBoardMediator);
+  EmptyPiece *emptyPiece = new EmptyPiece(chessBoardMediator);
   this->selectedBoardSpacePtr->setChessPiecePtr(emptyPiece);
 }
 
@@ -266,7 +270,7 @@ void ChessBoardModel::clearBoard() {
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
       board[row][col]->clearChessPiecePtr();
-      BoardSpace* boardSpacePtr = board[row][col];
+      BoardSpace *boardSpacePtr = board[row][col];
       if (boardSpacePtr != nullptr) {
         delete boardSpacePtr;
         board[row][col] = nullptr;
@@ -290,12 +294,12 @@ void ChessBoardModel::updateTurnPlayerId() {
   }
 }
 
-bool ChessBoardModel::isTurnPlayer(BoardSpace* boardSpacePtr) {
-  ChessPiece* chessPiecePtr = boardSpacePtr->getChessPiecePtr();
+bool ChessBoardModel::isTurnPlayer(BoardSpace *boardSpacePtr) {
+  ChessPiece *chessPiecePtr = boardSpacePtr->getChessPiecePtr();
   return isTurnPlayer(chessPiecePtr);
 }
 
-bool ChessBoardModel::isTurnPlayer(ChessPiece* chessPiecePtr) {
+bool ChessBoardModel::isTurnPlayer(ChessPiece *chessPiecePtr) {
   PlayerID playerId = chessPiecePtr->getPlayerId();
   return isTurnPlayerHelper(playerId);
 }
@@ -312,16 +316,16 @@ int ChessBoardModel::getHalfMoveClock() {
   return halfMoveClock;
 }
 
-void ChessBoardModel::showHintMarkers(BoardSpace* boardSpacePtr) {
-  ChessPiece* chessPiecePtr = boardSpacePtr->getChessPiecePtr();
+void ChessBoardModel::showHintMarkers(BoardSpace *boardSpacePtr) {
+  ChessPiece *chessPiecePtr = boardSpacePtr->getChessPiecePtr();
   int srcRow = boardSpacePtr->getRow();
   int srcCol = boardSpacePtr->getCol();
 
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
-      BoardSpace* boardSpace = getBoardSpacePtr(row, col);
+      BoardSpace *boardSpace = getBoardSpacePtr(row, col);
       Point2DPair point2DPair(srcRow, srcCol, row, col);
-      if (chessPiecePtr->canMoveToTarget (point2DPair)) {
+      if (chessPiecePtr->canMoveToTarget(point2DPair)) {
         boardSpace->showMarker();
       }
     }
@@ -331,7 +335,7 @@ void ChessBoardModel::showHintMarkers(BoardSpace* boardSpacePtr) {
 void ChessBoardModel::hideHintMarkers() {
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
-      BoardSpace* boardSpace = getBoardSpacePtr(row, col);
+      BoardSpace *boardSpace = getBoardSpacePtr(row, col);
       boardSpace->hideMarker();
     }
   }
@@ -340,7 +344,7 @@ void ChessBoardModel::hideHintMarkers() {
 int ChessBoardModel::getMovedTwoSpacesTurn(int row, int col) {
   ChessPiece *chessPiece = getChessPiecePtr(row, col);
   if (chessPiece != NULL && chessPiece->getPieceType() == PieceType::PAWN) {
-    Pawn *pawn = dynamic_cast<Pawn*>(chessPiece);
+    Pawn *pawn = dynamic_cast<Pawn *>(chessPiece);
     int turn = pawn->getMovedTwoSpacesTurn();
     return turn;
   }
@@ -358,16 +362,44 @@ void ChessBoardModel::updateKingPosition(PlayerID playerId, int row, int col) {
   }
 }
 
-bool ChessBoardModel::canOpponentsPiecesPutKingInCheck(PlayerID playerId, Point2DPair point2DPair) {
-  int tgtRow = point2DPair.getTgtRow();
-  int tgtCol = point2DPair.getTgtCol();
+bool ChessBoardModel::isKingOccupyingSpace(Point2D point2D) {
+  ChessPiece *chessPiece = getChessPiecePtr(point2D.getRow(), point2D.getCol());
+  if (chessPiece->getPieceType() == PieceType::KING) {
+    return true;
+  }
+
+  return false;
+}
+
+PlayerID ChessBoardModel::getOppositePlayerId(PlayerID playerId) {
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    return PlayerID::PLAYER_BLACK;
+  }
+
+  return PlayerID::PLAYER_WHITE;
+}
+
+Point2D ChessBoardModel::getKingCoordinates(PlayerID playerId) {
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    return whiteKingCoordinates;
+  }
+
+  return blackKingCoordinates;
+}
+
+
+void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
+  Point2D kingPoint2D = getKingCoordinates(playerId);
+  int kingRow = kingPoint2D.getRow();
+  int kingCol = kingPoint2D.getCol();
+  King* king = dynamic_cast<King *>(getChessPiecePtr(kingRow, kingCol));
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
-      ChessPiece* chessPiecePtr = getChessPiecePtr(tgtRow, tgtCol);
-      Point2DPair currCoordinates(row, col, tgtRow, tgtCol);
+      ChessPiece *chessPiecePtr = getChessPiecePtr(row, col);
+      Point2DPair currCoordinates(row, col, kingRow, kingCol);
       bool isCurrChessPieceAbleToCheck = chessPiecePtr->canMoveToTarget(currCoordinates);
       if (isCurrChessPieceAbleToCheck) {
-        return true;
+        king->setIsInCheck(true);
       }
     }
   }

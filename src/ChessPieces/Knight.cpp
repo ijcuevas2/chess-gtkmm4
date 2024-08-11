@@ -3,6 +3,7 @@
 //
 
 #include "../../headers/ChessPieces/Knight.h"
+
 bool Knight::getIsValidPath(Point2DPair point2DPair) {
   int srcRow = point2DPair.getSrcRow();
   int srcCol = point2DPair.getSrcCol();

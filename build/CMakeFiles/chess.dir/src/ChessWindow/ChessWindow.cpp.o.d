@@ -2297,6 +2297,7 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessPieces/../Point2DPair/Point2DPair.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoardMediator/ChessBoardMediator.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2DPair/Point2DPair.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessPieces/../../headers/MathUtils/MathUtils.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../BoardSpace/BoardSpace.h \
@@ -2310,7 +2311,6 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessPieces/Rook.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/Pawn.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessPieces/EmptyPiece.h \
-  /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../../headers/ChessBoardMediator/ChessBoardMediator.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessImagesInfo/ChessImagesInfo.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/../../headers/ChessWindow/../ChessBoard/../ChessImagesInfo/../../enum/PieceType.h \
@@ -2319,4 +2319,5 @@ CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/FenModel/FenModel.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/fstream \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h

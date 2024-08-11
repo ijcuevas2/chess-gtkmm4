@@ -12,10 +12,15 @@ private:
     int col;
 public:
     Point2D();
+
     Point2D(int row, int col);
+
     int getRow();
+
     int getCol();
+
     void setRow(int row);
+
     void setCol(int col);
 };
 

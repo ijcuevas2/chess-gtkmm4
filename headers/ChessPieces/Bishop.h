@@ -4,13 +4,17 @@
 
 #ifndef CHESS_BISHOP_H
 #define CHESS_BISHOP_H
+
 #include "ChessPiece.h"
 
 class Bishop : public virtual ChessPiece {
 public:
-    Bishop(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::BISHOP, chessBoardMediator) {
+    Bishop(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::BISHOP,
+                                                                                   chessBoardMediator) {
     }
+
     bool getIsValidPath(Point2DPair point2DPair) override;
+
     Point2DPair getNextCoordinates(Point2DPair point2DPair) override;
 };
 

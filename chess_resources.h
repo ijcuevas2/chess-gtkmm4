@@ -3,5 +3,6 @@
 
 #include <gio/gio.h>
 
-extern GResource *chess_get_resource (void);
+extern GResource *chess_get_resource(void);
+
 #endif

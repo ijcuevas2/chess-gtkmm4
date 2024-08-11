@@ -3,6 +3,7 @@
 //
 
 #include "../../headers/ChessPieces/Rook.h"
+
 bool Rook::getIsValidPath(Point2DPair point2DPair) {
   int srcRow = point2DPair.getSrcRow();
   int srcCol = point2DPair.getSrcCol();
@@ -15,7 +16,7 @@ bool Rook::getIsValidPath(Point2DPair point2DPair) {
 }
 
 Point2DPair Rook::getNextCoordinates(Point2DPair point2DPair) {
-  Point2DPair newCoordinates = MathUtils::getNewHorizontalCoordinates (point2DPair);
+  Point2DPair newCoordinates = MathUtils::getNewHorizontalCoordinates(point2DPair);
   return newCoordinates;
 }
 
