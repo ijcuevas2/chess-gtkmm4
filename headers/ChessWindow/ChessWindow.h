@@ -7,8 +7,7 @@
 
 #include <gtkmm.h>
 #include "../ChessBoard/ChessBoardView.h"
-#include <glibmm/signalproxy.h>
-#include <sigc++/signal.h>
+#include "ChessWindowMediator/ChessWindowMediator.h"
 
 class ChessWindow : public Gtk::Window {
 public:
@@ -19,11 +18,10 @@ protected:
     Glib::RefPtr<Gio::Menu> m_menu;
     Gtk::PopoverMenu m_popover_menu;
     Gtk::MenuButton m_menu_button;
-    sigc::signal<std::string()> handleOnLoadClickedSignal;
 private:
     ChessBoardView *m_chessBoardView;
-    std::string handleOnLoadClicked();
     void openFileDialog();
+    ChessWindowMediator chessWindowMediator;
 };
 
 

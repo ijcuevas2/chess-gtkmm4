@@ -8,26 +8,29 @@
 #include <iostream>
 #include <fstream>
 #include <cctype>
-#include <stack>
+#include <deque>
 #include "ChessBoard/ChessBoardModel.h"
+#include "../../headers/ChessWindowMediator/ChessWindowMediator.h"
 
 class FenModel {
 public:
-    FenModel(ChessBoardModel &chessBoardModel);
+    FenModel(ChessBoardModel & chessBoardModel, ChessWindowMediator & chessWindowMediator);
     void saveBoardState();
     void saveStateToFile();
-    void loadStateFromFile();
+    void loadStateFromFile(std::string filePath);
 private:
-    ChessBoardModel &chessBoardModel;
+    ChessBoardModel & chessBoardModel;
+    ChessWindowMediator & chessWindowMediator;
     int counter = 0;
     fs::path dirName;
     std::string encodeChessBoard();
     char getChessPieceEncoding(ChessPiece *chessPiecePtr);
     void clearCounter();
     std::string getCounterStr();
-    std::stack<std::string> fenBoardStateStack;
+    std::deque<std::string> fenDeque;
     std::string getBoardState();
     std::string getTurnPlayerEncoding();
+    void getLatestFenString();
     bool canCastle(int rookRow, int rookCol, int kingRow, int kingCol);
     bool canBlackQueenSideRookCastle();
     bool canBlackKingSideRookCastle();

@@ -4,7 +4,8 @@
 
 #include "../../headers/FenModel/FenModel.h"
 
-FenModel::FenModel(ChessBoardModel &chessBoardModel) : chessBoardModel(chessBoardModel) {
+FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessWindowMediator & chessWindowMediator) : chessBoardModel(chessBoardModel), chessWindowMediator(chessWindowMediator) {
+  chessWindowMediator.getAfterFileLoaded().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -55,8 +56,8 @@ std::string FenModel::getTurnPlayerEncoding() {
 }
 
 std::string FenModel::getBoardState() {
-  std::string chessEncoding = fenBoardStateStack.top();
-  fenBoardStateStack.pop();
+  std::string chessEncoding = fenDeque.back();
+  fenDeque.pop_back();
   return chessEncoding;
 }
 
@@ -72,7 +73,7 @@ void FenModel::saveBoardState() {
   std::string castlingAvailabilityEncoding = getCastlingAvailability();
   resultEncoding += castlingAvailabilityEncoding;
 
-  fenBoardStateStack.push(resultEncoding);
+  fenDeque.push_back(resultEncoding);
 }
 
 std::string FenModel::getCounterStr() {
@@ -247,7 +248,8 @@ std::string FenModel::generateGMTFilename() {
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
   std::stringstream ss;
   ss << std::put_time(std::gmtime(&in_time_t), "%Y-%m-%d_%H-%M-%S_GMT");
-  std::string fileName = ss.str() + ".txt";
+  std::string chessExtension = ".chess";
+  std::string fileName = ss.str() + chessExtension;
   return fileName;
 }
 
@@ -285,5 +287,33 @@ void FenModel::saveStateToFile() {
   }
 }
 
-void FenModel::loadStateFromFile() {
+void FenModel::loadStateFromFile(std::string filePath) {
+  fs::path fsFilePath = filePath;
+
+  std::ifstream file(fsFilePath);
+  if (!file.is_open()) {
+    std::cerr << "Error: unable to open the file " << filePath << std::endl;
+    return;
+  }
+
+  std::string line;
+
+  try {
+    while (std::getline(file, line)) {
+      fenDeque.push_back(line);
+    }
+  } catch (const std::exception & e) {
+    std::cerr << "Error loading file: " << e.what() << std::endl;
+    file.close();
+    return;
+  }
+
+  file.close();
+  getLatestFenString();
+}
+
+void FenModel::getLatestFenString() {
+  std::string fenState = fenDeque.back();
+  fenDeque.pop_back();
+  std::cout << "fenState: " << fenState << std::endl;
 }

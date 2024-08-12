@@ -550,6 +550,30 @@ src/ChessWindow/ChessWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.s
 .PHONY : src/ChessWindow/ChessWindow.cpp.s
 
+src/ChessWindowMediator/ChessWindowMediator.o: src/ChessWindowMediator/ChessWindowMediator.cpp.o
+.PHONY : src/ChessWindowMediator/ChessWindowMediator.o
+
+# target to build an object file
+src/ChessWindowMediator/ChessWindowMediator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindowMediator/ChessWindowMediator.cpp.o
+.PHONY : src/ChessWindowMediator/ChessWindowMediator.cpp.o
+
+src/ChessWindowMediator/ChessWindowMediator.i: src/ChessWindowMediator/ChessWindowMediator.cpp.i
+.PHONY : src/ChessWindowMediator/ChessWindowMediator.i
+
+# target to preprocess a source file
+src/ChessWindowMediator/ChessWindowMediator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindowMediator/ChessWindowMediator.cpp.i
+.PHONY : src/ChessWindowMediator/ChessWindowMediator.cpp.i
+
+src/ChessWindowMediator/ChessWindowMediator.s: src/ChessWindowMediator/ChessWindowMediator.cpp.s
+.PHONY : src/ChessWindowMediator/ChessWindowMediator.s
+
+# target to generate assembly for a file
+src/ChessWindowMediator/ChessWindowMediator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/ChessWindowMediator/ChessWindowMediator.cpp.s
+.PHONY : src/ChessWindowMediator/ChessWindowMediator.cpp.s
+
 src/FenModel/FenModel.o: src/FenModel/FenModel.cpp.o
 .PHONY : src/FenModel/FenModel.o
 
@@ -731,6 +755,9 @@ help:
 	@echo "... src/ChessWindow/ChessWindow.o"
 	@echo "... src/ChessWindow/ChessWindow.i"
 	@echo "... src/ChessWindow/ChessWindow.s"
+	@echo "... src/ChessWindowMediator/ChessWindowMediator.o"
+	@echo "... src/ChessWindowMediator/ChessWindowMediator.i"
+	@echo "... src/ChessWindowMediator/ChessWindowMediator.s"
 	@echo "... src/FenModel/FenModel.o"
 	@echo "... src/FenModel/FenModel.i"
 	@echo "... src/FenModel/FenModel.s"

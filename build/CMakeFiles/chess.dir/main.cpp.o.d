@@ -2320,4 +2320,6 @@ CMakeFiles/chess.dir/main.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardController.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/FenModel/FenModel.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/fstream \
-  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessBoard/ChessBoardModel.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/FenModel/../../headers/ChessWindowMediator/ChessWindowMediator.h \
+  /Users/ismael/Documents/chess-gtkmm4/headers/ChessWindowMediator/ChessWindowMediator.h

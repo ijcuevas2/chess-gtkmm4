@@ -9,10 +9,11 @@
 #include "ChessBoardModel.h"
 #include "../ChessImagesInfo/ChessImagesInfo.h"
 #include "ChessBoard/ChessBoardController.h"
+#include "ChessWindowMediator/ChessWindowMediator.h"
 
 class ChessBoardView : public Gtk::Box {
 public:
-    ChessBoardView(sigc::signal<std::string()> & handleOnLoadClickedSignal);
+    ChessBoardView(ChessWindowMediator & chessWindowMediator);
 private:
     void on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height);
     void on_pressed(int n_press, double x, double y);
@@ -23,7 +24,6 @@ private:
     void initBoard();
     void clearBoard();
     void updateLabel();
-    ChessBoardController chessBoardController;
     Gtk::DrawingArea m_drawingArea;
     Glib::RefPtr<Gio::Menu> m_menuModel;
     Gtk::PopoverMenuBar *m_menuBar;
@@ -31,13 +31,15 @@ private:
     Glib::RefPtr<Gio::SimpleAction> m_exitAction;
     Glib::RefPtr<Gio::SimpleAction> m_saveAction;
     Glib::RefPtr<Gio::SimpleAction> m_loadAction;
-    sigc::signal<std::string()> & handleOnLoadClickedSignal;
+    ChessWindowMediator & chessWindowMediator;
+    ChessBoardController chessBoardController{chessWindowMediator};
 
     Gtk::Box *m_toolbar;
     Gtk::Button *m_undoButton;
     Gtk::Label *m_currentPlayerLabel;
 
     void onUndoClicked();
+    void handleLoad(std::string result);
 };
 
 #endif //CHESS_CHESSBOARDVIEW_H

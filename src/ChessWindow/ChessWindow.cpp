@@ -8,41 +8,37 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   set_title("Chess");
   set_default_size(450, 450);
   property_decorated() = false;
-  m_chessBoardView = Gtk::make_managed<ChessBoardView>(handleOnLoadClickedSignal);
+  m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessWindowMediator);
+  chessWindowMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
   set_child(*m_chessBoardView);
-  handleOnLoadClickedSignal.connect(sigc::mem_fun(*this, &ChessWindow::handleOnLoadClicked));
-}
-
-std::string ChessWindow::handleOnLoadClicked() {
-  this->openFileDialog();
-  return "";
 }
 
 void ChessWindow::openFileDialog() {
-  auto dialog = Gtk::FileDialog::create();
+  Glib::RefPtr<Gtk::FileDialog> dialog = Gtk::FileDialog::create();
   dialog->set_title("Please choose a file");
   dialog->set_modal(true);
 
-  auto filters = Gio::ListStore<Gtk::FileFilter>::create();
+  Glib::RefPtr<Gio::ListStore<Gtk::FileFilter>> filters = Gio::ListStore<Gtk::FileFilter>::create();
+  std::string chessSavesDir = "chess_saves";
+  fs::path currentPath = fs::current_path() / chessSavesDir;
+  Glib::RefPtr<Gio::File> initial_folder = Gio::File::create_for_path(currentPath);
+  dialog->set_initial_folder(initial_folder);
 
-  auto filter_text = Gtk::FileFilter::create();
-  filter_text->set_name("Text files");
-  filter_text->add_mime_type("text/plain");
-  filters->append(filter_text);
-
-  auto filter_any = Gtk::FileFilter::create();
-  filter_any->set_name("Any files");
-  filter_any->add_pattern("*");
+  Glib::RefPtr<Gtk::FileFilter> filter_any = Gtk::FileFilter::create();
+  filter_any->set_name("Chess Save Files (*.chess)");
+  filter_any->add_pattern("*.chess");
   filters->append(filter_any);
 
   dialog->set_filters(filters);
 
   dialog->open(*this, [this, dialog](const Glib::RefPtr<Gio::AsyncResult>& result) {
       try {
-        auto file = dialog->open_finish(result);
+        Glib::RefPtr<Gio::File> file = dialog->open_finish(result);
         if (file) {
-          std::cout << "File selected: " << file->get_path() << std::endl;
+          std::string filePath = file->get_path();
+          std::cout << "File selected: " << filePath << std::endl;
           // Handle the selected file here
+          chessWindowMediator.getAfterFileLoaded().emit(filePath);
         }
       } catch (const Glib::Error& error) {
         if (error.code() != Gtk::DialogError::DISMISSED) {
@@ -53,3 +49,4 @@ void ChessWindow::openFileDialog() {
       }
   });
 }
+

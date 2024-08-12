@@ -33,6 +33,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/chess.dir/src/ChessPieces/Rook.cpp.o.d"
   "CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o"
   "CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o.d"
+  "CMakeFiles/chess.dir/src/ChessWindowMediator/ChessWindowMediator.cpp.o"
+  "CMakeFiles/chess.dir/src/ChessWindowMediator/ChessWindowMediator.cpp.o.d"
   "CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o"
   "CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o.d"
   "CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o"

@@ -25,6 +25,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Queen.cpp" "CMakeFiles/chess.dir/src/ChessPieces/Queen.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessPieces/Queen.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessPieces/Rook.cpp" "CMakeFiles/chess.dir/src/ChessPieces/Rook.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessPieces/Rook.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/ChessWindow/ChessWindow.cpp" "CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessWindow/ChessWindow.cpp.o.d"
+  "/Users/ismael/Documents/chess-gtkmm4/src/ChessWindowMediator/ChessWindowMediator.cpp" "CMakeFiles/chess.dir/src/ChessWindowMediator/ChessWindowMediator.cpp.o" "gcc" "CMakeFiles/chess.dir/src/ChessWindowMediator/ChessWindowMediator.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/FenModel/FenModel.cpp" "CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o" "gcc" "CMakeFiles/chess.dir/src/FenModel/FenModel.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/HintMarker/HintMarker.cpp" "CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o" "gcc" "CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.o.d"
   "/Users/ismael/Documents/chess-gtkmm4/src/MathUtils/MathUtils.cpp" "CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.o" "gcc" "CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.o.d"

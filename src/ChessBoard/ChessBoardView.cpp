@@ -1,7 +1,7 @@
 #include "../../headers/ChessBoard/ChessBoardView.h"
 #include <iostream>
 
-ChessBoardView::ChessBoardView(sigc::signal<std::string()> & handleOnLoadClickedSignal) : Gtk::Box(Gtk::Orientation::VERTICAL), handleOnLoadClickedSignal(handleOnLoadClickedSignal) {
+ChessBoardView::ChessBoardView(ChessWindowMediator & chessWindowMediator) : Gtk::Box(Gtk::Orientation::VERTICAL), chessWindowMediator(chessWindowMediator) {
   int width = 450;
   int height = 450;
   m_drawingArea.set_content_width(width);
@@ -15,8 +15,7 @@ ChessBoardView::ChessBoardView(sigc::signal<std::string()> & handleOnLoadClicked
 
   // Create the menu model
   m_menuModel = Gio::Menu::create();
-  auto fileMenu = Gio::Menu::create();
-  m_menuModel->append_submenu("File", fileMenu);
+  auto fileMenu = Gio::Menu::create();m_menuModel->append_submenu("File", fileMenu);
 
   // Create actions
   m_newGameAction = Gio::SimpleAction::create("new_game");
@@ -128,7 +127,7 @@ void ChessBoardView::onSaveClicked() {
 
 void ChessBoardView::onLoadClicked() {
   // Handle load action
-  this->handleOnLoadClickedSignal.emit();
+  chessWindowMediator.getOpenFileDialogSignal().emit();
 }
 
 void ChessBoardView::onExitClicked() {

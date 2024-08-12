@@ -106,6 +106,8 @@ add_executable(${PROJECT_NAME}
         headers/MathUtils/MathUtils.h
         headers/Point2D/Point2D.h
         src/Point2D/Point2D.cpp
+        src/ChessWindowMediator/ChessWindowMediator.cpp
+        headers/ChessWindowMediator/ChessWindowMediator.h
 )
 
 # Add dependency on chess_resources
