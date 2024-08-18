@@ -2277,6 +2277,7 @@ CMakeFiles/chess.dir/src/BoardSpace/BoardSpace.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2DPair/Point2DPair.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/BoardSpace/../../headers/BoardSpace/../ChessPieces/../../headers/MathUtils/MathUtils.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/BoardSpace/../../headers/BoardSpace/../ChessPieces/../../headers/Utils/MathUtils.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/BoardSpace/../../headers/BoardSpace/../ChessPieces/../../headers/Utils/StringUtils.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/iostream \
   /Users/ismael/Documents/chess-gtkmm4/src/BoardSpace/../../headers/BoardSpace/../HintMarker/HintMarker.h

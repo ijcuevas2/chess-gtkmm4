@@ -622,30 +622,6 @@ src/HintMarker/HintMarker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/HintMarker/HintMarker.cpp.s
 .PHONY : src/HintMarker/HintMarker.cpp.s
 
-src/MathUtils/MathUtils.o: src/MathUtils/MathUtils.cpp.o
-.PHONY : src/MathUtils/MathUtils.o
-
-# target to build an object file
-src/MathUtils/MathUtils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.o
-.PHONY : src/MathUtils/MathUtils.cpp.o
-
-src/MathUtils/MathUtils.i: src/MathUtils/MathUtils.cpp.i
-.PHONY : src/MathUtils/MathUtils.i
-
-# target to preprocess a source file
-src/MathUtils/MathUtils.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.i
-.PHONY : src/MathUtils/MathUtils.cpp.i
-
-src/MathUtils/MathUtils.s: src/MathUtils/MathUtils.cpp.s
-.PHONY : src/MathUtils/MathUtils.s
-
-# target to generate assembly for a file
-src/MathUtils/MathUtils.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/MathUtils/MathUtils.cpp.s
-.PHONY : src/MathUtils/MathUtils.cpp.s
-
 src/Point2D/Point2D.o: src/Point2D/Point2D.cpp.o
 .PHONY : src/Point2D/Point2D.o
 
@@ -693,6 +669,54 @@ src/Point2DPair/Point2DPair.s: src/Point2DPair/Point2DPair.cpp.s
 src/Point2DPair/Point2DPair.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Point2DPair/Point2DPair.cpp.s
 .PHONY : src/Point2DPair/Point2DPair.cpp.s
+
+src/Utils/MathUtils.o: src/Utils/MathUtils.cpp.o
+.PHONY : src/Utils/MathUtils.o
+
+# target to build an object file
+src/Utils/MathUtils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Utils/MathUtils.cpp.o
+.PHONY : src/Utils/MathUtils.cpp.o
+
+src/Utils/MathUtils.i: src/Utils/MathUtils.cpp.i
+.PHONY : src/Utils/MathUtils.i
+
+# target to preprocess a source file
+src/Utils/MathUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Utils/MathUtils.cpp.i
+.PHONY : src/Utils/MathUtils.cpp.i
+
+src/Utils/MathUtils.s: src/Utils/MathUtils.cpp.s
+.PHONY : src/Utils/MathUtils.s
+
+# target to generate assembly for a file
+src/Utils/MathUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Utils/MathUtils.cpp.s
+.PHONY : src/Utils/MathUtils.cpp.s
+
+src/Utils/StringUtils.o: src/Utils/StringUtils.cpp.o
+.PHONY : src/Utils/StringUtils.o
+
+# target to build an object file
+src/Utils/StringUtils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Utils/StringUtils.cpp.o
+.PHONY : src/Utils/StringUtils.cpp.o
+
+src/Utils/StringUtils.i: src/Utils/StringUtils.cpp.i
+.PHONY : src/Utils/StringUtils.i
+
+# target to preprocess a source file
+src/Utils/StringUtils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Utils/StringUtils.cpp.i
+.PHONY : src/Utils/StringUtils.cpp.i
+
+src/Utils/StringUtils.s: src/Utils/StringUtils.cpp.s
+.PHONY : src/Utils/StringUtils.s
+
+# target to generate assembly for a file
+src/Utils/StringUtils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/chess.dir/build.make CMakeFiles/chess.dir/src/Utils/StringUtils.cpp.s
+.PHONY : src/Utils/StringUtils.cpp.s
 
 # Help Target
 help:
@@ -764,15 +788,18 @@ help:
 	@echo "... src/HintMarker/HintMarker.o"
 	@echo "... src/HintMarker/HintMarker.i"
 	@echo "... src/HintMarker/HintMarker.s"
-	@echo "... src/MathUtils/MathUtils.o"
-	@echo "... src/MathUtils/MathUtils.i"
-	@echo "... src/MathUtils/MathUtils.s"
 	@echo "... src/Point2D/Point2D.o"
 	@echo "... src/Point2D/Point2D.i"
 	@echo "... src/Point2D/Point2D.s"
 	@echo "... src/Point2DPair/Point2DPair.o"
 	@echo "... src/Point2DPair/Point2DPair.i"
 	@echo "... src/Point2DPair/Point2DPair.s"
+	@echo "... src/Utils/MathUtils.o"
+	@echo "... src/Utils/MathUtils.i"
+	@echo "... src/Utils/MathUtils.s"
+	@echo "... src/Utils/StringUtils.o"
+	@echo "... src/Utils/StringUtils.i"
+	@echo "... src/Utils/StringUtils.s"
 .PHONY : help
 
 

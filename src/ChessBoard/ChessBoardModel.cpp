@@ -411,3 +411,14 @@ void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
     }
   }
 }
+
+void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) {
+  char delimiter = ' ';
+  std::vector<std::string> fenSplitArr = StringUtils::split(fenStateStr, delimiter);
+  std::string boardConfigStr = fenSplitArr[0];
+  std::string currentTurnStr = fenSplitArr[1];
+  std::string castlingStr = fenSplitArr[2];
+  std::string enPassantSquareStr = fenSplitArr[3];
+  std::string halfTurnClockStr = fenSplitArr[4];
+  std::string turnCounterStr = fenSplitArr[5];
+}

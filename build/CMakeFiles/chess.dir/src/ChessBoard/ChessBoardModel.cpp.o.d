@@ -2297,7 +2297,8 @@ CMakeFiles/chess.dir/src/ChessBoard/ChessBoardModel.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2DPair/Point2DPair.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/../../headers/MathUtils/MathUtils.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/../../headers/Utils/MathUtils.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../ChessPieces/../../headers/Utils/StringUtils.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/BoardSpace.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/../ChessPieces/ChessPiece.h \
   /Users/ismael/Documents/chess-gtkmm4/src/ChessBoard/../../headers/ChessBoard/../BoardSpace/../HintMarker/HintMarker.h \

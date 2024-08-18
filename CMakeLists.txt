@@ -102,12 +102,14 @@ add_executable(${PROJECT_NAME}
         src/ChessBoardMediator/ChessBoardMediator.cpp
         src/FenModel/FenModel.cpp
         headers/FenModel/FenModel.h
-        src/MathUtils/MathUtils.cpp
-        headers/MathUtils/MathUtils.h
+        src/Utils/MathUtils.cpp
+        headers/Utils/MathUtils.h
         headers/Point2D/Point2D.h
         src/Point2D/Point2D.cpp
         src/ChessWindowMediator/ChessWindowMediator.cpp
         headers/ChessWindowMediator/ChessWindowMediator.h
+        src/Utils/StringUtils.cpp
+        headers/Utils/StringUtils.h
 )
 
 # Add dependency on chess_resources

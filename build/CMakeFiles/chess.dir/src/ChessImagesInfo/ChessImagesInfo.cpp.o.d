@@ -2299,5 +2299,6 @@ CMakeFiles/chess.dir/src/ChessImagesInfo/ChessImagesInfo.cpp.o: \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2DPair/Point2DPair.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/Point2D/Point2D.h \
   /Users/ismael/Documents/chess-gtkmm4/headers/../enum/Player.h \
-  /Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/../../headers/ChessImagesInfo/../ChessPieces/../../headers/MathUtils/MathUtils.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/../../headers/ChessImagesInfo/../ChessPieces/../../headers/Utils/MathUtils.h \
+  /Users/ismael/Documents/chess-gtkmm4/src/ChessImagesInfo/../../headers/ChessImagesInfo/../ChessPieces/../../headers/Utils/StringUtils.h \
   /Users/ismael/Documents/chess-gtkmm4/build/chess_resources.h

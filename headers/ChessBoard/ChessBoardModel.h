@@ -75,6 +75,7 @@ public:
     Point2D blackKingCoordinates;
     Point2D getKingCoordinates(PlayerID playerId);
     void calculateKingIsInCheck(PlayerID playerId);
+    void initChessBoardFromFenStateString(std::string fenStateStr);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;

@@ -38,20 +38,42 @@ std::string FenModel::encodeChessBoard() {
   return encoding;
 }
 
-std::vector<std::string> FenModel::split(const std::string & input, char delimiter) {
-  std::vector<std::string> result;
+void FenModel::loadChessBoardFromFenState(std::string fenStateStr) {
+  bool isValidFenState = validateFenState(fenStateStr);
+  char delimiter = ' ';
 
-  auto range = input | std::ranges::views::split(delimiter);
-  for (const auto & word : range) {
-    result.emplace_back(word.begin(), word.end());
+  if (!isValidFenState) {
+    fenStateStr = defaultFenStateStr;
   }
 
-  return result;
+  std::vector<std::string> fenSplitArr = StringUtils::split(fenStateStr, delimiter);
+  std::string boardConfigStr = fenSplitArr[0];
+  std::string currentTurnStr = fenSplitArr[1];
+  std::string castlingStr = fenSplitArr[2];
+  std::string enPassantSquareStr = fenSplitArr[3];
+  std::string halfTurnClockStr = fenSplitArr[4];
+  std::string turnCounterStr = fenSplitArr[5];
 }
 
-void FenModel::loadChessBoardFromFenState(std::string fenState) {
-  int boardSize = chessBoardModel.getBoardSize();
-  int lastIndex = boardSize - 1;
+bool FenModel::validateFenState(std::string fenState) {
+  char delimiter = ' ';
+  std::vector<std::string> fenSplitArr = StringUtils::split(fenState, delimiter);
+  std::string boardConfigStr = fenSplitArr[0];
+  char boardConfigDelimiter = '/';
+  std::vector<std::string> boardConfig = StringUtils::split(fenState, boardConfigDelimiter);
+  size_t boardSize = boardConfig.size();
+  return boardSize == 8;
+}
+
+void FenModel::initChessBoardFromBoardConfig(std::string boardConfigStr) {
+  char delimiter = '/';
+  std::vector<std::string> boardConfig = StringUtils::split(boardConfigStr, delimiter);
+  for (int col = 0; col < boardConfig.size(); ++col) {
+    std::string currentString = boardConfig.at(col);
+    for (int i = 0; i < currentString.size(); ++i) {
+      char currentChar = currentString.at(i);
+    }
+  }
 }
 
 std::string FenModel::getTurnPlayerEncoding() {
@@ -72,7 +94,7 @@ std::string FenModel::getTurnPlayerEncoding() {
 }
 
 std::string FenModel::getBoardState() {
-  std::string chessEncoding = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
+  std::string chessEncoding = defaultFenStateStr;
   if (!fenDeque.empty()) {
     chessEncoding = fenDeque.back();
     fenDeque.pop_back();

@@ -9,8 +9,6 @@
 #include <fstream>
 #include <cctype>
 #include <deque>
-#include <ranges>
-#include <string_view>
 #include "ChessBoard/ChessBoardModel.h"
 #include "../../headers/ChessWindowMediator/ChessWindowMediator.h"
 
@@ -26,8 +24,7 @@ private:
     int counter = 0;
     fs::path dirName;
     std::string encodeChessBoard();
-    std::vector<std::string> split(const std::string & input, char delimiter);
-    void loadChessBoardFromFenState(std::string fenState);
+    void loadChessBoardFromFenState(std::string fenStateStr);
     char getChessPieceEncoding(ChessPiece *chessPiecePtr);
     void clearCounter();
     std::string getCounterStr();
@@ -50,6 +47,9 @@ private:
     std::string getHalfMoveClock();
     std::string getCurrentTurn();
     std::string getEnpassantSquare();
+    std::string defaultFenStateStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
+    bool validateFenState(std::string fenState);
+    void initChessBoardFromBoardConfig(std::string boardConfigStr);
 };
 
 #endif //CHESS_FENMODEL_H
