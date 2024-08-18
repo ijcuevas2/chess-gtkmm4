@@ -73,7 +73,25 @@ void FenModel::saveBoardState() {
   std::string castlingAvailabilityEncoding = getCastlingAvailability();
   resultEncoding += castlingAvailabilityEncoding;
 
+  std::string halfMoveClockTurn = getHalfMoveClock();
+  resultEncoding += halfMoveClockTurn;
+
+  std::string currentTurn = getCurrentTurn();
+  resultEncoding += currentTurn;
+
   fenDeque.push_back(resultEncoding);
+}
+
+std::string FenModel::getHalfMoveClock() {
+  int halfMoveClockInt = chessBoardModel.getHalfMoveClock();
+  std::string halfMoveClock = " " + std::to_string(halfMoveClockInt) + " ";
+  return halfMoveClock;
+}
+
+std::string FenModel::getCurrentTurn() {
+  int currentTurnInt = chessBoardModel.getCurrentTurn();
+  std::string currentTurn = std::to_string(currentTurnInt);
+  return currentTurn;
 }
 
 std::string FenModel::getCounterStr() {
@@ -131,7 +149,7 @@ char FenModel::getChessPieceEncoding(ChessPiece *chessPiecePtr) {
   return pieceEncodingResult;
 }
 
-bool FenModel::canBlackQueenSideRookCastle() {
+std::string FenModel::canBlackQueenSideRookCastle() {
   int rookRow = 0;
   int rookCol = 0;
   int kingRow = 0;
@@ -144,7 +162,7 @@ bool FenModel::canBlackQueenSideRookCastle() {
   return "";
 }
 
-bool FenModel::canBlackKingSideRookCastle() {
+std::string FenModel::canBlackKingSideRookCastle() {
   int rookRow = 0;
   int rookCol = 7;
   int kingRow = 0;
@@ -158,7 +176,7 @@ bool FenModel::canBlackKingSideRookCastle() {
   return "";
 }
 
-bool FenModel::canWhiteQueenSideRookCastle() {
+std::string FenModel::canWhiteQueenSideRookCastle() {
   int rookRow = 7;
   int rookCol = 0;
   int kingRow = 7;
@@ -172,7 +190,7 @@ bool FenModel::canWhiteQueenSideRookCastle() {
   return "";
 }
 
-bool FenModel::canWhiteKingSideRookCastle() {
+std::string FenModel::canWhiteKingSideRookCastle() {
   int rookRow = 7;
   int rookCol = 7;
   int kingRow = 7;
@@ -282,7 +300,7 @@ bool FenModel::saveGame(std::string content) {
 void FenModel::saveStateToFile() {
   isChessSavesDirValid = createSaveDirectory();
   if (isChessSavesDirValid) {
-    std::string fenEncoding = encodeChessBoard();
+    std::string fenEncoding = getBoardState();
     saveGame(fenEncoding);
   }
 }

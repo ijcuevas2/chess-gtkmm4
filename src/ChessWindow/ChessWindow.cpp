@@ -7,7 +7,14 @@
 ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   set_title("Chess");
   set_default_size(450, 450);
-  property_decorated() = false;
+
+  auto header_bar = Gtk::make_managed<Gtk::HeaderBar>();
+  header_bar->set_show_title_buttons(true);
+  header_bar->set_decoration_layout(":close");
+  header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>("Chess"));
+
+  set_titlebar(*header_bar);
+
   m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessWindowMediator);
   chessWindowMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
   set_child(*m_chessBoardView);

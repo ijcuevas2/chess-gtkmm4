@@ -32,10 +32,10 @@ private:
     std::string getTurnPlayerEncoding();
     void getLatestFenString();
     bool canCastle(int rookRow, int rookCol, int kingRow, int kingCol);
-    bool canBlackQueenSideRookCastle();
-    bool canBlackKingSideRookCastle();
-    bool canWhiteQueenSideRookCastle();
-    bool canWhiteKingSideRookCastle();
+    std::string canBlackQueenSideRookCastle();
+    std::string canBlackKingSideRookCastle();
+    std::string canWhiteQueenSideRookCastle();
+    std::string canWhiteKingSideRookCastle();
     bool createSaveDirectory();
     bool isChessSavesDirValid = false;
     std::string getCastlingAvailability();
@@ -43,6 +43,8 @@ private:
     bool isKing(ChessPiece *chessPiecePtr);
     bool saveGame(std::string content);
     std::string generateGMTFilename();
+    std::string getHalfMoveClock();
+    std::string getCurrentTurn();
 };
 
 #endif //CHESS_FENMODEL_H

@@ -6,6 +6,7 @@
 #define CHESS_CHESSWINDOW_H
 
 #include <gtkmm.h>
+#include <gdkmm/surface.h>
 #include "../ChessBoard/ChessBoardView.h"
 #include "ChessWindowMediator/ChessWindowMediator.h"
 
