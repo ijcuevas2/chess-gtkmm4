@@ -64,6 +64,8 @@ public:
     bool canOpponentsPiecesPutKingInCheck(PlayerID playerId, Point2DPair point2DPair);
     int getCurrentTurn();
     int getHalfMoveClock();
+    void incrementHalfMoveClock();
+    void resetHalfMoveClock();
     int getMovedTwoSpacesTurn(int row, int col);
     void showHintMarkers(BoardSpace *boardSpacePtr);
     void hideHintMarkers();

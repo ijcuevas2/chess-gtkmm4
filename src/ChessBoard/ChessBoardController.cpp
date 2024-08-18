@@ -80,6 +80,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
         ChessPiece *targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {
+          updateHalfTurnClock(srcChessPiecePtr, targetChessPiecePtr);
           srcChessPiecePtr->afterPieceMoved(point2DPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
@@ -90,9 +91,27 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
       }
     }
 
-    chessBoardModel.hideHintMarkers();
-    chessBoardModel.clearSelectedBoardSpacePtr();
+    resetChessBoardUI();
   }
+}
+
+void ChessBoardController::resetChessBoardUI() {
+  chessBoardModel.hideHintMarkers();
+  chessBoardModel.clearSelectedBoardSpacePtr();
+}
+
+void ChessBoardController::updateHalfTurnClock(ChessPiece* srcChessPiecePtr, ChessPiece* targetChessPiecePtr) {
+  PieceType targetPieceType = targetChessPiecePtr->getPieceType();
+  PieceType srcPieceType = srcChessPiecePtr->getPieceType();
+  if (targetPieceType != PieceType::EMPTY_PIECE || srcPieceType == PieceType::PAWN) {
+    chessBoardModel.resetHalfMoveClock();
+  } else {
+    chessBoardModel.incrementHalfMoveClock();
+  }
+}
+
+void ChessBoardController::loadStateFromFile(std::string filePath) {
+  fenModel.loadStateFromFile(filePath);
 }
 
 void ChessBoardController::saveStateToFile() {

@@ -38,6 +38,22 @@ std::string FenModel::encodeChessBoard() {
   return encoding;
 }
 
+std::vector<std::string> FenModel::split(const std::string & input, char delimiter) {
+  std::vector<std::string> result;
+
+  auto range = input | std::ranges::views::split(delimiter);
+  for (const auto & word : range) {
+    result.emplace_back(word.begin(), word.end());
+  }
+
+  return result;
+}
+
+void FenModel::loadChessBoardFromFenState(std::string fenState) {
+  int boardSize = chessBoardModel.getBoardSize();
+  int lastIndex = boardSize - 1;
+}
+
 std::string FenModel::getTurnPlayerEncoding() {
   PlayerID playerId = chessBoardModel.getTurnPlayerId();
   std::string turnPlayerEncoding = "";
@@ -56,8 +72,12 @@ std::string FenModel::getTurnPlayerEncoding() {
 }
 
 std::string FenModel::getBoardState() {
-  std::string chessEncoding = fenDeque.back();
-  fenDeque.pop_back();
+  std::string chessEncoding = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
+  if (!fenDeque.empty()) {
+    chessEncoding = fenDeque.back();
+    fenDeque.pop_back();
+  }
+
   return chessEncoding;
 }
 
@@ -72,6 +92,9 @@ void FenModel::saveBoardState() {
 
   std::string castlingAvailabilityEncoding = getCastlingAvailability();
   resultEncoding += castlingAvailabilityEncoding;
+
+  std::string enPassantSquare = getEnpassantSquare();
+  resultEncoding += enPassantSquare;
 
   std::string halfMoveClockTurn = getHalfMoveClock();
   resultEncoding += halfMoveClockTurn;
@@ -330,8 +353,14 @@ void FenModel::loadStateFromFile(std::string filePath) {
   getLatestFenString();
 }
 
+std::string FenModel::getEnpassantSquare() {
+  std::string enPassantSquare = " - ";
+  return enPassantSquare;
+}
+
 void FenModel::getLatestFenString() {
-  std::string fenState = fenDeque.back();
-  fenDeque.pop_back();
-  std::cout << "fenState: " << fenState << std::endl;
+  if (!fenDeque.empty()) {
+    std::string fenState = fenDeque.back();
+    fenDeque.pop_back();
+  }
 }

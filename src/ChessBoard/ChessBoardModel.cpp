@@ -387,6 +387,13 @@ Point2D ChessBoardModel::getKingCoordinates(PlayerID playerId) {
   return blackKingCoordinates;
 }
 
+void ChessBoardModel::incrementHalfMoveClock() {
+  halfMoveClock++;
+}
+
+void ChessBoardModel::resetHalfMoveClock() {
+  halfMoveClock = 0;
+}
 
 void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
   Point2D kingPoint2D = getKingCoordinates(playerId);
