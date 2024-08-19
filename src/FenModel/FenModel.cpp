@@ -38,23 +38,6 @@ std::string FenModel::encodeChessBoard() {
   return encoding;
 }
 
-void FenModel::loadChessBoardFromFenState(std::string fenStateStr) {
-  bool isValidFenState = validateFenState(fenStateStr);
-  char delimiter = ' ';
-
-  if (!isValidFenState) {
-    fenStateStr = defaultFenStateStr;
-  }
-
-  std::vector<std::string> fenSplitArr = StringUtils::split(fenStateStr, delimiter);
-  std::string boardConfigStr = fenSplitArr[0];
-  std::string currentTurnStr = fenSplitArr[1];
-  std::string castlingStr = fenSplitArr[2];
-  std::string enPassantSquareStr = fenSplitArr[3];
-  std::string halfTurnClockStr = fenSplitArr[4];
-  std::string turnCounterStr = fenSplitArr[5];
-}
-
 bool FenModel::validateFenState(std::string fenState) {
   char delimiter = ' ';
   std::vector<std::string> fenSplitArr = StringUtils::split(fenState, delimiter);
@@ -63,17 +46,6 @@ bool FenModel::validateFenState(std::string fenState) {
   std::vector<std::string> boardConfig = StringUtils::split(fenState, boardConfigDelimiter);
   size_t boardSize = boardConfig.size();
   return boardSize == 8;
-}
-
-void FenModel::initChessBoardFromBoardConfig(std::string boardConfigStr) {
-  char delimiter = '/';
-  std::vector<std::string> boardConfig = StringUtils::split(boardConfigStr, delimiter);
-  for (int col = 0; col < boardConfig.size(); ++col) {
-    std::string currentString = boardConfig.at(col);
-    for (int i = 0; i < currentString.size(); ++i) {
-      char currentChar = currentString.at(i);
-    }
-  }
 }
 
 std::string FenModel::getTurnPlayerEncoding() {
@@ -129,7 +101,7 @@ void FenModel::saveBoardState() {
 
 std::string FenModel::getHalfMoveClock() {
   int halfMoveClockInt = chessBoardModel.getHalfMoveClock();
-  std::string halfMoveClock = " " + std::to_string(halfMoveClockInt) + " ";
+  std::string halfMoveClock = std::to_string(halfMoveClockInt) + " ";
   return halfMoveClock;
 }
 
@@ -163,6 +135,7 @@ char FenModel::getChessPieceEncoding(ChessPiece *chessPiecePtr) {
       break;
     case PieceType::KNIGHT:
       pieceEncoding = 'n';
+      break;
     case PieceType::BISHOP:
       pieceEncoding = 'b';
       break;
@@ -384,5 +357,7 @@ void FenModel::getLatestFenString() {
   if (!fenDeque.empty()) {
     std::string fenState = fenDeque.back();
     fenDeque.pop_back();
+    chessBoardModel.initChessBoardFromFenStateString(fenState);
+    chessWindowMediator.getUpdateUiSignal().emit();
   }
 }

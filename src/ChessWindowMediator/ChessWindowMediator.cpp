@@ -11,3 +11,7 @@ sigc::signal<void(std::string)> ChessWindowMediator::getAfterFileLoaded() {
 sigc::signal<void()> ChessWindowMediator::getOpenFileDialogSignal() {
   return openFileDialog;
 }
+
+sigc::signal<void()> ChessWindowMediator::getUpdateUiSignal() {
+  return updateUi;
+}

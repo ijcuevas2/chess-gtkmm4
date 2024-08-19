@@ -40,6 +40,7 @@ private:
 
     void onUndoClicked();
     void handleLoad(std::string result);
+    void updateUi();
 };
 
 #endif //CHESS_CHESSBOARDVIEW_H

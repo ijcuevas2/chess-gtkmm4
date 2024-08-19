@@ -57,3 +57,10 @@ Point2DPair MathUtils::getNewHorizontalCoordinates(Point2DPair point2DPair) {
   Point2DPair newCoordinates(newSrcRow, newSrcCol, tgtRow, tgtCol);
   return newCoordinates;
 }
+
+int MathUtils::charToDigit(char c) {
+  if (std::isdigit(c)) {
+    return c - '0';
+  }
+  throw std::invalid_argument("Character is not a digit");
+}

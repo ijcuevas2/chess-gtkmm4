@@ -17,3 +17,20 @@ std::vector<std::string> StringUtils::split(const std::string & input, char deli
   return result;
 }
 
+std::string StringUtils::trim(std::string str) {
+  // Remove leading spaces
+  while (!str.empty() && std::isspace(str.front())) {
+    str.erase(str.begin());
+  }
+
+  // Remove trailing spaces
+  while (!str.empty() && std::isspace(str.back())) {
+    str.pop_back();
+  }
+
+  return str;
+}
+
+bool StringUtils::containsCharacter(std::string str, char ch) {
+  return std::find(str.begin(), str.end(), ch) != str.end();
+}

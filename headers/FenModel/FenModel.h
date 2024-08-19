@@ -24,7 +24,6 @@ private:
     int counter = 0;
     fs::path dirName;
     std::string encodeChessBoard();
-    void loadChessBoardFromFenState(std::string fenStateStr);
     char getChessPieceEncoding(ChessPiece *chessPiecePtr);
     void clearCounter();
     std::string getCounterStr();

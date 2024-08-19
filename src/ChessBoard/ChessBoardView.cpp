@@ -8,6 +8,7 @@ ChessBoardView::ChessBoardView(ChessWindowMediator & chessWindowMediator) : Gtk:
   m_drawingArea.set_content_height(height);
 
   m_drawingArea.set_draw_func(sigc::mem_fun(*this, &ChessBoardView::on_draw));
+  chessWindowMediator.getUpdateUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUi));
 
   auto controller = Gtk::GestureClick::create();
   controller->signal_pressed().connect(sigc::mem_fun(*this, &ChessBoardView::on_pressed));
@@ -128,6 +129,10 @@ void ChessBoardView::onSaveClicked() {
 void ChessBoardView::onLoadClicked() {
   // Handle load action
   chessWindowMediator.getOpenFileDialogSignal().emit();
+}
+
+void ChessBoardView::updateUi() {
+  m_drawingArea.queue_draw();
 }
 
 void ChessBoardView::onExitClicked() {

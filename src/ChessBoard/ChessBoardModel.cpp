@@ -43,7 +43,7 @@ void ChessBoardModel::initBoard() {
         updateKingPosition(chessPiecePtr->getPlayerId(), row, col);
       }
 
-      setBoardSpaceAtIndex(chessPiecePtr, row, col);
+      setNewBoardSpaceAtIndex(chessPiecePtr, row, col);
     }
   }
 }
@@ -63,7 +63,7 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
   }
 }
 
-void ChessBoardModel::setBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
+void ChessBoardModel::setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
   BoardSpace *boardSpace = new BoardSpace(chessPiecePtr, row, col);
   this->board[row][col] = boardSpace;
 }
@@ -165,6 +165,10 @@ ChessPiece *ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID player
   }
 
   return piece;
+}
+
+ChessPiece *ChessBoardModel::initEmptyPiece() {
+  return new EmptyPiece(chessBoardMediator);
 }
 
 ChessPiece *ChessBoardModel::initChessPiece(std::string pieceEncoding) {
@@ -412,13 +416,135 @@ void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
   }
 }
 
+ChessPiece* ChessBoardModel::initChessPieceFromChar(char chessPieceChar) {
+  ChessPiece* result = nullptr;
+  switch (chessPieceChar) {
+    case 'r':
+      result = new Rook(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      break;
+    case 'R':
+      result = new Rook(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      break;
+    case 'n':
+      result = new Knight(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      break;
+    case 'N':
+      result = new Knight(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      break;
+    case 'b':
+      result = new Bishop(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      break;
+    case 'B':
+      result = new Bishop(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      break;
+    case 'q':
+      result = new Queen(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      break;
+    case 'Q':
+      result = new Queen(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      break;
+    case 'k':
+      result = new King(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      break;
+    case 'K':
+      result = new King(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      break;
+    case 'p':
+      result = new Pawn(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      break;
+    case 'P':
+      result = new Pawn(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      break;
+  }
+
+  return result;
+}
+
 void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) {
   char delimiter = ' ';
   std::vector<std::string> fenSplitArr = StringUtils::split(fenStateStr, delimiter);
   std::string boardConfigStr = fenSplitArr[0];
-  std::string currentTurnStr = fenSplitArr[1];
+  std::string turnPlayerStr = fenSplitArr[1];
   std::string castlingStr = fenSplitArr[2];
   std::string enPassantSquareStr = fenSplitArr[3];
   std::string halfTurnClockStr = fenSplitArr[4];
   std::string turnCounterStr = fenSplitArr[5];
+
+  initChessBoardFromBoardConfig(boardConfigStr);
+  turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
+  restoreCastlingInfo(castlingStr);
+  // enPassantSquareStr =
+  halfMoveClock = std::stoi(halfTurnClockStr);
+  currentTurn = std::stoi(turnCounterStr);
+}
+
+PlayerID ChessBoardModel::getTurnPlayerFromStr(std::string turnPlayerStr) {
+  std::string trimmedTurnPlayer = StringUtils::trim(turnPlayerStr);
+  if (trimmedTurnPlayer == "b") {
+    return PlayerID::PLAYER_BLACK;
+  }
+
+  return PlayerID::PLAYER_WHITE;
+}
+
+void ChessBoardModel::restoreCastlingInfo(std::string castlingStr) {
+  bool blackRookQueenSideCanCastle = StringUtils::containsCharacter(castlingStr, 'a');
+  if (!blackRookQueenSideCanCastle) {
+    restoreCastlingInfoHelper(0, 0);
+  }
+
+  bool blackRookKingSideCanCastle = StringUtils::containsCharacter(castlingStr, 'h');
+  if (!blackRookKingSideCanCastle) {
+    restoreCastlingInfoHelper(0, 7);
+  }
+
+  bool whiteRookQueenSideCanCastle = StringUtils::containsCharacter(castlingStr, 'A');
+  if (!whiteRookQueenSideCanCastle) {
+    restoreCastlingInfoHelper(7, 0);
+  }
+
+  bool whiteRookKingSideCanCastle = StringUtils::containsCharacter(castlingStr, 'H');
+  if (!whiteRookKingSideCanCastle) {
+    restoreCastlingInfoHelper(7, 7);
+  }
+}
+
+void ChessBoardModel::restoreCastlingInfoHelper(int row, int col) {
+  ChessPiece* chessPiece = getChessPiecePtr(row, col);
+  if (chessPiece->getPieceType() == PieceType::ROOK) {
+    Rook* rook = dynamic_cast<Rook*>(chessPiece);
+    rook->setHasMoved();
+  }
+}
+
+int ChessBoardModel::getCounterValue(int col, int counter) {
+  int actualCounter = std::max(0, counter);
+  return col + actualCounter;
+}
+
+void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) {
+  char delimiter = '/';
+  std::vector<std::string> boardConfig = StringUtils::split(boardConfigStr, delimiter);
+  for (int row = 0; row < boardConfig.size(); ++row) {
+    std::string currentString = boardConfig.at(row);
+    int counter = 0;
+    for (int col = 0; col < currentString.size(); ++col) {
+      char currentChar = currentString.at(col);
+      ChessPiece* chessPiecePtr = nullptr;
+
+      if (std::isdigit(currentChar)) {
+        int currCounter = MathUtils::charToDigit(currentChar);
+        for (int i = 0; i < currCounter; ++i) {
+          chessPiecePtr = initEmptyPiece();
+          assignChessPieceToBoardSpaceIndex(chessPiecePtr, row, col + counter);
+          if (i != 0) {
+            counter++;
+          }
+        }
+      } else {
+        chessPiecePtr = initChessPieceFromChar(currentChar);
+        assignChessPieceToBoardSpaceIndex(chessPiecePtr, row, col + counter);
+      }
+    }
+  }
 }

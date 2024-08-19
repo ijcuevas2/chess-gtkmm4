@@ -24,6 +24,8 @@
 #include "../ChessImagesInfo/ChessImagesInfo.h"
 #include <glibmm/signalproxy.h>
 #include <sigc++/signal.h>
+#include <cctype>
+#include "../../headers/Utils/MathUtils.h"
 
 class ChessBoardModel : public Gtk::DrawingArea {
 public:
@@ -33,9 +35,10 @@ public:
     ChessPiece *getChessPiecePtr(int row, int col);
     BoardSpace *getBoardSpacePtr(int row, int col);
     void assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessPiecePtr, int row, int col);
-    void setBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col);
+    void setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col);
     ChessPiece *initChessPiece(std::string pieceEncoding);
     ChessPiece *initChessPiece(PieceType pieceType, PlayerID playerId);
+    ChessPiece *initEmptyPiece();
     std::vector<std::vector<std::string>> getBoardConfig();
     PieceType parsePieceType(std::string pieceEncoding);
     PlayerID parsePlayerId(std::string pieceEncoding);
@@ -76,6 +79,7 @@ public:
     Point2D getKingCoordinates(PlayerID playerId);
     void calculateKingIsInCheck(PlayerID playerId);
     void initChessBoardFromFenStateString(std::string fenStateStr);
+    void initChessBoardFromBoardConfig(std::string boardConfigStr);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
@@ -85,6 +89,12 @@ private:
     ChessBoardMediator chessBoardMediator{};
     BoardSpace *selectedBoardSpacePtr;
     PlayerID turnPlayerId{PlayerID::PLAYER_WHITE};
+    ChessPiece* initChessPieceFromStr(std::string chessPieceStr);
+    void restoreCastlingInfo(std::string castlingStr);
+    void restoreCastlingInfoHelper(int row, int col);
+    PlayerID getTurnPlayerFromStr(std::string turnPlayerId);
+    ChessPiece *initChessPieceFromChar(char chessPieceChar);
+    int getCounterValue(int col, int counter);
 };
 
 
