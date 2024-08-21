@@ -64,8 +64,6 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
 }
 
 void ChessBoardModel::setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
-
-  std::print("Row: {}, Col: {}\n", row, col);
   BoardSpace *boardSpace = new BoardSpace(chessPiecePtr, row, col);
   this->board[row][col] = boardSpace;
 }
