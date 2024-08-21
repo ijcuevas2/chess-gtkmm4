@@ -7,7 +7,10 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdio>
 #include <filesystem>
+#include <format>
+#include <print>
 #include <map>
 #include "../ChessPieces/ChessPiece.h"
 #include "../BoardSpace/BoardSpace.h"

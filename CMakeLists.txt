@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(chess)
 
 # Set C++ standard
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set build type to Debug
@@ -108,8 +108,8 @@ add_executable(${PROJECT_NAME}
         src/Point2D/Point2D.cpp
         src/ChessWindowMediator/ChessWindowMediator.cpp
         headers/ChessWindowMediator/ChessWindowMediator.h
-        src/Utils/StringUtils.cpp
         headers/Utils/StringUtils.h
+        src/Utils/StringUtils.cpp
 )
 
 # Add dependency on chess_resources

@@ -7,7 +7,10 @@
 
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <string>
+#include <ranges>
+#include <string_view>
 
 class StringUtils {
 public:

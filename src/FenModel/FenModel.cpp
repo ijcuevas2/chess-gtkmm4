@@ -357,6 +357,7 @@ void FenModel::getLatestFenString() {
   if (!fenDeque.empty()) {
     std::string fenState = fenDeque.back();
     fenDeque.pop_back();
+    chessBoardModel.clearBoard();
     chessBoardModel.initChessBoardFromFenStateString(fenState);
     chessWindowMediator.getUpdateUiSignal().emit();
   }

@@ -64,6 +64,8 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
 }
 
 void ChessBoardModel::setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
+
+  std::print("Row: {}, Col: {}\n", row, col);
   BoardSpace *boardSpace = new BoardSpace(chessPiecePtr, row, col);
   this->board[row][col] = boardSpace;
 }
@@ -534,16 +536,19 @@ void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) 
 
       if (std::isdigit(currentChar)) {
         int currCounter = MathUtils::charToDigit(currentChar);
+        int lastIndex = currCounter - 1;
         for (int i = 0; i < currCounter; ++i) {
           chessPiecePtr = initEmptyPiece();
-          assignChessPieceToBoardSpaceIndex(chessPiecePtr, row, col + counter);
-          if (i != 0) {
+          int targetCol = col + counter;
+          setNewBoardSpaceAtIndex(chessPiecePtr, row, targetCol);
+          if (i != lastIndex) {
             counter++;
           }
         }
       } else {
         chessPiecePtr = initChessPieceFromChar(currentChar);
-        assignChessPieceToBoardSpaceIndex(chessPiecePtr, row, col + counter);
+        int targetCol = col + counter;
+        setNewBoardSpaceAtIndex(chessPiecePtr, row, targetCol);
       }
     }
   }
