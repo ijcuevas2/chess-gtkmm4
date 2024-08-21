@@ -420,40 +420,40 @@ ChessPiece* ChessBoardModel::initChessPieceFromChar(char chessPieceChar) {
   ChessPiece* result = nullptr;
   switch (chessPieceChar) {
     case 'r':
-      result = new Rook(PlayerID::PLAYER_WHITE, chessBoardMediator);
-      break;
-    case 'R':
       result = new Rook(PlayerID::PLAYER_BLACK, chessBoardMediator);
       break;
-    case 'n':
-      result = new Knight(PlayerID::PLAYER_WHITE, chessBoardMediator);
+    case 'R':
+      result = new Rook(PlayerID::PLAYER_WHITE, chessBoardMediator);
       break;
-    case 'N':
+    case 'n':
       result = new Knight(PlayerID::PLAYER_BLACK, chessBoardMediator);
       break;
-    case 'b':
-      result = new Bishop(PlayerID::PLAYER_WHITE, chessBoardMediator);
+    case 'N':
+      result = new Knight(PlayerID::PLAYER_WHITE, chessBoardMediator);
       break;
-    case 'B':
+    case 'b':
       result = new Bishop(PlayerID::PLAYER_BLACK, chessBoardMediator);
       break;
-    case 'q':
-      result = new Queen(PlayerID::PLAYER_WHITE, chessBoardMediator);
+    case 'B':
+      result = new Bishop(PlayerID::PLAYER_WHITE, chessBoardMediator);
       break;
-    case 'Q':
+    case 'q':
       result = new Queen(PlayerID::PLAYER_BLACK, chessBoardMediator);
       break;
-    case 'k':
-      result = new King(PlayerID::PLAYER_WHITE, chessBoardMediator);
+    case 'Q':
+      result = new Queen(PlayerID::PLAYER_WHITE, chessBoardMediator);
       break;
-    case 'K':
+    case 'k':
       result = new King(PlayerID::PLAYER_BLACK, chessBoardMediator);
       break;
+    case 'K':
+      result = new King(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      break;
     case 'p':
-      result = new Pawn(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      result = new Pawn(PlayerID::PLAYER_BLACK, chessBoardMediator);
       break;
     case 'P':
-      result = new Pawn(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      result = new Pawn(PlayerID::PLAYER_WHITE, chessBoardMediator);
       break;
   }
 
@@ -473,7 +473,7 @@ void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) 
   initChessBoardFromBoardConfig(boardConfigStr);
   turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
   restoreCastlingInfo(castlingStr);
-  // enPassantSquareStr =
+  // enPassantSquareStr = ;
   halfMoveClock = std::stoi(halfTurnClockStr);
   currentTurn = std::stoi(turnCounterStr);
 }

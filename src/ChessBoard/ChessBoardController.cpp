@@ -24,8 +24,12 @@ void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int 
       cr->rectangle(col * cellSize, row * cellSize, cellSize, cellSize);
 
       BoardSpace *boardSpace = chessBoardModel.getBoardSpacePtr(row, col);
-      bool showMarker = boardSpace->getShowMarker();
 
+      if (boardSpace == nullptr) {
+        return;
+      }
+
+      bool showMarker = boardSpace->getShowMarker();
       if (chessBoardModel.isSelectedBoardSpacePtr(row, col) || showMarker) {
         cr->set_line_width(4.0);
         cr->fill_preserve();
