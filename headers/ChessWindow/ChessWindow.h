@@ -22,6 +22,7 @@ protected:
 private:
     ChessBoardView *m_chessBoardView;
     void openFileDialog();
+    void saveFileDialog();
     ChessWindowMediator chessWindowMediator;
 };
 

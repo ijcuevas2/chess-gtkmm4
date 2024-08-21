@@ -123,7 +123,7 @@ void ChessBoardView::onNewGameClicked() {
 
 void ChessBoardView::onSaveClicked() {
   // Handle save action
-  chessBoardController.saveStateToFile();
+  chessWindowMediator.getOpenSaveDialogSignal().emit();
 }
 
 void ChessBoardView::onLoadClicked() {

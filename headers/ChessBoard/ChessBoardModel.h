@@ -39,14 +39,10 @@ public:
     BoardSpace *getBoardSpacePtr(int row, int col);
     void assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessPiecePtr, int row, int col);
     void setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col);
-    ChessPiece *initChessPiece(std::string pieceEncoding);
-    ChessPiece *initChessPiece(PieceType pieceType, PlayerID playerId);
     ChessPiece *initEmptyPiece();
     std::vector<std::vector<std::string>> getBoardConfig();
-    PieceType parsePieceType(std::string pieceEncoding);
-    PlayerID parsePlayerId(std::string pieceEncoding);
     Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece *chessPiece);
-    bool isValidEncoding(std::vector<std::vector<std::string>> chessBoard);
+    bool isValidEncoding(std::vector<std::vector<std::string>> & chessBoard);
     void setSelectedBoardSpacePtr(BoardSpace *boardSpacePtr);
     BoardSpace *getSelectedBoardSpacePtr();
     bool hasSelectedBoardSpacePtr();

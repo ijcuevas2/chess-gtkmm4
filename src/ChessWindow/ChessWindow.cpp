@@ -17,13 +17,37 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
 
   m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessWindowMediator);
   chessWindowMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
+  chessWindowMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
   set_child(*m_chessBoardView);
+}
+
+void ChessWindow::saveFileDialog() {
+  auto dialog = Gtk::FileDialog::create();
+
+  dialog->set_title("Save File");
+  dialog->set_modal(true);
+  dialog->set_initial_name("untitled.txt");
+
+  // Use save() for saving files
+  dialog->save(*this,
+               [this, dialog](const Glib::RefPtr<Gio::AsyncResult>& result) {
+                   try {
+                     auto file = dialog->save_finish(result);
+                     if (file) {
+                       std::cout << "File selected for saving: " << file->get_path() << std::endl;
+                       // Here you would typically save your file
+                     }
+                   } catch (const Glib::Error& error) {
+                     std::cerr << "Error: " << error.what() << std::endl;
+                   }
+               });
 }
 
 void ChessWindow::openFileDialog() {
   Glib::RefPtr<Gtk::FileDialog> dialog = Gtk::FileDialog::create();
   dialog->set_title("Please choose a file");
   dialog->set_modal(true);
+  // dialog->set_initial_name("file.txt");
 
   Glib::RefPtr<Gio::ListStore<Gtk::FileFilter>> filters = Gio::ListStore<Gtk::FileFilter>::create();
   std::string chessSavesDir = "chess_saves";

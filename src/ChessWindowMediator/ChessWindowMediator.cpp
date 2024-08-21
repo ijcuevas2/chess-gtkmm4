@@ -12,6 +12,10 @@ sigc::signal<void()> ChessWindowMediator::getOpenFileDialogSignal() {
   return openFileDialog;
 }
 
+sigc::signal<void()> ChessWindowMediator::getOpenSaveDialogSignal() {
+  return openSaveDialog;
+}
+
 sigc::signal<void()> ChessWindowMediator::getUpdateUiSignal() {
   return updateUi;
 }

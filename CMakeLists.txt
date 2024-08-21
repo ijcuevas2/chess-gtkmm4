@@ -110,6 +110,8 @@ add_executable(${PROJECT_NAME}
         headers/ChessWindowMediator/ChessWindowMediator.h
         headers/Utils/StringUtils.h
         src/Utils/StringUtils.cpp
+        src/Utils/FileUtils.cpp
+        headers/Utils/FileUtils.h
 )
 
 # Add dependency on chess_resources

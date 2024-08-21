@@ -34,18 +34,8 @@ std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {
 }
 
 void ChessBoardModel::initBoard() {
-  std::vector<std::vector<std::string>> boardConfig = this->getBoardConfig();
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    for (int col = 0; col < BOARD_SIZE; ++col) {
-      std::string pieceEncoding = boardConfig[row][col];
-      ChessPiece *chessPiecePtr = this->initChessPiece(pieceEncoding);
-      if (isKingChessPiecePtr(chessPiecePtr)) {
-        updateKingPosition(chessPiecePtr->getPlayerId(), row, col);
-      }
-
-      setNewBoardSpaceAtIndex(chessPiecePtr, row, col);
-    }
-  }
+  std::string defaultFenStateStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
+  initChessBoardFromFenStateString(defaultFenStateStr);
 }
 
 bool ChessBoardModel::isKingChessPiecePtr(ChessPiece *chessPiecePtr) {
@@ -72,54 +62,6 @@ int ChessBoardModel::getBoardSize() {
   return BOARD_SIZE;
 }
 
-PlayerID ChessBoardModel::parsePlayerId(std::string pieceEncoding) {
-  const char firstChar = pieceEncoding[0];
-  switch (firstChar) {
-    case 'D':
-      return PlayerID::PLAYER_BLACK;
-      break;
-    case 'L':
-      return PlayerID::PLAYER_WHITE;
-      break;
-    case 'E':
-      return PlayerID::NONE;
-      break;
-    default:
-      return PlayerID::NONE;
-      break;
-  }
-}
-
-PieceType ChessBoardModel::parsePieceType(std::string pieceEncoding) {
-  const char secondChar = pieceEncoding[1];
-  switch (secondChar) {
-    case 'R':
-      return PieceType::ROOK;
-      break;
-    case 'N':
-      return PieceType::KNIGHT;
-      break;
-    case 'B':
-      return PieceType::BISHOP;
-      break;
-    case 'K':
-      return PieceType::KING;
-      break;
-    case 'Q':
-      return PieceType::QUEEN;
-      break;
-    case 'P':
-      return PieceType::PAWN;
-      break;
-    case 'E':
-      return PieceType::EMPTY_PIECE;
-      break;
-    default:
-      return PieceType::EMPTY_PIECE;
-      break;
-  }
-}
-
 ChessPiece *ChessBoardModel::getChessPiecePtr(int row, int col) {
   const int currentBoardSize = this->board.size();
   if (currentBoardSize != 0) {
@@ -138,47 +80,11 @@ BoardSpace *ChessBoardModel::getBoardSpacePtr(int row, int col) {
   return nullptr;
 }
 
-ChessPiece *ChessBoardModel::initChessPiece(PieceType pieceType, PlayerID playerId) {
-  ChessPiece *piece = NULL;
-  switch (pieceType) {
-    case PieceType::ROOK:
-      piece = new Rook(playerId, chessBoardMediator);
-      break;
-    case PieceType::KNIGHT:
-      piece = new Knight(playerId, chessBoardMediator);
-      break;
-    case PieceType::BISHOP:
-      piece = new Bishop(playerId, chessBoardMediator);
-      break;
-    case PieceType::QUEEN:
-      piece = new Queen(playerId, chessBoardMediator);
-      break;
-    case PieceType::KING:
-      piece = new King(playerId, chessBoardMediator);
-      break;
-    case PieceType::PAWN:
-      piece = new Pawn(playerId, chessBoardMediator);
-      break;
-    case PieceType::EMPTY_PIECE:
-      piece = new EmptyPiece(chessBoardMediator);
-      break;
-  }
-
-  return piece;
-}
-
 ChessPiece *ChessBoardModel::initEmptyPiece() {
   return new EmptyPiece(chessBoardMediator);
 }
 
-ChessPiece *ChessBoardModel::initChessPiece(std::string pieceEncoding) {
-  PieceType pieceType = parsePieceType(pieceEncoding);
-  PlayerID playerId = parsePlayerId(pieceEncoding);
-  ChessPiece *piece = this->initChessPiece(pieceType, playerId);
-  return piece;
-}
-
-bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> chessBoard) {
+bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> & chessBoard) {
   const int EXPECTED_NUM_ROWS = 8;
   const int EXPECTED_NUM_SPACES = 8;
 
@@ -546,6 +452,11 @@ void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) 
       } else {
         chessPiecePtr = initChessPieceFromChar(currentChar);
         int targetCol = col + counter;
+
+        if (isKingChessPiecePtr(chessPiecePtr)) {
+          updateKingPosition(chessPiecePtr->getPlayerId(), row, col);
+        }
+
         setNewBoardSpaceAtIndex(chessPiecePtr, row, targetCol);
       }
     }
