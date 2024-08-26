@@ -85,6 +85,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {
           updateHalfTurnClock(srcChessPiecePtr, targetChessPiecePtr);
+          chessBoardModel.clearEnPassantSquare();
           srcChessPiecePtr->afterPieceMoved(point2DPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();

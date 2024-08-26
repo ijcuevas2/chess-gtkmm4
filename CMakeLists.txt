@@ -112,6 +112,7 @@ add_executable(${PROJECT_NAME}
         src/Utils/StringUtils.cpp
         src/Utils/FileUtils.cpp
         headers/Utils/FileUtils.h
+        enum/PawnEnpassantRow.h
 )
 
 # Add dependency on chess_resources

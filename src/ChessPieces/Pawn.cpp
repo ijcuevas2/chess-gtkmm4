@@ -31,16 +31,15 @@ bool Pawn::canMoveFirstTurn(Point2DPair point2DPair) {
 void Pawn::afterPieceMoved(Point2DPair point2DPair) {
   if (isFirstMove) {
     setUsedFirstMove();
-    setMovedTwoSpacesTurn(point2DPair);
+    setEnpassantSquare(point2DPair);
   }
 }
 
-
-void Pawn::setMovedTwoSpacesTurn(Point2DPair point2DPair) {
+void Pawn::setEnpassantSquare(Point2DPair point2DPair) {
   bool movedTwoSpacesResult = isMovingByTwoSpaces(point2DPair);
   if (movedTwoSpacesResult) {
-    int turn = chessBoardMediator.getCurrentTurnSignal().emit();
-    this->movedTwoSpacesTurn = turn;
+    Point2D point2D(point2DPair.getTgtRow(), point2DPair.getTgtCol());
+    chessBoardMediator.getSetEnPassantSquareSignal().emit(point2D);
   }
 }
 
@@ -48,10 +47,6 @@ bool Pawn::isMovingByTwoSpaces(Point2DPair point2DPair) {
   int absoluteDistanceValue = absoluteDistance(point2DPair.getSrcRow(), point2DPair.getTgtRow());
   bool movedTwoSpacesResult = absoluteDistanceValue == 2;
   return movedTwoSpacesResult;
-}
-
-int Pawn::getMovedTwoSpacesTurn() {
-  return this->movedTwoSpacesTurn;
 }
 
 bool Pawn::isCorrectDirection(Point2DPair point2DPair) {
@@ -83,8 +78,8 @@ bool Pawn::canCapture(Point2DPair point2DPair) {
 }
 
 bool Pawn::canDiagonalCapture(Point2DPair point2DPair) {
-  bool isIndexOccupiedResult = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getSrcRow(),
-                                                                                       point2DPair.getSrcCol());
+  bool isIndexOccupiedResult = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getTgtRow(),
+                                                                                       point2DPair.getTgtCol());
   return isIndexOccupiedResult;
 }
 
@@ -105,17 +100,20 @@ bool Pawn::canMoveSingleSpaceForward(Point2DPair point2DPair) {
   return canMove;
 }
 
-bool Pawn::canEnPassantCapture(Point2DPair point2DPair) {
-  bool isIndexOccupiedValue = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getSrcRow(),
-                                                                                      point2DPair.getSrcCol());
-  if (!isIndexOccupiedValue) {
-    int enPassantTurn =
-            chessBoardMediator.getMovedTwoSpacesTurnSignal().emit(point2DPair.getSrcRow(), point2DPair.getSrcCol()) + 1;
-    bool canEnPassantCaptureResult = enPassantTurn == chessBoardMediator.getCurrentTurnSignal().emit();
-    return canEnPassantCaptureResult;
+int Pawn::getCapturingPieceEnpassantRow() {
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    return static_cast<int>(PawnEnpassantRow::WHITE_PAWN_CAPTURING_ROW);
   }
 
-  return false;
+  return static_cast<int>(PawnEnpassantRow::BLACK_PAWN_CAPTURING_ROW);
+}
+
+bool Pawn::canEnPassantCapture(Point2DPair point2DPair) {
+  int candidateEnPassantRow = point2DPair.getSrcRow();
+  int candidateEnPassantCol = point2DPair.getTgtCol();
+  Point2D point2D(candidateEnPassantRow, candidateEnPassantCol);
+  bool canEnPassantCaptureBool = chessBoardMediator.getIsEnPassantSquareSignal().emit(point2D);
+  return canEnPassantCaptureBool;
 }
 
 void Pawn::setUsedFirstMove() {

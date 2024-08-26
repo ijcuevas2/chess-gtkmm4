@@ -12,10 +12,6 @@ sigc::signal<bool(int, int)> ChessBoardMediator::getIsBoardIndexOccupiedSignal()
   return isBoardIndexOccupied;
 }
 
-sigc::signal<int(int, int)> ChessBoardMediator::getMovedTwoSpacesTurnSignal() {
-  return getMovedTwoSpacesTurn;
-}
-
 sigc::signal<bool(PlayerID)> ChessBoardMediator::getIsTurnPlayerSignal() {
   return isTurnPlayer;
 }
@@ -34,4 +30,12 @@ sigc::signal<bool(Point2D)> ChessBoardMediator::getIsKingOccupyingSpaceSignal() 
 
 sigc::signal<bool(PlayerID, Point2DPair)> ChessBoardMediator::getCanOpponentsPiecesPutKingInCheckSignal() {
   return canOpponentsPiecesPutKingInCheck;
+}
+
+sigc::signal<void(Point2D)> ChessBoardMediator::getSetEnPassantSquareSignal() {
+  return setEnPassantSquare;
+}
+
+sigc::signal<bool(Point2D)> ChessBoardMediator::getIsEnPassantSquareSignal() {
+  return isEnPassantSquare;
 }

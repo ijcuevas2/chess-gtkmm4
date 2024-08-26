@@ -2,8 +2,8 @@
 // Created by Ismael Cuevas on 8/21/24.
 //
 
-#ifndef INC_2024_08_11_05_01_24_GMT_TXT_FILEUTILS_H
-#define INC_2024_08_11_05_01_24_GMT_TXT_FILEUTILS_H
+#ifndef FILEUTILS_H
+#define FILEUTILS_H
 
 #import <iostream>
 #import <iomanip>
@@ -16,4 +16,4 @@ public:
 };
 
 
-#endif //INC_2024_08_11_05_01_24_GMT_TXT_FILEUTILS_H
+#endif //FILEUTILS_H

@@ -9,13 +9,13 @@ ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
   chessBoardMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
   chessBoardMediator.getIsBoardIndexOccupiedSignal().connect(
           sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
-  chessBoardMediator.getMovedTwoSpacesTurnSignal().connect(
-          sigc::mem_fun(*this, &ChessBoardModel::getMovedTwoSpacesTurn));
   chessBoardMediator.getIsTurnPlayerSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayerHelper));
   chessBoardMediator.getIsTurnPlayersChessPieceSignal().connect(
           sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayersChessPieceHelper));
   chessBoardMediator.getUpdateKingPositionSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::updateKingPosition));
   chessBoardMediator.getIsKingOccupyingSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isKingOccupyingSpace));
+  chessBoardMediator.getSetEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setEnPassantSquare));
+  chessBoardMediator.getIsEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::IsEnPassantSquare));
 }
 
 std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {
@@ -251,17 +251,6 @@ void ChessBoardModel::hideHintMarkers() {
   }
 }
 
-int ChessBoardModel::getMovedTwoSpacesTurn(int row, int col) {
-  ChessPiece *chessPiece = getChessPiecePtr(row, col);
-  if (chessPiece != NULL && chessPiece->getPieceType() == PieceType::PAWN) {
-    Pawn *pawn = dynamic_cast<Pawn *>(chessPiece);
-    int turn = pawn->getMovedTwoSpacesTurn();
-    return turn;
-  }
-
-  return -1;
-}
-
 void ChessBoardModel::updateKingPosition(PlayerID playerId, int row, int col) {
   if (playerId == PlayerID::PLAYER_WHITE) {
     whiteKingCoordinates.setRow(row);
@@ -461,4 +450,27 @@ void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) 
       }
     }
   }
+}
+
+bool ChessBoardModel::isPawn(Point2D pair) {
+  int row = pair.getRow();
+  int col = pair.getCol();
+  ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
+  bool isPawnBool = chessPiecePtr->getPieceType() == PieceType::PAWN;
+  return isPawnBool;
+}
+
+bool ChessBoardModel::IsEnPassantSquare(Point2D point2D) {
+  bool isSameRow = point2D.getRow() == enPassantSquare.getRow();
+  bool isSameCol = point2D.getCol() == enPassantSquare.getCol();
+  return isSameRow && isSameCol;
+}
+
+void ChessBoardModel::setEnPassantSquare(Point2D point2D) {
+  enPassantSquare = point2D;
+}
+
+void ChessBoardModel::clearEnPassantSquare() {
+  enPassantSquare.setRow(-1);
+  enPassantSquare.setCol(-1);
 }

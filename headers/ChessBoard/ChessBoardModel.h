@@ -68,7 +68,6 @@ public:
     int getHalfMoveClock();
     void incrementHalfMoveClock();
     void resetHalfMoveClock();
-    int getMovedTwoSpacesTurn(int row, int col);
     void showHintMarkers(BoardSpace *boardSpacePtr);
     void hideHintMarkers();
     bool isKingOccupyingSpace(Point2D point2D);
@@ -79,10 +78,15 @@ public:
     void calculateKingIsInCheck(PlayerID playerId);
     void initChessBoardFromFenStateString(std::string fenStateStr);
     void initChessBoardFromBoardConfig(std::string boardConfigStr);
+    void clearEnPassantSquare();
+    void setEnPassantSquare(Point2D point2D);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
     int halfMoveClock = 0;
+    Point2D enPassantSquare{-1, -1};
+    int whitePawnCaptureRow = 4;
+    int blackPawnCaptureRow = 3;
     std::vector<std::vector<BoardSpace *>> board;
     ChessImagesInfo chessImagesInfo{};
     ChessBoardMediator chessBoardMediator{};
@@ -95,6 +99,8 @@ private:
     ChessPiece *initChessPieceFromChar(char chessPieceChar);
     int getCounterValue(int col, int counter);
     void updateUndoButtonStatus();
+    bool isPawn(Point2D pair);
+    bool IsEnPassantSquare(Point2D pair);
 };
 
 
