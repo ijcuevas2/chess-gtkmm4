@@ -17,3 +17,6 @@ You can access release builds for this program in the following [link](https://g
 - En Passant
 - King Movement
 - AI for Single Player
+- Undo for Single Player
+- Unit Tests
+- Automation Tests
