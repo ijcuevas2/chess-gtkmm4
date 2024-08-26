@@ -12,3 +12,8 @@ This is an implementation of the standard variant of Chess. This program is impl
 ## Releases
 
 You can access release builds for this program in the following [link](https://github.com).
+
+### Todos
+- En Passant
+- King Movement
+- AI for Single Player
