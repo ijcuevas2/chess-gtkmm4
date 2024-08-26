@@ -19,31 +19,18 @@ public:
     }
 
     bool isCorrectDirection(Point2DPair point2DPair);
-
     bool canMoveFirstTurn(Point2DPair point2DPair);
-
     bool canDiagonalCapture(Point2DPair point2DPair);
-
     bool canMoveSingleSpaceForward(Point2DPair point2DPair);
-
     bool isDiagonalMove(Point2DPair point2DPair);
-
     bool canCapture(Point2DPair point2DPair);
-
     bool canEnPassantCapture(Point2DPair point2DPair);
-
     void setUsedFirstMove();
-
     void setMovedTwoSpacesTurn(Point2DPair point2DPair);
-
     bool isMovingByTwoSpaces(Point2DPair point2DPair);
-
     void afterPieceMoved(Point2DPair point2DPair) override;
-
     bool isPieceBlockingPath(Point2DPair point2DPair) override;
-
     bool getIsValidPath(Point2DPair point2DPair) override;
-
     int getMovedTwoSpacesTurn();
 };
 
