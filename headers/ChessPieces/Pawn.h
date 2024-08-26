@@ -14,8 +14,7 @@ private:
     int movedTwoSpacesTurn = -1;
     bool isEnPassantEligible = false;
 public:
-    Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN,
-                                                                                 chessBoardMediator) {
+    Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN, chessBoardMediator) {
     }
 
     bool isCorrectDirection(Point2DPair point2DPair);
