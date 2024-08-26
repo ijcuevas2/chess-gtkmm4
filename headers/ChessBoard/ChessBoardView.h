@@ -38,9 +38,10 @@ private:
     Gtk::Button *m_undoButton;
     Gtk::Label *m_currentPlayerLabel;
 
-    void onUndoClicked();
+    void onUndoButtonClicked();
     void handleLoad(std::string result);
     void updateUi();
+    void updateUndoButtonUi(bool isEnabled);
 };
 
 #endif //CHESS_CHESSBOARDVIEW_H

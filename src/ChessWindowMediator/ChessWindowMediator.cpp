@@ -4,7 +4,7 @@
 
 #include "ChessWindowMediator/ChessWindowMediator.h"
 
-sigc::signal<void(std::string)> ChessWindowMediator::getAfterFileLoaded() {
+sigc::signal<void(std::string)> ChessWindowMediator::getAfterFileLoadedSignal() {
   return afterFileLoaded;
 }
 
@@ -19,3 +19,16 @@ sigc::signal<void()> ChessWindowMediator::getOpenSaveDialogSignal() {
 sigc::signal<void()> ChessWindowMediator::getUpdateUiSignal() {
   return updateUi;
 }
+
+sigc::signal<void()> ChessWindowMediator::getOnUndoButtonClicked() {
+  return onUndoButtonPressed;
+}
+
+sigc::signal<void(bool)> ChessWindowMediator::getUpdateUndoButtonUiSignal() {
+  return updateUndoButtonUi;
+}
+
+sigc::signal<void()> ChessWindowMediator::getUpdateLabelSignal() {
+  return updateLabel;
+}
+

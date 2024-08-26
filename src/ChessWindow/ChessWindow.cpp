@@ -24,9 +24,24 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
 void ChessWindow::saveFileDialog() {
   auto dialog = Gtk::FileDialog::create();
 
+  std::string fileName = FileUtils::generateGMTFilename();
   dialog->set_title("Save File");
   dialog->set_modal(true);
-  dialog->set_initial_name("untitled.txt");
+  dialog->set_initial_name(fileName);
+
+  auto filter_text = Gtk::FileFilter::create();
+  filter_text->set_name("Chess Files (*.chess)");
+  filter_text->add_mime_type("text/plain");
+
+  // Create a Gio::ListStore to hold the filters
+  auto filters = Gio::ListStore<Gtk::FileFilter>::create();
+  filters->append(filter_text);
+
+  // Set the filters
+  dialog->set_filters(filters);
+
+  // Set default filter
+  dialog->set_default_filter(filter_text);
 
   // Use save() for saving files
   dialog->save(*this,
@@ -69,7 +84,7 @@ void ChessWindow::openFileDialog() {
           std::string filePath = file->get_path();
           std::cout << "File selected: " << filePath << std::endl;
           // Handle the selected file here
-          chessWindowMediator.getAfterFileLoaded().emit(filePath);
+          chessWindowMediator.getAfterFileLoadedSignal().emit(filePath);
         }
       } catch (const Glib::Error& error) {
         if (error.code() != Gtk::DialogError::DISMISSED) {

@@ -12,13 +12,19 @@ class ChessWindowMediator {
 public:
     sigc::signal<void()> getOpenSaveDialogSignal();
     sigc::signal<void()> getOpenFileDialogSignal();
-    sigc::signal<void(std::string)> getAfterFileLoaded();
+    sigc::signal<void(std::string)> getAfterFileLoadedSignal();
     sigc::signal<void()> getUpdateUiSignal();
+    sigc::signal<void()> getOnUndoButtonClicked();
+    sigc::signal<void(bool)> getUpdateUndoButtonUiSignal();
+    sigc::signal<void()> getUpdateLabelSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
     sigc::signal<void(std::string)> afterFileLoaded;
     sigc::signal<void()> updateUi;
+    sigc::signal<void()> onUndoButtonPressed;
+    sigc::signal<void(bool)> updateUndoButtonUi;
+    sigc::signal<void()> updateLabel;
 };
 
 

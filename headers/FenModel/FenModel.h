@@ -9,6 +9,7 @@
 #include <fstream>
 #include <cctype>
 #include <deque>
+#include "../../headers/Utils/FileUtils.h"
 #include "ChessBoard/ChessBoardModel.h"
 #include "../../headers/ChessWindowMediator/ChessWindowMediator.h"
 
@@ -30,7 +31,7 @@ private:
     std::deque<std::string> fenDeque;
     std::string getBoardState();
     std::string getTurnPlayerEncoding();
-    void getLatestFenString();
+    void updateBoardFromLatestFenString();
     bool canCastle(int rookRow, int rookCol, int kingRow, int kingCol);
     std::string canBlackQueenSideRookCastle();
     std::string canBlackKingSideRookCastle();
@@ -42,13 +43,16 @@ private:
     bool isRook(ChessPiece *chessPiecePtr);
     bool isKing(ChessPiece *chessPiecePtr);
     bool saveGame(std::string content);
-    std::string generateGMTFilename();
     std::string getHalfMoveClock();
     std::string getCurrentTurn();
     std::string getEnpassantSquare();
     std::string defaultFenStateStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
     bool validateFenState(std::string fenState);
     void initChessBoardFromBoardConfig(std::string boardConfigStr);
+    bool calculateUndoButtonEnabled();
+    void afterUndoButtonPressed();
+    std::string getLatestFenString();
+    bool hasFenStateStored();
 };
 
 #endif //CHESS_FENMODEL_H

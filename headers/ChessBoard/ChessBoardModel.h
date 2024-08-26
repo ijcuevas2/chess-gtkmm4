@@ -94,6 +94,7 @@ private:
     PlayerID getTurnPlayerFromStr(std::string turnPlayerId);
     ChessPiece *initChessPieceFromChar(char chessPieceChar);
     int getCounterValue(int col, int counter);
+    void updateUndoButtonStatus();
 };
 
 

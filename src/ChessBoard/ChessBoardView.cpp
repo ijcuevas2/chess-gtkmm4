@@ -9,22 +9,22 @@ ChessBoardView::ChessBoardView(ChessWindowMediator & chessWindowMediator) : Gtk:
 
   m_drawingArea.set_draw_func(sigc::mem_fun(*this, &ChessBoardView::on_draw));
   chessWindowMediator.getUpdateUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUi));
+  chessWindowMediator.getUpdateUndoButtonUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUndoButtonUi));
+  chessWindowMediator.getUpdateLabelSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateLabel));
 
   auto controller = Gtk::GestureClick::create();
   controller->signal_pressed().connect(sigc::mem_fun(*this, &ChessBoardView::on_pressed));
   m_drawingArea.add_controller(controller);
 
-  // Create the menu model
   m_menuModel = Gio::Menu::create();
-  auto fileMenu = Gio::Menu::create();m_menuModel->append_submenu("File", fileMenu);
+  auto fileMenu = Gio::Menu::create();
+  m_menuModel->append_submenu("File", fileMenu);
 
-  // Create actions
   m_newGameAction = Gio::SimpleAction::create("new_game");
   m_exitAction = Gio::SimpleAction::create("exit");
   m_saveAction = Gio::SimpleAction::create("save");
   m_loadAction = Gio::SimpleAction::create("load");
 
-  // Connect action signals using lambda functions
   m_newGameAction->signal_activate().connect([this](const Glib::VariantBase &) {
       this->onNewGameClicked();
   });
@@ -38,50 +38,39 @@ ChessBoardView::ChessBoardView(ChessWindowMediator & chessWindowMediator) : Gtk:
       this->onLoadClicked();
   });
 
-  // Add actions to the application
   auto app = Gtk::Application::get_default();
   app->add_action(m_newGameAction);
   app->add_action(m_exitAction);
   app->add_action(m_saveAction);
   app->add_action(m_loadAction);
 
-  // Add menu items
   fileMenu->append("New Game", "app.new_game");
   fileMenu->append("Save", "app.save");
   fileMenu->append("Load", "app.load");
   fileMenu->append("Exit", "app.exit");
 
-  // Create the menu bar
   m_menuBar = Gtk::make_managed<Gtk::PopoverMenuBar>(m_menuModel);
 
-  // Create the toolbar
   m_toolbar = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL);
   m_toolbar->set_spacing(5);
   m_toolbar->set_margin(5);
 
-  // Add the current player turn label to the left side of the toolbar
   m_currentPlayerLabel = Gtk::make_managed<Gtk::Label>("Current Turn: White");
   m_currentPlayerLabel->set_halign(Gtk::Align::START);
   m_toolbar->append(*m_currentPlayerLabel);
 
-  // Add a spacer to push the undo button to the right
   auto spacer = Gtk::make_managed<Gtk::Label>();
   spacer->set_hexpand(true);
   m_toolbar->append(*spacer);
 
-  // Add the undo button to the toolbar
   m_undoButton = Gtk::make_managed<Gtk::Button>("Undo");
-  m_undoButton->signal_clicked().connect(sigc::mem_fun(*this, &ChessBoardView::onUndoClicked));
+  m_undoButton->signal_clicked().connect(sigc::mem_fun(*this, &ChessBoardView::onUndoButtonClicked));
   m_toolbar->append(*m_undoButton);
 
-  // Add the menu bar to the box
   append(*m_menuBar);
-
-  // Add the toolbar to the box
   append(*m_toolbar);
-
-  // Add the drawing area to the box
   append(m_drawingArea);
+  initBoard();
 }
 
 void ChessBoardView::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height) {
@@ -107,6 +96,7 @@ void ChessBoardView::updateLabel() {
 
 void ChessBoardView::initBoard() {
   chessBoardController.initBoard();
+  updateUndoButtonUi(false);
 }
 
 void ChessBoardView::clearBoard() {
@@ -114,7 +104,6 @@ void ChessBoardView::clearBoard() {
 }
 
 void ChessBoardView::onNewGameClicked() {
-  // Handle new game action
   clearBoard();
   initBoard();
   m_drawingArea.queue_draw();
@@ -122,12 +111,10 @@ void ChessBoardView::onNewGameClicked() {
 }
 
 void ChessBoardView::onSaveClicked() {
-  // Handle save action
   chessWindowMediator.getOpenSaveDialogSignal().emit();
 }
 
 void ChessBoardView::onLoadClicked() {
-  // Handle load action
   chessWindowMediator.getOpenFileDialogSignal().emit();
 }
 
@@ -136,13 +123,14 @@ void ChessBoardView::updateUi() {
 }
 
 void ChessBoardView::onExitClicked() {
-  // Handle exit action
   auto app = Gtk::Application::get_default();
   app->quit();
 }
 
-void ChessBoardView::onUndoClicked() {
-  // Implement undo logic here
-  std::cout << "Undo clicked" << std::endl;
+void ChessBoardView::onUndoButtonClicked() {
+  chessWindowMediator.getOnUndoButtonClicked().emit();
 }
 
+void ChessBoardView::updateUndoButtonUi(bool isEnabled) {
+  m_undoButton->set_sensitive(isEnabled);
+}

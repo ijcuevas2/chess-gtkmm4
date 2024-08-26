@@ -5,7 +5,8 @@
 #include "../../headers/FenModel/FenModel.h"
 
 FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessWindowMediator & chessWindowMediator) : chessBoardModel(chessBoardModel), chessWindowMediator(chessWindowMediator) {
-  chessWindowMediator.getAfterFileLoaded().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
+  chessWindowMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
+  chessWindowMediator.getOnUndoButtonClicked().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -97,6 +98,7 @@ void FenModel::saveBoardState() {
   resultEncoding += currentTurn;
 
   fenDeque.push_back(resultEncoding);
+  chessWindowMediator.getUpdateUndoButtonUiSignal().emit(true);
 }
 
 std::string FenModel::getHalfMoveClock() {
@@ -279,22 +281,12 @@ bool FenModel::createSaveDirectory() {
   }
 }
 
-std::string FenModel::generateGMTFilename() {
-  auto now = std::chrono::system_clock::now();
-  auto in_time_t = std::chrono::system_clock::to_time_t(now);
-  std::stringstream ss;
-  ss << std::put_time(std::gmtime(&in_time_t), "%Y-%m-%d_%H-%M-%S_GMT");
-  std::string chessExtension = ".chess";
-  std::string fileName = ss.str() + chessExtension;
-  return fileName;
-}
-
 bool FenModel::saveGame(std::string content) {
   if (!isChessSavesDirValid) {
     return false;
   }
 
-  fs::path gmtFileName = generateGMTFilename();
+  fs::path gmtFileName = FileUtils::generateGMTFilename();
   fs::path filePath = dirName / gmtFileName;
   std::ofstream file(filePath, std::ios::out | std::ios::trunc);
   if (!file.is_open()) {
@@ -345,7 +337,7 @@ void FenModel::loadStateFromFile(std::string filePath) {
   }
 
   file.close();
-  getLatestFenString();
+  updateBoardFromLatestFenString();
 }
 
 std::string FenModel::getEnpassantSquare() {
@@ -353,12 +345,39 @@ std::string FenModel::getEnpassantSquare() {
   return enPassantSquare;
 }
 
-void FenModel::getLatestFenString() {
-  if (!fenDeque.empty()) {
-    std::string fenState = fenDeque.back();
+bool FenModel::calculateUndoButtonEnabled() {
+  bool isEnabled = !fenDeque.empty();
+  return isEnabled;
+}
+
+bool FenModel::hasFenStateStored() {
+  return !fenDeque.empty();
+}
+
+std::string FenModel::getLatestFenString() {
+  if (hasFenStateStored()) {
     fenDeque.pop_back();
-    chessBoardModel.clearBoard();
-    chessBoardModel.initChessBoardFromFenStateString(fenState);
-    chessWindowMediator.getUpdateUiSignal().emit();
+
+    if (hasFenStateStored()) {
+      std::string fenStateStr = fenDeque.back();
+      return fenStateStr;
+    }
   }
+
+
+  return defaultFenStateStr;
+}
+
+void FenModel::updateBoardFromLatestFenString() {
+  std::string fenStateStr = getLatestFenString();
+  chessBoardModel.clearBoard();
+  chessBoardModel.initChessBoardFromFenStateString(fenStateStr);
+  chessWindowMediator.getUpdateUiSignal().emit();
+  bool isVisible = calculateUndoButtonEnabled();
+  chessWindowMediator.getUpdateUndoButtonUiSignal().emit(isVisible);
+  chessWindowMediator.getUpdateLabelSignal().emit();
+}
+
+void FenModel::afterUndoButtonPressed() {
+  updateBoardFromLatestFenString();
 }
