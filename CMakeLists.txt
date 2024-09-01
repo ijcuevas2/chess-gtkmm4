@@ -106,13 +106,13 @@ add_executable(${PROJECT_NAME}
         headers/Utils/MathUtils.h
         headers/Point2D/Point2D.h
         src/Point2D/Point2D.cpp
-        src/ChessWindowMediator/ChessWindowMediator.cpp
-        headers/ChessWindowMediator/ChessWindowMediator.h
         headers/Utils/StringUtils.h
         src/Utils/StringUtils.cpp
         src/Utils/FileUtils.cpp
         headers/Utils/FileUtils.h
         enum/PawnEnpassantRow.h
+        src/ChessMediator/ChessMediator.cpp
+        headers/ChessMediator/ChessMediator.h
 )
 
 # Add dependency on chess_resources

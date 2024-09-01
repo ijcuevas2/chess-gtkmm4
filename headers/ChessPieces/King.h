@@ -8,15 +8,14 @@
 #include "ChessPiece.h"
 #include "Rook.h"
 #include "Point2D/Point2D.h"
-#include "ChessBoardMediator/ChessBoardMediator.h"
 
 class King : public virtual ChessPiece {
 private:
     bool hasMoved;
     bool isInCheck;
 public:
-    King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING,
-                                                                                 chessBoardMediator) {
+    King(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::KING,
+                                                                            chessMediator) {
     }
 
     std::vector<Point2DPair> getAdjacentCoordinates(Point2DPair point2DPair);

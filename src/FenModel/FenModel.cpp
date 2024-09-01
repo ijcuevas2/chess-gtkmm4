@@ -4,9 +4,9 @@
 
 #include "../../headers/FenModel/FenModel.h"
 
-FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessWindowMediator & chessWindowMediator) : chessBoardModel(chessBoardModel), chessWindowMediator(chessWindowMediator) {
-  chessWindowMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
-  chessWindowMediator.getOnUndoButtonClicked().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
+FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediator) : chessBoardModel(chessBoardModel), chessMediator(chessMediator) {
+  chessMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
+  chessMediator.getOnUndoButtonClicked().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -98,7 +98,7 @@ void FenModel::saveBoardState() {
   resultEncoding += currentTurn;
 
   fenDeque.push_back(resultEncoding);
-  chessWindowMediator.getUpdateUndoButtonUiSignal().emit(true);
+  chessMediator.getUpdateUndoButtonUiSignal().emit(true);
 }
 
 std::string FenModel::getHalfMoveClock() {
@@ -372,10 +372,10 @@ void FenModel::updateBoardFromLatestFenString() {
   std::string fenStateStr = getLatestFenString();
   chessBoardModel.clearBoard();
   chessBoardModel.initChessBoardFromFenStateString(fenStateStr);
-  chessWindowMediator.getUpdateUiSignal().emit();
+  chessMediator.getUpdateUiSignal().emit();
   bool isVisible = calculateUndoButtonEnabled();
-  chessWindowMediator.getUpdateUndoButtonUiSignal().emit(isVisible);
-  chessWindowMediator.getUpdateLabelSignal().emit();
+  chessMediator.getUpdateUndoButtonUiSignal().emit(isVisible);
+  chessMediator.getUpdateLabelSignal().emit();
 }
 
 void FenModel::afterUndoButtonPressed() {

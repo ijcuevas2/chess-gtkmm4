@@ -9,8 +9,8 @@
 
 class Queen : public virtual ChessPiece {
 public:
-    Queen(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::QUEEN,
-                                                                                  chessBoardMediator) {
+    Queen(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::QUEEN,
+                                                                             chessMediator) {
     }
 
     bool canMoveDiagonal(Point2DPair point2DPair);

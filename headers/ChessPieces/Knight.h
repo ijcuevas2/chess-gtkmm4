@@ -9,8 +9,7 @@
 
 class Knight : public virtual ChessPiece {
 public:
-    Knight(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KNIGHT,
-                                                                                   chessBoardMediator) {
+    Knight(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::KNIGHT, chessMediator) {
     }
 
     bool getIsValidPath(Point2DPair point2DPair) override;

@@ -9,8 +9,8 @@
 
 class EmptyPiece : public virtual ChessPiece {
 public:
-    EmptyPiece(ChessBoardMediator &chessBoardMediator)
-            : ChessPiece(PlayerID::NONE, PieceType::EMPTY_PIECE, chessBoardMediator) {}
+    EmptyPiece(ChessMediator &chessMediator)
+            : ChessPiece(PlayerID::NONE, PieceType::EMPTY_PIECE, chessMediator) {}
 
     bool canMoveToTarget(Point2DPair point2DPair) override;
 

@@ -11,17 +11,17 @@
 #include <deque>
 #include "../../headers/Utils/FileUtils.h"
 #include "ChessBoard/ChessBoardModel.h"
-#include "../../headers/ChessWindowMediator/ChessWindowMediator.h"
+#include "ChessMediator/ChessMediator.h"
 
 class FenModel {
 public:
-    FenModel(ChessBoardModel & chessBoardModel, ChessWindowMediator & chessWindowMediator);
+    FenModel(ChessBoardModel & chessBoardModel, ChessMediator & chessMediator);
     void saveBoardState();
     void saveStateToFile();
     void loadStateFromFile(std::string filePath);
 private:
     ChessBoardModel & chessBoardModel;
-    ChessWindowMediator & chessWindowMediator;
+    ChessMediator & chessMediator;
     int counter = 0;
     fs::path dirName;
     std::string encodeChessBoard();

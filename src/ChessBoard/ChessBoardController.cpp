@@ -4,7 +4,7 @@
 
 #include "ChessBoard/ChessBoardController.h"
 
-ChessBoardController::ChessBoardController(ChessWindowMediator & chessWindowMediator): chessWindowMediator(chessWindowMediator)  {
+ChessBoardController::ChessBoardController(ChessMediator & chessMediator): chessMediator(chessMediator)  {
 }
 
 void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height) {

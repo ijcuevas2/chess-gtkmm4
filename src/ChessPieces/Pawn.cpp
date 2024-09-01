@@ -39,7 +39,7 @@ void Pawn::setEnpassantSquare(Point2DPair point2DPair) {
   bool movedTwoSpacesResult = isMovingByTwoSpaces(point2DPair);
   if (movedTwoSpacesResult) {
     Point2D point2D(point2DPair.getTgtRow(), point2DPair.getTgtCol());
-    chessBoardMediator.getSetEnPassantSquareSignal().emit(point2D);
+    chessMediator.getSetEnPassantSquareSignal().emit(point2D);
   }
 }
 
@@ -78,8 +78,8 @@ bool Pawn::canCapture(Point2DPair point2DPair) {
 }
 
 bool Pawn::canDiagonalCapture(Point2DPair point2DPair) {
-  bool isIndexOccupiedResult = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getTgtRow(),
-                                                                                       point2DPair.getTgtCol());
+  bool isIndexOccupiedResult = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getTgtRow(),
+                                                                                  point2DPair.getTgtCol());
   return isIndexOccupiedResult;
 }
 
@@ -94,8 +94,8 @@ bool Pawn::canMoveSingleSpaceForward(Point2DPair point2DPair) {
   int xAbsDistance = absoluteDistance(point2DPair.getSrcCol(), point2DPair.getTgtCol());
   int yAbsDistance = absoluteDistance(point2DPair.getSrcRow(), point2DPair.getTgtRow());
 
-  bool isTargetOccupiedValue = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getTgtRow(),
-                                                                                       point2DPair.getTgtCol());
+  bool isTargetOccupiedValue = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getTgtRow(),
+                                                                                  point2DPair.getTgtCol());
   bool canMove = xAbsDistance == 0 && yAbsDistance < 2 && !isTargetOccupiedValue;
   return canMove;
 }
@@ -112,7 +112,7 @@ bool Pawn::canEnPassantCapture(Point2DPair point2DPair) {
   int candidateEnPassantRow = point2DPair.getSrcRow();
   int candidateEnPassantCol = point2DPair.getTgtCol();
   Point2D point2D(candidateEnPassantRow, candidateEnPassantCol);
-  bool canEnPassantCaptureBool = chessBoardMediator.getIsEnPassantSquareSignal().emit(point2D);
+  bool canEnPassantCaptureBool = chessMediator.getIsEnPassantSquareSignal().emit(point2D);
   return canEnPassantCaptureBool;
 }
 
@@ -126,9 +126,9 @@ bool Pawn::isPieceBlockingPath(Point2DPair point2DPair) {
   int nextRowCoordinate = point2DPair.getSrcRow() + direction;
   int tgtRow = point2DPair.getTgtRow();
   int tgtCol = point2DPair.getTgtCol();
-  bool isNextSpaceOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(nextRowCoordinate, tgtCol);
+  bool isNextSpaceOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(nextRowCoordinate, tgtCol);
   if (isMovingByTwoSpaces(point2DPair)) {
-    bool isTgtOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(tgtRow, tgtCol);
+    bool isTgtOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(tgtRow, tgtCol);
     return isNextSpaceOccupied || isTgtOccupied;
   }
 

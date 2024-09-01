@@ -4,8 +4,8 @@
 
 #include "../../headers/ChessPieces/ChessPiece.h"
 
-ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator &chessBoardMediator) : playerId(
-        playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessMediator & chessMediator) : playerId(
+        playerId), pieceType(pieceType), chessMediator(chessMediator) {
 }
 
 ChessPiece::~ChessPiece() {
@@ -81,11 +81,11 @@ bool ChessPiece::canMoveToTarget(Point2DPair point2DPair) {
   bool isValidPath = getIsValidPath(point2DPair);
   if (isValidPath) {
     bool isClearPath = !isPieceBlockingPath(point2DPair);
-    bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
+    bool isTurnPlayer = chessMediator.getIsTurnPlayerSignal().emit(playerId);
     int tgtRow = point2DPair.getTgtRow();
     int tgtCol = point2DPair.getTgtCol();
-    bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow,
-                                                                                                 tgtCol);
+    bool isNonTurnPlayerChessPiece = !chessMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow,
+                                                                                            tgtCol);
     return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
   }
 
@@ -96,8 +96,8 @@ bool ChessPiece::isPieceBlockingPath(Point2DPair point2DPair) {
   point2DPair = getNextCoordinates(point2DPair);
   bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(point2DPair);
   while (!isSourceEqualToTarget) {
-    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getSrcRow(),
-                                                                              point2DPair.getSrcCol());
+    bool isOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2DPair.getSrcRow(),
+                                                                         point2DPair.getSrcCol());
     if (isOccupied) {
       return true;
     }

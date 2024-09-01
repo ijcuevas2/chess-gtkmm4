@@ -4,18 +4,18 @@
 
 #include "../../headers/ChessBoard/ChessBoardModel.h"
 
-ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
+ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::vector<BoardSpace *>(8)), chessMediator(chessMediator) {
   initBoard();
-  chessBoardMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
-  chessBoardMediator.getIsBoardIndexOccupiedSignal().connect(
+  chessMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
+  chessMediator.getIsBoardIndexOccupiedSignal().connect(
           sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
-  chessBoardMediator.getIsTurnPlayerSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayerHelper));
-  chessBoardMediator.getIsTurnPlayersChessPieceSignal().connect(
+  chessMediator.getIsTurnPlayerSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayerHelper));
+  chessMediator.getIsTurnPlayersChessPieceSignal().connect(
           sigc::mem_fun(*this, &ChessBoardModel::isTurnPlayersChessPieceHelper));
-  chessBoardMediator.getUpdateKingPositionSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::updateKingPosition));
-  chessBoardMediator.getIsKingOccupyingSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isKingOccupyingSpace));
-  chessBoardMediator.getSetEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setEnPassantSquare));
-  chessBoardMediator.getIsEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::IsEnPassantSquare));
+  chessMediator.getUpdateKingPositionSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::updateKingPosition));
+  chessMediator.getIsKingOccupyingSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isKingOccupyingSpace));
+  chessMediator.getSetEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setEnPassantSquare));
+  chessMediator.getIsEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::IsEnPassantSquare));
 }
 
 void ChessBoardModel::initBoard() {
@@ -66,7 +66,7 @@ BoardSpace *ChessBoardModel::getBoardSpacePtr(int row, int col) {
 }
 
 ChessPiece *ChessBoardModel::initEmptyPiece() {
-  return new EmptyPiece(chessBoardMediator);
+  return new EmptyPiece(chessMediator);
 }
 
 bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> & chessBoard) {
@@ -157,7 +157,7 @@ bool ChessBoardModel::isTurnPlayersChessPieceHelper(PlayerID playerId, int tgtRo
 }
 
 void ChessBoardModel::clearSelectedBoardSpace() {
-  EmptyPiece *emptyPiece = new EmptyPiece(chessBoardMediator);
+  EmptyPiece *emptyPiece = new EmptyPiece(chessMediator);
   this->selectedBoardSpacePtr->setChessPiecePtr(emptyPiece);
 }
 
@@ -251,7 +251,6 @@ bool ChessBoardModel::isKingOccupyingSpace(Point2D point2D) {
   if (chessPiece->getPieceType() == PieceType::KING) {
     return true;
   }
-
   return false;
 }
 
@@ -300,40 +299,40 @@ ChessPiece* ChessBoardModel::initChessPieceFromChar(char chessPieceChar) {
   ChessPiece* result = nullptr;
   switch (chessPieceChar) {
     case 'r':
-      result = new Rook(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      result = new Rook(PlayerID::PLAYER_BLACK, chessMediator);
       break;
     case 'R':
-      result = new Rook(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      result = new Rook(PlayerID::PLAYER_WHITE, chessMediator);
       break;
     case 'n':
-      result = new Knight(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      result = new Knight(PlayerID::PLAYER_BLACK, chessMediator);
       break;
     case 'N':
-      result = new Knight(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      result = new Knight(PlayerID::PLAYER_WHITE, chessMediator);
       break;
     case 'b':
-      result = new Bishop(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      result = new Bishop(PlayerID::PLAYER_BLACK, chessMediator);
       break;
     case 'B':
-      result = new Bishop(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      result = new Bishop(PlayerID::PLAYER_WHITE, chessMediator);
       break;
     case 'q':
-      result = new Queen(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      result = new Queen(PlayerID::PLAYER_BLACK, chessMediator);
       break;
     case 'Q':
-      result = new Queen(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      result = new Queen(PlayerID::PLAYER_WHITE, chessMediator);
       break;
     case 'k':
-      result = new King(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      result = new King(PlayerID::PLAYER_BLACK, chessMediator);
       break;
     case 'K':
-      result = new King(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      result = new King(PlayerID::PLAYER_WHITE, chessMediator);
       break;
     case 'p':
-      result = new Pawn(PlayerID::PLAYER_BLACK, chessBoardMediator);
+      result = new Pawn(PlayerID::PLAYER_BLACK, chessMediator);
       break;
     case 'P':
-      result = new Pawn(PlayerID::PLAYER_WHITE, chessBoardMediator);
+      result = new Pawn(PlayerID::PLAYER_WHITE, chessMediator);
       break;
   }
 

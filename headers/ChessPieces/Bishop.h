@@ -9,12 +9,10 @@
 
 class Bishop : public virtual ChessPiece {
 public:
-    Bishop(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::BISHOP,
-                                                                                   chessBoardMediator) {
+    Bishop(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::BISHOP, chessMediator) {
     }
 
     bool getIsValidPath(Point2DPair point2DPair) override;
-
     Point2DPair getNextCoordinates(Point2DPair point2DPair) override;
 };
 

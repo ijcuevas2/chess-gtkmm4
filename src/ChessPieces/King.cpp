@@ -38,8 +38,8 @@ std::vector<Point2D> King::getAdjacentPoints(Point2D srcPoint2D) {
 
 void King::afterPieceMoved(Point2DPair point2DPair) {
   this->setHasMoved();
-  this->chessBoardMediator.getUpdateKingPositionSignal().emit(playerId, point2DPair.getTgtRow(),
-                                                              point2DPair.getTgtCol());
+  this->chessMediator.getUpdateKingPositionSignal().emit(playerId, point2DPair.getTgtRow(),
+                                                         point2DPair.getTgtCol());
 }
 
 bool King::getHasMoved() {
@@ -51,7 +51,7 @@ void King::setHasMoved() {
 }
 
 bool King::isPieceBlockingPath(Point2DPair point2DPair) {
-  bool canCheckKing = chessBoardMediator.getCanOpponentsPiecesPutKingInCheckSignal().emit(playerId, point2DPair);
+  bool canCheckKing = chessMediator.getCanOpponentsPiecesPutKingInCheckSignal().emit(playerId, point2DPair);
   return canCheckKing;
 }
 

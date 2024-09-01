@@ -8,7 +8,7 @@
 #include <gtkmm.h>
 #include <gdkmm/surface.h>
 #include "../ChessBoard/ChessBoardView.h"
-#include "ChessWindowMediator/ChessWindowMediator.h"
+#include "ChessMediator/ChessMediator.h"
 
 class ChessWindow : public Gtk::Window {
 public:
@@ -23,7 +23,8 @@ private:
     ChessBoardView *m_chessBoardView;
     void openFileDialog();
     void saveFileDialog();
-    ChessWindowMediator chessWindowMediator;
+    bool on_key_pressed(guint keyval, Gdk::ModifierType state);
+    ChessMediator chessMediator;
 };
 
 

@@ -22,17 +22,17 @@
 #include "../../headers/ChessPieces/Pawn.h"
 #include "../../headers/ChessPieces/EmptyPiece.h"
 #include "Point2D/Point2D.h"
-#include "../../headers/ChessBoardMediator/ChessBoardMediator.h"
 #include "gtkmm.h"
 #include "../ChessImagesInfo/ChessImagesInfo.h"
 #include <glibmm/signalproxy.h>
 #include <sigc++/signal.h>
 #include <cctype>
 #include "../../headers/Utils/MathUtils.h"
+#include "ChessMediator/ChessMediator.h"
 
 class ChessBoardModel : public Gtk::DrawingArea {
 public:
-    ChessBoardModel();
+    ChessBoardModel(ChessMediator & chessMediator);
     void initBoard();
     int getBoardSize();
     ChessPiece *getChessPiecePtr(int row, int col);
@@ -88,7 +88,7 @@ private:
     int blackPawnCaptureRow = 3;
     std::vector<std::vector<BoardSpace *>> board;
     ChessImagesInfo chessImagesInfo{};
-    ChessBoardMediator chessBoardMediator{};
+    ChessMediator & chessMediator;
     BoardSpace *selectedBoardSpacePtr;
     PlayerID turnPlayerId{PlayerID::PLAYER_WHITE};
     ChessPiece* initChessPieceFromStr(std::string chessPieceStr);

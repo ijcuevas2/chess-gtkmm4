@@ -9,20 +9,14 @@
 
 class Rook : public virtual ChessPiece {
 public:
-    Rook(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::ROOK,
-                                                                                 chessBoardMediator) {
+    Rook(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::ROOK, chessMediator) {
     }
 
     bool getIsValidPath(Point2DPair point2DPair) override;
-
     Point2DPair getNextCoordinates(Point2DPair point2DPair) override;
-
     void afterPieceMoved(Point2DPair point2DPair) override;
-
     void setHasMoved();
-
     bool getHasMoved();
-
 private:
     bool hasMoved = false;
 };

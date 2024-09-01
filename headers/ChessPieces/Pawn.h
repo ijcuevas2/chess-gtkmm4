@@ -6,14 +6,13 @@
 #define CHESS_PAWN_H
 
 #include "ChessPiece.h"
-#include "ChessBoardMediator/ChessBoardMediator.h"
 #include "../../enum/PawnEnpassantRow.h"
 
 class Pawn : public virtual ChessPiece {
 private:
     bool isFirstMove = true;
 public:
-    Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN, chessBoardMediator) {
+    Pawn(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::PAWN, chessMediator) {
     }
 
     bool isCorrectDirection(Point2DPair point2DPair);

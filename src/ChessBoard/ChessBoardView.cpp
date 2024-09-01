@@ -1,16 +1,16 @@
 #include "../../headers/ChessBoard/ChessBoardView.h"
 #include <iostream>
 
-ChessBoardView::ChessBoardView(ChessWindowMediator & chessWindowMediator) : Gtk::Box(Gtk::Orientation::VERTICAL), chessWindowMediator(chessWindowMediator) {
+ChessBoardView::ChessBoardView(ChessMediator & chessMediator) : Gtk::Box(Gtk::Orientation::VERTICAL), chessMediator(chessMediator) {
   int width = 450;
   int height = 450;
   m_drawingArea.set_content_width(width);
   m_drawingArea.set_content_height(height);
 
   m_drawingArea.set_draw_func(sigc::mem_fun(*this, &ChessBoardView::on_draw));
-  chessWindowMediator.getUpdateUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUi));
-  chessWindowMediator.getUpdateUndoButtonUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUndoButtonUi));
-  chessWindowMediator.getUpdateLabelSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateLabel));
+  chessMediator.getUpdateUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUi));
+  chessMediator.getUpdateUndoButtonUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUndoButtonUi));
+  chessMediator.getUpdateLabelSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateLabel));
 
   auto controller = Gtk::GestureClick::create();
   controller->signal_pressed().connect(sigc::mem_fun(*this, &ChessBoardView::on_pressed));
@@ -111,11 +111,11 @@ void ChessBoardView::onNewGameClicked() {
 }
 
 void ChessBoardView::onSaveClicked() {
-  chessWindowMediator.getOpenSaveDialogSignal().emit();
+  chessMediator.getOpenSaveDialogSignal().emit();
 }
 
 void ChessBoardView::onLoadClicked() {
-  chessWindowMediator.getOpenFileDialogSignal().emit();
+  chessMediator.getOpenFileDialogSignal().emit();
 }
 
 void ChessBoardView::updateUi() {
@@ -128,7 +128,7 @@ void ChessBoardView::onExitClicked() {
 }
 
 void ChessBoardView::onUndoButtonClicked() {
-  chessWindowMediator.getOnUndoButtonClicked().emit();
+  chessMediator.getOnUndoButtonClicked().emit();
 }
 
 void ChessBoardView::updateUndoButtonUi(bool isEnabled) {
