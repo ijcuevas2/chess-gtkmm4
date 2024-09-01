@@ -29,6 +29,7 @@ public:
     sigc::signal<bool(PlayerID, Point2DPair)> getCanOpponentsPiecesPutKingInCheckSignal();
     sigc::signal<void(Point2D)> getSetEnPassantSquareSignal();
     sigc::signal<bool(Point2D)> getIsEnPassantSquareSignal();
+    sigc::signal<void()> getClearSelectedBoardSpaceUISignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -46,6 +47,7 @@ private:
     sigc::signal<bool(PlayerID, Point2DPair)> canOpponentsPiecesPutKingInCheck;
     sigc::signal<void(Point2D)> setEnPassantSquare;
     sigc::signal<bool(Point2D)> isEnPassantSquare;
+    sigc::signal<void()> clearSelectedBoardSpaceUI;
 };
 
 

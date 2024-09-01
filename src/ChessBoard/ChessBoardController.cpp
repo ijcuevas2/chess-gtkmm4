@@ -5,6 +5,7 @@
 #include "ChessBoard/ChessBoardController.h"
 
 ChessBoardController::ChessBoardController(ChessMediator & chessMediator): chessMediator(chessMediator)  {
+  chessMediator.getClearSelectedBoardSpaceUISignal().connect(sigc::mem_fun(*this, &ChessBoardController::clearSelectedBoardSpacePtrUI));
 }
 
 void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height) {
@@ -96,11 +97,11 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
       }
     }
 
-    resetChessBoardUI();
+    clearSelectedBoardSpacePtrUI();
   }
 }
 
-void ChessBoardController::resetChessBoardUI() {
+void ChessBoardController::clearSelectedBoardSpacePtrUI() {
   chessBoardModel.hideHintMarkers();
   chessBoardModel.clearSelectedBoardSpacePtr();
 }
@@ -113,14 +114,6 @@ void ChessBoardController::updateHalfTurnClock(ChessPiece* srcChessPiecePtr, Che
   } else {
     chessBoardModel.incrementHalfMoveClock();
   }
-}
-
-void ChessBoardController::loadStateFromFile(std::string filePath) {
-  fenModel.loadStateFromFile(filePath);
-}
-
-void ChessBoardController::saveStateToFile() {
-  fenModel.saveStateToFile();
 }
 
 void ChessBoardController::initBoard() {

@@ -23,7 +23,7 @@ private:
     ChessBoardView *m_chessBoardView;
     void openFileDialog();
     void saveFileDialog();
-    bool on_key_pressed(guint keyval, Gdk::ModifierType state);
+    bool on_key_pressed(guint keyval, guint keycode, Gdk::ModifierType state);
     ChessMediator chessMediator;
 };
 

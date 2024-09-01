@@ -19,6 +19,11 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   chessMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
   chessMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
   set_child(*m_chessBoardView);
+
+  // Create an event controller for key events
+  auto controller = Gtk::EventControllerKey::create();
+  controller->signal_key_pressed().connect(sigc::mem_fun(*this, &ChessWindow::on_key_pressed), false);
+  add_controller(controller);
 }
 
 void ChessWindow::saveFileDialog() {
@@ -32,11 +37,6 @@ void ChessWindow::saveFileDialog() {
   auto filter_text = Gtk::FileFilter::create();
   filter_text->set_name("Chess Files (*.chess)");
   filter_text->add_mime_type("text/plain");
-
-  // Create an event controller for key events
-//  auto controller = Gtk::EventControllerKey::create();
-//  controller->signal_key_pressed().connect(sigc::mem_fun(*this, &ChessWindow::on_key_pressed), false);
-//  add_controller(controller);
 
   // Create a Gio::ListStore to hold the filters
   auto filters = Gio::ListStore<Gtk::FileFilter>::create();
@@ -101,8 +101,10 @@ void ChessWindow::openFileDialog() {
   });
 }
 
-bool ChessWindow::on_key_pressed(guint keyval, Gdk::ModifierType state) {
+bool ChessWindow::on_key_pressed(guint keyval, guint keycode, Gdk::ModifierType state) {
   if (keyval == GDK_KEY_Escape) {
+    chessMediator.getClearSelectedBoardSpaceUISignal().emit();
+    chessMediator.getUpdateUiSignal().emit();
     return true;
   }
 

@@ -67,3 +67,7 @@ sigc::signal<void(Point2D)> ChessMediator::getSetEnPassantSquareSignal() {
 sigc::signal<bool(Point2D)> ChessMediator::getIsEnPassantSquareSignal() {
   return isEnPassantSquare;
 }
+
+sigc::signal<void()> ChessMediator::getClearSelectedBoardSpaceUISignal() {
+  return clearSelectedBoardSpaceUI;
+}

@@ -16,8 +16,6 @@ public:
     void on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height);
     void on_pressed(int n_press, double x, double y, int width, int height);
     void initBoard();
-    void saveStateToFile();
-    void loadStateFromFile(std::string filePath);
     void clearBoard();
     PlayerID getTurnPlayerId();
 private:
@@ -25,7 +23,7 @@ private:
     ChessBoardModel chessBoardModel{chessMediator};
     FenModel fenModel{chessBoardModel, chessMediator};
     void updateHalfTurnClock(ChessPiece* srcChessPiecePtr, ChessPiece* targetChessPiecePtr);
-    void resetChessBoardUI();
+    void clearSelectedBoardSpacePtrUI();
 };
 
 
