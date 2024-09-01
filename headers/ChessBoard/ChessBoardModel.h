@@ -40,7 +40,6 @@ public:
     void assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessPiecePtr, int row, int col);
     void setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col);
     ChessPiece *initEmptyPiece();
-    std::vector<std::vector<std::string>> getBoardConfig();
     Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece *chessPiece);
     bool isValidEncoding(std::vector<std::vector<std::string>> & chessBoard);
     void setSelectedBoardSpacePtr(BoardSpace *boardSpacePtr);

@@ -18,21 +18,6 @@ ChessBoardModel::ChessBoardModel() : board(8, std::vector<BoardSpace *>(8)) {
   chessBoardMediator.getIsEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::IsEnPassantSquare));
 }
 
-std::vector<std::vector<std::string>> ChessBoardModel::getBoardConfig() {
-  std::vector<std::vector<std::string>> boardConfig = {
-          {"DR", "DN", "DB", "DQ", "DK", "DB", "DN", "DR"},
-          {"DP", "DP", "DP", "DP", "DP", "DP", "DP", "DP"},
-          {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
-          {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
-          {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
-          {"EE", "EE", "EE", "EE", "EE", "EE", "EE", "EE"},
-          {"LP", "LP", "LP", "LP", "LP", "LP", "LP", "LP"},
-          {"LR", "LN", "LB", "LQ", "LK", "LB", "LN", "LR"}
-  };
-
-  return boardConfig;
-}
-
 void ChessBoardModel::initBoard() {
   std::string defaultFenStateStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
   initChessBoardFromFenStateString(defaultFenStateStr);
@@ -92,7 +77,7 @@ bool ChessBoardModel::isValidEncoding(std::vector<std::vector<std::string>> & ch
     return false;
   }
 
-  for (std::vector<std::string> &row: chessBoard) {
+  for (std::vector<std::string> & row: chessBoard) {
     if (row.size() != EXPECTED_NUM_SPACES) {
       return false;
     }
