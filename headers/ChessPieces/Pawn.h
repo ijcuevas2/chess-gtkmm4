@@ -11,16 +11,17 @@
 class Pawn : public virtual ChessPiece {
 private:
     bool isFirstMove = true;
-public:
-    Pawn(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::PAWN, chessMediator) {
-    }
-
+    bool canEnpassantCapture = false;
     bool isCorrectDirection(Point2DPair point2DPair);
     bool canMoveFirstTurn(Point2DPair point2DPair);
     bool canDiagonalCapture(Point2DPair point2DPair);
     bool canMoveSingleSpaceForward(Point2DPair point2DPair);
     bool isDiagonalMove(Point2DPair point2DPair);
     bool canCapture(Point2DPair point2DPair);
+public:
+    Pawn(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::PAWN, chessMediator) {
+    }
+
     bool canEnPassantCapture(Point2DPair point2DPair);
     void setUsedFirstMove();
     void setEnpassantSquare(Point2DPair point2DPair);

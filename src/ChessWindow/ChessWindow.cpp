@@ -8,12 +8,24 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   set_title("Chess");
   set_default_size(450, 450);
 
-  auto header_bar = Gtk::make_managed<Gtk::HeaderBar>();
+  header_bar = Gtk::make_managed<Gtk::HeaderBar>();
   header_bar->set_show_title_buttons(true);
   header_bar->set_decoration_layout(":close");
   header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>("Chess"));
 
+  auto primary_click_controller = Gtk::GestureClick::create();
+  primary_click_controller->set_button(GDK_BUTTON_PRIMARY);  // Listen for any button
+  primary_click_controller->signal_released().connect(
+          sigc::mem_fun(*this, &ChessWindow::on_header_bar_primary_click_released));
+  header_bar->add_controller(primary_click_controller);
+
+  auto secondary_click_controller = Gtk::GestureClick::create();
+  secondary_click_controller->set_button(GDK_BUTTON_SECONDARY);  // Listen for any button
+  secondary_click_controller->signal_released().connect(sigc::mem_fun(*this, &ChessWindow::on_header_bar_secondary_click_pressed));
+  header_bar->add_controller(secondary_click_controller);
   set_titlebar(*header_bar);
+
+  set_titlebar_right_click_behavior();
 
   m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessMediator);
   chessMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
@@ -24,6 +36,22 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   auto controller = Gtk::EventControllerKey::create();
   controller->signal_key_pressed().connect(sigc::mem_fun(*this, &ChessWindow::on_key_pressed), false);
   add_controller(controller);
+}
+
+void ChessWindow::on_header_bar_primary_click_released(int n_press, double x, double y) {
+  clearClick();
+}
+
+void ChessWindow::set_titlebar_right_click_behavior() {
+  auto settings = Gtk::Settings::get_default();
+  if (settings) {
+    settings->property_gtk_titlebar_right_click() = "none";
+  }
+}
+
+void ChessWindow::clearClick() {
+  header_bar->set_sensitive(false);
+  header_bar->set_sensitive(true);
 }
 
 void ChessWindow::saveFileDialog() {

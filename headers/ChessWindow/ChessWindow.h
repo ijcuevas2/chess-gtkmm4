@@ -21,10 +21,14 @@ protected:
     Gtk::MenuButton m_menu_button;
 private:
     ChessBoardView *m_chessBoardView;
+    Gtk::HeaderBar* header_bar;
     void openFileDialog();
     void saveFileDialog();
+    void clearClick();
     bool on_key_pressed(guint keyval, guint keycode, Gdk::ModifierType state);
     ChessMediator chessMediator;
+    void on_header_bar_primary_click_released(int n_press, double x, double y);
+    void set_titlebar_right_click_behavior();
 };
 
 

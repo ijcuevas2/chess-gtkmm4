@@ -112,7 +112,10 @@ bool Pawn::canEnPassantCapture(Point2DPair point2DPair) {
   int candidateEnPassantRow = point2DPair.getSrcRow();
   int candidateEnPassantCol = point2DPair.getTgtCol();
   Point2D point2D(candidateEnPassantRow, candidateEnPassantCol);
-  bool canEnPassantCaptureBool = chessMediator.getIsEnPassantSquareSignal().emit(point2D);
+  bool hasEnPassantCaptureTarget = chessMediator.getIsEnPassantSquareSignal().emit(point2D);
+  int enPassantRow = getCapturingPieceEnpassantRow();
+  bool hasEnPassantRow = point2DPair.getSrcRow() == enPassantRow;
+  bool canEnPassantCaptureBool = hasEnPassantRow && hasEnPassantCaptureTarget;
   return canEnPassantCaptureBool;
 }
 
