@@ -19,10 +19,6 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
           sigc::mem_fun(*this, &ChessWindow::on_header_bar_primary_click_released));
   header_bar->add_controller(primary_click_controller);
 
-  auto secondary_click_controller = Gtk::GestureClick::create();
-  secondary_click_controller->set_button(GDK_BUTTON_SECONDARY);  // Listen for any button
-  secondary_click_controller->signal_released().connect(sigc::mem_fun(*this, &ChessWindow::on_header_bar_secondary_click_pressed));
-  header_bar->add_controller(secondary_click_controller);
   set_titlebar(*header_bar);
 
   set_titlebar_right_click_behavior();
