@@ -78,7 +78,7 @@ public:
     void initChessBoardFromFenStateString(std::string fenStateStr);
     void initChessBoardFromBoardConfig(std::string boardConfigStr);
     void clearEnPassantSquare();
-    void setEnPassantSquare(Point2D point2D);
+    void setEnPassantSquare(Point2D point2d);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
@@ -98,8 +98,8 @@ private:
     ChessPiece *initChessPieceFromChar(char chessPieceChar);
     int getCounterValue(int col, int counter);
     void updateUndoButtonStatus();
-    bool isPawn(Point2D pair);
-    bool IsEnPassantSquare(Point2D pair);
+    bool isPawn(Point2D point2d);
+    bool IsEnPassantSquare(Point2D point2d);
 };
 
 

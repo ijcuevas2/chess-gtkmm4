@@ -33,6 +33,9 @@ void Pawn::afterPieceMoved(Point2DPair point2DPair) {
     setUsedFirstMove();
     setEnpassantSquare(point2DPair);
   }
+
+  if (canEnpassantCapture) {
+  }
 }
 
 void Pawn::setEnpassantSquare(Point2DPair point2DPair) {

@@ -436,25 +436,28 @@ void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) 
   }
 }
 
-bool ChessBoardModel::isPawn(Point2D pair) {
-  int row = pair.getRow();
-  int col = pair.getCol();
+bool ChessBoardModel::isPawn(Point2D point2d) {
+  int row = point2d.getRow();
+  int col = point2d.getCol();
   ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
   bool isPawnBool = chessPiecePtr->getPieceType() == PieceType::PAWN;
   return isPawnBool;
 }
 
-bool ChessBoardModel::IsEnPassantSquare(Point2D point2D) {
-  bool isSameRow = point2D.getRow() == enPassantSquare.getRow();
-  bool isSameCol = point2D.getCol() == enPassantSquare.getCol();
+bool ChessBoardModel::IsEnPassantSquare(Point2D point2d) {
+  bool isSameRow = point2d.getRow() == enPassantSquare.getRow();
+  bool isSameCol = point2d.getCol() == enPassantSquare.getCol();
   return isSameRow && isSameCol;
 }
 
-void ChessBoardModel::setEnPassantSquare(Point2D point2D) {
-  enPassantSquare = point2D;
+void ChessBoardModel::setEnPassantSquare(Point2D point2d) {
+  enPassantSquare = point2d;
 }
 
 void ChessBoardModel::clearEnPassantSquare() {
   enPassantSquare.setRow(-1);
   enPassantSquare.setCol(-1);
 }
+
+//Point2D ChessBoardModel::getEnPassantCoordinates(Point2D point2dPair) {
+//}
