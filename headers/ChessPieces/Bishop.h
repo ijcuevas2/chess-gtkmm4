@@ -12,8 +12,8 @@ public:
     Bishop(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::BISHOP, chessMediator) {
     }
 
-    bool getIsValidPath(Point2DPair point2DPair) override;
-    Point2DPair getNextCoordinates(Point2DPair point2DPair) override;
+    bool getIsValidPath(Point2DPair point2dPair) override;
+    Point2DPair getNextCoordinates(Point2DPair point2dPair) override;
 };
 
 

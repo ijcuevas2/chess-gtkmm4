@@ -4,23 +4,23 @@
 
 #include "../../headers/ChessPieces/Rook.h"
 
-bool Rook::getIsValidPath(Point2DPair point2DPair) {
-  int srcRow = point2DPair.getSrcRow();
-  int srcCol = point2DPair.getSrcCol();
-  int tgtRow = point2DPair.getTgtRow();
-  int tgtCol = point2DPair.getTgtCol();
+bool Rook::getIsValidPath(Point2DPair point2dPair) {
+  int srcRow = point2dPair.getSrcRow();
+  int srcCol = point2dPair.getSrcCol();
+  int tgtRow = point2dPair.getTgtRow();
+  int tgtCol = point2dPair.getTgtCol();
   int xAbsDiff = absoluteDistance(srcRow, tgtRow);
   int yAbsDiff = absoluteDistance(srcCol, tgtCol);
   bool isValidPath = (xAbsDiff != 0 && yAbsDiff == 0) || (xAbsDiff == 0 && yAbsDiff != 0);
   return isValidPath;
 }
 
-Point2DPair Rook::getNextCoordinates(Point2DPair point2DPair) {
-  Point2DPair newCoordinates = MathUtils::getNewHorizontalCoordinates(point2DPair);
+Point2DPair Rook::getNextCoordinates(Point2DPair point2dPair) {
+  Point2DPair newCoordinates = MathUtils::getNewHorizontalCoordinates(point2dPair);
   return newCoordinates;
 }
 
-void Rook::afterPieceMoved(Point2DPair point2DPair) {
+void Rook::afterPieceMoved(Point2DPair point2dPair) {
   setHasMoved();
 }
 

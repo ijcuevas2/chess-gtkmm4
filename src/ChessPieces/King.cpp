@@ -4,7 +4,7 @@
 
 #include "../../headers/ChessPieces/King.h"
 
-//bool King::canMoveToTarget(Point2DPair point2DPair) {
+//bool King::canMoveToTarget(Point2DPair point2dPair) {
 //}
 
 std::vector<Point2D> King::getAdjacentPoints(Point2D srcPoint2D) {
@@ -36,10 +36,10 @@ std::vector<Point2D> King::getAdjacentPoints(Point2D srcPoint2D) {
   return targetPoints;
 }
 
-void King::afterPieceMoved(Point2DPair point2DPair) {
+void King::afterPieceMoved(Point2DPair point2dPair) {
   this->setHasMoved();
-  this->chessMediator.getUpdateKingPositionSignal().emit(playerId, point2DPair.getTgtRow(),
-                                                         point2DPair.getTgtCol());
+  this->chessMediator.getUpdateKingPositionSignal().emit(playerId, point2dPair.getTgtRow(),
+                                                         point2dPair.getTgtCol());
 }
 
 bool King::getHasMoved() {
@@ -50,14 +50,14 @@ void King::setHasMoved() {
   this->hasMoved = true;
 }
 
-bool King::isPieceBlockingPath(Point2DPair point2DPair) {
-  bool canCheckKing = chessMediator.getCanOpponentsPiecesPutKingInCheckSignal().emit(playerId, point2DPair);
+bool King::isPieceBlockingPath(Point2DPair point2dPair) {
+  bool canCheckKing = chessMediator.getCanOpponentsPiecesPutKingInCheckSignal().emit(playerId, point2dPair);
   return canCheckKing;
 }
 
-bool King::getIsValidPath(Point2DPair point2DPair) {
-  int rowDist = absoluteDistance(point2DPair.getSrcRow(), point2DPair.getTgtRow());
-  int colDist = absoluteDistance(point2DPair.getSrcCol(), point2DPair.getTgtCol());
+bool King::getIsValidPath(Point2DPair point2dPair) {
+  int rowDist = absoluteDistance(point2dPair.getSrcRow(), point2dPair.getTgtRow());
+  int colDist = absoluteDistance(point2dPair.getSrcCol(), point2dPair.getTgtCol());
   if (rowDist <= 1 && colDist <= 1) {
     return true;
   }

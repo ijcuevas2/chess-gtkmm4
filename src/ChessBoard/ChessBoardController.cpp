@@ -79,15 +79,15 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     bool isSelectedBoardSpacePtr = chessBoardModel.isSelectedBoardSpacePtr(row, col);
     if (!isSelectedBoardSpacePtr) {
       ChessPiece *srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
-      Point2DPair point2DPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
-      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(point2DPair);
+      Point2DPair point2dPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
+      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(point2dPair);
       if (canMoveToTarget) {
         ChessPiece *targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {
           updateHalfTurnClock(srcChessPiecePtr, targetChessPiecePtr);
           chessBoardModel.clearEnPassantSquare();
-          srcChessPiecePtr->afterPieceMoved(point2DPair);
+          srcChessPiecePtr->afterPieceMoved(point2dPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
           chessBoardModel.updateTurnPlayerId();

@@ -13,13 +13,13 @@ public:
                                                                              chessMediator) {
     }
 
-    bool canMoveDiagonal(Point2DPair point2DPair);
+    bool canMoveDiagonal(Point2DPair point2dPair);
 
-    bool canMoveHorizontal(Point2DPair point2DPair);
+    bool canMoveHorizontal(Point2DPair point2dPair);
 
-    Point2DPair getNextCoordinates(Point2DPair point2DPair) override;
+    Point2DPair getNextCoordinates(Point2DPair point2dPair) override;
 
-    bool getIsValidPath(Point2DPair point2DPair) override;
+    bool getIsValidPath(Point2DPair point2dPair) override;
 };
 
 #endif //CHESS_QUEEN_H

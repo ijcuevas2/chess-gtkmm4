@@ -62,7 +62,7 @@ public:
     bool isTurnPlayer(BoardSpace *boardSpacePtr);
     bool isTurnPlayer(ChessPiece *chessPiecePtr);
     bool isTurnPlayerHelper(PlayerID playerId);
-    bool canOpponentsPiecesPutKingInCheck(PlayerID playerId, Point2DPair point2DPair);
+    bool canOpponentsPiecesPutKingInCheck(PlayerID playerId, Point2DPair point2dPair);
     int getCurrentTurn();
     int getHalfMoveClock();
     void incrementHalfMoveClock();

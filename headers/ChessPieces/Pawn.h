@@ -12,23 +12,23 @@ class Pawn : public virtual ChessPiece {
 private:
     bool isFirstMove = true;
     bool canEnpassantCapture = false;
-    bool isCorrectDirection(Point2DPair point2DPair);
-    bool canMoveFirstTurn(Point2DPair point2DPair);
-    bool canDiagonalCapture(Point2DPair point2DPair);
-    bool canMoveSingleSpaceForward(Point2DPair point2DPair);
-    bool isDiagonalMove(Point2DPair point2DPair);
-    bool canCapture(Point2DPair point2DPair);
+    bool isCorrectDirection(Point2DPair point2dPair);
+    bool canMoveFirstTurn(Point2DPair point2dPair);
+    bool canDiagonalCapture(Point2DPair point2dPair);
+    bool canMoveSingleSpaceForward(Point2DPair point2dPair);
+    bool isDiagonalMove(Point2DPair point2dPair);
+    bool canCapture(Point2DPair point2dPair);
 public:
     Pawn(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::PAWN, chessMediator) {
     }
 
-    bool canEnPassantCapture(Point2DPair point2DPair);
+    bool canEnPassantCapture(Point2DPair point2dPair);
     void setUsedFirstMove();
-    void setEnpassantSquare(Point2DPair point2DPair);
-    bool isMovingByTwoSpaces(Point2DPair point2DPair);
-    void afterPieceMoved(Point2DPair point2DPair) override;
-    bool isPieceBlockingPath(Point2DPair point2DPair) override;
-    bool getIsValidPath(Point2DPair point2DPair) override;
+    void setEnpassantSquare(Point2DPair point2dPair);
+    bool isMovingByTwoSpaces(Point2DPair point2dPair);
+    void afterPieceMoved(Point2DPair point2dPair) override;
+    bool isPieceBlockingPath(Point2DPair point2dPair) override;
+    bool getIsValidPath(Point2DPair point2dPair) override;
     int getMovedTwoSpacesTurn();
     int getCapturingPieceEnpassantRow();
 };
