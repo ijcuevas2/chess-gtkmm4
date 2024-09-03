@@ -33,8 +33,12 @@ void Pawn::afterPieceMoved(Point2DPair point2dPair) {
     setUsedFirstMove();
     setEnpassantSquare(point2dPair);
   }
+}
 
-  if (canEnpassantCapture) {
+void Pawn::clearEnPassantCaptureSquare(Point2DPair point2dPair) {
+  bool isEnPassantCaptureBool = isEnPassantCapture(point2dPair);
+  if (isEnPassantCaptureBool) {
+    chessMediator.getClearEnPassantCaptureSpaceSignal().emit(point2dPair);
   }
 }
 
@@ -71,7 +75,7 @@ bool Pawn::canCapture(Point2DPair point2dPair) {
       return true;
     }
 
-    bool canEnPassantCaptureValue = canEnPassantCapture(point2dPair);
+    bool canEnPassantCaptureValue = isEnPassantCapture(point2dPair);
     if (canEnPassantCaptureValue) {
       return true;
     }
@@ -81,8 +85,7 @@ bool Pawn::canCapture(Point2DPair point2dPair) {
 }
 
 bool Pawn::canDiagonalCapture(Point2DPair point2dPair) {
-  bool isIndexOccupiedResult = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2dPair.getTgtRow(),
-                                                                                  point2dPair.getTgtCol());
+  bool isIndexOccupiedResult = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2dPair.getTgtRow(), point2dPair.getTgtCol());
   return isIndexOccupiedResult;
 }
 
@@ -111,10 +114,8 @@ int Pawn::getCapturingPieceEnpassantRow() {
   return static_cast<int>(PawnEnpassantRow::BLACK_PAWN_CAPTURING_ROW);
 }
 
-bool Pawn::canEnPassantCapture(Point2DPair point2dPair) {
-  int candidateEnPassantRow = point2dPair.getSrcRow();
-  int candidateEnPassantCol = point2dPair.getTgtCol();
-  Point2D point2D(candidateEnPassantRow, candidateEnPassantCol);
+bool Pawn::isEnPassantCapture(Point2DPair point2dPair) {
+  Point2D point2D = chessMediator.getEnPassantCoordinatesSignal().emit(point2dPair);
   bool hasEnPassantCaptureTarget = chessMediator.getIsEnPassantSquareSignal().emit(point2D);
   int enPassantRow = getCapturingPieceEnpassantRow();
   bool hasEnPassantRow = point2dPair.getSrcRow() == enPassantRow;

@@ -86,6 +86,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {
           updateHalfTurnClock(srcChessPiecePtr, targetChessPiecePtr);
+          tryClearingEnPassantCaptureSquare(srcChessPiecePtr, point2dPair);
           chessBoardModel.clearEnPassantSquare();
           srcChessPiecePtr->afterPieceMoved(point2dPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
@@ -98,6 +99,13 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     }
 
     clearSelectedBoardSpacePtrUI();
+  }
+}
+
+void ChessBoardController::tryClearingEnPassantCaptureSquare(ChessPiece* chessPiecePtr, Point2DPair point2dPair) {
+  if (chessPiecePtr->getPieceType() == PieceType::PAWN) {
+    Pawn* pawn = dynamic_cast<Pawn*>(chessPiecePtr);
+    pawn->clearEnPassantCaptureSquare(point2dPair);
   }
 }
 

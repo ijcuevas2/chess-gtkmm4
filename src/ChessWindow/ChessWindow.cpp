@@ -78,8 +78,14 @@ void ChessWindow::saveFileDialog() {
                    try {
                      auto file = dialog->save_finish(result);
                      if (file) {
-                       std::cout << "File selected for saving: " << file->get_path() << std::endl;
-                       // Here you would typically save your file
+                       std::string filePath = file->get_path();
+                       std::string chessExtension = ".chess";
+                       size_t pos = filePath.find(chessExtension);
+                       if (pos == std::string::npos) {
+                          filePath += chessExtension;
+                       }
+
+                       chessMediator.getSaveStateToFileSignal().emit(filePath);
                      }
                    } catch (const Glib::Error& error) {
                      std::cerr << "Error: " << error.what() << std::endl;

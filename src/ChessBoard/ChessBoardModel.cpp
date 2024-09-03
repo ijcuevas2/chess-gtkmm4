@@ -15,7 +15,15 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
   chessMediator.getUpdateKingPositionSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::updateKingPosition));
   chessMediator.getIsKingOccupyingSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isKingOccupyingSpace));
   chessMediator.getSetEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setEnPassantSquare));
-  chessMediator.getIsEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::IsEnPassantSquare));
+  chessMediator.getIsEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isEnPassantSquare));
+  chessMediator.getEnPassantCoordinatesSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getEnPassantCoordinates));
+  chessMediator.getClearEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::clearEnPassantSquare));
+  chessMediator.getClearEnPassantCaptureSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::clearEnPassantCaptureSpace));
+  chessMediator.getEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getEnPassantSquare));
+}
+
+Point2D ChessBoardModel::getEnPassantSquare() {
+  return enPassantSquare;
 }
 
 void ChessBoardModel::initBoard() {
@@ -36,6 +44,11 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
     }
     this->board[row][col]->setChessPiecePtr(sourceChessPiecePtr);
   }
+}
+
+void ChessBoardModel::assignEmptySpaceToBoardSpaceIndex(int row, int col) {
+  EmptyPiece* emptyPiece = new EmptyPiece(chessMediator);
+  assignChessPieceToBoardSpaceIndex(emptyPiece, row, col);
 }
 
 void ChessBoardModel::setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
@@ -352,7 +365,7 @@ void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) 
   initChessBoardFromBoardConfig(boardConfigStr);
   turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
   restoreCastlingInfo(castlingStr);
-  // enPassantSquareStr = ;
+  enPassantSquare = chessMediator.getEnPassantSquareFromAlgebraicNotationSignal().emit(enPassantSquareStr);
   halfMoveClock = std::stoi(halfTurnClockStr);
   currentTurn = std::stoi(turnCounterStr);
 }
@@ -444,7 +457,7 @@ bool ChessBoardModel::isPawn(Point2D point2d) {
   return isPawnBool;
 }
 
-bool ChessBoardModel::IsEnPassantSquare(Point2D point2d) {
+bool ChessBoardModel::isEnPassantSquare(Point2D point2d) {
   bool isSameRow = point2d.getRow() == enPassantSquare.getRow();
   bool isSameCol = point2d.getCol() == enPassantSquare.getCol();
   return isSameRow && isSameCol;
@@ -459,5 +472,16 @@ void ChessBoardModel::clearEnPassantSquare() {
   enPassantSquare.setCol(-1);
 }
 
-//Point2D ChessBoardModel::getEnPassantCoordinates(Point2D point2dPair) {
-//}
+Point2D ChessBoardModel::getEnPassantCoordinates(Point2DPair point2dPair) {
+  int enPassantRow = point2dPair.getSrcRow();
+  int enPassantCol = point2dPair.getTgtCol();
+  Point2D point2d(enPassantRow, enPassantCol);
+  return point2d;
+}
+
+void ChessBoardModel::clearEnPassantCaptureSpace(Point2DPair point2dPair) {
+  Point2D enPassantPoint2d = getEnPassantCoordinates(point2dPair);
+  int row = enPassantPoint2d.getRow();
+  int col = enPassantPoint2d.getCol();
+  assignEmptySpaceToBoardSpaceIndex(row, col);
+}

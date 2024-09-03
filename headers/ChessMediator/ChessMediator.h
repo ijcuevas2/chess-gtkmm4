@@ -30,6 +30,12 @@ public:
     sigc::signal<void(Point2D)> getSetEnPassantSquareSignal();
     sigc::signal<bool(Point2D)> getIsEnPassantSquareSignal();
     sigc::signal<void()> getClearSelectedBoardSpaceUISignal();
+    sigc::signal<Point2D(Point2DPair)> getEnPassantCoordinatesSignal();
+    sigc::signal<void(Point2DPair)> getClearEnPassantCaptureSpaceSignal();
+    sigc::signal<void()> getClearEnPassantSquareSignal();
+    sigc::signal<void(std::string)> getSaveStateToFileSignal();
+    sigc::signal<Point2D()> getEnPassantSquareSignal();
+    sigc::signal<Point2D(std::string)> getEnPassantSquareFromAlgebraicNotationSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -48,6 +54,12 @@ private:
     sigc::signal<void(Point2D)> setEnPassantSquare;
     sigc::signal<bool(Point2D)> isEnPassantSquare;
     sigc::signal<void()> clearSelectedBoardSpaceUI;
+    sigc::signal<Point2D(Point2DPair)> getEnPassantCoordinates;
+    sigc::signal<void(Point2DPair)> clearEnPassantCaptureSpace;
+    sigc::signal<void()> clearEnPassantSquare;
+    sigc::signal<void(std::string)> saveStateToFile;
+    sigc::signal<Point2D()> getEnPassantSquare;
+    sigc::signal<Point2D(std::string)> getEnPassantSquareFromAlgebraicNotation;
 };
 
 

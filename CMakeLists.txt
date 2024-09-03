@@ -98,8 +98,6 @@ add_executable(${PROJECT_NAME}
         headers/ChessImagesInfo/ChessImagesInfo.h
         src/ChessBoard/ChessBoardController.cpp
         headers/ChessBoard/ChessBoardController.h
-        headers/ChessBoardMediator/ChessBoardMediator.h
-        src/ChessBoardMediator/ChessBoardMediator.cpp
         src/FenModel/FenModel.cpp
         headers/FenModel/FenModel.h
         src/Utils/MathUtils.cpp

@@ -24,6 +24,7 @@ private:
     FenModel fenModel{chessBoardModel, chessMediator};
     void updateHalfTurnClock(ChessPiece* srcChessPiecePtr, ChessPiece* targetChessPiecePtr);
     void clearSelectedBoardSpacePtrUI();
+    void tryClearingEnPassantCaptureSquare(ChessPiece *chessPiecePtr, Point2DPair point2dPair);
 };
 
 

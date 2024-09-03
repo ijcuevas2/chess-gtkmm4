@@ -9,6 +9,7 @@
 #include <fstream>
 #include <cctype>
 #include <deque>
+#include <stdexcept>
 #include "../../headers/Utils/FileUtils.h"
 #include "ChessBoard/ChessBoardModel.h"
 #include "ChessMediator/ChessMediator.h"
@@ -17,7 +18,7 @@ class FenModel {
 public:
     FenModel(ChessBoardModel & chessBoardModel, ChessMediator & chessMediator);
     void saveBoardState();
-    void saveStateToFile();
+    void saveStateToFile(std::string filePath);
     void loadStateFromFile(std::string filePath);
 private:
     ChessBoardModel & chessBoardModel;
@@ -42,7 +43,7 @@ private:
     std::string getCastlingAvailability();
     bool isRook(ChessPiece *chessPiecePtr);
     bool isKing(ChessPiece *chessPiecePtr);
-    bool saveGame(std::string content);
+    bool saveGame(std::string content, std::string inputFilePath);
     std::string getHalfMoveClock();
     std::string getCurrentTurn();
     std::string getEnpassantSquare();
@@ -53,6 +54,8 @@ private:
     void afterUndoButtonPressed();
     std::string getLatestFenString();
     bool hasFenStateStored();
+    std::string toAlgebraicNotation(int row, int col);
+    Point2D fromAlgebraicNotation(std::string algebraicNotation);
 };
 
 #endif //CHESS_FENMODEL_H

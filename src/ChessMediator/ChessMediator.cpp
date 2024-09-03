@@ -71,3 +71,27 @@ sigc::signal<bool(Point2D)> ChessMediator::getIsEnPassantSquareSignal() {
 sigc::signal<void()> ChessMediator::getClearSelectedBoardSpaceUISignal() {
   return clearSelectedBoardSpaceUI;
 }
+
+sigc::signal<Point2D(Point2DPair)> ChessMediator::getEnPassantCoordinatesSignal() {
+  return getEnPassantCoordinates;
+}
+
+sigc::signal<void(Point2DPair)> ChessMediator::getClearEnPassantCaptureSpaceSignal() {
+  return clearEnPassantCaptureSpace;
+}
+
+sigc::signal<void()> ChessMediator::getClearEnPassantSquareSignal() {
+  return clearEnPassantSquare;
+}
+
+sigc::signal<void(std::string)> ChessMediator::getSaveStateToFileSignal() {
+  return saveStateToFile;
+}
+
+sigc::signal<Point2D()> ChessMediator::getEnPassantSquareSignal() {
+  return getEnPassantSquare;
+}
+
+sigc::signal<Point2D(std::string)> ChessMediator::getEnPassantSquareFromAlgebraicNotationSignal() {
+  return getEnPassantSquareFromAlgebraicNotation;
+}

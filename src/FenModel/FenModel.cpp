@@ -7,6 +7,8 @@
 FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediator) : chessBoardModel(chessBoardModel), chessMediator(chessMediator) {
   chessMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
   chessMediator.getOnUndoButtonClicked().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
+  chessMediator.getSaveStateToFileSignal().connect(sigc::mem_fun(*this, &FenModel::saveStateToFile));
+  chessMediator.getEnPassantSquareFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -281,37 +283,43 @@ bool FenModel::createSaveDirectory() {
   }
 }
 
-bool FenModel::saveGame(std::string content) {
+bool FenModel::saveGame(std::string content, std::string inputFilePath = "") {
   if (!isChessSavesDirValid) {
     return false;
   }
 
-  fs::path gmtFileName = FileUtils::generateGMTFilename();
-  fs::path filePath = dirName / gmtFileName;
-  std::ofstream file(filePath, std::ios::out | std::ios::trunc);
+  fs::path outputPath = "";
+  if (inputFilePath.empty()) {
+    fs::path gmtFileName = FileUtils::generateGMTFilename();
+    outputPath = dirName / gmtFileName;
+  } else {
+    outputPath = inputFilePath;
+  }
+
+  std::ofstream file(outputPath, std::ios::out | std::ios::trunc);
   if (!file.is_open()) {
-    std::cerr << "Error opening file '" << filePath << "' for writing." << std::endl;
+    std::cerr << "Error opening file '" << outputPath << "' for writing." << std::endl;
     return false;
   }
 
   file << content;
 
   if (file.fail()) {
-    std::cerr << "Error writing to file '" << filePath << "'." << std::endl;
+    std::cerr << "Error writing to file '" << outputPath << "'." << std::endl;
     file.close();
     return false;
   }
 
   file.close();
-  std::cout << "Chess board saved to '" << filePath << "'." << std::endl;
+  std::cout << "Chess board saved to '" << outputPath << "'." << std::endl;
   return true;
 }
 
-void FenModel::saveStateToFile() {
+void FenModel::saveStateToFile(std::string filePath = "") {
   isChessSavesDirValid = createSaveDirectory();
   if (isChessSavesDirValid) {
     std::string fenEncoding = getBoardState();
-    saveGame(fenEncoding);
+    saveGame(fenEncoding, filePath);
   }
 }
 
@@ -341,7 +349,10 @@ void FenModel::loadStateFromFile(std::string filePath) {
 }
 
 std::string FenModel::getEnpassantSquare() {
-  std::string enPassantSquare = " - ";
+  Point2D enPassantCoordinates = chessMediator.getEnPassantSquareSignal().emit();
+  int row = enPassantCoordinates.getRow();
+  int col = enPassantCoordinates.getCol();
+  std::string enPassantSquare = " " + toAlgebraicNotation(row, col) + " ";
   return enPassantSquare;
 }
 
@@ -356,14 +367,9 @@ bool FenModel::hasFenStateStored() {
 
 std::string FenModel::getLatestFenString() {
   if (hasFenStateStored()) {
-    fenDeque.pop_back();
-
-    if (hasFenStateStored()) {
-      std::string fenStateStr = fenDeque.back();
-      return fenStateStr;
-    }
+    std::string fenStateStr = fenDeque.back();
+    return fenStateStr;
   }
-
 
   return defaultFenStateStr;
 }
@@ -379,5 +385,35 @@ void FenModel::updateBoardFromLatestFenString() {
 }
 
 void FenModel::afterUndoButtonPressed() {
+  if (!fenDeque.empty()) {
+    fenDeque.pop_back();
+  }
+
   updateBoardFromLatestFenString();
+}
+
+std::string FenModel::toAlgebraicNotation(int row, int col) {
+  if (row == -1 || col == -1) {
+    return "-";
+  }
+
+  char file = static_cast<char>('a' + col);
+  char rank = static_cast<char>('8' - row);
+  return std::string(1, file) + std::string(1, rank);
+}
+
+Point2D FenModel::fromAlgebraicNotation(std::string algebraicNotation) {
+  if (algebraicNotation == "-") {
+    Point2D result(-1, -1);
+    return result;
+  }
+
+  // Convert file (column letter) to column index (0-7)
+  int col = algebraicNotation[0] - 'a';
+
+  // Convert rank (row number) to row index (0-7)
+  int row = '8' - algebraicNotation[1];
+
+  Point2D result(row, col);
+  return result;
 }

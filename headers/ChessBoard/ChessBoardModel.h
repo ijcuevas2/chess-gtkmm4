@@ -53,7 +53,6 @@ public:
     bool isTurnPlayersChessPiece(ChessPiece *chessPiece, int targetRow, int targetCol);
     bool isTurnPlayersChessPieceHelper(PlayerID playerId, int targetRow, int targetCol);
     bool isKingChessPiecePtr(ChessPiece *chessPiecePtr);
-    void clearChessPiecePtr(ChessPiece *chessPiecePtr);
     void updateKingPosition(PlayerID playerId, int row, int col);
     void clearSelectedBoardSpace();
     void clearBoard();
@@ -99,7 +98,12 @@ private:
     int getCounterValue(int col, int counter);
     void updateUndoButtonStatus();
     bool isPawn(Point2D point2d);
-    bool IsEnPassantSquare(Point2D point2d);
+    bool isEnPassantSquare(Point2D point2d);
+    Point2D getEnPassantCoordinates(Point2DPair point2dPair);
+    void clearEnPassantCaptureSpace(Point2DPair point2dPair);
+    bool isEnPassantCapture(Point2DPair point2dPair);
+    void assignEmptySpaceToBoardSpaceIndex(int row, int col);
+    Point2D getEnPassantSquare();
 };
 
 
