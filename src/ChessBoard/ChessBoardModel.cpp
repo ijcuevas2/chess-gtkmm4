@@ -20,6 +20,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
   chessMediator.getClearEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::clearEnPassantSquare));
   chessMediator.getClearEnPassantCaptureSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::clearEnPassantCaptureSpace));
   chessMediator.getEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getEnPassantSquare));
+  chessMediator.getSetPrevMoveSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setPrevMoves));
 }
 
 Point2D ChessBoardModel::getEnPassantSquare() {
@@ -52,7 +53,7 @@ void ChessBoardModel::assignEmptySpaceToBoardSpaceIndex(int row, int col) {
 }
 
 void ChessBoardModel::setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
-  BoardSpace *boardSpace = new BoardSpace(chessPiecePtr, row, col);
+  BoardSpace* boardSpace = new BoardSpace(chessPiecePtr, row, col);
   this->board[row][col] = boardSpace;
 }
 
@@ -361,13 +362,25 @@ void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) 
   std::string enPassantSquareStr = fenSplitArr[3];
   std::string halfTurnClockStr = fenSplitArr[4];
   std::string turnCounterStr = fenSplitArr[5];
+  std::string srcBoardSpace = fenSplitArr[6];
+  std::string tgtBoardSpace = fenSplitArr[7];
 
   initChessBoardFromBoardConfig(boardConfigStr);
   turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
   restoreCastlingInfo(castlingStr);
-  enPassantSquare = chessMediator.getEnPassantSquareFromAlgebraicNotationSignal().emit(enPassantSquareStr);
+  enPassantSquare = chessMediator.getPointFromAlgebraicNotationSignal().emit(enPassantSquareStr);
   halfMoveClock = std::stoi(halfTurnClockStr);
   currentTurn = std::stoi(turnCounterStr);
+  setPrevMovesFromStrings(srcBoardSpace, tgtBoardSpace);
+}
+
+void ChessBoardModel::setPrevMoves(Point2DPair point2dPair) {
+  prevMoves = point2dPair;
+}
+
+void ChessBoardModel::setPrevMovesFromStrings(std::string srcBoardSpace, std::string tgtBoardSpace) {
+  Point2DPair point2DPair = chessMediator.getSetPrevMoveFromStringSignal().emit(srcBoardSpace, tgtBoardSpace);
+  prevMoves = point2DPair;
 }
 
 PlayerID ChessBoardModel::getTurnPlayerFromStr(std::string turnPlayerStr) {
@@ -484,4 +497,8 @@ void ChessBoardModel::clearEnPassantCaptureSpace(Point2DPair point2dPair) {
   int row = enPassantPoint2d.getRow();
   int col = enPassantPoint2d.getCol();
   assignEmptySpaceToBoardSpaceIndex(row, col);
+}
+
+Point2DPair ChessBoardModel::getPrevMoves() {
+  return prevMoves;
 }

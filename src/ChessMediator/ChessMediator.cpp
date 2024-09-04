@@ -92,6 +92,14 @@ sigc::signal<Point2D()> ChessMediator::getEnPassantSquareSignal() {
   return getEnPassantSquare;
 }
 
-sigc::signal<Point2D(std::string)> ChessMediator::getEnPassantSquareFromAlgebraicNotationSignal() {
-  return getEnPassantSquareFromAlgebraicNotation;
+sigc::signal<Point2D(std::string)> ChessMediator::getPointFromAlgebraicNotationSignal() {
+  return getPointFromAlgebraicNotation;
+}
+
+sigc::signal<Point2DPair(std::string, std::string)> ChessMediator::getSetPrevMoveFromStringSignal() {
+  return setPrevMoveFromString;
+}
+
+sigc::signal<void(Point2DPair)> ChessMediator::getSetPrevMoveSignal() {
+  return getSetPrevMove;
 }

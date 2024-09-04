@@ -78,11 +78,13 @@ public:
     void initChessBoardFromBoardConfig(std::string boardConfigStr);
     void clearEnPassantSquare();
     void setEnPassantSquare(Point2D point2d);
+    Point2DPair getPrevMoves();
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
     int halfMoveClock = 0;
     Point2D enPassantSquare{-1, -1};
+    Point2DPair prevMoves{-1, -1, -1, -1};
     int whitePawnCaptureRow = 4;
     int blackPawnCaptureRow = 3;
     std::vector<std::vector<BoardSpace *>> board;
@@ -104,6 +106,8 @@ private:
     bool isEnPassantCapture(Point2DPair point2dPair);
     void assignEmptySpaceToBoardSpaceIndex(int row, int col);
     Point2D getEnPassantSquare();
+    void setPrevMovesFromStrings(std::string srcBoardSpace, std::string tgtBoardSpace);
+    void setPrevMoves(Point2DPair point2dPair);
 };
 
 

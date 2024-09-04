@@ -8,7 +8,8 @@ FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediat
   chessMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
   chessMediator.getOnUndoButtonClicked().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
   chessMediator.getSaveStateToFileSignal().connect(sigc::mem_fun(*this, &FenModel::saveStateToFile));
-  chessMediator.getEnPassantSquareFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
+  chessMediator.getPointFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
+  chessMediator.getSetPrevMoveFromStringSignal().connect(sigc::mem_fun(*this, &FenModel::getPrevMoveHints));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -99,8 +100,22 @@ void FenModel::saveBoardState() {
   std::string currentTurn = getCurrentTurn();
   resultEncoding += currentTurn;
 
+  std::string lastPieceMovedEncoding = getLastPieceMovedEncoding();
+  resultEncoding += lastPieceMovedEncoding;
+
   fenDeque.push_back(resultEncoding);
   chessMediator.getUpdateUndoButtonUiSignal().emit(true);
+}
+
+std::string FenModel::getLastPieceMovedEncoding() {
+  Point2DPair point2dPair = chessBoardModel.getPrevMoves();
+  int srcRow = point2dPair.getSrcRow();
+  int srcCol = point2dPair.getSrcCol();
+  int tgtRow = point2dPair.getTgtRow();
+  int tgtCol = point2dPair.getTgtCol();
+  std::string srcAlgebraicNotation = toAlgebraicNotation(srcRow, srcCol);
+  std::string tgtAlgebraicNotation = toAlgebraicNotation(tgtRow, tgtCol);
+  return " " + srcAlgebraicNotation + " " + tgtAlgebraicNotation;
 }
 
 std::string FenModel::getHalfMoveClock() {
@@ -416,4 +431,11 @@ Point2D FenModel::fromAlgebraicNotation(std::string algebraicNotation) {
 
   Point2D result(row, col);
   return result;
+}
+
+Point2DPair FenModel::getPrevMoveHints(std::string srcPoint2dEncoding, std::string tgtPoint2dEncoding) {
+  Point2D srcPoint2d = fromAlgebraicNotation(srcPoint2dEncoding);
+  Point2D tgtPoint2d = fromAlgebraicNotation(tgtPoint2dEncoding);
+  Point2DPair prevMovePoint2dPair(srcPoint2d.getRow(), srcPoint2d.getCol(), tgtPoint2d.getRow(), tgtPoint2d.getCol());
+  return prevMovePoint2dPair;
 }

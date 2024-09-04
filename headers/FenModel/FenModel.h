@@ -56,6 +56,8 @@ private:
     bool hasFenStateStored();
     std::string toAlgebraicNotation(int row, int col);
     Point2D fromAlgebraicNotation(std::string algebraicNotation);
+    Point2DPair getPrevMoveHints(std::string srcPoint2dEncoding, std::string tgtPoint2dEncoding);
+    std::string getLastPieceMovedEncoding();
 };
 
 #endif //CHESS_FENMODEL_H

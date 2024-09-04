@@ -10,12 +10,20 @@ ChessBoardController::ChessBoardController(ChessMediator & chessMediator): chess
 
 void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height) {
   int cellSize = std::min(width, height) / chessBoardModel.getBoardSize();
+  Point2DPair prevMoves = chessBoardModel.getPrevMoves();
 
   // Draw the board
   for (int row = 0; row < chessBoardModel.getBoardSize(); ++row) {
     for (int col = 0; col < chessBoardModel.getBoardSize(); ++col) {
+
+      bool isEqualToSourcePrevMove = prevMoves.getSrcRow() == row && prevMoves.getSrcCol() == col;
+      bool isEqualToTargetPrevMove = prevMoves.getTgtRow() == row && prevMoves.getTgtCol() == col;
+      bool isPrevMove = isEqualToSourcePrevMove || isEqualToTargetPrevMove;
+
       // Set the fill color for the rectangle
-      if ((row + col) % 2 == 0) {
+      if (isPrevMove) {
+        cr->set_source_rgb(0.13, 0.55, 0.13);
+      } else if ((row + col) % 2 == 0) {
         cr->set_source_rgb(1.0, 0.9, 0.8);
       } else {
         cr->set_source_rgb(0.8, 0.6, 0.4);
@@ -89,6 +97,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           tryClearingEnPassantCaptureSquare(srcChessPiecePtr, point2dPair);
           chessBoardModel.clearEnPassantSquare();
           srcChessPiecePtr->afterPieceMoved(point2dPair);
+          chessMediator.getSetPrevMoveSignal().emit(point2dPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
           chessBoardModel.updateTurnPlayerId();

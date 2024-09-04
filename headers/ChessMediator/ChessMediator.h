@@ -35,7 +35,9 @@ public:
     sigc::signal<void()> getClearEnPassantSquareSignal();
     sigc::signal<void(std::string)> getSaveStateToFileSignal();
     sigc::signal<Point2D()> getEnPassantSquareSignal();
-    sigc::signal<Point2D(std::string)> getEnPassantSquareFromAlgebraicNotationSignal();
+    sigc::signal<Point2D(std::string)> getPointFromAlgebraicNotationSignal();
+    sigc::signal<Point2DPair(std::string, std::string)> getSetPrevMoveFromStringSignal();
+    sigc::signal<void(Point2DPair)> getSetPrevMoveSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -59,7 +61,9 @@ private:
     sigc::signal<void()> clearEnPassantSquare;
     sigc::signal<void(std::string)> saveStateToFile;
     sigc::signal<Point2D()> getEnPassantSquare;
-    sigc::signal<Point2D(std::string)> getEnPassantSquareFromAlgebraicNotation;
+    sigc::signal<Point2D(std::string)> getPointFromAlgebraicNotation;
+    sigc::signal<Point2DPair(std::string, std::string)> setPrevMoveFromString;
+    sigc::signal<void(Point2DPair)> getSetPrevMove;
 };
 
 
