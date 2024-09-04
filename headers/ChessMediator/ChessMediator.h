@@ -38,6 +38,7 @@ public:
     sigc::signal<Point2D(std::string)> getPointFromAlgebraicNotationSignal();
     sigc::signal<Point2DPair(std::string, std::string)> getSetPrevMoveFromStringSignal();
     sigc::signal<void(Point2DPair)> getSetPrevMoveSignal();
+    sigc::signal<bool(PlayerID)> getIsKingInCheckSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -64,6 +65,7 @@ private:
     sigc::signal<Point2D(std::string)> getPointFromAlgebraicNotation;
     sigc::signal<Point2DPair(std::string, std::string)> setPrevMoveFromString;
     sigc::signal<void(Point2DPair)> getSetPrevMove;
+    sigc::signal<bool(PlayerID)> isKingInCheck;
 };
 
 

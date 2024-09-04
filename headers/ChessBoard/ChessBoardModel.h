@@ -79,6 +79,7 @@ public:
     void clearEnPassantSquare();
     void setEnPassantSquare(Point2D point2d);
     Point2DPair getPrevMoves();
+    bool isPlayerIdKingInCheck(PlayerID playerId);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;

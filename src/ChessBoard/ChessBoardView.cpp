@@ -89,6 +89,12 @@ void ChessBoardView::updateLabel() {
   PlayerID playerId = chessBoardController.getTurnPlayerId();
   bool isWhiteTurn = playerId == PlayerID::PLAYER_WHITE;
   std::string turnLabel = isWhiteTurn ? "Current Turn: White" : "Current Turn: Black";
+
+  bool isInCheck = chessMediator.getIsKingInCheckSignal().emit(playerId);
+  if (isInCheck) {
+    turnLabel += " (In Check!) ";
+  }
+
   if (m_currentPlayerLabel != nullptr) {
     m_currentPlayerLabel->set_text(turnLabel);
   }

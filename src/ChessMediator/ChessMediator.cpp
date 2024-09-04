@@ -103,3 +103,7 @@ sigc::signal<Point2DPair(std::string, std::string)> ChessMediator::getSetPrevMov
 sigc::signal<void(Point2DPair)> ChessMediator::getSetPrevMoveSignal() {
   return getSetPrevMove;
 }
+
+sigc::signal<bool(PlayerID)> ChessMediator::getIsKingInCheckSignal() {
+  return isKingInCheck;
+}

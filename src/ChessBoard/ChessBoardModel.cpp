@@ -21,6 +21,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
   chessMediator.getClearEnPassantCaptureSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::clearEnPassantCaptureSpace));
   chessMediator.getEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getEnPassantSquare));
   chessMediator.getSetPrevMoveSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setPrevMoves));
+  chessMediator.getIsKingInCheckSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isPlayerIdKingInCheck));
 }
 
 Point2D ChessBoardModel::getEnPassantSquare() {
@@ -294,17 +295,21 @@ void ChessBoardModel::resetHalfMoveClock() {
 }
 
 void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
-  Point2D kingPoint2D = getKingCoordinates(playerId);
+  PlayerID oppositePlayerId = getOppositePlayerId(playerId);
+  Point2D kingPoint2D = getKingCoordinates(oppositePlayerId);
   int kingRow = kingPoint2D.getRow();
   int kingCol = kingPoint2D.getCol();
-  King* king = dynamic_cast<King *>(getChessPiecePtr(kingRow, kingCol));
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    for (int col = 0; col < BOARD_SIZE; ++col) {
-      ChessPiece *chessPiecePtr = getChessPiecePtr(row, col);
-      Point2DPair currCoordinates(row, col, kingRow, kingCol);
-      bool isCurrChessPieceAbleToCheck = chessPiecePtr->canMoveToTarget(currCoordinates);
-      if (isCurrChessPieceAbleToCheck) {
-        king->setIsInCheck(true);
+  ChessPiece* chessPiece = getChessPiecePtr(kingRow, kingCol);
+  if (chessPiece->getPieceType() == PieceType::KING) {
+    King* king = dynamic_cast<King*>(chessPiece);
+    for (int row = 0; row < BOARD_SIZE; ++row) {
+      for (int col = 0; col < BOARD_SIZE; ++col) {
+        ChessPiece *chessPiecePtr = getChessPiecePtr(row, col);
+        Point2DPair currCoordinates(row, col, kingRow, kingCol);
+        bool isCurrChessPieceAbleToCheck = chessPiecePtr->canMoveToTarget(currCoordinates);
+        if (isCurrChessPieceAbleToCheck) {
+          king->setIsInCheck(true);
+        }
       }
     }
   }
@@ -454,7 +459,7 @@ void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) 
         int targetCol = col + counter;
 
         if (isKingChessPiecePtr(chessPiecePtr)) {
-          updateKingPosition(chessPiecePtr->getPlayerId(), row, col);
+          updateKingPosition(chessPiecePtr->getPlayerId(), row, targetCol);
         }
 
         setNewBoardSpaceAtIndex(chessPiecePtr, row, targetCol);
@@ -502,4 +507,23 @@ void ChessBoardModel::clearEnPassantCaptureSpace(Point2DPair point2dPair) {
 
 Point2DPair ChessBoardModel::getPrevMoves() {
   return prevMoves;
+}
+
+bool ChessBoardModel::isPlayerIdKingInCheck(PlayerID playerId) {
+  Point2D kingCoordinates;
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    kingCoordinates = whiteKingCoordinates;
+  } else if (playerId == PlayerID::PLAYER_BLACK) {
+    kingCoordinates = blackKingCoordinates;
+  }
+
+  ChessPiece* chessPiece = getChessPiecePtr(kingCoordinates.getRow(), kingCoordinates.getCol());
+  PieceType pieceType = chessPiece->getPieceType();
+  if (pieceType == PieceType::KING) {
+    King* king = dynamic_cast<King*>(chessPiece);
+    bool isInCheck = king->getIsInCheck();
+    return isInCheck;
+  }
+
+  return false;
 }

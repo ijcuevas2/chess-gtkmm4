@@ -4,8 +4,9 @@
 
 #include "../../headers/ChessPieces/King.h"
 
-//bool King::canMoveToTarget(Point2DPair point2dPair) {
-//}
+King::King(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::KING, chessMediator) {
+  // chessMediator.getUpdateKingPositionSignal(playerId, )
+}
 
 std::vector<Point2D> King::getAdjacentPoints(Point2D srcPoint2D) {
   std::vector<Point2D> relativePoints = {
@@ -37,17 +38,16 @@ std::vector<Point2D> King::getAdjacentPoints(Point2D srcPoint2D) {
 }
 
 void King::afterPieceMoved(Point2DPair point2dPair) {
-  this->setHasMoved();
-  this->chessMediator.getUpdateKingPositionSignal().emit(playerId, point2dPair.getTgtRow(),
-                                                         point2dPair.getTgtCol());
+  setCanCastleToFalse();
+  chessMediator.getUpdateKingPositionSignal().emit(playerId, point2dPair.getTgtRow(), point2dPair.getTgtCol());
 }
 
-bool King::getHasMoved() {
-  return hasMoved;
+bool King::getCanCastle() {
+  return canCastle;
 }
 
-void King::setHasMoved() {
-  this->hasMoved = true;
+void King::setCanCastleToFalse() {
+  this->canCastle = false;
 }
 
 bool King::isPieceBlockingPath(Point2DPair point2dPair) {

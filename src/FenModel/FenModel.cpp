@@ -274,7 +274,7 @@ bool FenModel::canCastle(int rookRow, int rookCol, int kingRow, int kingCol) {
 
   if (isRook(rookPtr) && isKing(kingPtr)) {
     hasRookMoved = rookPtr->getHasMoved();
-    hasKingMoved = kingPtr->getHasMoved();
+    hasKingMoved = kingPtr->getCanCastle();
   }
 
   return !hasRookMoved && !hasKingMoved;

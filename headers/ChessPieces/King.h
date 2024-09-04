@@ -11,30 +11,21 @@
 
 class King : public virtual ChessPiece {
 private:
-    bool hasMoved;
+    bool canCastle;
     bool isInCheck;
 public:
-    King(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::KING,
-                                                                            chessMediator) {
-    }
+    King(PlayerID playerId, ChessMediator & chessMediator);
 
     std::vector<Point2DPair> getAdjacentCoordinates(Point2DPair point2dPair);
 
 //    bool canMoveToTarget(Point2DPair point2dPair) override;
-
-    bool getHasMoved();
-
-    void setHasMoved();
-
+    bool getCanCastle();
+    void setCanCastleToFalse();
     void setIsInCheck(bool inCheck);
     bool getIsInCheck();
-
     bool getIsValidPath(Point2DPair point2dPair) override;
-
     void afterPieceMoved(Point2DPair point2dPair) override;
-
     bool isPieceBlockingPath(Point2DPair point2dPair) override;
-
     std::vector<Point2D> getAdjacentPoints(Point2D point2D);
 };
 
