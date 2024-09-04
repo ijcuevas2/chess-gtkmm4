@@ -22,7 +22,7 @@ void ChessBoardController::on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int 
 
       // Set the fill color for the rectangle
       if (isPrevMove) {
-        cr->set_source_rgb(0.13, 0.55, 0.13);
+        cr->set_source_rgb(0.5176, 0.5804, 0.5333);
       } else if ((row + col) % 2 == 0) {
         cr->set_source_rgb(1.0, 0.9, 0.8);
       } else {

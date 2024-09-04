@@ -234,7 +234,8 @@ void ChessBoardModel::showHintMarkers(BoardSpace *boardSpacePtr) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
       BoardSpace *boardSpace = getBoardSpacePtr(row, col);
       Point2DPair point2dPair(srcRow, srcCol, row, col);
-      if (chessPiecePtr->canMoveToTarget(point2dPair)) {
+      bool canMoveToTarget = chessPiecePtr->canMoveToTarget(point2dPair);
+      if (canMoveToTarget) {
         boardSpace->showMarker();
       }
     }

@@ -84,8 +84,7 @@ bool ChessPiece::canMoveToTarget(Point2DPair point2dPair) {
     bool isTurnPlayer = chessMediator.getIsTurnPlayerSignal().emit(playerId);
     int tgtRow = point2dPair.getTgtRow();
     int tgtCol = point2dPair.getTgtCol();
-    bool isNonTurnPlayerChessPiece = !chessMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow,
-                                                                                            tgtCol);
+    bool isNonTurnPlayerChessPiece = !chessMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
     return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
   }
 

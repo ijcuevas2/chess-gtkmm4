@@ -139,5 +139,10 @@ bool Pawn::isPieceBlockingPath(Point2DPair point2dPair) {
     return isNextSpaceOccupied || isTgtOccupied;
   }
 
-  return isNextSpaceOccupied;
+  int nextColCaptureCoordinate = point2dPair.getSrcCol() + direction;
+  bool isCaptureRow = tgtRow == nextRowCoordinate;
+  bool isCaptureCol = tgtCol == nextColCaptureCoordinate;
+  bool isDiagonalCapture = isCaptureRow && isCaptureCol;
+
+  return isNextSpaceOccupied && !isDiagonalCapture;
 }
