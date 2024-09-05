@@ -17,6 +17,7 @@ public:
     int getCol();
     void setRow(int row);
     void setCol(int col);
+    bool operator==(const Point2D & other) const;
 };
 
 #endif //CHESS_POINT2D_H

@@ -32,6 +32,8 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   auto controller = Gtk::EventControllerKey::create();
   controller->signal_key_pressed().connect(sigc::mem_fun(*this, &ChessWindow::on_key_pressed), false);
   add_controller(controller);
+
+  openEndGameDialog();
 }
 
 void ChessWindow::on_header_bar_primary_click_released(int n_press, double x, double y) {
@@ -129,6 +131,57 @@ void ChessWindow::openFileDialog() {
         }
       }
   });
+}
+
+void ChessWindow::openEndGameDialog() {
+  auto dialog = Gtk::make_managed<Gtk::Window>();
+  dialog->set_title("Checkmate!");
+  dialog->set_transient_for(*this);
+  dialog->set_modal(true);
+  dialog->set_default_size(300, 200);
+
+  auto content_area = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::VERTICAL, 8);
+  content_area->set_margin(8);
+  dialog->set_child(*content_area);
+
+  PlayerID playerId = chessMediator.getTurnPlayerIdSignal().emit();
+
+  std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
+  std::string message = std::format("{} wins!", playerStr);
+
+  auto label = Gtk::make_managed<Gtk::Label>(message);
+  content_area->append(*label);
+
+  auto button_box = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 8);
+  button_box->set_halign(Gtk::Align::END);
+  content_area->append(*button_box);
+
+  auto ok_button = Gtk::make_managed<Gtk::Button>("New Game");
+  auto cancel_button = Gtk::make_managed<Gtk::Button>("Exit");
+  button_box->append(*ok_button);
+  button_box->append(*cancel_button);
+
+  ok_button->signal_clicked().connect([dialog]() {
+      std::cout << "OK clicked" << std::endl;
+      // Handle OK action here
+      // For example: save_game_state();
+      dialog->close();
+  });
+
+  cancel_button->signal_clicked().connect([dialog]() {
+      std::cout << "Cancel clicked" << std::endl;
+      // Handle Cancel action here
+      dialog->close();
+  });
+
+  dialog->signal_close_request().connect([dialog]() {
+      std::cout << "Dialog closed" << std::endl;
+      dialog->hide();
+      delete dialog;
+      return true;
+  }, false);
+
+  dialog->show();
 }
 
 bool ChessWindow::on_key_pressed(guint keyval, guint keycode, Gdk::ModifierType state) {

@@ -25,3 +25,7 @@ int Point2D::getRow() {
 int Point2D::getCol() {
   return col;
 }
+
+bool Point2D::operator==(const Point2D & other) const {
+  return this->row == other.row && this->col == other.col;
+}

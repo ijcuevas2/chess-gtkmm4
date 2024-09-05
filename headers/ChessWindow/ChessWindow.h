@@ -29,6 +29,7 @@ private:
     ChessMediator chessMediator;
     void on_header_bar_primary_click_released(int n_press, double x, double y);
     void set_titlebar_right_click_behavior();
+    void openEndGameDialog();
 };
 
 

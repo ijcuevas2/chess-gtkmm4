@@ -107,3 +107,11 @@ sigc::signal<void(Point2DPair)> ChessMediator::getSetPrevMoveSignal() {
 sigc::signal<bool(PlayerID)> ChessMediator::getIsKingInCheckSignal() {
   return isKingInCheck;
 }
+
+sigc::signal<bool(PlayerID, Point2D)> ChessMediator::getIsKingValidPathSignal() {
+  return isKingValidPath;
+}
+
+sigc::signal<PlayerID()> ChessMediator::getTurnPlayerIdSignal() {
+  return turnPlayerId;
+}

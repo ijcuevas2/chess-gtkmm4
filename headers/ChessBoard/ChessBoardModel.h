@@ -72,7 +72,7 @@ public:
     PlayerID getOppositePlayerId(PlayerID playerId);
     Point2D whiteKingCoordinates;
     Point2D blackKingCoordinates;
-    Point2D getKingCoordinates(PlayerID playerId);
+    Point2D getKingPoint2D(PlayerID playerId);
     void calculateKingIsInCheck(PlayerID playerId);
     void initChessBoardFromFenStateString(std::string fenStateStr);
     void initChessBoardFromBoardConfig(std::string boardConfigStr);
@@ -80,6 +80,7 @@ public:
     void setEnPassantSquare(Point2D point2d);
     Point2DPair getPrevMoves();
     bool isPlayerIdKingInCheck(PlayerID playerId);
+    bool isCheckmate(PlayerID playerId);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
@@ -109,6 +110,9 @@ private:
     Point2D getEnPassantSquare();
     void setPrevMovesFromStrings(std::string srcBoardSpace, std::string tgtBoardSpace);
     void setPrevMoves(Point2DPair point2dPair);
+    King *getPlayerIdKing(PlayerID playerId);
+    bool isPoint2dInArr(std::vector<Point2D> &opponentPoints, Point2D point2d);
+    bool getIsKingValidPath(PlayerID playerId, Point2D targetPoint);
 };
 
 

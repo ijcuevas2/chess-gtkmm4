@@ -103,6 +103,11 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           chessBoardModel.calculateKingIsInCheck(chessBoardModel.getTurnPlayerId());
           chessBoardModel.updateTurnPlayerId();
           fenModel.saveBoardState();
+          PlayerID playerId = getTurnPlayerId();
+          bool isCheckmate = chessBoardModel.isCheckmate(playerId);
+          if (isCheckmate) {
+            std::println("Checkmate!");
+          }
         }
       }
     }

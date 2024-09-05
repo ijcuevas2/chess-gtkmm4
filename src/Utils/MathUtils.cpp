@@ -64,3 +64,42 @@ int MathUtils::charToDigit(char c) {
   }
   throw std::invalid_argument("Character is not a digit");
 }
+
+bool MathUtils::isValidPoint2D(Point2D point2d) {
+  int row = point2d.getRow();
+  int col = point2d.getCol();
+  if (row < 0 || row > 7 || col < 0 || col > 7) {
+    return false;
+  }
+
+  return true;
+}
+
+std::vector<Point2D> MathUtils::getAdjacentKingPoints(Point2D srcPoint2D) {
+  std::vector<Point2D> relativePoints = {
+          Point2D(0, 1),
+          Point2D(1, 1),
+          Point2D(1, 0),
+          Point2D(1, -1),
+          Point2D(0, -1),
+          Point2D(-1, -1),
+          Point2D(-1, 0),
+          Point2D(-1, 1)
+  };
+
+  std::vector<Point2D> targetPoints;
+
+  for (int i = 0; i < relativePoints.size(); ++i) {
+    Point2D relativePoint2D = relativePoints[i];
+    int srcRow = srcPoint2D.getRow();
+    int srcCol = srcPoint2D.getCol();
+    int newRow = srcRow + relativePoint2D.getRow();
+    int newCol = srcCol + relativePoint2D.getCol();
+    Point2D targetPoint2D(newRow, newCol);
+    if (isValidPoint2D(targetPoint2D)) {
+      targetPoints.push_back(targetPoint2D);
+    }
+  }
+
+  return targetPoints;
+}

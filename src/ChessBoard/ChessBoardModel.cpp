@@ -22,6 +22,8 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
   chessMediator.getEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getEnPassantSquare));
   chessMediator.getSetPrevMoveSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setPrevMoves));
   chessMediator.getIsKingInCheckSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isPlayerIdKingInCheck));
+  chessMediator.getIsKingValidPathSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsKingValidPath));
+  chessMediator.getTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getTurnPlayerId));
 }
 
 Point2D ChessBoardModel::getEnPassantSquare() {
@@ -278,7 +280,7 @@ PlayerID ChessBoardModel::getOppositePlayerId(PlayerID playerId) {
   return PlayerID::PLAYER_WHITE;
 }
 
-Point2D ChessBoardModel::getKingCoordinates(PlayerID playerId) {
+Point2D ChessBoardModel::getKingPoint2D(PlayerID playerId) {
   if (playerId == PlayerID::PLAYER_WHITE) {
     return whiteKingCoordinates;
   }
@@ -296,7 +298,7 @@ void ChessBoardModel::resetHalfMoveClock() {
 
 void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
   PlayerID oppositePlayerId = getOppositePlayerId(playerId);
-  Point2D kingPoint2D = getKingCoordinates(oppositePlayerId);
+  Point2D kingPoint2D = getKingPoint2D(oppositePlayerId);
   int kingRow = kingPoint2D.getRow();
   int kingCol = kingPoint2D.getCol();
   ChessPiece* chessPiece = getChessPiecePtr(kingRow, kingCol);
@@ -510,6 +512,16 @@ Point2DPair ChessBoardModel::getPrevMoves() {
 }
 
 bool ChessBoardModel::isPlayerIdKingInCheck(PlayerID playerId) {
+  King* kingPtr = getPlayerIdKing(playerId);
+  if (kingPtr != nullptr) {
+    bool isInCheck = kingPtr->getIsInCheck();
+    return isInCheck;
+  }
+
+  return false;
+}
+
+King* ChessBoardModel::getPlayerIdKing(PlayerID playerId) {
   Point2D kingCoordinates;
   if (playerId == PlayerID::PLAYER_WHITE) {
     kingCoordinates = whiteKingCoordinates;
@@ -520,10 +532,76 @@ bool ChessBoardModel::isPlayerIdKingInCheck(PlayerID playerId) {
   ChessPiece* chessPiece = getChessPiecePtr(kingCoordinates.getRow(), kingCoordinates.getCol());
   PieceType pieceType = chessPiece->getPieceType();
   if (pieceType == PieceType::KING) {
-    King* king = dynamic_cast<King*>(chessPiece);
-    bool isInCheck = king->getIsInCheck();
-    return isInCheck;
+    King* kingPtr = dynamic_cast<King*>(chessPiece);
+    return kingPtr;
+  }
+
+  return nullptr;
+}
+
+bool ChessBoardModel::isPoint2dInArr(std::vector<Point2D> & point2dArr, Point2D point2d) {
+  for (int i = 0; i < point2dArr.size(); ++i) {
+    Point2D currentPoint = point2dArr[i];
+    if (point2d == currentPoint) {
+      return true;
+    }
   }
 
   return false;
+}
+
+bool ChessBoardModel::isCheckmate(PlayerID playerId) {
+  Point2D kingPoint2d = getKingPoint2D(playerId);
+  std::vector<Point2D> adjacentPoints = MathUtils::getAdjacentKingPoints(kingPoint2d);
+  King* kingPtr = getPlayerIdKing(playerId);
+
+  bool isInCheck = kingPtr->getIsInCheck();
+  if (!isInCheck) {
+    return false;
+  }
+
+  if (kingPtr != nullptr) {
+    int kingRow = kingPoint2d.getRow();
+    int kingCol = kingPoint2d.getCol();
+    for (Point2D point2d : adjacentPoints) {
+      int targetRow = kingPoint2d.getRow() + point2d.getRow();
+      int targetCol = kingPoint2d.getCol() + point2d.getCol();
+      Point2DPair point2DPair(kingRow, kingCol, targetRow, targetCol);
+      bool canMoveToTargetBool = kingPtr->canMoveToTarget(point2DPair);
+      if (canMoveToTargetBool) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  return false;
+}
+
+bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint) {
+  Point2D kingCoordinates = getKingPoint2D(playerId);
+  std::vector<Point2D> adjacentPoints = MathUtils::getAdjacentKingPoints(kingCoordinates);
+  Point2D opponentKingCoordinates = getKingPoint2D(playerId);
+  std::vector<Point2D> opponentAdjacentPoints = MathUtils::getAdjacentKingPoints(opponentKingCoordinates);
+
+  bool isPoint2dInArrBool = isPoint2dInArr(opponentAdjacentPoints, targetPoint);
+  if (isPoint2dInArrBool) {
+    return false;
+  }
+
+  for (int row = 0; row < BOARD_SIZE; ++row) {
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+      ChessPiece* chessPiece = getChessPiecePtr(row, col);
+      if (!isKingChessPiecePtr(chessPiece)) {
+        Point2DPair kingMovementPair(row, col, targetPoint.getRow(), targetPoint.getCol());
+        bool canMoveToTargetBool = chessPiece->canMoveToTarget(kingMovementPair);
+        if (canMoveToTargetBool) {
+          return false;
+        }
+      }
+    }
+  }
+
+  return true;
 }

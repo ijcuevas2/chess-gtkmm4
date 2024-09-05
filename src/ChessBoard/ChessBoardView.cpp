@@ -86,7 +86,7 @@ void ChessBoardView::on_pressed(int n_press, double x, double y) {
 }
 
 void ChessBoardView::updateLabel() {
-  PlayerID playerId = chessBoardController.getTurnPlayerId();
+  PlayerID playerId = chessMediator.getTurnPlayerIdSignal().emit();
   bool isWhiteTurn = playerId == PlayerID::PLAYER_WHITE;
   std::string turnLabel = isWhiteTurn ? "Current Turn: White" : "Current Turn: Black";
 
