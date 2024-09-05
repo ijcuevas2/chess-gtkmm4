@@ -3,26 +3,54 @@
 //
 
 #include "../../headers/ChessPieces/King.h"
-bool King::canMoveToTarget(Coordinates coordinates) {
+
+King::King(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::KING, chessMediator) {
+}
+
+void King::afterPieceMoved(Point2DPair point2dPair) {
+  setCanCastleToFalse();
+  chessMediator.getUpdateKingPositionSignal().emit(playerId, point2dPair.getTgtRow(), point2dPair.getTgtCol());
+}
+
+bool King::getCanCastle() {
+  return canCastle;
+}
+
+void King::setCanCastleToFalse() {
+  this->canCastle = false;
+}
+
+bool King::isPieceBlockingPath(Point2DPair point2dPair) {
+  bool canCheckKing = chessMediator.getCanOpponentsPiecesPutKingInCheckSignal().emit(playerId, point2dPair);
+  return canCheckKing;
+}
+
+bool King::getIsValidPath(Point2DPair point2dPair) {
+  int rowDist = absoluteDistance(point2dPair.getSrcRow(), point2dPair.getTgtRow());
+  int colDist = absoluteDistance(point2dPair.getSrcCol(), point2dPair.getTgtCol());
+  if (rowDist <= 1 && colDist <= 1) {
+    int targetRow = point2dPair.getTgtRow();
+    int targetCol = point2dPair.getTgtCol();
+    Point2D point2d(targetRow, targetCol);
+    bool isValidPath = chessMediator.getIsKingValidPathSignal().emit(playerId, point2d);
+    return isValidPath;
+  }
+
   return false;
 }
 
-void King::afterPieceMoved(Coordinates coordinates) {
-  this->setHasMoved();
+void King::setIsInCheck(bool isInCheck) {
+  this->isInCheck = isInCheck;
 }
 
-bool King::getHasMoved() {
-  return hasMoved;
+bool King::getIsInCheck() {
+  return this->isInCheck;
 }
 
-void King::setHasMoved() {
-  this->hasMoved = true;
+bool King::getIsCheckmate() {
+  return isCheckmate;
 }
 
-bool King::isPieceBlockingPath(Coordinates coordinates) {
-  return false;
-}
-
-bool King::getIsValidPath(Coordinates coordinates) {
-  return false;
+void King::setIsCheckmate(bool value) {
+  isCheckmate = value;
 }

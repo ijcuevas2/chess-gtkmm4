@@ -4,15 +4,17 @@
 
 #ifndef CHESS_KNIGHT_H
 #define CHESS_KNIGHT_H
+
 #include "ChessPiece.h"
 
 class Knight : public virtual ChessPiece {
 public:
-    Knight(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::KNIGHT, chessBoardMediator) {
+    Knight(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::KNIGHT, chessMediator) {
     }
 
-    bool getIsValidPath(Coordinates coordinates) override;
-    bool isPieceBlockingPath(Coordinates coordinates) override;
+    bool getIsValidPath(Point2DPair point2dPair) override;
+
+    bool isPieceBlockingPath(Point2DPair point2dPair) override;
 };
 
 

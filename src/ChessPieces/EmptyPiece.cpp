@@ -5,10 +5,10 @@
 #include "../../headers/ChessPieces/EmptyPiece.h"
 
 
-bool EmptyPiece::canMoveToTarget(Coordinates coordinates) {
+bool EmptyPiece::canMoveToTarget(Point2DPair point2dPair) {
   return false;
 }
 
-bool EmptyPiece::getIsValidPath(Coordinates coordinates) {
+bool EmptyPiece::getIsValidPath(Point2DPair point2dPair) {
   return false;
 }

@@ -3,7 +3,9 @@
 //
 
 #include "../../headers/ChessPieces/ChessPiece.h"
-ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessBoardMediator & chessBoardMediator): playerId(playerId), pieceType(pieceType), chessBoardMediator(chessBoardMediator) {
+
+ChessPiece::ChessPiece(PlayerID playerId, PieceType pieceType, ChessMediator & chessMediator) : playerId(
+        playerId), pieceType(pieceType), chessMediator(chessMediator) {
 }
 
 ChessPiece::~ChessPiece() {
@@ -33,75 +35,88 @@ void ChessPiece::setPieceType(PieceType pieceType) {
   this->pieceType = pieceType;
 }
 
-void ChessPiece::copyChessPiece(ChessPiece* chessPiecePtr) {
+void ChessPiece::copyChessPiece(ChessPiece *chessPiecePtr) {
   this->setPlayerId(chessPiecePtr->playerId);
   this->setPieceType(chessPiecePtr->pieceType);
 }
 
-bool ChessPiece::canMoveToTargetHelper(Coordinates coordinates) {
-  if (coordinates.getSrcRow() < 0 || coordinates.getSrcRow() > 7) {
+bool ChessPiece::isValidPoint2D(Point2D point2d) {
+  if (point2d.getRow() < 0 || point2d.getRow() > 7) {
     return false;
   }
 
-  if (coordinates.getSrcCol() < 0 || coordinates.getSrcCol() > 7) {
-    return false;
-  }
-
-  if (coordinates.getTgtRow() < 0 || coordinates.getTgtRow() > 7) {
-    return false;
-  }
-
-  if (coordinates.getTgtCol() < 0 || coordinates.getTgtCol() > 7) {
+  if (point2d.getCol() < 0 || point2d.getCol() > 7) {
     return false;
   }
 
   return true;
 }
 
-bool ChessPiece::canMoveToTarget(Coordinates coordinates) {
-  bool canMoveToTargetHelperVal = canMoveToTargetHelper(coordinates);
-  if (canMoveToTargetHelperVal == false) {
+bool ChessPiece::isValidPoint2DPair(Point2DPair point2dPair) {
+  if (point2dPair.getSrcRow() < 0 || point2dPair.getSrcRow() > 7) {
     return false;
   }
 
-  bool isValidPath = getIsValidPath(coordinates);
+  if (point2dPair.getSrcCol() < 0 || point2dPair.getSrcCol() > 7) {
+    return false;
+  }
+
+  if (point2dPair.getTgtRow() < 0 || point2dPair.getTgtRow() > 7) {
+    return false;
+  }
+
+  if (point2dPair.getTgtCol() < 0 || point2dPair.getTgtCol() > 7) {
+    return false;
+  }
+
+  return true;
+}
+
+bool ChessPiece::canMoveToTarget(Point2DPair point2dPair) {
+  bool hasValidCoordinatesVal = isValidPoint2DPair(point2dPair);
+  if (hasValidCoordinatesVal == false) {
+    return false;
+  }
+
+  bool isValidPath = getIsValidPath(point2dPair);
   if (isValidPath) {
-    bool isClearPath = !isPieceBlockingPath(coordinates);
-    bool isTurnPlayer = chessBoardMediator.getIsTurnPlayerSignal().emit(playerId);
-    int tgtRow = coordinates.getTgtRow();
-    int tgtCol = coordinates.getTgtCol();
-    bool isNonTurnPlayerChessPiece = !chessBoardMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
+    bool isClearPath = !isPieceBlockingPath(point2dPair);
+    bool isTurnPlayer = chessMediator.getIsTurnPlayerSignal().emit(playerId);
+    int tgtRow = point2dPair.getTgtRow();
+    int tgtCol = point2dPair.getTgtCol();
+    bool isNonTurnPlayerChessPiece = !chessMediator.getIsTurnPlayersChessPieceSignal().emit(playerId, tgtRow, tgtCol);
     return isClearPath && isTurnPlayer && isNonTurnPlayerChessPiece;
   }
 
   return false;
 }
 
-bool ChessPiece::isPieceBlockingPath(Coordinates coordinates) {
-  coordinates = getNextCoordinates(coordinates);
-  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+bool ChessPiece::isPieceBlockingPath(Point2DPair point2dPair) {
+  point2dPair = getNextCoordinates(point2dPair);
+  bool isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(point2dPair);
   while (!isSourceEqualToTarget) {
-    bool isOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(), coordinates.getSrcCol());
+    bool isOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2dPair.getSrcRow(),
+                                                                         point2dPair.getSrcCol());
     if (isOccupied) {
       return true;
     }
 
-    coordinates = getNextCoordinates(coordinates);
-    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(coordinates);
+    point2dPair = getNextCoordinates(point2dPair);
+    isSourceEqualToTarget = MathUtils::isSourceEqualToTarget(point2dPair);
   }
 
   return false;
 }
 
-Coordinates ChessPiece::getNextCoordinates(Coordinates coordinates) {
-  int tgtRow = coordinates.getTgtRow();
-  int tgtCol = coordinates.getTgtCol();
-  return Coordinates(tgtRow, tgtCol, tgtRow, tgtCol);
+Point2DPair ChessPiece::getNextCoordinates(Point2DPair point2dPair) {
+  int tgtRow = point2dPair.getTgtRow();
+  int tgtCol = point2dPair.getTgtCol();
+  return Point2DPair(tgtRow, tgtCol, tgtRow, tgtCol);
 }
 
-void ChessPiece::afterPieceMoved(Coordinates coordinates) {
+void ChessPiece::afterPieceMoved(Point2DPair point2dPair) {
 }
 
-bool ChessPiece::getIsValidPath(Coordinates coordinates) {
+bool ChessPiece::getIsValidPath(Point2DPair point2dPair) {
   return false;
 }

@@ -4,16 +4,17 @@
 
 #ifndef CHESS_ROOK_H
 #define CHESS_ROOK_H
+
 #include "ChessPiece.h"
 
 class Rook : public virtual ChessPiece {
 public:
-    Rook(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::ROOK, chessBoardMediator) {
+    Rook(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::ROOK, chessMediator) {
     }
 
-    bool getIsValidPath(Coordinates coordinates) override;
-    Coordinates getNextCoordinates(Coordinates coordinates) override;
-    void afterPieceMoved(Coordinates coordinates) override;
+    bool getIsValidPath(Point2DPair point2dPair) override;
+    Point2DPair getNextCoordinates(Point2DPair point2dPair) override;
+    void afterPieceMoved(Point2DPair point2dPair) override;
     void setHasMoved();
     bool getHasMoved();
 private:

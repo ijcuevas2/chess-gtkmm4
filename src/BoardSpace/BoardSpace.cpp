@@ -18,7 +18,7 @@ int BoardSpace::getCol() const {
   return col;
 }
 
-ChessPiece* BoardSpace::getChessPiecePtr() {
+ChessPiece *BoardSpace::getChessPiecePtr() {
   return chessPiecePtr;
 }
 

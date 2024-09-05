@@ -4,32 +4,33 @@
 
 #ifndef CHESS_PAWN_H
 #define CHESS_PAWN_H
+
 #include "ChessPiece.h"
-#include "ChessBoardMediator/ChessBoardMediator.h"
+#include "../../enum/PawnEnpassantRow.h"
 
 class Pawn : public virtual ChessPiece {
 private:
     bool isFirstMove = true;
-    int movedTwoSpacesTurn = -1;
-    bool isEnPassantEligible = false;
+    bool isCorrectDirection(Point2DPair point2dPair);
+    bool canMoveFirstTurn(Point2DPair point2dPair);
+    bool canDiagonalCapture(Point2DPair point2dPair);
+    bool canMoveSingleSpaceForward(Point2DPair point2dPair);
+    bool isDiagonalMove(Point2DPair point2dPair);
+    bool canCapture(Point2DPair point2dPair);
 public:
-    Pawn(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::PAWN, chessBoardMediator) {
+    Pawn(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::PAWN, chessMediator) {
     }
 
-    bool isCorrectDirection(Coordinates coordinates);
-    bool canMoveFirstTurn(Coordinates coordinates);
-    bool canDiagonalCapture(Coordinates coordinates);
-    bool canMoveSingleSpaceForward(Coordinates coordinates);
-    bool isDiagonalMove(Coordinates coordinates);
-    bool canCapture(Coordinates coordinates);
-    bool canEnPassantCapture(Coordinates coordinates);
+    bool isEnPassantCapture(Point2DPair point2dPair);
     void setUsedFirstMove();
-    void setMovedTwoSpacesTurn(Coordinates coordinates);
-    bool isMovingByTwoSpaces(Coordinates coordinates);
-    void afterPieceMoved(Coordinates coordinates) override;
-    bool isPieceBlockingPath(Coordinates coordinates) override;
-    bool getIsValidPath(Coordinates coordinates) override;
+    void setEnpassantSquare(Point2DPair point2dPair);
+    bool isMovingByTwoSpaces(Point2DPair point2dPair);
+    void afterPieceMoved(Point2DPair point2dPair) override;
+    bool isPieceBlockingPath(Point2DPair point2dPair) override;
+    bool getIsValidPath(Point2DPair point2dPair) override;
+    void clearEnPassantCaptureSquare(Point2DPair point2dPair);
     int getMovedTwoSpacesTurn();
+    int getCapturingPieceEnpassantRow();
 };
 
 #endif //CHESS_PAWN_H

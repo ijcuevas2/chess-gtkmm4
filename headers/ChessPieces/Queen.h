@@ -4,16 +4,22 @@
 
 #ifndef CHESS_QUEEN_H
 #define CHESS_QUEEN_H
+
 #include "ChessPiece.h"
 
 class Queen : public virtual ChessPiece {
 public:
-    Queen(PlayerID playerId, ChessBoardMediator & chessBoardMediator) : ChessPiece(playerId, PieceType::QUEEN, chessBoardMediator) {
+    Queen(PlayerID playerId, ChessMediator & chessMediator) : ChessPiece(playerId, PieceType::QUEEN,
+                                                                             chessMediator) {
     }
 
-    bool canMoveDiagonal(Coordinates coordinates);
-    bool canMoveHorizontal(Coordinates coordinates);
-    Coordinates getNextCoordinates(Coordinates coordinates) override;
-    bool getIsValidPath(Coordinates coordinates) override;
+    bool canMoveDiagonal(Point2DPair point2dPair);
+
+    bool canMoveHorizontal(Point2DPair point2dPair);
+
+    Point2DPair getNextCoordinates(Point2DPair point2dPair) override;
+
+    bool getIsValidPath(Point2DPair point2dPair) override;
 };
+
 #endif //CHESS_QUEEN_H

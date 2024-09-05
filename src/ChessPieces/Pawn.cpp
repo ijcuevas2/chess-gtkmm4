@@ -4,58 +4,60 @@
 
 #include "../../headers/ChessPieces/Pawn.h"
 
-bool Pawn::getIsValidPath(Coordinates coordinates) {
-  bool isCorrectDirectionValue = isCorrectDirection(coordinates);
+bool Pawn::getIsValidPath(Point2DPair point2dPair) {
+  bool isCorrectDirectionValue = isCorrectDirection(point2dPair);
   if (!isCorrectDirectionValue) {
     return false;
   }
 
   if (isFirstMove) {
-    bool canMove = canMoveFirstTurn(coordinates);
+    bool canMove = canMoveFirstTurn(point2dPair);
     return canMove;
   } else {
-    bool canCaptureValue = canCapture(coordinates);
-    bool canMoveSingleSpaceValue = canMoveSingleSpaceForward(coordinates);
+    bool canCaptureValue = canCapture(point2dPair);
+    bool canMoveSingleSpaceValue = canMoveSingleSpaceForward(point2dPair);
     return canCaptureValue || canMoveSingleSpaceValue;
   }
 }
 
-bool Pawn::canMoveFirstTurn(Coordinates coordinates) {
-  int xAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
-  int yAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
+bool Pawn::canMoveFirstTurn(Point2DPair point2dPair) {
+  int xAbsDistance = absoluteDistance(point2dPair.getSrcCol(), point2dPair.getTgtCol());
+  int yAbsDistance = absoluteDistance(point2dPair.getSrcRow(), point2dPair.getTgtRow());
 
   bool canMove = xAbsDistance == 0 && yAbsDistance <= 2;
   return canMove;
 }
 
-void Pawn::afterPieceMoved(Coordinates coordinates) {
+void Pawn::afterPieceMoved(Point2DPair point2dPair) {
   if (isFirstMove) {
     setUsedFirstMove();
-    setMovedTwoSpacesTurn(coordinates);
+    setEnpassantSquare(point2dPair);
   }
 }
 
+void Pawn::clearEnPassantCaptureSquare(Point2DPair point2dPair) {
+  bool isEnPassantCaptureBool = isEnPassantCapture(point2dPair);
+  if (isEnPassantCaptureBool) {
+    chessMediator.getClearEnPassantCaptureSpaceSignal().emit(point2dPair);
+  }
+}
 
-void Pawn::setMovedTwoSpacesTurn(Coordinates coordinates) {
-  bool movedTwoSpacesResult = isMovingByTwoSpaces(coordinates);
+void Pawn::setEnpassantSquare(Point2DPair point2dPair) {
+  bool movedTwoSpacesResult = isMovingByTwoSpaces(point2dPair);
   if (movedTwoSpacesResult) {
-    int turn = chessBoardMediator.getCurrentTurnSignal().emit();
-    this->movedTwoSpacesTurn = turn;
+    Point2D point2D(point2dPair.getTgtRow(), point2dPair.getTgtCol());
+    chessMediator.getSetEnPassantSquareSignal().emit(point2D);
   }
 }
 
-bool Pawn::isMovingByTwoSpaces(Coordinates coordinates) {
-  int absoluteDistanceValue = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
+bool Pawn::isMovingByTwoSpaces(Point2DPair point2dPair) {
+  int absoluteDistanceValue = absoluteDistance(point2dPair.getSrcRow(), point2dPair.getTgtRow());
   bool movedTwoSpacesResult = absoluteDistanceValue == 2;
   return movedTwoSpacesResult;
 }
 
-int Pawn::getMovedTwoSpacesTurn() {
-  return this->movedTwoSpacesTurn;
-}
-
-bool Pawn::isCorrectDirection(Coordinates coordinates) {
-  int yDistance = coordinates.getTgtRow() - coordinates.getSrcRow();
+bool Pawn::isCorrectDirection(Point2DPair point2dPair) {
+  int yDistance = point2dPair.getTgtRow() - point2dPair.getSrcRow();
   if (playerId == PlayerID::PLAYER_WHITE) {
     return yDistance < 0;
   } else if (playerId == PlayerID::PLAYER_BLACK) {
@@ -65,15 +67,15 @@ bool Pawn::isCorrectDirection(Coordinates coordinates) {
   return false;
 }
 
-bool Pawn::canCapture(Coordinates coordinates) {
-  bool isDiagonalMoveValue = isDiagonalMove(coordinates);
+bool Pawn::canCapture(Point2DPair point2dPair) {
+  bool isDiagonalMoveValue = isDiagonalMove(point2dPair);
   if (isDiagonalMoveValue) {
-    bool canDiagonalCaptureValue = canDiagonalCapture(coordinates);
+    bool canDiagonalCaptureValue = canDiagonalCapture(point2dPair);
     if (canDiagonalCaptureValue) {
       return true;
     }
 
-    bool canEnPassantCaptureValue = canEnPassantCapture(coordinates);
+    bool canEnPassantCaptureValue = isEnPassantCapture(point2dPair);
     if (canEnPassantCaptureValue) {
       return true;
     }
@@ -82,57 +84,64 @@ bool Pawn::canCapture(Coordinates coordinates) {
   return false;
 }
 
-bool Pawn::canDiagonalCapture(Coordinates coordinates) {
-  bool isIndexOccupiedResult = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(),
-                                                                                       coordinates.getSrcCol());
+bool Pawn::canDiagonalCapture(Point2DPair point2dPair) {
+  bool isIndexOccupiedResult = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2dPair.getTgtRow(), point2dPair.getTgtCol());
   return isIndexOccupiedResult;
 }
 
-bool Pawn::isDiagonalMove(Coordinates coordinates) {
-  int xAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
-  int yAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
+bool Pawn::isDiagonalMove(Point2DPair point2dPair) {
+  int xAbsDistance = absoluteDistance(point2dPair.getSrcCol(), point2dPair.getTgtCol());
+  int yAbsDistance = absoluteDistance(point2dPair.getSrcRow(), point2dPair.getTgtRow());
   bool isDiagonalMoveResult = xAbsDistance == 1 && yAbsDistance == 1;
   return isDiagonalMoveResult;
 }
 
-bool Pawn::canMoveSingleSpaceForward(Coordinates coordinates) {
-  int xAbsDistance = absoluteDistance(coordinates.getSrcCol(), coordinates.getTgtCol());
-  int yAbsDistance = absoluteDistance(coordinates.getSrcRow(), coordinates.getTgtRow());
+bool Pawn::canMoveSingleSpaceForward(Point2DPair point2dPair) {
+  int xAbsDistance = absoluteDistance(point2dPair.getSrcCol(), point2dPair.getTgtCol());
+  int yAbsDistance = absoluteDistance(point2dPair.getSrcRow(), point2dPair.getTgtRow());
 
-  bool isTargetOccupiedValue = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getTgtRow(),
-                                                                                       coordinates.getTgtCol());
+  bool isTargetOccupiedValue = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2dPair.getTgtRow(),
+                                                                                  point2dPair.getTgtCol());
   bool canMove = xAbsDistance == 0 && yAbsDistance < 2 && !isTargetOccupiedValue;
   return canMove;
 }
 
-bool Pawn::canEnPassantCapture(Coordinates coordinates) {
-  bool isIndexOccupiedValue = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(coordinates.getSrcRow(),
-                                                                                      coordinates.getSrcCol());
-  if (!isIndexOccupiedValue) {
-    int enPassantTurn =
-            chessBoardMediator.getMovedTwoSpacesTurnSignal().emit(coordinates.getSrcRow(), coordinates.getSrcCol()) + 1;
-    bool canEnPassantCaptureResult = enPassantTurn == chessBoardMediator.getCurrentTurnSignal().emit();
-    return canEnPassantCaptureResult;
+int Pawn::getCapturingPieceEnpassantRow() {
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    return static_cast<int>(PawnEnpassantRow::WHITE_PAWN_CAPTURING_ROW);
   }
 
-  return false;
+  return static_cast<int>(PawnEnpassantRow::BLACK_PAWN_CAPTURING_ROW);
+}
+
+bool Pawn::isEnPassantCapture(Point2DPair point2dPair) {
+  Point2D point2D = chessMediator.getEnPassantCoordinatesSignal().emit(point2dPair);
+  bool hasEnPassantCaptureTarget = chessMediator.getIsEnPassantSquareSignal().emit(point2D);
+  int enPassantRow = getCapturingPieceEnpassantRow();
+  bool hasEnPassantRow = point2dPair.getSrcRow() == enPassantRow;
+  bool canEnPassantCaptureBool = hasEnPassantRow && hasEnPassantCaptureTarget;
+  return canEnPassantCaptureBool;
 }
 
 void Pawn::setUsedFirstMove() {
   this->isFirstMove = false;
 }
 
-bool Pawn::isPieceBlockingPath(Coordinates coordinates) {
-  bool positiveVerticalDirection = MathUtils::isPositiveVerticalDirection(coordinates);
+bool Pawn::isPieceBlockingPath(Point2DPair point2dPair) {
+  bool positiveVerticalDirection = MathUtils::isPositiveVerticalDirection(point2dPair);
   int direction = positiveVerticalDirection ? 1 : -1;
-  int nextRowCoordinate = coordinates.getSrcRow() + direction;
-  int tgtRow = coordinates.getTgtRow();
-  int tgtCol = coordinates.getTgtCol();
-  bool isNextSpaceOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(nextRowCoordinate, tgtCol);
-  if (isMovingByTwoSpaces(coordinates)) {
-    bool isTgtOccupied = chessBoardMediator.getIsBoardIndexOccupiedSignal().emit(tgtRow, tgtCol);
+  int nextRowCoordinate = point2dPair.getSrcRow() + direction;
+  int tgtRow = point2dPair.getTgtRow();
+  int tgtCol = point2dPair.getTgtCol();
+  bool isNextSpaceOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(nextRowCoordinate, tgtCol);
+  if (isMovingByTwoSpaces(point2dPair)) {
+    bool isTgtOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(tgtRow, tgtCol);
     return isNextSpaceOccupied || isTgtOccupied;
   }
 
-  return isNextSpaceOccupied;
+  int nextColCaptureCoordinate = point2dPair.getSrcCol() + direction;
+  bool isCaptureRow = tgtRow == nextRowCoordinate;
+  bool isCaptureCol = tgtCol == nextColCaptureCoordinate;
+  bool isDiagonalCapture = isCaptureRow && isCaptureCol;
+  return isNextSpaceOccupied && !isDiagonalCapture;
 }

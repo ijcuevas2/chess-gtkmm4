@@ -3,17 +3,18 @@
 //
 
 #include "../../headers/ChessPieces/Knight.h"
-bool Knight::getIsValidPath(Coordinates coordinates) {
-  int srcRow = coordinates.getSrcRow();
-  int srcCol = coordinates.getSrcCol();
-  int tgtRow = coordinates.getTgtRow();
-  int tgtCol = coordinates.getTgtCol();
+
+bool Knight::getIsValidPath(Point2DPair point2dPair) {
+  int srcRow = point2dPair.getSrcRow();
+  int srcCol = point2dPair.getSrcCol();
+  int tgtRow = point2dPair.getTgtRow();
+  int tgtCol = point2dPair.getTgtCol();
   int xAbsDistance = absoluteDistance(srcRow, tgtRow);
   int yAbsDistance = absoluteDistance(srcCol, tgtCol);
   bool isValidPath = (xAbsDistance == 2 && yAbsDistance == 1) || (yAbsDistance == 2 && xAbsDistance == 1);
   return isValidPath;
 }
 
-bool Knight::isPieceBlockingPath(Coordinates coordinates) {
+bool Knight::isPieceBlockingPath(Point2DPair point2dPair) {
   return false;
 }

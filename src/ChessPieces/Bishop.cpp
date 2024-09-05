@@ -3,19 +3,20 @@
 //
 
 #include "../../headers/ChessPieces/Bishop.h"
-bool Bishop::getIsValidPath(Coordinates coordinates) {
-  int srcRow = coordinates.getSrcRow();
-  int srcCol = coordinates.getSrcCol();
-  int tgtRow = coordinates.getTgtRow();
-  int tgtCol = coordinates.getTgtCol();
+
+bool Bishop::getIsValidPath(Point2DPair point2dPair) {
+  int srcRow = point2dPair.getSrcRow();
+  int srcCol = point2dPair.getSrcCol();
+  int tgtRow = point2dPair.getTgtRow();
+  int tgtCol = point2dPair.getTgtCol();
   const int xAbsDistance = absoluteDistance(srcRow, tgtRow);
   const int yAbsDistance = absoluteDistance(srcCol, tgtCol);
   bool isValidPathValue = xAbsDistance == yAbsDistance;
   return isValidPathValue;
 }
 
-Coordinates Bishop::getNextCoordinates(Coordinates coordinates) {
-  Coordinates newCoordinates = MathUtils::getNewDiagonalCoordinates(coordinates);
+Point2DPair Bishop::getNextCoordinates(Point2DPair point2dPair) {
+  Point2DPair newCoordinates = MathUtils::getNewDiagonalCoordinates(point2dPair);
   return newCoordinates;
 }
 

@@ -4,28 +4,27 @@
 
 #ifndef CHESS_KING_H
 #define CHESS_KING_H
+
 #include "ChessPiece.h"
 #include "Rook.h"
-#include "ChessBoardMediator/ChessBoardMediator.h"
+#include "Point2D/Point2D.h"
 
 class King : public virtual ChessPiece {
 private:
-    bool hasMoved;
+    bool canCastle;
     bool isInCheck;
+    bool isCheckmate;
 public:
-    King(PlayerID playerId, ChessBoardMediator &chessBoardMediator) : ChessPiece(playerId, PieceType::KING, chessBoardMediator) {
-    }
-
-    bool canMoveToTarget(Coordinates coordinates) override;
-    bool getHasMoved();
-    void setHasMoved();
-    bool IsInCheck() const;
-    bool getIsValidPath(Coordinates coordinates) override;
-    void afterPieceMoved(Coordinates coordinates) override;
-    std::vector<Rook*> rooksEligibleForCastling();
-    void addRookEligibleForCastling(std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
-    void addRookEligibleForCastlingHelper(Rook* rookPtr, std::vector<Rook*> & rookPtrList, int xIndex, int yIndex);
-    bool isPieceBlockingPath(Coordinates coordinates) override;
+    King(PlayerID playerId, ChessMediator & chessMediator);
+    bool getCanCastle();
+    void setCanCastleToFalse();
+    bool getIsCheckmate();
+    void setIsCheckmate(bool value);
+    void setIsInCheck(bool inCheck);
+    bool getIsInCheck();
+    bool getIsValidPath(Point2DPair point2dPair) override;
+    void afterPieceMoved(Point2DPair point2dPair) override;
+    bool isPieceBlockingPath(Point2DPair point2dPair) override;
 };
 
 

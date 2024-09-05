@@ -30,11 +30,11 @@ ChessImagesInfo::ChessImagesInfo() {
 
   setChessPieceMap(chessPieceMap);
   std::map<std::string, Glib::RefPtr<Gdk::Pixbuf>> piecesContentMap;
-  const std::string imageDir = "/chess_resources/images/";
+  fs::path imageDir = "/chess_resources/images/";
 
   for (size_t i = 0; i < fileNames.size(); ++i) {
     try {
-      std::string filePath = imageDir + fileNames[i];
+      fs::path filePath = imageDir / fileNames[i];
       Glib::RefPtr<Gdk::Pixbuf> pixBuf = Gdk::Pixbuf::create_from_resource(filePath);
       piecesContentMap[fileNames[i]] = pixBuf;
     } catch (const Glib::Error &ex) {
@@ -53,7 +53,7 @@ void ChessImagesInfo::setPiecesContentMap(std::map<std::string, Glib::RefPtr<Gdk
   this->piecesContentMap = piecesContentMap;
 }
 
-Glib::RefPtr<Gdk::Pixbuf> ChessImagesInfo::getPieceImageContent(ChessPiece* chessPiece) {
+Glib::RefPtr<Gdk::Pixbuf> ChessImagesInfo::getPieceImageContent(ChessPiece *chessPiece) {
   PlayerID playerId = chessPiece->getPlayerId();
   PieceType pieceType = chessPiece->getPieceType();
 

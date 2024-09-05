@@ -11,25 +11,21 @@
 
 class BoardSpace {
 private:
-    ChessPiece* chessPiecePtr;
+    ChessPiece *chessPiecePtr;
     bool showMarkerValue = false;
     int row;
     int col;
-
 public:
     int getCol() const;
     int getRow() const;
-
-    BoardSpace(ChessPiece* chessPiecePtr, int row, int col);
-    ChessPiece* getChessPiecePtr();
+    BoardSpace(ChessPiece *chessPiecePtr, int row, int col);
+    ChessPiece *getChessPiecePtr();
     void clearChessPiecePtr();
     PlayerID getPlayerId();
-    void setChessPiecePtr(ChessPiece* chessPiecePtr);
+    void setChessPiecePtr(ChessPiece *chessPiecePtr);
     bool getShowMarker();
     void showMarker();
     void hideMarker();
-    void showHintMarkers(BoardSpace* boardSpacePtr);
-    void hideHintMarkers(BoardSpace* boardSpacePtr);
 };
 
 

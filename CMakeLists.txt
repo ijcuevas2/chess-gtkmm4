@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(chess)
 
 # Set C++ standard
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set build type to Debug
@@ -20,9 +20,9 @@ pkg_check_modules(GLIB REQUIRED glib-2.0)
 
 # Find glib-compile-resources
 find_program(GLIB_COMPILE_RESOURCES NAMES glib-compile-resources)
-if(NOT GLIB_COMPILE_RESOURCES)
+if (NOT GLIB_COMPILE_RESOURCES)
     message(FATAL_ERROR "Could not find glib-compile-resources")
-endif()
+endif ()
 
 # Define variables for resource files
 set(GRESOURCE_XML ${CMAKE_CURRENT_SOURCE_DIR}/chess.gresource.xml)
@@ -80,8 +80,8 @@ add_executable(${PROJECT_NAME}
         headers/ChessPieces/ChessPiece.h
         src/ChessPieces/EmptyPiece.cpp
         headers/ChessPieces/EmptyPiece.h
-        src/Coordinates/Coordinates.cpp
-        headers/Coordinates/Coordinates.h
+        src/Point2DPair/Point2DPair.cpp
+        headers/Point2DPair/Point2DPair.h
         enum/Player.h
         enum/PieceType.h
         src/BoardSpace/BoardSpace.cpp
@@ -98,12 +98,19 @@ add_executable(${PROJECT_NAME}
         headers/ChessImagesInfo/ChessImagesInfo.h
         src/ChessBoard/ChessBoardController.cpp
         headers/ChessBoard/ChessBoardController.h
-        headers/ChessBoardMediator/ChessBoardMediator.h
-        src/ChessBoardMediator/ChessBoardMediator.cpp
         src/FenModel/FenModel.cpp
         headers/FenModel/FenModel.h
-        src/MathUtils/MathUtils.cpp
-        headers/MathUtils/MathUtils.h
+        src/Utils/MathUtils.cpp
+        headers/Utils/MathUtils.h
+        headers/Point2D/Point2D.h
+        src/Point2D/Point2D.cpp
+        headers/Utils/StringUtils.h
+        src/Utils/StringUtils.cpp
+        src/Utils/FileUtils.cpp
+        headers/Utils/FileUtils.h
+        enum/PawnEnpassantRow.h
+        src/ChessMediator/ChessMediator.cpp
+        headers/ChessMediator/ChessMediator.h
 )
 
 # Add dependency on chess_resources
