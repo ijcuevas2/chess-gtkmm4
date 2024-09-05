@@ -14,8 +14,8 @@ This is an implementation of the standard variant of Chess. This program is impl
 You can access release builds for this program in the following [link](https://github.com).
 
 ### Todos
-- En Passant
-- King Movement
+- Castling
+- Stalemate
 - Undo for Single Player
 - Unit Tests
 - Automation Tests
