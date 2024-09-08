@@ -1,16 +1,16 @@
 #include "../../headers/ChessBoard/ChessBoardView.h"
 #include <iostream>
 
-ChessBoardView::ChessBoardView(ChessMediator & chessMediator) : Gtk::Box(Gtk::Orientation::VERTICAL), chessMediator(chessMediator) {
+ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk::Orientation::VERTICAL), chessMediator(chessMediatorRef) {
   int width = 450;
   int height = 450;
   m_drawingArea.set_content_width(width);
   m_drawingArea.set_content_height(height);
 
   m_drawingArea.set_draw_func(sigc::mem_fun(*this, &ChessBoardView::on_draw));
-  chessMediator.getUpdateUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUi));
-  chessMediator.getUpdateUndoButtonUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUndoButtonUi));
-  chessMediator.getUpdateLabelSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateLabel));
+  chessMediatorRef.getUpdateUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUi));
+  chessMediatorRef.getUpdateUndoButtonUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUndoButtonUi));
+  chessMediatorRef.getUpdateLabelSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateLabel));
 
   auto controller = Gtk::GestureClick::create();
   controller->signal_pressed().connect(sigc::mem_fun(*this, &ChessBoardView::on_pressed));

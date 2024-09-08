@@ -13,7 +13,7 @@
 
 class ChessBoardView : public Gtk::Box {
 public:
-    ChessBoardView(ChessMediator & chessMediator);
+    ChessBoardView(ChessMediator & chessMediatorRef);
 private:
     void on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height);
     void on_pressed(int n_press, double x, double y);

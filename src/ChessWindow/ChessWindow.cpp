@@ -33,7 +33,7 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   controller->signal_key_pressed().connect(sigc::mem_fun(*this, &ChessWindow::on_key_pressed), false);
   add_controller(controller);
 
-  openEndGameDialog();
+  // openEndGameDialog();
 }
 
 void ChessWindow::on_header_bar_primary_click_released(int n_press, double x, double y) {

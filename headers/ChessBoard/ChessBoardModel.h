@@ -89,7 +89,7 @@ private:
     Point2DPair prevMoves{-1, -1, -1, -1};
     int whitePawnCaptureRow = 4;
     int blackPawnCaptureRow = 3;
-    std::vector<std::vector<BoardSpace *>> board;
+    std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
     ChessMediator & chessMediator;
     BoardSpace *selectedBoardSpacePtr;

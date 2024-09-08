@@ -17,5 +17,7 @@ You can access release builds for this program in the following [link](https://g
 - Castling
 - Stalemate
 - Undo for Single Player
+- AI for Single Player
+- Look into minimax 
 - Unit Tests
 - Automation Tests
