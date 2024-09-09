@@ -69,7 +69,7 @@ public:
     void showHintMarkers(BoardSpace *boardSpacePtr);
     void hideHintMarkers();
     bool isKingOccupyingSpace(Point2D point2D);
-    PlayerID getOppositePlayerId(PlayerID playerId);
+    PlayerID getOpponentPlayerId(PlayerID playerId);
     Point2D whiteKingCoordinates;
     Point2D blackKingCoordinates;
     Point2D getKingPoint2D(PlayerID playerId);

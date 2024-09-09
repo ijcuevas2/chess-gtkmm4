@@ -28,7 +28,8 @@ bool King::isPieceBlockingPath(Point2DPair point2dPair) {
 bool King::getIsValidPath(Point2DPair point2dPair) {
   int rowDist = absoluteDistance(point2dPair.getSrcRow(), point2dPair.getTgtRow());
   int colDist = absoluteDistance(point2dPair.getSrcCol(), point2dPair.getTgtCol());
-  if (rowDist <= 1 && colDist <= 1) {
+  bool isValidDistance = rowDist <= 1 && colDist <= 1;
+  if (isValidDistance) {
     int targetRow = point2dPair.getTgtRow();
     int targetCol = point2dPair.getTgtCol();
     Point2D point2d(targetRow, targetCol);

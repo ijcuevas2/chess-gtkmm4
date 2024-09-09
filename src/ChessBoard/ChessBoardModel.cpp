@@ -272,7 +272,7 @@ bool ChessBoardModel::isKingOccupyingSpace(Point2D point2D) {
   return false;
 }
 
-PlayerID ChessBoardModel::getOppositePlayerId(PlayerID playerId) {
+PlayerID ChessBoardModel::getOpponentPlayerId(PlayerID playerId) {
   if (playerId == PlayerID::PLAYER_WHITE) {
     return PlayerID::PLAYER_BLACK;
   }
@@ -297,7 +297,7 @@ void ChessBoardModel::resetHalfMoveClock() {
 }
 
 void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
-  PlayerID oppositePlayerId = getOppositePlayerId(playerId);
+  PlayerID oppositePlayerId = getOpponentPlayerId(playerId);
   Point2D kingPoint2D = getKingPoint2D(oppositePlayerId);
   int kingRow = kingPoint2D.getRow();
   int kingCol = kingPoint2D.getCol();
@@ -582,7 +582,8 @@ bool ChessBoardModel::isCheckmate(PlayerID playerId) {
 bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint) {
   Point2D kingCoordinates = getKingPoint2D(playerId);
   std::vector<Point2D> adjacentPoints = MathUtils::getAdjacentKingPoints(kingCoordinates);
-  Point2D opponentKingCoordinates = getKingPoint2D(playerId);
+  PlayerID opponentPlayerId = getOpponentPlayerId(playerId);
+  Point2D opponentKingCoordinates = getKingPoint2D(opponentPlayerId);
   std::vector<Point2D> opponentAdjacentPoints = MathUtils::getAdjacentKingPoints(opponentKingCoordinates);
 
   bool isPoint2dInArrBool = isPoint2dInArr(opponentAdjacentPoints, targetPoint);
@@ -596,7 +597,8 @@ bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint)
       if (!isKingChessPiecePtr(chessPiece)) {
         Point2DPair kingMovementPair(row, col, targetPoint.getRow(), targetPoint.getCol());
         bool canMoveToTargetBool = chessPiece->canMoveToTarget(kingMovementPair);
-        if (canMoveToTargetBool) {
+        PlayerID currPiecePlayerId = chessPiece->getPlayerId();
+        if (canMoveToTargetBool && playerId != currPiecePlayerId) {
           return false;
         }
       }
