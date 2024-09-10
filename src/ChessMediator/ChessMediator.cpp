@@ -115,3 +115,11 @@ sigc::signal<bool(PlayerID, Point2D)> ChessMediator::getIsKingValidPathSignal() 
 sigc::signal<PlayerID()> ChessMediator::getTurnPlayerIdSignal() {
   return turnPlayerId;
 }
+
+sigc::signal<bool(Point2D)> ChessMediator::getRookCanCastleSignal() {
+  return getRookCanCastle;
+}
+
+sigc::signal<void(Point2D)> ChessMediator::getMoveRookAfterCastleSignal() {
+  return moveRookAfterCastle;
+}

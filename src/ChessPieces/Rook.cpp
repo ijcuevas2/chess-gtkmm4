@@ -21,14 +21,14 @@ Point2DPair Rook::getNextCoordinates(Point2DPair point2dPair) {
 }
 
 void Rook::afterPieceMoved(Point2DPair point2dPair) {
-  setHasMoved();
+  setCanCastle(false);
 }
 
-bool Rook::getHasMoved() {
-  return hasMoved;
+bool Rook::getCanCastle() {
+  return canCastle;
 }
 
-void Rook::setHasMoved() {
-  hasMoved = true;
+void Rook::setCanCastle(bool value) {
+  canCastle = value;
 }
 

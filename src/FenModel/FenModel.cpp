@@ -269,15 +269,15 @@ bool FenModel::isKing(ChessPiece *chessPiecePtr) {
 bool FenModel::canCastle(int rookRow, int rookCol, int kingRow, int kingCol) {
   Rook *rookPtr = dynamic_cast<Rook *>(chessBoardModel.getChessPiecePtr(rookRow, rookCol));
   King *kingPtr = dynamic_cast<King *>(chessBoardModel.getChessPiecePtr(kingRow, kingCol));
-  bool hasRookMoved = true;
-  bool hasKingMoved = true;
+  bool canRookCastle = true;
+  bool canKingCastle = true;
 
   if (isRook(rookPtr) && isKing(kingPtr)) {
-    hasRookMoved = rookPtr->getHasMoved();
-    hasKingMoved = kingPtr->getCanCastle();
+    canRookCastle = rookPtr->getCanCastle();
+    canKingCastle = kingPtr->getCanCastle();
   }
 
-  return !hasRookMoved && !hasKingMoved;
+  return canRookCastle && canKingCastle;
 }
 
 bool FenModel::createSaveDirectory() {

@@ -16,6 +16,7 @@ You can access release builds for this program in the following [link](https://g
 ### Todos
 - Castling
 - Stalemate
+- Victory Message
 - Undo for Single Player
 - AI for Single Player
 - Look into minimax 
