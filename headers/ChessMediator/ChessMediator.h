@@ -41,6 +41,8 @@ public:
     sigc::signal<bool(PlayerID)> getIsKingInCheckSignal();
     sigc::signal<bool(PlayerID, Point2D)> getIsKingValidPathSignal();
     sigc::signal<PlayerID()> getTurnPlayerIdSignal();
+    sigc::signal<bool(Point2D)> getRookCanCastleSignal();
+    sigc::signal<void(Point2D)> getMoveRookAfterCastleSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -70,6 +72,8 @@ private:
     sigc::signal<bool(PlayerID)> isKingInCheck;
     sigc::signal<bool(PlayerID, Point2D)> isKingValidPath;
     sigc::signal<PlayerID()> turnPlayerId;
+    sigc::signal<bool(Point2D)> getRookCanCastle;
+    sigc::signal<void(Point2D)> moveRookAfterCastle;
 };
 
 

@@ -12,7 +12,7 @@ ChessPiece::~ChessPiece() {
 }
 
 int ChessPiece::actualDistance(int source, int dest) {
-  return source - dest;
+  return dest - source;
 }
 
 int ChessPiece::absoluteDistance(int source, int dest) {
