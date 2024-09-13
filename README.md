@@ -14,7 +14,7 @@ This is an implementation of the standard variant of Chess. This program is impl
 You can access release builds for this program in the following [link](https://github.com).
 
 ### Todos
-- Castling
+- Checkmate
 - Stalemate
 - Undo for Single Player
 - AI for Single Player

@@ -113,6 +113,7 @@ private:
     King *getPlayerIdKing(PlayerID playerId);
     bool isPoint2dInArr(std::vector<Point2D> &opponentPoints, Point2D point2d);
     bool getIsKingValidPath(PlayerID playerId, Point2D targetPoint);
+    PlayerID getOpponentTurnPlayerId();
 };
 
 

@@ -115,3 +115,15 @@ sigc::signal<bool(PlayerID, Point2D)> ChessMediator::getIsKingValidPathSignal() 
 sigc::signal<PlayerID()> ChessMediator::getTurnPlayerIdSignal() {
   return turnPlayerId;
 }
+
+sigc::signal<PlayerID()> ChessMediator::getOpponentTurnPlayerIdSignal() {
+  return opponentPlayerId;
+}
+
+sigc::signal<void()> ChessMediator::getOpenCheckmateDialogSignal() {
+  return openCheckmateDialog;
+}
+
+sigc::signal<void()> ChessMediator::getNewGameSignal() {
+  return newGame;
+}

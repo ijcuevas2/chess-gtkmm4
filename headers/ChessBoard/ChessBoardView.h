@@ -17,7 +17,7 @@ public:
 private:
     void on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height);
     void on_pressed(int n_press, double x, double y);
-    void onNewGameClicked();
+    void onNewGame();
     void onExitClicked();
     void onSaveClicked();
     void onLoadClicked();

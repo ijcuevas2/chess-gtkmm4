@@ -24,6 +24,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
   chessMediator.getIsKingInCheckSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isPlayerIdKingInCheck));
   chessMediator.getIsKingValidPathSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsKingValidPath));
   chessMediator.getTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getTurnPlayerId));
+  chessMediator.getOpponentTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getOpponentTurnPlayerId));
 }
 
 Point2D ChessBoardModel::getEnPassantSquare() {
@@ -195,6 +196,14 @@ void ChessBoardModel::clearBoard() {
 
 PlayerID ChessBoardModel::getTurnPlayerId() {
   return turnPlayerId;
+}
+
+PlayerID ChessBoardModel::getOpponentTurnPlayerId() {
+  if (turnPlayerId == PlayerID::PLAYER_WHITE) {
+    return PlayerID::PLAYER_BLACK;
+  } else {
+    return PlayerID::PLAYER_WHITE;
+  }
 }
 
 void ChessBoardModel::updateTurnPlayerId() {

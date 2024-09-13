@@ -11,6 +11,7 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   chessMediatorRef.getUpdateUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUi));
   chessMediatorRef.getUpdateUndoButtonUiSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateUndoButtonUi));
   chessMediatorRef.getUpdateLabelSignal().connect(sigc::mem_fun(*this, &ChessBoardView::updateLabel));
+  chessMediatorRef.getNewGameSignal().connect(sigc::mem_fun(*this, &ChessBoardView::onNewGame));
 
   auto controller = Gtk::GestureClick::create();
   controller->signal_pressed().connect(sigc::mem_fun(*this, &ChessBoardView::on_pressed));
@@ -26,7 +27,7 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   m_loadAction = Gio::SimpleAction::create("load");
 
   m_newGameAction->signal_activate().connect([this](const Glib::VariantBase &) {
-      this->onNewGameClicked();
+      this->onNewGame();
   });
   m_exitAction->signal_activate().connect([this](const Glib::VariantBase &) {
       this->onExitClicked();
@@ -109,7 +110,7 @@ void ChessBoardView::clearBoard() {
   chessBoardController.clearBoard();
 }
 
-void ChessBoardView::onNewGameClicked() {
+void ChessBoardView::onNewGame() {
   clearBoard();
   initBoard();
   m_drawingArea.queue_draw();

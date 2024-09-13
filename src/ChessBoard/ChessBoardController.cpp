@@ -106,7 +106,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           PlayerID playerId = getTurnPlayerId();
           bool isCheckmate = chessBoardModel.isCheckmate(playerId);
           if (isCheckmate) {
-            std::println("Checkmate!");
+            chessMediator.getOpenCheckmateDialogSignal().emit();
           }
         }
       }

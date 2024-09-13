@@ -41,6 +41,9 @@ public:
     sigc::signal<bool(PlayerID)> getIsKingInCheckSignal();
     sigc::signal<bool(PlayerID, Point2D)> getIsKingValidPathSignal();
     sigc::signal<PlayerID()> getTurnPlayerIdSignal();
+    sigc::signal<void()> getOpenCheckmateDialogSignal();
+    sigc::signal<PlayerID()> getOpponentTurnPlayerIdSignal();
+    sigc::signal<void()> getNewGameSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -70,6 +73,9 @@ private:
     sigc::signal<bool(PlayerID)> isKingInCheck;
     sigc::signal<bool(PlayerID, Point2D)> isKingValidPath;
     sigc::signal<PlayerID()> turnPlayerId;
+    sigc::signal<void()> openCheckmateDialog;
+    sigc::signal<PlayerID()> opponentPlayerId;
+    sigc::signal<void()> newGame;
 };
 
 
