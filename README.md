@@ -13,12 +13,21 @@ This is an implementation of the standard variant of Chess. This program is impl
 
 You can access release builds for this program in the following [link](https://github.com).
 
-### Todos
-- Castling
+### Features
+- Checkmate
 - Stalemate
+- Draw by agreement
+- Insufficient material
+- Threefold repetition
+- Fifty-move rule
+- Resignation
 - Victory Message
 - Undo for Single Player
 - AI for Single Player
 - Look into minimax 
 - Unit Tests
 - Automation Tests
+
+### TODO: Improvements
+- Chess Movement Algorithm
+- Memory Leaks

@@ -43,6 +43,9 @@ public:
     sigc::signal<PlayerID()> getTurnPlayerIdSignal();
     sigc::signal<bool(Point2D)> getRookCanCastleSignal();
     sigc::signal<void(Point2D)> getMoveRookAfterCastleSignal();
+    sigc::signal<void()> getOpenCheckmateDialogSignal();
+    sigc::signal<PlayerID()> getOpponentTurnPlayerIdSignal();
+    sigc::signal<void()> getNewGameSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -74,6 +77,9 @@ private:
     sigc::signal<PlayerID()> turnPlayerId;
     sigc::signal<bool(Point2D)> getRookCanCastle;
     sigc::signal<void(Point2D)> moveRookAfterCastle;
+    sigc::signal<void()> openCheckmateDialog;
+    sigc::signal<PlayerID()> opponentPlayerId;
+    sigc::signal<void()> newGame;
 };
 
 

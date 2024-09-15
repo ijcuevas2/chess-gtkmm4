@@ -80,7 +80,7 @@ public:
     void setEnPassantSquare(Point2D point2d);
     Point2DPair getPrevMoves();
     bool isPlayerIdKingInCheck(PlayerID playerId);
-    bool isCheckmate(PlayerID playerId);
+    bool getCurrentGameStatus(PlayerID playerId);
 private:
     const int BOARD_SIZE = 8;
     int currentTurn = 1;
@@ -115,6 +115,7 @@ private:
     bool getIsKingValidPath(PlayerID playerId, Point2D targetPoint);
     bool getRookCanCastle(Point2D point2d);
     void moveRookAfterCastle(Point2D point2d);
+    PlayerID getOpponentTurnPlayerId();
 };
 
 

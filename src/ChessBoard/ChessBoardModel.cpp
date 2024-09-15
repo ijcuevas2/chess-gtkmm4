@@ -26,6 +26,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
   chessMediator.getTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getTurnPlayerId));
   chessMediator.getRookCanCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getRookCanCastle));
   chessMediator.getMoveRookAfterCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::moveRookAfterCastle));
+  chessMediator.getOpponentTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getOpponentTurnPlayerId));
 }
 
 Point2D ChessBoardModel::getEnPassantSquare() {
@@ -215,6 +216,14 @@ void ChessBoardModel::clearBoard() {
 
 PlayerID ChessBoardModel::getTurnPlayerId() {
   return turnPlayerId;
+}
+
+PlayerID ChessBoardModel::getOpponentTurnPlayerId() {
+  if (turnPlayerId == PlayerID::PLAYER_WHITE) {
+    return PlayerID::PLAYER_BLACK;
+  } else {
+    return PlayerID::PLAYER_WHITE;
+  }
 }
 
 void ChessBoardModel::updateTurnPlayerId() {
@@ -605,7 +614,7 @@ bool ChessBoardModel::isPoint2dInArr(std::vector<Point2D> & point2dArr, Point2D 
   return false;
 }
 
-bool ChessBoardModel::isCheckmate(PlayerID playerId) {
+bool ChessBoardModel::getCurrentGameStatus(PlayerID playerId) {
   Point2D kingPoint2d = getKingPoint2D(playerId);
   std::vector<Point2D> adjacentPoints = MathUtils::getAdjacentKingPoints(kingPoint2d);
   King* kingPtr = getPlayerIdKing(playerId);
