@@ -4,15 +4,16 @@
 
 #include "../../headers/Utils/StringUtils.h"
 
-std::vector<std::string> StringUtils::split(const std::string & input, char delimiter) {
-  std::vector<std::string> result;
+std::vector<std::string> StringUtils::split(const std::string& input, char delimiter) {
+    std::vector<std::string> tokens;
+    std::istringstream iss(input);
+    std::string token;
 
-  auto range = input | std::ranges::views::split(delimiter);
-  for (const auto & word : range) {
-    result.emplace_back(word.begin(), word.end());
-  }
+    while (std::getline(iss, token, delimiter)) {
+        tokens.push_back(token);
+    }
 
-  return result;
+    return tokens;
 }
 
 std::string StringUtils::trim(std::string str) {
