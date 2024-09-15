@@ -15,10 +15,10 @@ public:
     bool getIsValidPath(Point2DPair point2dPair) override;
     Point2DPair getNextCoordinates(Point2DPair point2dPair) override;
     void afterPieceMoved(Point2DPair point2dPair) override;
-    void setHasMoved();
-    bool getHasMoved();
+    void setCanCastle(bool value);
+    bool getCanCastle();
 private:
-    bool hasMoved = false;
+    bool canCastle = true;
 };
 
 

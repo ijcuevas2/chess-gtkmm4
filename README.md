@@ -21,7 +21,7 @@ You can access release builds for this program in the following [link](https://g
 - Threefold repetition
 - Fifty-move rule
 - Resignation
- 
+- Victory Message
 - Undo for Single Player
 - AI for Single Player
 - Look into minimax 

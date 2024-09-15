@@ -127,3 +127,11 @@ sigc::signal<void()> ChessMediator::getOpenCheckmateDialogSignal() {
 sigc::signal<void()> ChessMediator::getNewGameSignal() {
   return newGame;
 }
+
+sigc::signal<bool(Point2D)> ChessMediator::getRookCanCastleSignal() {
+  return getRookCanCastle;
+}
+
+sigc::signal<void(Point2D)> ChessMediator::getMoveRookAfterCastleSignal() {
+  return moveRookAfterCastle;
+}
