@@ -559,7 +559,7 @@ bool ChessBoardModel::isPoint2dInArr(std::vector<Point2D> & point2dArr, Point2D 
   return false;
 }
 
-bool ChessBoardModel::isCheckmate(PlayerID playerId) {
+bool ChessBoardModel::getCurrentGameStatus(PlayerID playerId) {
   Point2D kingPoint2d = getKingPoint2D(playerId);
   std::vector<Point2D> adjacentPoints = MathUtils::getAdjacentKingPoints(kingPoint2d);
   King* kingPtr = getPlayerIdKing(playerId);
