@@ -8,13 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Set build type to Debug
 set(CMAKE_BUILD_TYPE Debug)
 
-# Add debug flags
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
-
 # Find the required packages
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(HARFBUZZ REQUIRED harfbuzz)
-include_directories(${HARFBUZZ_INCLUDE_DIRS})
 pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
 
@@ -50,74 +46,67 @@ add_custom_command(
 # Custom target for resource compilation
 add_custom_target(chess_resources DEPENDS ${GRESOURCE_C} ${GRESOURCE_H})
 
-# Include directories
-include_directories(
-        ${GTKMM_INCLUDE_DIRS}
-        ${GLIB_INCLUDE_DIRS}
-        ${CMAKE_CURRENT_SOURCE_DIR}/headers
-        ${CMAKE_BINARY_DIR}  # Include binary dir for generated files
-)
-
-# link_directories(${GTKMM_LIBRARY_DIRS})
-
-# Add the executable
-add_executable(${PROJECT_NAME}
+# Define source files
+set(SOURCES
         main.cpp
         ${GRESOURCE_C}
         src/ChessPieces/King.cpp
-        headers/ChessPieces/King.h
         src/ChessPieces/Pawn.cpp
-        headers/ChessPieces/Pawn.h
         src/ChessPieces/Bishop.cpp
-        headers/ChessPieces/Bishop.h
         src/ChessPieces/Knight.cpp
-        headers/ChessPieces/Knight.h
         src/ChessPieces/Rook.cpp
-        headers/ChessPieces/Rook.h
         src/ChessPieces/Queen.cpp
-        headers/ChessPieces/Queen.h
         src/ChessPieces/ChessPiece.cpp
-        headers/ChessPieces/ChessPiece.h
         src/ChessPieces/EmptyPiece.cpp
-        headers/ChessPieces/EmptyPiece.h
         src/Point2DPair/Point2DPair.cpp
-        headers/Point2DPair/Point2DPair.h
-        enum/Player.h
-        enum/PieceType.h
         src/BoardSpace/BoardSpace.cpp
-        headers/BoardSpace/BoardSpace.h
         src/HintMarker/HintMarker.cpp
-        headers/HintMarker/HintMarker.h
         src/ChessWindow/ChessWindow.cpp
-        headers/ChessWindow/ChessWindow.h
         src/ChessBoard/ChessBoardView.cpp
-        headers/ChessBoard/ChessBoardView.h
         src/ChessBoard/ChessBoardModel.cpp
-        headers/ChessBoard/ChessBoardModel.h
         src/ChessImagesInfo/ChessImagesInfo.cpp
-        headers/ChessImagesInfo/ChessImagesInfo.h
         src/ChessBoard/ChessBoardController.cpp
-        headers/ChessBoard/ChessBoardController.h
         src/FenModel/FenModel.cpp
-        headers/FenModel/FenModel.h
         src/Utils/MathUtils.cpp
-        headers/Utils/MathUtils.h
-        headers/Point2D/Point2D.h
         src/Point2D/Point2D.cpp
-        headers/Utils/StringUtils.h
         src/Utils/StringUtils.cpp
         src/Utils/FileUtils.cpp
-        headers/Utils/FileUtils.h
-        enum/PawnEnpassantRow.h
         src/ChessMediator/ChessMediator.cpp
-        headers/ChessMediator/ChessMediator.h
 )
+
+# Add the executable
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Add dependency on chess_resources
 add_dependencies(${PROJECT_NAME} chess_resources)
 
+# Include directories
+target_include_directories(${PROJECT_NAME} PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
+        ${CMAKE_BINARY_DIR}
+        ${GTKMM_INCLUDE_DIRS}
+        ${GLIB_INCLUDE_DIRS}
+        ${HARFBUZZ_INCLUDE_DIRS}
+)
+
 # Link libraries
-target_link_libraries(${PROJECT_NAME} ${GTKMM_LIBRARIES} ${GLIB_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE
+        ${GTKMM_LIBRARIES}
+        ${GLIB_LIBRARIES}
+        ${HARFBUZZ_LIBRARIES}
+)
 
 # Set compiler flags
-target_compile_options(${PROJECT_NAME} PRIVATE ${GTKMM_CFLAGS_OTHER} ${GLIB_CFLAGS_OTHER})
+target_compile_options(${PROJECT_NAME} PRIVATE
+        ${GTKMM_CFLAGS_OTHER}
+        ${GLIB_CFLAGS_OTHER}
+        ${HARFBUZZ_CFLAGS_OTHER}
+        $<$<CONFIG:Debug>:-g>
+)
+
+# Add library directories
+target_link_directories(${PROJECT_NAME} PRIVATE
+        ${GTKMM_LIBRARY_DIRS}
+        ${GLIB_LIBRARY_DIRS}
+        ${HARFBUZZ_LIBRARY_DIRS}
+)
