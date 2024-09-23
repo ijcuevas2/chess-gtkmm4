@@ -23,11 +23,11 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
 
   set_titlebar_right_click_behavior();
 
-  m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessMediator);
-  chessMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
-  chessMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
-  chessMediator.getOpenCheckmateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openCheckmateDialog));
-  set_child(*m_chessBoardView);
+//  m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessMediator);
+//  chessMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
+//  chessMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
+//  chessMediator.getOpenCheckmateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openCheckmateDialog));
+//  set_child(*m_chessBoardView);
 
   // Create an event controller for key events
   auto controller = Gtk::EventControllerKey::create();
@@ -103,7 +103,7 @@ void ChessWindow::openFileDialog() {
   Glib::RefPtr<Gio::ListStore<Gtk::FileFilter>> filters = Gio::ListStore<Gtk::FileFilter>::create();
   std::string chessSavesDir = "chess_saves";
   fs::path currentPath = fs::current_path() / chessSavesDir;
-  Glib::RefPtr<Gio::File> initial_folder = Gio::File::create_for_path(currentPath);
+  Glib::RefPtr<Gio::File> initial_folder = Gio::File::create_for_path(currentPath.string());
   dialog->set_initial_folder(initial_folder);
 
   Glib::RefPtr<Gtk::FileFilter> filter_any = Gtk::FileFilter::create();
