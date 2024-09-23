@@ -35,7 +35,7 @@ ChessImagesInfo::ChessImagesInfo() {
   for (size_t i = 0; i < fileNames.size(); ++i) {
     try {
       fs::path filePath = imageDir / fileNames[i];
-      Glib::RefPtr<Gdk::Pixbuf> pixBuf = Gdk::Pixbuf::create_from_resource(filePath);
+      Glib::RefPtr<Gdk::Pixbuf> pixBuf = Gdk::Pixbuf::create_from_resource(filePath.string());
       piecesContentMap[fileNames[i]] = pixBuf;
     } catch (const Glib::Error &ex) {
       std::cerr << "Error loading asset:" << ex.what() << std::endl;
