@@ -23,11 +23,11 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
 
   set_titlebar_right_click_behavior();
 
-//  m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessMediator);
-//  chessMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
-//  chessMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
-//  chessMediator.getOpenCheckmateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openCheckmateDialog));
-//  set_child(*m_chessBoardView);
+  m_chessBoardView = Gtk::make_managed<ChessBoardView>(chessMediator);
+  chessMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
+  chessMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
+  chessMediator.getOpenCheckmateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openCheckmateDialog));
+  set_child(*m_chessBoardView);
 
   // Create an event controller for key events
   auto controller = Gtk::EventControllerKey::create();
