@@ -33,7 +33,7 @@ Point2D ChessBoardModel::getEnPassantSquare() {
   return enPassantSquare;
 }
 void ChessBoardModel::initBoard() {
-  std::string defaultFenStateStr = FenModel::DEFAULT_FEN_STATE_STR;
+  std::string defaultFenStateStr = StringUtils::DEFAULT_FEN_STATE_STR;
   initChessBoardFromFenStateString(defaultFenStateStr);
 }
 
