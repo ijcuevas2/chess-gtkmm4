@@ -28,6 +28,7 @@
 #include <cctype>
 #include "../../headers/Utils/MathUtils.h"
 #include "ChessMediator/ChessMediator.h"
+#include "FenModel/FenModel.h"
 
 class ChessBoardModel : public Gtk::DrawingArea {
 public:

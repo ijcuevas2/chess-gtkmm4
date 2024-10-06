@@ -32,9 +32,8 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
 Point2D ChessBoardModel::getEnPassantSquare() {
   return enPassantSquare;
 }
-
 void ChessBoardModel::initBoard() {
-  std::string defaultFenStateStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1 - -";
+  std::string defaultFenStateStr = FenModel::DEFAULT_FEN_STATE_STR;
   initChessBoardFromFenStateString(defaultFenStateStr);
 }
 
