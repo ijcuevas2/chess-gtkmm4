@@ -70,7 +70,7 @@ std::string FenModel::getTurnPlayerEncoding() {
 }
 
 std::string FenModel::getBoardState() {
-  std::string chessEncoding = DEFAULT_FEN_STATE_STR;
+  std::string chessEncoding = StringUtils::DEFAULT_FEN_STATE_STR;
   if (!fenDeque.empty()) {
     chessEncoding = fenDeque.back();
     fenDeque.pop_back();
@@ -386,7 +386,7 @@ std::string FenModel::getLatestFenString() {
     return fenStateStr;
   }
 
-  return DEFAULT_FEN_STATE_STR;
+  return StringUtils::DEFAULT_FEN_STATE_STR;
 }
 
 void FenModel::updateBoardFromLatestFenString() {

@@ -20,7 +20,6 @@ public:
     void saveBoardState();
     void saveStateToFile(std::string filePath);
     void loadStateFromFile(std::string filePath);
-    static inline std::string DEFAULT_FEN_STATE_STR = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1 - -";
 private:
     ChessBoardModel & chessBoardModel;
     ChessMediator & chessMediator;

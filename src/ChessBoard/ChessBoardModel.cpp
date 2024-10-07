@@ -204,6 +204,7 @@ void ChessBoardModel::clearBoard() {
       board[row][col]->clearChessPiecePtr();
       BoardSpace *boardSpacePtr = board[row][col];
       if (boardSpacePtr != nullptr) {
+        boardSpacePtr->hideMarker();
         delete boardSpacePtr;
         board[row][col] = nullptr;
       }
@@ -416,6 +417,7 @@ void ChessBoardModel::setPrevMoves(Point2DPair point2dPair) {
 
 void ChessBoardModel::setPrevMovesFromStrings(std::string srcBoardSpace, std::string tgtBoardSpace) {
   if (srcBoardSpace == "-" || tgtBoardSpace == "-") {
+    prevMoves = Point2DPair(-1, -1, -1, -1);
     return;
   }
 
