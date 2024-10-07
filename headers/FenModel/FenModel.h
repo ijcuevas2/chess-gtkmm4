@@ -47,7 +47,6 @@ private:
     std::string getHalfMoveClock();
     std::string getCurrentTurn();
     std::string getEnpassantSquare();
-    std::string defaultFenStateStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
     bool validateFenState(std::string fenState);
     void initChessBoardFromBoardConfig(std::string boardConfigStr);
     bool calculateUndoButtonEnabled();

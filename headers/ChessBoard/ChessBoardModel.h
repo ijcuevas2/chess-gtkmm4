@@ -91,7 +91,7 @@ private:
     std::vector<std::vector<BoardSpace*>> board;
     ChessImagesInfo chessImagesInfo{};
     ChessMediator & chessMediator;
-    BoardSpace *selectedBoardSpacePtr;
+    BoardSpace *selectedBoardSpacePtr = nullptr;
     PlayerID turnPlayerId{PlayerID::PLAYER_WHITE};
     ChessPiece* initChessPieceFromStr(std::string chessPieceStr);
     void restoreCastlingInfo(std::string castlingStr);

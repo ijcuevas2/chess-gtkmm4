@@ -32,9 +32,8 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
 Point2D ChessBoardModel::getEnPassantSquare() {
   return enPassantSquare;
 }
-
 void ChessBoardModel::initBoard() {
-  std::string defaultFenStateStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1";
+  std::string defaultFenStateStr = StringUtils::DEFAULT_FEN_STATE_STR;
   initChessBoardFromFenStateString(defaultFenStateStr);
 }
 
@@ -205,6 +204,7 @@ void ChessBoardModel::clearBoard() {
       board[row][col]->clearChessPiecePtr();
       BoardSpace *boardSpacePtr = board[row][col];
       if (boardSpacePtr != nullptr) {
+        boardSpacePtr->hideMarker();
         delete boardSpacePtr;
         board[row][col] = nullptr;
       }
@@ -416,6 +416,11 @@ void ChessBoardModel::setPrevMoves(Point2DPair point2dPair) {
 }
 
 void ChessBoardModel::setPrevMovesFromStrings(std::string srcBoardSpace, std::string tgtBoardSpace) {
+  if (srcBoardSpace == "-" || tgtBoardSpace == "-") {
+    prevMoves = Point2DPair(-1, -1, -1, -1);
+    return;
+  }
+
   Point2DPair point2DPair = chessMediator.getSetPrevMoveFromStringSignal().emit(srcBoardSpace, tgtBoardSpace);
   prevMoves = point2DPair;
 }

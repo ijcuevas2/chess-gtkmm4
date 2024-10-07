@@ -100,7 +100,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           chessMediator.getSetPrevMoveSignal().emit(point2dPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
-          // chessBoardModel.calculateKingIsInCheck(chessBoardModel.getTurnPlayerId());
+          chessBoardModel.calculateKingIsInCheck(chessBoardModel.getTurnPlayerId());
           chessBoardModel.updateTurnPlayerId();
           fenModel.saveBoardState();
           PlayerID playerId = getTurnPlayerId();
