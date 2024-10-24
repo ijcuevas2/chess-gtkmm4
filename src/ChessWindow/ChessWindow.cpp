@@ -148,7 +148,7 @@ void ChessWindow::openCheckmateDialog() {
   PlayerID playerId = chessMediator.getOpponentTurnPlayerIdSignal().emit();
 
   std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
-  std::string message = std::format("{} wins!", playerStr);
+  std::string message = playerStr + " wins!";
 
   auto label = Gtk::make_managed<Gtk::Label>(message);
   content_area->append(*label);

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(chess)
 
 # Set C++ standard
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Set build type to Debug
@@ -13,6 +13,32 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(HARFBUZZ REQUIRED harfbuzz)
 pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
 pkg_check_modules(GLIB REQUIRED glib-2.0)
+
+# Enable testing
+enable_testing()
+
+# Include FetchContent for downloading test frameworks
+include(FetchContent)
+
+# Fetch Google Test
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG main
+)
+
+# Fetch ApprovalTests
+FetchContent_Declare(
+        approvaltests
+        GIT_REPOSITORY https://github.com/approvals/ApprovalTests.cpp.git
+        GIT_TAG master
+)
+
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# Make the frameworks available
+FetchContent_MakeAvailable(googletest approvaltests)
 
 # Find glib-compile-resources
 find_program(GLIB_COMPILE_RESOURCES NAMES glib-compile-resources)
@@ -46,10 +72,8 @@ add_custom_command(
 # Custom target for resource compilation
 add_custom_target(chess_resources DEPENDS ${GRESOURCE_C} ${GRESOURCE_H})
 
-# Define source files
-set(SOURCES
-        main.cpp
-        ${GRESOURCE_C}
+# Define library source files (excluding main.cpp)
+set(LIB_SOURCES
         src/ChessPieces/King.cpp
         src/ChessPieces/Pawn.cpp
         src/ChessPieces/Bishop.cpp
@@ -74,14 +98,14 @@ set(SOURCES
         src/ChessMediator/ChessMediator.cpp
 )
 
-# Add the executable
-add_executable(${PROJECT_NAME} ${SOURCES})
+# Create the library
+add_library(chess_lib STATIC ${LIB_SOURCES})
 
-# Add dependency on chess_resources
-add_dependencies(${PROJECT_NAME} chess_resources)
+# Add dependency on chess_resources for the library
+add_dependencies(chess_lib chess_resources)
 
-# Include directories
-target_include_directories(${PROJECT_NAME} PRIVATE
+# Set include directories for the library
+target_include_directories(chess_lib PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/headers
         ${CMAKE_BINARY_DIR}
         ${GTKMM_INCLUDE_DIRS}
@@ -89,24 +113,53 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         ${HARFBUZZ_INCLUDE_DIRS}
 )
 
-# Link libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE
+# Link libraries to chess_lib
+target_link_libraries(chess_lib PUBLIC
         ${GTKMM_LIBRARIES}
         ${GLIB_LIBRARIES}
         ${HARFBUZZ_LIBRARIES}
 )
 
-# Set compiler flags
-target_compile_options(${PROJECT_NAME} PRIVATE
+# Set compiler flags for the library
+target_compile_options(chess_lib PRIVATE
         ${GTKMM_CFLAGS_OTHER}
         ${GLIB_CFLAGS_OTHER}
         ${HARFBUZZ_CFLAGS_OTHER}
         $<$<CONFIG:Debug>:-g>
 )
 
-# Add library directories
-target_link_directories(${PROJECT_NAME} PRIVATE
+# Add library directories for the library
+target_link_directories(chess_lib PUBLIC
         ${GTKMM_LIBRARY_DIRS}
         ${GLIB_LIBRARY_DIRS}
         ${HARFBUZZ_LIBRARY_DIRS}
 )
+
+# Add the main executable
+add_executable(${PROJECT_NAME}
+        main.cpp
+        ${GRESOURCE_C}
+)
+
+# Link the main executable with the library
+target_link_libraries(${PROJECT_NAME} PRIVATE chess_lib)
+
+# Add dependency on chess_resources for the main executable
+add_dependencies(${PROJECT_NAME} chess_resources)
+
+# Add test executable
+add_executable(run_tests
+        tests/sample_test.cpp
+        # Add other test files here
+)
+
+# Link the test executable with the library and test frameworks
+target_link_libraries(run_tests PRIVATE
+        chess_lib
+        GTest::gtest
+        GTest::gtest_main
+        ApprovalTests::ApprovalTests
+)
+
+# Add the test to CTest
+add_test(NAME unit_tests COMMAND run_tests)
