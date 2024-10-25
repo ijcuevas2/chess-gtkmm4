@@ -9,11 +9,7 @@ This is an implementation of the standard variant of Chess. This program is impl
 - MacOS
 - Ubuntu
 
-## Releases
-
-You can access release builds for this program in the following [link](https://github.com).
-
-### Features
+### Features In Progress
 - Checkmate
 - Stalemate
 - Draw by agreement
