@@ -1,57 +1,66 @@
 cmake_minimum_required(VERSION 3.10)
 project(chess)
 
-# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Set build type to Debug
 set(CMAKE_BUILD_TYPE Debug)
 
-# Find the required packages
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(HARFBUZZ REQUIRED harfbuzz)
+
+pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
+if(NOT GTK4_FOUND)
+    message(FATAL_ERROR "GTK4 not found. Please install GTK4 development files")
+endif()
+message(STATUS "Found GTK4 version: ${GTK4_VERSION}")
+message(STATUS "GTK4 include dirs: ${GTK4_INCLUDE_DIRS}")
+
+pkg_check_modules(GLIB REQUIRED IMPORTED_TARGET glib-2.0)
+if(NOT GLIB_FOUND)
+    message(FATAL_ERROR "glib-2.0 not found. Please install glib development files")
+endif()
+message(STATUS "Found glib-2.0 version: ${GLIB_VERSION}")
+message(STATUS "GLIB library dirs: ${GLIB_LIBRARY_DIRS}")
+message(STATUS "GLIB libraries: ${GLIB_LIBRARIES}")
+
 pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
-pkg_check_modules(GLIB REQUIRED glib-2.0)
+if(NOT GTKMM_FOUND)
+    message(FATAL_ERROR "GTKMM4 not found. Please install GTKMM4 development files")
+endif()
 
-# Enable testing
+set(CMAKE_INSTALL_RPATH "${GLIB_LIBRARY_DIRS}")
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+
+pkg_check_modules(HARFBUZZ REQUIRED harfbuzz)
+
 enable_testing()
-
-# Include FetchContent for downloading test frameworks
 include(FetchContent)
 
-# Fetch Google Test
 FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
         GIT_TAG main
 )
 
-# Fetch ApprovalTests
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
 FetchContent_Declare(
         approvaltests
         GIT_REPOSITORY https://github.com/approvals/ApprovalTests.cpp.git
         GIT_TAG master
 )
 
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(approvaltests)
 
-# Make the frameworks available
-FetchContent_MakeAvailable(googletest approvaltests)
-
-# Find glib-compile-resources
 find_program(GLIB_COMPILE_RESOURCES NAMES glib-compile-resources)
 if (NOT GLIB_COMPILE_RESOURCES)
     message(FATAL_ERROR "Could not find glib-compile-resources")
 endif ()
 
-# Define variables for resource files
 set(GRESOURCE_XML ${CMAKE_CURRENT_SOURCE_DIR}/chess.gresource.xml)
 set(GRESOURCE_C ${CMAKE_BINARY_DIR}/chess_resources.c)
 set(GRESOURCE_H ${CMAKE_BINARY_DIR}/chess_resources.h)
 
-# Custom command to generate both .c and .h resource files
 add_custom_command(
         OUTPUT ${GRESOURCE_C} ${GRESOURCE_H}
         COMMAND ${GLIB_COMPILE_RESOURCES}
@@ -69,10 +78,8 @@ add_custom_command(
         COMMENT "Generating resource files"
 )
 
-# Custom target for resource compilation
 add_custom_target(chess_resources DEPENDS ${GRESOURCE_C} ${GRESOURCE_H})
 
-# Define library source files (excluding main.cpp)
 set(LIB_SOURCES
         src/ChessPieces/King.cpp
         src/ChessPieces/Pawn.cpp
@@ -98,62 +105,79 @@ set(LIB_SOURCES
         src/ChessMediator/ChessMediator.cpp
 )
 
-# Create the library
 add_library(chess_lib STATIC ${LIB_SOURCES})
-
-# Add dependency on chess_resources for the library
 add_dependencies(chess_lib chess_resources)
 
-# Set include directories for the library
-target_include_directories(chess_lib PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/headers
-        ${CMAKE_BINARY_DIR}
-        ${GTKMM_INCLUDE_DIRS}
-        ${GLIB_INCLUDE_DIRS}
-        ${HARFBUZZ_INCLUDE_DIRS}
-)
-
-# Link libraries to chess_lib
-target_link_libraries(chess_lib PUBLIC
-        ${GTKMM_LIBRARIES}
-        ${GLIB_LIBRARIES}
-        ${HARFBUZZ_LIBRARIES}
-)
-
-# Set compiler flags for the library
-target_compile_options(chess_lib PRIVATE
-        ${GTKMM_CFLAGS_OTHER}
-        ${GLIB_CFLAGS_OTHER}
-        ${HARFBUZZ_CFLAGS_OTHER}
-        $<$<CONFIG:Debug>:-g>
-)
-
-# Add library directories for the library
-target_link_directories(chess_lib PUBLIC
+link_directories(
+        ${GTK4_LIBRARY_DIRS}
         ${GTKMM_LIBRARY_DIRS}
         ${GLIB_LIBRARY_DIRS}
         ${HARFBUZZ_LIBRARY_DIRS}
 )
 
-# Add the main executable
+target_include_directories(chess_lib PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
+        ${CMAKE_BINARY_DIR}
+        ${GTKMM_INCLUDE_DIRS}
+        ${GTK4_INCLUDE_DIRS}
+        ${GLIB_INCLUDE_DIRS}
+        ${HARFBUZZ_INCLUDE_DIRS}
+)
+
+target_link_libraries(chess_lib PUBLIC
+        ${GTKMM_LIBRARIES}
+        ${GTK4_LIBRARIES}
+        ${GLIB_LIBRARIES}
+        ${HARFBUZZ_LIBRARIES}
+)
+
+target_compile_options(chess_lib PRIVATE
+        ${GTKMM_CFLAGS_OTHER}
+        ${GTK4_CFLAGS_OTHER}
+        ${GLIB_CFLAGS_OTHER}
+        ${HARFBUZZ_CFLAGS_OTHER}
+        $<$<CONFIG:Debug>:-g>
+)
+
+target_link_directories(chess_lib PUBLIC
+        ${GTKMM_LIBRARY_DIRS}
+        ${GTK4_LIBRARY_DIRS}
+        ${GLIB_LIBRARY_DIRS}
+        ${HARFBUZZ_LIBRARY_DIRS}
+)
+
 add_executable(${PROJECT_NAME}
         main.cpp
         ${GRESOURCE_C}
 )
 
-# Link the main executable with the library
-target_link_libraries(${PROJECT_NAME} PRIVATE chess_lib)
-
-# Add dependency on chess_resources for the main executable
-add_dependencies(${PROJECT_NAME} chess_resources)
-
-# Add test executable
-add_executable(run_tests
-        tests/sample_test.cpp
-        # Add other test files here
+target_link_libraries(${PROJECT_NAME} PRIVATE
+        chess_lib
+        ${GTK4_LIBRARIES}
+        ${GLIB_LIBRARIES}
 )
 
-# Link the test executable with the library and test frameworks
+set_target_properties(${PROJECT_NAME} PROPERTIES
+        BUILD_WITH_INSTALL_RPATH TRUE
+        INSTALL_RPATH "${GLIB_LIBRARY_DIRS};${GTK4_LIBRARY_DIRS}"
+)
+
+add_dependencies(${PROJECT_NAME} chess_resources)
+
+add_executable(run_tests
+        tests/sample_test.cpp
+)
+
+target_include_directories(run_tests PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/headers
+        ${gtest_SOURCE_DIR}/include
+        ${gtest_SOURCE_DIR}
+        ${GTKMM_INCLUDE_DIRS}
+        ${GTK4_INCLUDE_DIRS}
+        ${GLIB_INCLUDE_DIRS}
+        ${HARFBUZZ_INCLUDE_DIRS}
+)
+
 target_link_libraries(run_tests PRIVATE
         chess_lib
         GTest::gtest
@@ -161,5 +185,4 @@ target_link_libraries(run_tests PRIVATE
         ApprovalTests::ApprovalTests
 )
 
-# Add the test to CTest
 add_test(NAME unit_tests COMMAND run_tests)
