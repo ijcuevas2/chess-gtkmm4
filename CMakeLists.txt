@@ -166,6 +166,7 @@ add_dependencies(${PROJECT_NAME} chess_resources)
 
 add_executable(run_tests
         tests/sample_test.cpp
+        tests/test_chess.h
 )
 
 target_include_directories(run_tests PRIVATE

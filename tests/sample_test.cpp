@@ -1,6 +1,4 @@
-#include <gtest/gtest.h>
-#include "../headers/ChessPieces/King.h"
-#include "../headers/ChessMediator/ChessMediator.h"
+#include "test_chess.h"
 
 TEST(SampleTest, ExampleTest) {
   ChessMediator chessMediator;
@@ -10,6 +8,8 @@ TEST(SampleTest, ExampleTest) {
   bool canKingCastle = king.getCanCastle();
   EXPECT_EQ(canKingCastle, false);
 }
+
+
 
 
 

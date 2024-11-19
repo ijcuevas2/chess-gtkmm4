@@ -4,8 +4,10 @@
 
 #include "../../headers/ChessBoard/ChessBoardModel.h"
 
-ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::vector<BoardSpace *>(8)), chessMediator(chessMediator) {
+ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(chessMediator) {
+  initBoardSpacePointers();
   initBoard();
+  // initMovementTargets();
   chessMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
   chessMediator.getIsBoardIndexOccupiedSignal().connect(
           sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
@@ -29,9 +31,28 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : board(8, std::
   chessMediator.getOpponentTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getOpponentTurnPlayerId));
 }
 
+void ChessBoardModel::initMovementTargets() {
+  for (int row = 0; row < BOARD_SIZE; ++row) {
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
+      Point2D point2d(row, col);
+      chessPiecePtr->setMovementTargets(point2d);
+    }
+  }
+}
+
+void ChessBoardModel::initBoardSpacePointers() {
+  for (int row = 0; row < BOARD_SIZE; ++row) {
+    for (int col = 0; col < BOARD_SIZE; ++col) {
+      board[row][col] = nullptr;
+    }
+  }
+}
+
 Point2D ChessBoardModel::getEnPassantSquare() {
   return enPassantSquare;
 }
+
 void ChessBoardModel::initBoard() {
   std::string defaultFenStateStr = StringUtils::DEFAULT_FEN_STATE_STR;
   initChessBoardFromFenStateString(defaultFenStateStr);
@@ -67,21 +88,21 @@ int ChessBoardModel::getBoardSize() {
 }
 
 ChessPiece *ChessBoardModel::getChessPiecePtr(int row, int col) {
-  const int currentBoardSize = this->board.size();
-  if (currentBoardSize != 0) {
-    return this->board[row][col]->getChessPiecePtr();
+  // NOTE: Maybe, a proper check should be added if the board is initialized
+  BoardSpace* boardSpace = this->board[row][col];
+  if (boardSpace != nullptr) {
+    ChessPiece* chessPiece =  boardSpace->getChessPiecePtr();
+    if (chessPiece != nullptr) {
+      return chessPiece;
+    }
   }
 
   return nullptr;
 }
 
 BoardSpace *ChessBoardModel::getBoardSpacePtr(int row, int col) {
-  const int currentBoardSize = this->board.size();
-  if (currentBoardSize != 0) {
-    return this->board[row][col];
-  }
-
-  return nullptr;
+  BoardSpace* boardSpace = this->board[row][col];
+  return boardSpace;
 }
 
 ChessPiece *ChessBoardModel::initEmptyPiece() {
@@ -262,15 +283,10 @@ void ChessBoardModel::showHintMarkers(BoardSpace *boardSpacePtr) {
   int srcRow = boardSpacePtr->getRow();
   int srcCol = boardSpacePtr->getCol();
 
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    for (int col = 0; col < BOARD_SIZE; ++col) {
-      BoardSpace *boardSpace = getBoardSpacePtr(row, col);
-      Point2DPair point2dPair(srcRow, srcCol, row, col);
-      bool canMoveToTarget = chessPiecePtr->canMoveToTarget(point2dPair);
-      if (canMoveToTarget) {
-        boardSpace->showMarker();
-      }
-    }
+  std::vector<Point2D> captureTargets = chessPiecePtr->getCaptureTargets();
+  for (Point2D point2d : captureTargets) {
+    BoardSpace* boardSpace = getBoardSpacePtr(point2d.getRow(), point2d.getCol());
+    boardSpace->showMarker();
   }
 }
 

@@ -14,6 +14,7 @@ public:
 
     bool getIsValidPath(Point2DPair point2dPair) override;
     Point2DPair getNextCoordinates(Point2DPair point2dPair) override;
+    void setMovementTargets(Point2D point2d) override;
 };
 
 

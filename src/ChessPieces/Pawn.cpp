@@ -145,3 +145,6 @@ bool Pawn::isPieceBlockingPath(Point2DPair point2dPair) {
   bool isDiagonalCapture = isCaptureRow && isCaptureCol;
   return isNextSpaceOccupied && !isDiagonalCapture;
 }
+
+void Pawn::setMovementTargets(Point2D point2d) {
+}

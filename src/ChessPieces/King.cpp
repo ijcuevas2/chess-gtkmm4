@@ -91,6 +91,27 @@ bool King::getIsValidPath(Point2DPair point2dPair) {
   return false;
 }
 
+void King::setMovementTargets(Point2D point2d) {
+  std::vector<std::vector<int>> offsets = {{1, 1},
+                                           {-1, 1},
+                                           {1, -1},
+                                           {-1, -1},
+                                           {1, 0},
+                                           {0, 1},
+                                           {-1, 0},
+                                           {0, -1}};
+
+  for (std::vector<int> offset : offsets) {
+    int targetRow = point2d.getRow() + offset[0];
+    int targetCol = point2d.getCol() + offset[1];
+    Point2D targetPoint(targetRow, targetCol);
+    bool canAddSpaceBool = canAddSpace(targetPoint);
+    if (canAddSpaceBool) {
+      captureTargets.push_back(targetPoint);
+    }
+  }
+}
+
 void King::setIsInCheck(bool isInCheck) {
   this->isInCheck = isInCheck;
 }

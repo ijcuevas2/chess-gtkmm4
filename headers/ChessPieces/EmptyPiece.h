@@ -13,7 +13,6 @@ public:
             : ChessPiece(PlayerID::NONE, PieceType::EMPTY_PIECE, chessMediator) {}
 
     bool canMoveToTarget(Point2DPair point2dPair) override;
-
     bool getIsValidPath(Point2DPair point2dPair) override;
 };
 

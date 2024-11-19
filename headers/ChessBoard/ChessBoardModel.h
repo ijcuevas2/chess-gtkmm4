@@ -33,6 +33,7 @@ class ChessBoardModel : public Gtk::DrawingArea {
 public:
     ChessBoardModel(ChessMediator & chessMediator);
     void initBoard();
+    void initBoardSpacePointers();
     int getBoardSize();
     ChessPiece *getChessPiecePtr(int row, int col);
     BoardSpace *getBoardSpacePtr(int row, int col);
@@ -80,15 +81,16 @@ public:
     Point2DPair getPrevMoves();
     bool isPlayerIdKingInCheck(PlayerID playerId);
     bool getCurrentGameStatus(PlayerID playerId);
+    void initMovementTargets();
 private:
-    const int BOARD_SIZE = 8;
+    const static int BOARD_SIZE = 8;
     int currentTurn = 1;
     int halfMoveClock = 0;
     Point2D enPassantSquare{-1, -1};
     Point2DPair prevMoves{-1, -1, -1, -1};
     int whitePawnCaptureRow = 4;
     int blackPawnCaptureRow = 3;
-    std::vector<std::vector<BoardSpace*>> board;
+    BoardSpace* board[BOARD_SIZE][BOARD_SIZE];
     ChessImagesInfo chessImagesInfo{};
     ChessMediator & chessMediator;
     BoardSpace *selectedBoardSpacePtr = nullptr;

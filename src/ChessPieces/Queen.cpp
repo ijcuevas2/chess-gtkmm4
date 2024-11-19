@@ -33,3 +33,7 @@ Point2DPair Queen::getNextCoordinates(Point2DPair point2dPair) {
     return newCoordinates;
   }
 }
+
+void Queen::setMovementTargets(Point2D point2d) {
+  captureTargets = ChessPiece::getQueenSpaces(point2d);
+}
