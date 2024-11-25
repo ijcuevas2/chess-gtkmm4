@@ -81,7 +81,7 @@ public:
     Point2DPair getPrevMoves();
     bool isPlayerIdKingInCheck(PlayerID playerId);
     bool getCurrentGameStatus(PlayerID playerId);
-    void initMovementTargets();
+    // void initMovementTargets();
 private:
     const static int BOARD_SIZE = 8;
     int currentTurn = 1;
@@ -117,6 +117,7 @@ private:
     bool getRookCanCastle(Point2D point2d);
     void moveRookAfterCastle(Point2D point2d);
     PlayerID getOpponentTurnPlayerId();
+    void initBoardWithCaptureInfo();
 };
 
 

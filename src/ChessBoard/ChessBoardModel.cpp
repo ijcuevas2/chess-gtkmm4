@@ -5,9 +5,6 @@
 #include "../../headers/ChessBoard/ChessBoardModel.h"
 
 ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(chessMediator) {
-  initBoardSpacePointers();
-  initBoard();
-  // initMovementTargets();
   chessMediator.getCurrentTurnSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCurrentTurn));
   chessMediator.getIsBoardIndexOccupiedSignal().connect(
           sigc::mem_fun(*this, &ChessBoardModel::isBoardSpaceOccupied));
@@ -29,17 +26,25 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getRookCanCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getRookCanCastle));
   chessMediator.getMoveRookAfterCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::moveRookAfterCastle));
   chessMediator.getOpponentTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getOpponentTurnPlayerId));
+  chessMediator.getInitBoardWithCaptureInfo().connect(sigc::mem_fun(*this, &ChessBoardModel::initBoardWithCaptureInfo));
+  chessMediator.getClearBoard().connect(sigc::mem_fun(*this, &ChessBoardModel::clearBoard));
 }
 
-void ChessBoardModel::initMovementTargets() {
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    for (int col = 0; col < BOARD_SIZE; ++col) {
-      ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
-      Point2D point2d(row, col);
-      chessPiecePtr->setMovementTargets(point2d);
-    }
-  }
+void ChessBoardModel::initBoardWithCaptureInfo() {
+  initBoardSpacePointers();
+  initBoard();
+  // initMovementTargets();
 }
+
+//void ChessBoardModel::initMovementTargets() {
+//  for (int row = 0; row < BOARD_SIZE; ++row) {
+//    for (int col = 0; col < BOARD_SIZE; ++col) {
+//      ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
+//      Point2D point2d(row, col);
+//      chessPiecePtr->setMovementTargets(point2d);
+//    }
+//  }
+//}
 
 void ChessBoardModel::initBoardSpacePointers() {
   for (int row = 0; row < BOARD_SIZE; ++row) {
@@ -280,10 +285,8 @@ int ChessBoardModel::getHalfMoveClock() {
 
 void ChessBoardModel::showHintMarkers(BoardSpace *boardSpacePtr) {
   ChessPiece *chessPiecePtr = boardSpacePtr->getChessPiecePtr();
-  int srcRow = boardSpacePtr->getRow();
-  int srcCol = boardSpacePtr->getCol();
-
-  std::vector<Point2D> captureTargets = chessPiecePtr->getCaptureTargets();
+  Point2D srcPoint2d(boardSpacePtr->getRow(), boardSpacePtr->getCol());
+  std::vector<Point2D> captureTargets = chessPiecePtr->getMovementTargets(srcPoint2d);
   for (Point2D point2d : captureTargets) {
     BoardSpace* boardSpace = getBoardSpacePtr(point2d.getRow(), point2d.getCol());
     boardSpace->showMarker();

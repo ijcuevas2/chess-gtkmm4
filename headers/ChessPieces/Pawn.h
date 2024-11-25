@@ -31,7 +31,7 @@ public:
     void clearEnPassantCaptureSquare(Point2DPair point2dPair);
     int getMovedTwoSpacesTurn();
     int getCapturingPieceEnpassantRow();
-    void setMovementTargets(Point2D point2d) override;
+    std::vector<Point2D> getMovementTargets(Point2D point2d) override;
 };
 
 #endif //CHESS_PAWN_H

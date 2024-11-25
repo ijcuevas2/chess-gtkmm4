@@ -139,12 +139,32 @@ bool Pawn::isPieceBlockingPath(Point2DPair point2dPair) {
     return isNextSpaceOccupied || isTgtOccupied;
   }
 
-  int nextColCaptureCoordinate = point2dPair.getSrcCol() + direction;
+  int plusOneColCoordinate = point2dPair.getSrcCol() + -1;
+  int minusOneColCoordinate = point2dPair.getSrcCol() + 1;
   bool isCaptureRow = tgtRow == nextRowCoordinate;
-  bool isCaptureCol = tgtCol == nextColCaptureCoordinate;
+  bool isCaptureCol = tgtCol == plusOneColCoordinate || tgtCol == minusOneColCoordinate;
   bool isDiagonalCapture = isCaptureRow && isCaptureCol;
   return isNextSpaceOccupied && !isDiagonalCapture;
 }
 
-void Pawn::setMovementTargets(Point2D point2d) {
+std::vector<Point2D> Pawn::getMovementTargets(Point2D point2d) {
+  const int direction = PlayerID::PLAYER_WHITE == playerId ? -1 : 1;
+  const int oppositeDirection = direction * -1;
+  const int twoSpaceMove = direction * 2;
+  int srcRow = point2d.getRow();
+  int srcCol = point2d.getCol();
+  std::vector<std::vector<int>> offsetArr = {{direction, direction}, {direction, 0}, {direction, oppositeDirection}, {twoSpaceMove, 0}};
+  std::vector<Point2D> movementTargets;
+  for (std::vector<int> offset : offsetArr) {
+    int targetRow = point2d.getRow() + offset[0];
+    int targetCol = point2d.getCol() + offset[1];
+    Point2DPair point2dPair(srcRow, srcCol, targetRow, targetCol);
+    bool canMoveToTargetBool = canMoveToTarget(point2dPair);
+    if (canMoveToTargetBool) {
+      Point2D targetPoint(targetRow, targetCol);
+      movementTargets.push_back(targetPoint);
+    }
+  }
+
+  return movementTargets;
 }

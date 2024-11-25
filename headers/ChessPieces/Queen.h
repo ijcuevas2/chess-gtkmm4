@@ -17,7 +17,7 @@ public:
     bool canMoveHorizontal(Point2DPair point2dPair);
     Point2DPair getNextCoordinates(Point2DPair point2dPair) override;
     bool getIsValidPath(Point2DPair point2dPair) override;
-    void setMovementTargets(Point2D point2d) override;
+    std::vector<Point2D> getMovementTargets(Point2D point2d) override;
 };
 
 #endif //CHESS_QUEEN_H

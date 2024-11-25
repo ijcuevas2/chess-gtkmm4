@@ -20,7 +20,8 @@ Point2DPair Bishop::getNextCoordinates(Point2DPair point2dPair) {
   return newCoordinates;
 }
 
-void Bishop::setMovementTargets(Point2D point2d) {
-  captureTargets = ChessPiece::getDiagonalSpaces(point2d);
+std::vector<Point2D> Bishop::getMovementTargets(Point2D point2d) {
+  std::vector<Point2D> movementTargets = ChessPiece::getDiagonalSpaces(point2d);
+  return movementTargets;
 }
 

@@ -31,17 +31,16 @@ public:
     std::vector<Point2D> getHorizontalSpaces(Point2D point2d, bool isIncreasing);
     virtual bool canMoveToTarget(Point2DPair point2dPair);
     virtual void afterPieceMoved(Point2DPair point2dPair);
-    virtual void setMovementTargets(Point2D point2d);
-    std::vector<Point2D> getCaptureTargets();
+    virtual std::vector<Point2D> getMovementTargets(Point2D point2d);
 private:
     std::vector<Point2D> getCardinalSpacesHelper(Point2D point2d, bool isHorizontal);
-    std::vector<Point2D> getDiagonalSpacesHelper(Point2D point2d, bool isEastDirection);
+    std::vector<Point2D> getDiagonalSpacesHelper(Point2D point2d, bool isNorth, bool isEast);
 protected:
     bool canAddSpace(Point2D point2d);
+    std::vector<Point2D> captureTargets{0};
     virtual bool getIsValidPath(Point2DPair point2dPair) = 0;
     virtual Point2DPair getNextCoordinates(Point2DPair point2dPair);
     virtual bool isPieceBlockingPath(Point2DPair point2dPair);
-    std::vector<Point2D> captureTargets;
     std::vector<Point2D> getCardinalSpaces(Point2D point2d);
     std::vector<Point2D> getDiagonalSpaces(Point2D point2d);
     std::vector<Point2D> getQueenSpaces(Point2D point2d);

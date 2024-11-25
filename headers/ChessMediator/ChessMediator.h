@@ -46,6 +46,8 @@ public:
     sigc::signal<void()> getOpenCheckmateDialogSignal();
     sigc::signal<PlayerID()> getOpponentTurnPlayerIdSignal();
     sigc::signal<void()> getNewGameSignal();
+    sigc::signal<void()> getInitBoardWithCaptureInfo();
+    sigc::signal<void()> getClearBoard();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -80,6 +82,8 @@ private:
     sigc::signal<void()> openCheckmateDialog;
     sigc::signal<PlayerID()> opponentPlayerId;
     sigc::signal<void()> newGame;
+    sigc::signal<void()> initBoardWithCaptureInfo;
+    sigc::signal<void()> clearBoard;
 };
 
 
