@@ -80,7 +80,7 @@ public:
     void setEnPassantSquare(Point2D point2d);
     Point2DPair getPrevMoves();
     bool isPlayerIdKingInCheck(PlayerID playerId);
-    bool getCurrentGameStatus(PlayerID playerId);
+    bool getIsCheckmate(PlayerID playerId);
     // void initMovementTargets();
 private:
     const static int BOARD_SIZE = 8;
@@ -96,13 +96,15 @@ private:
     BoardSpace *selectedBoardSpacePtr = nullptr;
     PlayerID turnPlayerId{PlayerID::PLAYER_WHITE};
     ChessPiece* initChessPieceFromStr(std::string chessPieceStr);
-    void restoreCastlingInfo(std::string castlingStr);
-    void restoreCastlingInfoHelper(int row, int col);
+    void restoreCastlingState(std::string castlingStr);
+    void restoreCastlingStateHelper(int row, int col);
     PlayerID getTurnPlayerFromStr(std::string turnPlayerId);
     ChessPiece *initChessPieceFromChar(char chessPieceChar);
     int getCounterValue(int col, int counter);
     void updateUndoButtonStatus();
     bool isPawn(Point2D point2d);
+    bool isPawnChessPiecePtr(ChessPiece* chessPiece);
+    void updatePawnFirstTurn(ChessPiece* chessPiece, int row);
     bool isEnPassantSquare(Point2D point2d);
     Point2D getEnPassantCoordinates(Point2DPair point2dPair);
     void clearEnPassantCaptureSpace(Point2DPair point2dPair);
@@ -118,6 +120,7 @@ private:
     void moveRookAfterCastle(Point2D point2d);
     PlayerID getOpponentTurnPlayerId();
     void initBoardWithCaptureInfo();
+    bool containsPoint(const std::vector<Point2D> & points, const Point2D & target);
 };
 
 

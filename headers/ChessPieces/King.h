@@ -18,8 +18,6 @@ public:
     King(PlayerID playerId, ChessMediator & chessMediator);
     bool getCanCastle();
     void setCanCastle(bool value);
-    bool getIsCheckmate();
-    void setIsCheckmate(bool value);
     void setIsInCheck(bool inCheck);
     bool getIsInCheck();
     bool getIsValidPath(Point2DPair point2dPair) override;

@@ -33,18 +33,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
 void ChessBoardModel::initBoardWithCaptureInfo() {
   initBoardSpacePointers();
   initBoard();
-  // initMovementTargets();
 }
-
-//void ChessBoardModel::initMovementTargets() {
-//  for (int row = 0; row < BOARD_SIZE; ++row) {
-//    for (int col = 0; col < BOARD_SIZE; ++col) {
-//      ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
-//      Point2D point2d(row, col);
-//      chessPiecePtr->setMovementTargets(point2d);
-//    }
-//  }
-//}
 
 void ChessBoardModel::initBoardSpacePointers() {
   for (int row = 0; row < BOARD_SIZE; ++row) {
@@ -421,12 +410,13 @@ void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) 
   std::string srcBoardSpace = fenSplitArr[6];
   std::string tgtBoardSpace = fenSplitArr[7];
 
-  initChessBoardFromBoardConfig(boardConfigStr);
-  turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
-  restoreCastlingInfo(castlingStr);
   enPassantSquare = chessMediator.getPointFromAlgebraicNotationSignal().emit(enPassantSquareStr);
   halfMoveClock = std::stoi(halfTurnClockStr);
   currentTurn = std::stoi(turnCounterStr);
+
+  initChessBoardFromBoardConfig(boardConfigStr);
+  turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
+  restoreCastlingState(castlingStr);
   setPrevMovesFromStrings(srcBoardSpace, tgtBoardSpace);
 }
 
@@ -453,29 +443,29 @@ PlayerID ChessBoardModel::getTurnPlayerFromStr(std::string turnPlayerStr) {
   return PlayerID::PLAYER_WHITE;
 }
 
-void ChessBoardModel::restoreCastlingInfo(std::string castlingStr) {
+void ChessBoardModel::restoreCastlingState(std::string castlingStr) {
   bool blackRookQueenSideCanCastle = StringUtils::containsCharacter(castlingStr, 'a');
   if (blackRookQueenSideCanCastle) {
-    restoreCastlingInfoHelper(0, 0);
+    restoreCastlingStateHelper(0, 0);
   }
 
   bool blackRookKingSideCanCastle = StringUtils::containsCharacter(castlingStr, 'h');
   if (blackRookKingSideCanCastle) {
-    restoreCastlingInfoHelper(0, 7);
+    restoreCastlingStateHelper(0, 7);
   }
 
   bool whiteRookQueenSideCanCastle = StringUtils::containsCharacter(castlingStr, 'A');
   if (whiteRookQueenSideCanCastle) {
-    restoreCastlingInfoHelper(7, 0);
+    restoreCastlingStateHelper(7, 0);
   }
 
   bool whiteRookKingSideCanCastle = StringUtils::containsCharacter(castlingStr, 'H');
   if (whiteRookKingSideCanCastle) {
-    restoreCastlingInfoHelper(7, 7);
+    restoreCastlingStateHelper(7, 7);
   }
 }
 
-void ChessBoardModel::restoreCastlingInfoHelper(int row, int col) {
+void ChessBoardModel::restoreCastlingStateHelper(int row, int col) {
   ChessPiece* candidateRookPiece = getChessPiecePtr(row, col);
   ChessPiece* candidateKingPiece = getChessPiecePtr(row, 4);
   if (candidateRookPiece != nullptr && candidateKingPiece != nullptr) {
@@ -552,18 +542,36 @@ void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) 
           updateKingPosition(chessPiecePtr->getPlayerId(), row, targetCol);
         }
 
+        if (isPawnChessPiecePtr(chessPiecePtr)) {
+          updatePawnFirstTurn(chessPiecePtr, row);
+        }
+
         setNewBoardSpaceAtIndex(chessPiecePtr, row, targetCol);
       }
     }
   }
 }
 
+void ChessBoardModel::updatePawnFirstTurn(ChessPiece* chessPiecePtr, int row) {
+  Pawn* pawn = dynamic_cast<Pawn*>(chessPiecePtr);
+  PlayerID playerId = chessPiecePtr->getPlayerId();
+  bool isWhiteAfterFirstTurn = playerId == PlayerID::PLAYER_BLACK && row != 1;
+  bool isBlackAfterFirstTurn = playerId == PlayerID::PLAYER_WHITE && row != 6;
+  if (isWhiteAfterFirstTurn || isBlackAfterFirstTurn) {
+    pawn->setUsedFirstMove();
+  }
+}
+
+bool ChessBoardModel::isPawnChessPiecePtr(ChessPiece* chessPiecePtr) {
+  bool isPawnBool = chessPiecePtr->getPieceType() == PieceType::PAWN;
+  return isPawnBool;
+}
+
 bool ChessBoardModel::isPawn(Point2D point2d) {
   int row = point2d.getRow();
   int col = point2d.getCol();
   ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
-  bool isPawnBool = chessPiecePtr->getPieceType() == PieceType::PAWN;
-  return isPawnBool;
+  return isPawnChessPiecePtr(chessPiecePtr);
 }
 
 bool ChessBoardModel::isEnPassantSquare(Point2D point2d) {
@@ -638,10 +646,10 @@ bool ChessBoardModel::isPoint2dInArr(std::vector<Point2D> & point2dArr, Point2D 
   return false;
 }
 
-bool ChessBoardModel::getCurrentGameStatus(PlayerID playerId) {
+bool ChessBoardModel::getIsCheckmate(PlayerID playerId) {
   Point2D kingPoint2d = getKingPoint2D(playerId);
-  std::vector<Point2D> adjacentPoints = MathUtils::getAdjacentKingPoints(kingPoint2d);
   King* kingPtr = getPlayerIdKing(playerId);
+  bool hasNoMovementTargets = false;
 
   if (kingPtr != nullptr) {
     bool isInCheck = kingPtr->getIsInCheck();
@@ -649,22 +657,15 @@ bool ChessBoardModel::getCurrentGameStatus(PlayerID playerId) {
       return false;
     }
 
-    int kingRow = kingPoint2d.getRow();
-    int kingCol = kingPoint2d.getCol();
-    for (Point2D point2d : adjacentPoints) {
-      int targetRow = kingPoint2d.getRow() + point2d.getRow();
-      int targetCol = kingPoint2d.getCol() + point2d.getCol();
-      Point2DPair point2DPair(kingRow, kingCol, targetRow, targetCol);
-      bool canMoveToTargetBool = kingPtr->canMoveToTarget(point2DPair);
-      if (canMoveToTargetBool) {
-        return false;
-      }
-    }
-
-    return true;
+    std::vector<Point2D> movementTargets = kingPtr->getMovementTargets(kingPoint2d);
+    hasNoMovementTargets = movementTargets.empty();
   }
 
-  return false;
+  return hasNoMovementTargets;
+}
+
+bool containsPoint(const std::vector<Point2D>& points, const Point2D& target) {
+  return std::find(points.begin(), points.end(), target) != points.end();
 }
 
 bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint) {
@@ -682,11 +683,11 @@ bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint)
   for (int row = 0; row < BOARD_SIZE; ++row) {
     for (int col = 0; col < BOARD_SIZE; ++col) {
       ChessPiece* chessPiece = getChessPiecePtr(row, col);
-      if (!isKingChessPiecePtr(chessPiece)) {
+      bool isOpponentsPiece = chessPiece->getPlayerId() == opponentPlayerId;
+      if (!isKingChessPiecePtr(chessPiece) && isOpponentsPiece) {
         Point2DPair kingMovementPair(row, col, targetPoint.getRow(), targetPoint.getCol());
         bool canMoveToTargetBool = chessPiece->canMoveToTarget(kingMovementPair);
-        PlayerID currPiecePlayerId = chessPiece->getPlayerId();
-        if (canMoveToTargetBool && playerId != currPiecePlayerId) {
+        if (canMoveToTargetBool) {
           return false;
         }
       }

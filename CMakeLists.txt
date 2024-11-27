@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(chess)
 
+# Add GNUInstallDirs for platform-agnostic paths
+include(GNUInstallDirs)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE Debug)
@@ -146,6 +149,25 @@ target_link_directories(chess_lib PUBLIC
         ${HARFBUZZ_LIBRARY_DIRS}
 )
 
+# Install icons
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/icons/hicolor
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons
+        FILES_MATCHING PATTERN "*.png" PATTERN "*.svg"
+)
+
+# Update icon cache post-installation (Linux only)
+if(UNIX AND NOT APPLE)
+    install(CODE "execute_process(COMMAND gtk-update-icon-cache -f -t ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATADIR}/icons/hicolor)")
+endif()
+
+# For macOS, install icons in the bundle
+if(APPLE)
+    install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/icons/hicolor
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}.app/Contents/Resources/share/icons
+            FILES_MATCHING PATTERN "*.png" PATTERN "*.svg"
+    )
+endif()
+
 add_executable(${PROJECT_NAME}
         main.cpp
         ${GRESOURCE_C}
@@ -163,6 +185,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 add_dependencies(${PROJECT_NAME} chess_resources)
+
+# Set installation targets
+install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 add_executable(run_tests
         tests/sample_test.cpp

@@ -99,7 +99,9 @@ std::vector<Point2D> King::getMovementTargets(Point2D point2d) {
                                            {1, 0},
                                            {0, 1},
                                            {-1, 0},
-                                           {0, -1}};
+                                           {0, -1},
+                                           {0, -3},
+                                           {0, 2}};
 
   std::vector<Point2D> movementTargets;
   for (std::vector<int> offset : offsets) {
@@ -122,12 +124,4 @@ void King::setIsInCheck(bool isInCheck) {
 
 bool King::getIsInCheck() {
   return this->isInCheck;
-}
-
-bool King::getIsCheckmate() {
-  return isCheckmate;
-}
-
-void King::setIsCheckmate(bool value) {
-  isCheckmate = value;
 }

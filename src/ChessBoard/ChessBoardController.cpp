@@ -104,7 +104,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           chessBoardModel.updateTurnPlayerId();
           fenModel.saveBoardState();
           PlayerID playerId = chessMediator.getTurnPlayerIdSignal().emit();
-          bool isCheckmate = chessBoardModel.getCurrentGameStatus(playerId);
+          bool isCheckmate = chessBoardModel.getIsCheckmate(playerId);
           if (isCheckmate) {
             chessMediator.getOpenCheckmateDialogSignal().emit();
           }
