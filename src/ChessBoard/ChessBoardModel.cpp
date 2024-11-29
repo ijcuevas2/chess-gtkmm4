@@ -52,10 +52,6 @@ void ChessBoardModel::initBoard() {
   initChessBoardFromFenStateString(defaultFenStateStr);
 }
 
-bool ChessBoardModel::isKingChessPiecePtr(ChessPiece *chessPiecePtr) {
-  return chessPiecePtr->getPieceType() == PieceType::KING;
-}
-
 void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessPiecePtr, int row, int col) {
   if (this->board[row][col] != nullptr) {
     ChessPiece *oldPiecePtr = this->getChessPiecePtr(row, col);
@@ -563,8 +559,33 @@ void ChessBoardModel::updatePawnFirstTurn(ChessPiece* chessPiecePtr, int row) {
 }
 
 bool ChessBoardModel::isPawnChessPiecePtr(ChessPiece* chessPiecePtr) {
-  bool isPawnBool = chessPiecePtr->getPieceType() == PieceType::PAWN;
-  return isPawnBool;
+  bool result = chessPiecePtr->getPieceType() == PieceType::PAWN;
+  return result;
+}
+
+bool ChessBoardModel::isKingChessPiecePtr(ChessPiece* chessPiecePtr) {
+  bool result = chessPiecePtr->getPieceType() == PieceType::KING;
+  return result;
+}
+
+bool ChessBoardModel::isBishopChessPiecePtr(ChessPiece* chessPiecePtr) {
+  bool result = chessPiecePtr->getPieceType() == PieceType::BISHOP;
+  return result;
+}
+
+bool ChessBoardModel::isRookChessPiecePtr(ChessPiece* chessPiecePtr) {
+  bool result = chessPiecePtr->getPieceType() == PieceType::ROOK;
+  return result;
+}
+
+bool ChessBoardModel::isQueenChessPiecePtr(ChessPiece* chessPiecePtr) {
+  bool result = chessPiecePtr->getPieceType() == PieceType::QUEEN;
+  return result;
+}
+
+bool ChessBoardModel::isKnightChessPiecePtr(ChessPiece* chessPiecePtr) {
+  bool result = chessPiecePtr->getPieceType() == PieceType::KNIGHT;
+  return result;
 }
 
 bool ChessBoardModel::isPawn(Point2D point2d) {
@@ -669,30 +690,153 @@ bool containsPoint(const std::vector<Point2D>& points, const Point2D& target) {
 }
 
 bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint) {
-  Point2D kingCoordinates = getKingPoint2D(playerId);
-  std::vector<Point2D> adjacentPoints = MathUtils::getAdjacentKingPoints(kingCoordinates);
-  PlayerID opponentPlayerId = getOpponentPlayerId(playerId);
-  Point2D opponentKingCoordinates = getKingPoint2D(opponentPlayerId);
-  std::vector<Point2D> opponentAdjacentPoints = MathUtils::getAdjacentKingPoints(opponentKingCoordinates);
-
-  bool isPoint2dInArrBool = isPoint2dInArr(opponentAdjacentPoints, targetPoint);
-  if (isPoint2dInArrBool) {
+  bool result = checkIfKnightBlocksKingPath(playerId, targetPoint);
+  if (result) {
     return false;
   }
 
-  for (int row = 0; row < BOARD_SIZE; ++row) {
-    for (int col = 0; col < BOARD_SIZE; ++col) {
-      ChessPiece* chessPiece = getChessPiecePtr(row, col);
-      bool isOpponentsPiece = chessPiece->getPlayerId() == opponentPlayerId;
-      if (!isKingChessPiecePtr(chessPiece) && isOpponentsPiece) {
-        Point2DPair kingMovementPair(row, col, targetPoint.getRow(), targetPoint.getCol());
-        bool canMoveToTargetBool = chessPiece->canMoveToTarget(kingMovementPair);
-        if (canMoveToTargetBool) {
-          return false;
-        }
+  result = checkIfPawnBlocksKingPath(playerId, targetPoint);
+  if (result) {
+    return false;
+  }
+
+  result = checkIfDiagonalCaptureBlocksKingPath(playerId, targetPoint);
+  if (result) {
+    return false;
+  }
+
+  result = checkIfHorizontalCaptureBlocksKingPath(playerId, targetPoint);
+  if (result) {
+    return false;
+  }
+
+  result = checkIfOpponentKingBlocksKingPath(playerId, targetPoint);
+  if (result) {
+    return false;
+  }
+
+  return true;
+}
+
+bool ChessBoardModel::checkIfKnightBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+  std::vector<Point2D> pointsArr = {
+    Point2D(targetPoint.getRow() + 1, targetPoint.getCol() + 2),
+    Point2D(targetPoint.getRow() - 1, targetPoint.getCol() + 2),
+    Point2D(targetPoint.getRow() + 1, targetPoint.getCol() - 2),
+    Point2D(targetPoint.getRow() - 1, targetPoint.getCol() - 2),
+    Point2D(targetPoint.getRow() + 2, targetPoint.getCol() + 1),
+    Point2D(targetPoint.getRow() + 2, targetPoint.getCol() - 1),
+    Point2D(targetPoint.getRow() - 2, targetPoint.getCol() + 1),
+    Point2D(targetPoint.getRow() - 2, targetPoint.getCol() - 1)
+  };
+
+  for (Point2D point2d : pointsArr) {
+    bool isValidPoint = MathUtils::isValidPoint2D(point2d);
+    if (isValidPoint) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+      bool hasOpponentPlayerId = chessPiecePtr->hasOpponentPlayerId(playerId);
+      PieceType pieceType = chessPiecePtr->getPieceType();
+      if (hasOpponentPlayerId && pieceType == PieceType::KNIGHT) {
+        return true;
       }
     }
   }
 
-  return true;
+  return false;
+}
+
+bool ChessBoardModel::checkIfPawnBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+  int direction = playerId == PlayerID::PLAYER_WHITE ? -1 : 1;
+
+  std::vector<Point2D> pointArr = {
+    Point2D(targetPoint.getRow() + direction, targetPoint.getCol() - 1),
+    Point2D(targetPoint.getRow() + direction, targetPoint.getCol() + 1)
+  };
+
+  for (Point2D point2d : pointArr) {
+    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
+    if (isValidPoint2d) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
+      bool isPawnPtr = isPawnChessPiecePtr(chessPiecePtr);
+      if (hasOpponentId && isPawnPtr) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+bool ChessBoardModel::checkIfOpponentKingBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+  int offset = 1;
+
+  std::vector<Point2D> pointArr = {
+    Point2D(targetPoint.getRow() + offset, targetPoint.getCol()),
+    Point2D(targetPoint.getRow() + offset, targetPoint.getCol() + offset),
+    Point2D(targetPoint.getRow(), targetPoint.getCol() + offset),
+    Point2D(targetPoint.getRow() - offset, targetPoint.getCol() + offset),
+    Point2D(targetPoint.getRow() - offset, targetPoint.getCol()),
+    Point2D(targetPoint.getRow() - offset, targetPoint.getCol() - offset),
+    Point2D(targetPoint.getRow(), targetPoint.getCol() - offset),
+    Point2D(targetPoint.getRow() + offset, targetPoint.getCol() - offset),
+  };
+
+  for (Point2D point2d : pointArr) {
+    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
+    if (isValidPoint2d) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
+      bool isKingPtr = isKingChessPiecePtr(chessPiecePtr);
+      if (hasOpponentId && isKingPtr) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+bool ChessBoardModel::checkIfDiagonalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+  ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
+  Point2D kingPoint = getKingPoint2D(playerId);
+  std::vector<Point2D> pointArr = targetPointPtr->getDiagonalSpaces(targetPoint, kingPoint);
+
+  for (Point2D point2d : pointArr) {
+    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
+    if (isValidPoint2d) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
+      bool isBishopPtr = isBishopChessPiecePtr(chessPiecePtr);
+      bool isQueenPtr = isQueenChessPiecePtr(chessPiecePtr);
+      bool isDiagonalCapture = isBishopPtr || isQueenPtr;
+      if (hasOpponentId && isDiagonalCapture) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+bool ChessBoardModel::checkIfHorizontalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+  ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
+  Point2D kingPoint = getKingPoint2D(playerId);
+  std::vector<Point2D> pointArr = targetPointPtr->getCardinalSpaces(targetPoint, kingPoint);
+
+  for (Point2D point2d : pointArr) {
+    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
+    if (isValidPoint2d) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
+      bool isRookPtr = isRookChessPiecePtr(chessPiecePtr);
+      bool isQueenPtr = isQueenChessPiecePtr(chessPiecePtr);
+      bool isDiagonalCapture = isRookPtr || isQueenPtr;
+      if (hasOpponentId && isDiagonalCapture) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }

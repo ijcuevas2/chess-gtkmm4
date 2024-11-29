@@ -52,7 +52,6 @@ public:
     bool isBoardSpaceOccupied(int row, int col);
     bool isTurnPlayersChessPiece(ChessPiece *chessPiece, int targetRow, int targetCol);
     bool isTurnPlayersChessPieceHelper(PlayerID playerId, int targetRow, int targetCol);
-    bool isKingChessPiecePtr(ChessPiece *chessPiecePtr);
     void updateKingPosition(PlayerID playerId, int row, int col);
     void clearSelectedBoardSpace();
     void clearBoard();
@@ -104,6 +103,11 @@ private:
     void updateUndoButtonStatus();
     bool isPawn(Point2D point2d);
     bool isPawnChessPiecePtr(ChessPiece* chessPiece);
+    bool isKingChessPiecePtr(ChessPiece* chessPiece);
+    bool isBishopChessPiecePtr(ChessPiece* chessPiece);
+    bool isRookChessPiecePtr(ChessPiece* chessPiece);
+    bool isQueenChessPiecePtr(ChessPiece* chessPiece);
+    bool isKnightChessPiecePtr(ChessPiece* chessPiece);
     void updatePawnFirstTurn(ChessPiece* chessPiece, int row);
     bool isEnPassantSquare(Point2D point2d);
     Point2D getEnPassantCoordinates(Point2DPair point2dPair);
@@ -121,6 +125,11 @@ private:
     PlayerID getOpponentTurnPlayerId();
     void initBoardWithCaptureInfo();
     bool containsPoint(const std::vector<Point2D> & points, const Point2D & target);
+    bool checkIfKnightBlocksKingPath(PlayerID playerId, Point2D targetPoint);
+    bool checkIfPawnBlocksKingPath(PlayerID playerId, Point2D targetPoint);
+    bool checkIfOpponentKingBlocksKingPath(PlayerID playerId, Point2D targetPoint);
+    bool checkIfDiagonalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint);
+    bool checkIfHorizontalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint);
 };
 
 

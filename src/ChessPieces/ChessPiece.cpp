@@ -138,10 +138,10 @@ bool ChessPiece::canAddSpace(Point2D point2d) {
   return false;
 }
 
-std::vector<Point2D> ChessPiece::getDiagonalSpacesHelper(Point2D point2d, bool isNorth, bool isEast) {
+std::vector<Point2D> ChessPiece::getDiagonalSpacesHelper(Point2D point2d, bool isNorth, bool isEast, Point2D kingPoint) {
   std::vector<Point2D> result(0);
   int horizontalDirection = isEast ? 1 : -1;
-  int verticalDirection = isNorth ? 1 : -1;
+  int verticalDirection = isNorth ? -1 : 1;
   int targetRow = point2d.getRow();
   int targetCol = point2d.getCol();
 
@@ -154,6 +154,12 @@ std::vector<Point2D> ChessPiece::getDiagonalSpacesHelper(Point2D point2d, bool i
     targetRow += verticalDirection;
 
     Point2D targetPoint(targetRow, targetCol);
+    if (targetPoint == kingPoint) {
+      targetCol += horizontalDirection;
+      targetRow += verticalDirection;
+      targetPoint = Point2D(targetRow, targetCol);
+    }
+
     canAddSpaceBool = canAddSpace(targetPoint);
 
     if (canAddSpaceBool) {
@@ -170,9 +176,9 @@ std::vector<Point2D> ChessPiece::getDiagonalSpacesHelper(Point2D point2d, bool i
   return result;
 }
 
-std::vector<Point2D> ChessPiece::getCardinalSpacesHelper(Point2D point2d, bool isHorizontalCapture) {
+std::vector<Point2D> ChessPiece::getCardinalSpacesHelper(Point2D point2d, bool isHorizontal, bool isIncreasing, Point2D kingPoint) {
   std::vector<Point2D> result(0);
-  int direction = 1;
+  int direction = isIncreasing ? 1 : -1;
   int targetRow = point2d.getRow();
   int targetCol = point2d.getCol();
 
@@ -181,13 +187,17 @@ std::vector<Point2D> ChessPiece::getCardinalSpacesHelper(Point2D point2d, bool i
   bool isValidPointBool = true;
 
   do {
-    if (isHorizontalCapture) {
+    if (isHorizontal) {
       targetCol += direction;
     } else {
       targetRow += direction;
     }
 
     Point2D targetPoint(targetRow, targetCol);
+    if (targetPoint == kingPoint) {
+      continue;
+    }
+
     canAddSpaceBool = canAddSpace(targetPoint);
 
     if (canAddSpaceBool) {
@@ -203,12 +213,12 @@ std::vector<Point2D> ChessPiece::getCardinalSpacesHelper(Point2D point2d, bool i
   return result;
 }
 
-std::vector<Point2D> ChessPiece::getDiagonalSpaces(Point2D point2d) {
+std::vector<Point2D> ChessPiece::getDiagonalSpaces(Point2D point2d, Point2D kingPoint) {
   std::vector<Point2D> result(0);
-  std::vector<Point2D> northEastSpaces = getDiagonalSpacesHelper(point2d, true, true);
-  std::vector<Point2D> northWestSpaces = getDiagonalSpacesHelper(point2d, true, false);
-  std::vector<Point2D> southEastSpaces = getDiagonalSpacesHelper(point2d, false, true);
-  std::vector<Point2D> southWestSpaces = getDiagonalSpacesHelper(point2d, false, false);
+  std::vector<Point2D> northEastSpaces = getDiagonalSpacesHelper(point2d, true, true, kingPoint);
+  std::vector<Point2D> northWestSpaces = getDiagonalSpacesHelper(point2d, true, false, kingPoint);
+  std::vector<Point2D> southEastSpaces = getDiagonalSpacesHelper(point2d, false, true, kingPoint);
+  std::vector<Point2D> southWestSpaces = getDiagonalSpacesHelper(point2d, false, false, kingPoint);
   result.insert(result.end(), northEastSpaces.begin(), northEastSpaces.end());
   result.insert(result.end(), northWestSpaces.begin(), northWestSpaces.end());
   result.insert(result.end(), southEastSpaces.begin(), southEastSpaces.end());
@@ -216,12 +226,17 @@ std::vector<Point2D> ChessPiece::getDiagonalSpaces(Point2D point2d) {
   return result;
 }
 
-std::vector<Point2D> ChessPiece::getCardinalSpaces(Point2D point2d) {
-  std::vector<Point2D> firstEndSpaces = getCardinalSpacesHelper(point2d, true);
-  std::vector<Point2D> secondEndSpaces = getCardinalSpacesHelper(point2d, false);
-  firstEndSpaces.reserve(firstEndSpaces.size() + secondEndSpaces.size());
-  firstEndSpaces.insert(firstEndSpaces.end(), secondEndSpaces.begin(), secondEndSpaces.end());
-  return firstEndSpaces;
+std::vector<Point2D> ChessPiece::getCardinalSpaces(Point2D point2d, Point2D kingPoint) {
+  std::vector<Point2D> result(0);
+  std::vector<Point2D> firstEndSpaces = getCardinalSpacesHelper(point2d, true, true, kingPoint);
+  std::vector<Point2D> secondEndSpaces = getCardinalSpacesHelper(point2d, true, false, kingPoint);
+  std::vector<Point2D> thirdEndSpaces = getCardinalSpacesHelper(point2d, false, true, kingPoint);
+  std::vector<Point2D> fourthEndSpaces = getCardinalSpacesHelper(point2d, false, false, kingPoint);
+  result.insert(result.end(), firstEndSpaces.begin(), firstEndSpaces.end());
+  result.insert(result.end(), secondEndSpaces.begin(), secondEndSpaces.end());
+  result.insert(result.end(), thirdEndSpaces.begin(), thirdEndSpaces.end());
+  result.insert(result.end(), fourthEndSpaces.begin(), fourthEndSpaces.end());
+  return result;
 }
 
 std::vector<Point2D> ChessPiece::getQueenSpaces(Point2D point2d) {
@@ -238,11 +253,11 @@ void ChessPiece::afterPieceMoved(Point2DPair point2dPair) {
   // setMovementTargets(point2d);
 }
 
-//std::vector<Point2D> ChessPiece::getMovementTargets() {
-//  return captureTargets;
-//}
-
 std::vector<Point2D> ChessPiece::getMovementTargets(Point2D point2d) {
   std::vector<Point2D> movementTargets;
   return movementTargets;
+}
+
+bool ChessPiece::hasOpponentPlayerId(PlayerID playerId) {
+  return this->playerId != playerId;
 }
