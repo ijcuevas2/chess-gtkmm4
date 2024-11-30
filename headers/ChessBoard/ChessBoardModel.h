@@ -119,17 +119,17 @@ private:
     void setPrevMoves(Point2DPair point2dPair);
     King *getPlayerIdKing(PlayerID playerId);
     bool isPoint2dInArr(std::vector<Point2D> &opponentPoints, Point2D point2d);
-    bool getIsKingValidPath(PlayerID playerId, Point2D targetPoint);
+    bool getIsValidKingSpace(PlayerID playerId, Point2D targetPoint);
     bool getRookCanCastle(Point2D point2d);
     void moveRookAfterCastle(Point2D point2d);
     PlayerID getOpponentTurnPlayerId();
     void initBoardWithCaptureInfo();
     bool containsPoint(const std::vector<Point2D> & points, const Point2D & target);
-    bool checkIfKnightBlocksKingPath(PlayerID playerId, Point2D targetPoint);
-    bool checkIfPawnBlocksKingPath(PlayerID playerId, Point2D targetPoint);
-    bool checkIfOpponentKingBlocksKingPath(PlayerID playerId, Point2D targetPoint);
-    bool checkIfDiagonalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint);
-    bool checkIfHorizontalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint);
+    bool checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
+    bool checkIfPawnBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
+    bool checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
+    bool checkIfDiagonalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
+    bool checkIfHorizontalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
 };
 
 

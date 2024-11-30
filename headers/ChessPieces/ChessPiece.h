@@ -29,7 +29,6 @@ public:
     PieceType getPieceType();
     void setPlayerId(PlayerID playerId);
     void setPieceType(PieceType pieceType);
-    std::vector<Point2D> getHorizontalSpaces(Point2D point2d, bool isIncreasing);
     virtual bool canMoveToTarget(Point2DPair point2dPair);
     virtual void afterPieceMoved(Point2DPair point2dPair);
     virtual std::vector<Point2D> getMovementTargets(Point2D point2d);

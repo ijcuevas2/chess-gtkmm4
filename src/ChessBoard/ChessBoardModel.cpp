@@ -21,7 +21,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getEnPassantSquare));
   chessMediator.getSetPrevMoveSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setPrevMoves));
   chessMediator.getIsKingInCheckSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isPlayerIdKingInCheck));
-  chessMediator.getIsKingValidPathSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsKingValidPath));
+  chessMediator.getIsKingValidPathSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsValidKingSpace));
   chessMediator.getTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getTurnPlayerId));
   chessMediator.getRookCanCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getRookCanCastle));
   chessMediator.getMoveRookAfterCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::moveRookAfterCastle));
@@ -334,18 +334,13 @@ void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
   Point2D kingPoint2D = getKingPoint2D(oppositePlayerId);
   int kingRow = kingPoint2D.getRow();
   int kingCol = kingPoint2D.getCol();
-  ChessPiece* chessPiece = getChessPiecePtr(kingRow, kingCol);
-  if (chessPiece->getPieceType() == PieceType::KING) {
-    King* king = dynamic_cast<King*>(chessPiece);
-    for (int row = 0; row < BOARD_SIZE; ++row) {
-      for (int col = 0; col < BOARD_SIZE; ++col) {
-        ChessPiece *chessPiecePtr = getChessPiecePtr(row, col);
-        Point2DPair currCoordinates(row, col, kingRow, kingCol);
-        bool isCurrChessPieceAbleToCheck = chessPiecePtr->canMoveToTarget(currCoordinates);
-        if (isCurrChessPieceAbleToCheck) {
-          king->setIsInCheck(true);
-        }
-      }
+  ChessPiece* chessPiecePtr = getChessPiecePtr(kingRow, kingCol);
+  bool isKingPtr = isKingChessPiecePtr(chessPiecePtr);
+  if (isKingPtr) {
+    bool isValidKingSpace = getIsValidKingSpace(oppositePlayerId, kingPoint2D);
+    if (!isValidKingSpace) {
+      King* king = dynamic_cast<King*>(chessPiecePtr);
+      king->setIsInCheck(true);
     }
   }
 }
@@ -689,28 +684,28 @@ bool containsPoint(const std::vector<Point2D>& points, const Point2D& target) {
   return std::find(points.begin(), points.end(), target) != points.end();
 }
 
-bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint) {
-  bool result = checkIfKnightBlocksKingPath(playerId, targetPoint);
+bool ChessBoardModel::getIsValidKingSpace(PlayerID playerId, Point2D targetPoint) {
+  bool result = checkIfKnightBlocksKingSpace(playerId, targetPoint);
   if (result) {
     return false;
   }
 
-  result = checkIfPawnBlocksKingPath(playerId, targetPoint);
+  result = checkIfPawnBlocksKingSpace(playerId, targetPoint);
   if (result) {
     return false;
   }
 
-  result = checkIfDiagonalCaptureBlocksKingPath(playerId, targetPoint);
+  result = checkIfDiagonalCaptureBlocksKingSpace(playerId, targetPoint);
   if (result) {
     return false;
   }
 
-  result = checkIfHorizontalCaptureBlocksKingPath(playerId, targetPoint);
+  result = checkIfHorizontalCaptureBlocksKingSpace(playerId, targetPoint);
   if (result) {
     return false;
   }
 
-  result = checkIfOpponentKingBlocksKingPath(playerId, targetPoint);
+  result = checkIfOpponentKingBlocksKingSpace(playerId, targetPoint);
   if (result) {
     return false;
   }
@@ -718,7 +713,7 @@ bool ChessBoardModel::getIsKingValidPath(PlayerID playerId, Point2D targetPoint)
   return true;
 }
 
-bool ChessBoardModel::checkIfKnightBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+bool ChessBoardModel::checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
   std::vector<Point2D> pointsArr = {
     Point2D(targetPoint.getRow() + 1, targetPoint.getCol() + 2),
     Point2D(targetPoint.getRow() - 1, targetPoint.getCol() + 2),
@@ -745,7 +740,7 @@ bool ChessBoardModel::checkIfKnightBlocksKingPath(PlayerID playerId, Point2D tar
   return false;
 }
 
-bool ChessBoardModel::checkIfPawnBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+bool ChessBoardModel::checkIfPawnBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
   int direction = playerId == PlayerID::PLAYER_WHITE ? -1 : 1;
 
   std::vector<Point2D> pointArr = {
@@ -768,7 +763,7 @@ bool ChessBoardModel::checkIfPawnBlocksKingPath(PlayerID playerId, Point2D targe
   return false;
 }
 
-bool ChessBoardModel::checkIfOpponentKingBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+bool ChessBoardModel::checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
   int offset = 1;
 
   std::vector<Point2D> pointArr = {
@@ -797,7 +792,7 @@ bool ChessBoardModel::checkIfOpponentKingBlocksKingPath(PlayerID playerId, Point
   return false;
 }
 
-bool ChessBoardModel::checkIfDiagonalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+bool ChessBoardModel::checkIfDiagonalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
   ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
   Point2D kingPoint = getKingPoint2D(playerId);
   std::vector<Point2D> pointArr = targetPointPtr->getDiagonalSpaces(targetPoint, kingPoint);
@@ -819,7 +814,7 @@ bool ChessBoardModel::checkIfDiagonalCaptureBlocksKingPath(PlayerID playerId, Po
   return false;
 }
 
-bool ChessBoardModel::checkIfHorizontalCaptureBlocksKingPath(PlayerID playerId, Point2D targetPoint) {
+bool ChessBoardModel::checkIfHorizontalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
   ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
   Point2D kingPoint = getKingPoint2D(playerId);
   std::vector<Point2D> pointArr = targetPointPtr->getCardinalSpaces(targetPoint, kingPoint);

@@ -27,6 +27,8 @@ You can access release builds for this program in the following [link](https://g
 - Look into minimax 
 - Unit Tests
 - Automation Tests
+- Stopping king in check with another piece
+- Restoring being in check or checkmate after loading a saved state
 
 ### TODO: Improvements
 - Chess Movement Algorithm

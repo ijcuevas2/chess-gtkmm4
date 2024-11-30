@@ -19,7 +19,7 @@ public:
     FenModel(ChessBoardModel & chessBoardModel, ChessMediator & chessMediator);
     void saveBoardState();
     void saveStateToFile(std::string filePath);
-    void loadStateFromFile(std::string filePath);
+    void loadGame(std::string filePath);
 private:
     ChessBoardModel & chessBoardModel;
     ChessMediator & chessMediator;
