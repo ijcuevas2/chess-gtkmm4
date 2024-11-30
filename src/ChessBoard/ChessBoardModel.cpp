@@ -330,14 +330,14 @@ void ChessBoardModel::resetHalfMoveClock() {
 }
 
 void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
-  PlayerID oppositePlayerId = getOpponentPlayerId(playerId);
-  Point2D kingPoint2D = getKingPoint2D(oppositePlayerId);
+  PlayerID opponentPlayerId = getOpponentPlayerId(playerId);
+  Point2D kingPoint2D = getKingPoint2D(opponentPlayerId);
   int kingRow = kingPoint2D.getRow();
   int kingCol = kingPoint2D.getCol();
   ChessPiece* chessPiecePtr = getChessPiecePtr(kingRow, kingCol);
   bool isKingPtr = isKingChessPiecePtr(chessPiecePtr);
   if (isKingPtr) {
-    bool isValidKingSpace = getIsValidKingSpace(oppositePlayerId, kingPoint2D);
+    bool isValidKingSpace = getIsValidKingSpace(opponentPlayerId, kingPoint2D);
     if (!isValidKingSpace) {
       King* king = dynamic_cast<King*>(chessPiecePtr);
       king->setIsInCheck(true);
