@@ -118,7 +118,9 @@ bool ChessPiece::getIsValidPath(Point2DPair point2dPair) {
   return false;
 }
 
-// TODO: REMOVE THIS FUNCTION
+/**
+ * @TODO: REMOVE THIS FUNCTION
+ */
 bool ChessPiece::canAddSpace(Point2D point2d) {
   bool isValidTargetPoint = isValidPoint2D(point2d);
   if (isValidTargetPoint) {
@@ -256,6 +258,10 @@ void ChessPiece::afterPieceMoved(Point2DPair point2dPair) {
 std::vector<Point2D> ChessPiece::getMovementTargets(Point2D point2d) {
   std::vector<Point2D> movementTargets;
   return movementTargets;
+}
+
+bool ChessPiece::hasPlayerId(PlayerID playerId) {
+  return this->playerId == playerId;
 }
 
 bool ChessPiece::hasOpponentPlayerId(PlayerID playerId) {

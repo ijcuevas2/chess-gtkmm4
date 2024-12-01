@@ -25,6 +25,7 @@ public:
     bool isValidPoint2D(Point2D point2d);
     void copyChessPiece(ChessPiece *chessPiecePtr);
     PlayerID getPlayerId();
+    bool hasPlayerId(PlayerID playerId);
     bool hasOpponentPlayerId(PlayerID playerId);
     PieceType getPieceType();
     void setPlayerId(PlayerID playerId);

@@ -72,7 +72,7 @@ public:
     Point2D whiteKingCoordinates;
     Point2D blackKingCoordinates;
     Point2D getKingPoint2D(PlayerID playerId);
-    void calculateKingIsInCheck(PlayerID playerId);
+    void calculateOpponentKingIsInCheck(PlayerID playerId);
     void initChessBoardFromFenStateString(std::string fenStateStr);
     void initChessBoardFromBoardConfig(std::string boardConfigStr);
     void clearEnPassantSquare();
@@ -129,7 +129,10 @@ private:
     bool checkIfPawnBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
     bool checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
     bool checkIfDiagonalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
-    bool checkIfHorizontalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
+    bool checkIfCardinalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getPointsByPlayerId(PlayerID playerId);
+    std::vector<Point2D> getPointsWithPiecesThatDiagonalCapture(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getPointsWithPiecesThatCardinalCapture(PlayerID playerId, Point2D targetPoint);
 };
 
 

@@ -329,7 +329,7 @@ void ChessBoardModel::resetHalfMoveClock() {
   halfMoveClock = 0;
 }
 
-void ChessBoardModel::calculateKingIsInCheck(PlayerID playerId) {
+void ChessBoardModel::calculateOpponentKingIsInCheck(PlayerID playerId) {
   PlayerID opponentPlayerId = getOpponentPlayerId(playerId);
   Point2D kingPoint2D = getKingPoint2D(opponentPlayerId);
   int kingRow = kingPoint2D.getRow();
@@ -407,8 +407,10 @@ void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) 
 
   initChessBoardFromBoardConfig(boardConfigStr);
   turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
+  PlayerID opponentId = getOpponentPlayerId(turnPlayerId);
   restoreCastlingState(castlingStr);
   setPrevMovesFromStrings(srcBoardSpace, tgtBoardSpace);
+  calculateOpponentKingIsInCheck(opponentId);
 }
 
 void ChessBoardModel::setPrevMoves(Point2DPair point2dPair) {
@@ -665,7 +667,8 @@ bool ChessBoardModel::isPoint2dInArr(std::vector<Point2D> & point2dArr, Point2D 
 bool ChessBoardModel::getIsCheckmate(PlayerID playerId) {
   Point2D kingPoint2d = getKingPoint2D(playerId);
   King* kingPtr = getPlayerIdKing(playerId);
-  bool hasNoMovementTargets = false;
+  bool kingHasNoMovementTargets = false;
+  bool otherPiecesHaveNoMovementTargets = false;
 
   if (kingPtr != nullptr) {
     bool isInCheck = kingPtr->getIsInCheck();
@@ -674,13 +677,35 @@ bool ChessBoardModel::getIsCheckmate(PlayerID playerId) {
     }
 
     std::vector<Point2D> movementTargets = kingPtr->getMovementTargets(kingPoint2d);
-    hasNoMovementTargets = movementTargets.empty();
+    kingHasNoMovementTargets = movementTargets.empty();
+
+
+
+    std::vector<Point2D> playerIdPoints = getPointsByPlayerId(playerId);
+    for (Point2D point2d : playerIdPoints) {
+    }
   }
 
-  return hasNoMovementTargets;
+  return kingHasNoMovementTargets && otherPiecesHaveNoMovementTargets;
 }
 
-bool containsPoint(const std::vector<Point2D>& points, const Point2D& target) {
+std::vector<Point2D> ChessBoardModel::getPointsByPlayerId(PlayerID playerId) {
+  std::vector<Point2D> playerIdPoints;
+  for (int row = 0; row < MathUtils::BOARD_SIZE; ++row) {
+    for (int col = 0; col < MathUtils::BOARD_SIZE; ++col) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
+      bool hasPlayerId = chessPiecePtr->hasPlayerId(playerId);
+      if (hasPlayerId) {
+        Point2D currentPoint(row, col);
+        playerIdPoints.push_back(currentPoint);
+      }
+    }
+  }
+
+  return playerIdPoints;
+}
+
+bool ChessBoardModel::containsPoint(const std::vector<Point2D> & points, const Point2D& target) {
   return std::find(points.begin(), points.end(), target) != points.end();
 }
 
@@ -700,7 +725,7 @@ bool ChessBoardModel::getIsValidKingSpace(PlayerID playerId, Point2D targetPoint
     return false;
   }
 
-  result = checkIfHorizontalCaptureBlocksKingSpace(playerId, targetPoint);
+  result = checkIfCardinalCaptureBlocksKingSpace(playerId, targetPoint);
   if (result) {
     return false;
   }
@@ -792,33 +817,11 @@ bool ChessBoardModel::checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Poin
   return false;
 }
 
-bool ChessBoardModel::checkIfDiagonalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
+std::vector<Point2D> ChessBoardModel::getPointsWithPiecesThatCardinalCapture(PlayerID playerId, Point2D targetPoint) {
   ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
   Point2D kingPoint = getKingPoint2D(playerId);
   std::vector<Point2D> pointArr = targetPointPtr->getDiagonalSpaces(targetPoint, kingPoint);
-
-  for (Point2D point2d : pointArr) {
-    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
-    if (isValidPoint2d) {
-      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
-      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
-      bool isBishopPtr = isBishopChessPiecePtr(chessPiecePtr);
-      bool isQueenPtr = isQueenChessPiecePtr(chessPiecePtr);
-      bool isDiagonalCapture = isBishopPtr || isQueenPtr;
-      if (hasOpponentId && isDiagonalCapture) {
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
-
-bool ChessBoardModel::checkIfHorizontalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
-  ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
-  Point2D kingPoint = getKingPoint2D(playerId);
-  std::vector<Point2D> pointArr = targetPointPtr->getCardinalSpaces(targetPoint, kingPoint);
-
+  std::vector<Point2D> result;
   for (Point2D point2d : pointArr) {
     bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
     if (isValidPoint2d) {
@@ -828,10 +831,44 @@ bool ChessBoardModel::checkIfHorizontalCaptureBlocksKingSpace(PlayerID playerId,
       bool isQueenPtr = isQueenChessPiecePtr(chessPiecePtr);
       bool isDiagonalCapture = isRookPtr || isQueenPtr;
       if (hasOpponentId && isDiagonalCapture) {
-        return true;
+        result.push_back(point2d);
       }
     }
   }
 
-  return false;
+  return result;
+}
+
+std::vector<Point2D> ChessBoardModel::getPointsWithPiecesThatDiagonalCapture(PlayerID playerId, Point2D targetPoint) {
+  ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
+  Point2D kingPoint = getKingPoint2D(playerId);
+  std::vector<Point2D> pointArr = targetPointPtr->getDiagonalSpaces(targetPoint, kingPoint);
+  std::vector<Point2D> result;
+  for (Point2D point2d : pointArr) {
+    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
+    if (isValidPoint2d) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
+      bool isBishopPtr = isBishopChessPiecePtr(chessPiecePtr);
+      bool isQueenPtr = isQueenChessPiecePtr(chessPiecePtr);
+      bool isDiagonalCapture = isBishopPtr || isQueenPtr;
+      if (hasOpponentId && isDiagonalCapture) {
+        result.push_back(point2d);
+      }
+    }
+  }
+
+  return result;
+}
+
+bool ChessBoardModel::checkIfDiagonalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
+  std::vector<Point2D> pointArr = getPointsWithPiecesThatDiagonalCapture(playerId, targetPoint);
+  bool hasPoints = !pointArr.empty();
+  return hasPoints;
+}
+
+bool ChessBoardModel::checkIfCardinalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
+  std::vector<Point2D> pointArr = getPointsWithPiecesThatCardinalCapture(playerId, targetPoint);
+  bool hasPoints = !pointArr.empty();
+  return hasPoints;
 }
