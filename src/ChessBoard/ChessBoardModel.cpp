@@ -738,7 +738,7 @@ bool ChessBoardModel::getIsValidKingSpace(PlayerID playerId, Point2D targetPoint
   return true;
 }
 
-bool ChessBoardModel::checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
+std::vector<Point2D> ChessBoardModel::getKnightsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint) {
   std::vector<Point2D> pointsArr = {
     Point2D(targetPoint.getRow() + 1, targetPoint.getCol() + 2),
     Point2D(targetPoint.getRow() - 1, targetPoint.getCol() + 2),
@@ -750,6 +750,7 @@ bool ChessBoardModel::checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D ta
     Point2D(targetPoint.getRow() - 2, targetPoint.getCol() - 1)
   };
 
+  std::vector<Point2D> result;
   for (Point2D point2d : pointsArr) {
     bool isValidPoint = MathUtils::isValidPoint2D(point2d);
     if (isValidPoint) {
@@ -757,35 +758,18 @@ bool ChessBoardModel::checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D ta
       bool hasOpponentPlayerId = chessPiecePtr->hasOpponentPlayerId(playerId);
       PieceType pieceType = chessPiecePtr->getPieceType();
       if (hasOpponentPlayerId && pieceType == PieceType::KNIGHT) {
-        return true;
+        result.push_back(point2d);
       }
     }
   }
 
-  return false;
+  return result;
 }
 
 bool ChessBoardModel::checkIfPawnBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
-  int direction = playerId == PlayerID::PLAYER_WHITE ? -1 : 1;
-
-  std::vector<Point2D> pointArr = {
-    Point2D(targetPoint.getRow() + direction, targetPoint.getCol() - 1),
-    Point2D(targetPoint.getRow() + direction, targetPoint.getCol() + 1)
-  };
-
-  for (Point2D point2d : pointArr) {
-    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
-    if (isValidPoint2d) {
-      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
-      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
-      bool isPawnPtr = isPawnChessPiecePtr(chessPiecePtr);
-      if (hasOpponentId && isPawnPtr) {
-        return true;
-      }
-    }
-  }
-
-  return false;
+  std::vector<Point2D> points = getPawnsThatCanCapturePoint(playerId, targetPoint);
+  bool hasPoints = !points.empty();
+  return hasPoints;
 }
 
 bool ChessBoardModel::checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
@@ -815,6 +799,37 @@ bool ChessBoardModel::checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Poin
   }
 
   return false;
+}
+
+std::vector<Point2D> ChessBoardModel::getPawnsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint) {
+  int direction = playerId == PlayerID::PLAYER_WHITE ? -1 : 1;
+
+  std::vector<Point2D> pointArr = {
+          Point2D(targetPoint.getRow() + direction, targetPoint.getCol() - 1),
+          Point2D(targetPoint.getRow() + direction, targetPoint.getCol() + 1)
+  };
+
+  std::vector<Point2D> result;
+
+  for (Point2D point2d : pointArr) {
+    bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
+    if (isValidPoint2d) {
+      ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+      bool hasOpponentId = chessPiecePtr->hasOpponentPlayerId(playerId);
+      bool isPawnPtr = isPawnChessPiecePtr(chessPiecePtr);
+      if (hasOpponentId && isPawnPtr) {
+        result.push_back(point2d);
+      }
+    }
+  }
+
+  return result;
+}
+
+bool ChessBoardModel::checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D targetPoint) {
+  std::vector<Point2D> pointArr = getKnightsThatCanCapturePoint(playerId, targetPoint);
+  bool hasPoints = !pointArr.empty();
+  return hasPoints;
 }
 
 std::vector<Point2D> ChessBoardModel::getPointsWithPiecesThatCardinalCapture(PlayerID playerId, Point2D targetPoint) {

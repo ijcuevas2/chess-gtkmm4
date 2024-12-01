@@ -133,6 +133,8 @@ private:
     std::vector<Point2D> getPointsByPlayerId(PlayerID playerId);
     std::vector<Point2D> getPointsWithPiecesThatDiagonalCapture(PlayerID playerId, Point2D targetPoint);
     std::vector<Point2D> getPointsWithPiecesThatCardinalCapture(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getPawnsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getKnightsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint);
 };
 
 
