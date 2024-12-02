@@ -102,13 +102,13 @@ void ChessBoardView::updateLabel() {
 }
 
 void ChessBoardView::initBoard() {
-  chessMediator.getInitBoardWithCaptureInfo().emit();
+  chessMediator.getInitBoardWithCaptureInfoSignal().emit();
   updateUndoButtonUi(false);
 }
 
 void ChessBoardView::onNewGame() {
-  chessMediator.getClearBoard().emit();
-  chessMediator.getInitBoardWithCaptureInfo().emit();
+  chessMediator.getClearBoardSignal().emit();
+  chessMediator.getInitBoardWithCaptureInfoSignal().emit();
   m_drawingArea.queue_draw();
   this->updateLabel();
 }

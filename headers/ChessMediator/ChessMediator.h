@@ -46,8 +46,10 @@ public:
     sigc::signal<void()> getOpenCheckmateDialogSignal();
     sigc::signal<PlayerID()> getOpponentTurnPlayerIdSignal();
     sigc::signal<void()> getNewGameSignal();
-    sigc::signal<void()> getInitBoardWithCaptureInfo();
-    sigc::signal<void()> getClearBoard();
+    sigc::signal<void()> getInitBoardWithCaptureInfoSignal();
+    sigc::signal<void()> getClearBoardSignal();
+    sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> getBlockingCheckArrSignal();
+    sigc::signal<Point2D(PlayerID)> getKingCoordinatesSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -84,6 +86,8 @@ private:
     sigc::signal<void()> newGame;
     sigc::signal<void()> initBoardWithCaptureInfo;
     sigc::signal<void()> clearBoard;
+    sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> getBlockingCheckArr;
+    sigc::signal<Point2D(PlayerID)> getKingCoordinates;
 };
 
 

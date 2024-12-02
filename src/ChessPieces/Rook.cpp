@@ -34,6 +34,6 @@ void Rook::setCanCastle(bool value) {
 }
 
 std::vector<Point2D> Rook::getMovementTargets(Point2D point2d) {
-  std::vector<Point2D> movementTargets = ChessPiece::getCardinalSpaces(point2d);
+  std::vector<Point2D> movementTargets = ChessPiece::getOrthogonalSpaces(point2d);
   return movementTargets;
 }
