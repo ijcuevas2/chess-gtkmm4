@@ -13,6 +13,8 @@
 
 class MathUtils {
 public:
+    const static int BOARD_SIZE = 8;
+    const static int LAST_INDEX = 7;
     static int getNextCoordinate(int source, int dest);
     static bool isSourceEqualToTarget(Point2DPair point2dPair);
     static Point2DPair getNewDiagonalCoordinates(Point2DPair point2dPair);

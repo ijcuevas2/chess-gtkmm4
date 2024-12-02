@@ -114,9 +114,156 @@ Point2DPair ChessPiece::getNextCoordinates(Point2DPair point2dPair) {
   return Point2DPair(tgtRow, tgtCol, tgtRow, tgtCol);
 }
 
-void ChessPiece::afterPieceMoved(Point2DPair point2dPair) {
-}
-
 bool ChessPiece::getIsValidPath(Point2DPair point2dPair) {
   return false;
+}
+
+/**
+ * @TODO: REMOVE THIS FUNCTION
+ */
+bool ChessPiece::canAddSpace(Point2D point2d) {
+  bool isValidTargetPoint = isValidPoint2D(point2d);
+  if (isValidTargetPoint) {
+    bool isBoardSpaceOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(point2d.getRow(), point2d.getCol());
+    if (!isBoardSpaceOccupied) {
+      return true;
+    } else {
+      int targetRow = point2d.getRow();
+      int targetCol = point2d.getCol();
+      bool isTurnPlayerChessPiece = chessMediator.getIsTurnPlayersChessPieceSignal().emit(this->playerId, targetRow, targetCol);
+      if (!isTurnPlayerChessPiece) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+std::vector<Point2D> ChessPiece::getDiagonalSpacesHelper(Point2D point2d, bool isNorth, bool isEast, Point2D kingPoint) {
+  std::vector<Point2D> result(0);
+  int horizontalDirection = isEast ? 1 : -1;
+  int verticalDirection = isNorth ? -1 : 1;
+  int targetRow = point2d.getRow();
+  int targetCol = point2d.getCol();
+
+  bool canAddSpaceBool = false;
+  bool isOccupied = false;
+  bool isValidPointBool = true;
+
+  do {
+    targetCol += horizontalDirection;
+    targetRow += verticalDirection;
+
+    Point2D targetPoint(targetRow, targetCol);
+    if (targetPoint == kingPoint) {
+      targetCol += horizontalDirection;
+      targetRow += verticalDirection;
+      targetPoint = Point2D(targetRow, targetCol);
+    }
+
+    canAddSpaceBool = canAddSpace(targetPoint);
+
+    if (canAddSpaceBool) {
+      result.push_back(targetPoint);
+    }
+
+    isValidPointBool = isValidPoint2D(targetPoint);
+
+    if (isValidPointBool) {
+      isOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(targetRow, targetCol);
+    }
+  } while (canAddSpaceBool && !isOccupied && isValidPointBool);
+
+  return result;
+}
+
+std::vector<Point2D> ChessPiece::getCardinalSpacesHelper(Point2D point2d, bool isHorizontal, bool isIncreasing, Point2D kingPoint) {
+  std::vector<Point2D> result(0);
+  int direction = isIncreasing ? 1 : -1;
+  int targetRow = point2d.getRow();
+  int targetCol = point2d.getCol();
+
+  bool canAddSpaceBool = false;
+  bool isOccupied = false;
+  bool isValidPointBool = true;
+
+  do {
+    if (isHorizontal) {
+      targetCol += direction;
+    } else {
+      targetRow += direction;
+    }
+
+    Point2D targetPoint(targetRow, targetCol);
+    if (targetPoint == kingPoint) {
+      continue;
+    }
+
+    canAddSpaceBool = canAddSpace(targetPoint);
+
+    if (canAddSpaceBool) {
+      result.push_back(targetPoint);
+    }
+
+    isValidPointBool = isValidPoint2D(targetPoint);
+    if (isValidPointBool) {
+      isOccupied = chessMediator.getIsBoardIndexOccupiedSignal().emit(targetRow, targetCol);
+    }
+  } while (canAddSpaceBool && !isOccupied && isValidPointBool);
+
+  return result;
+}
+
+std::vector<Point2D> ChessPiece::getDiagonalSpaces(Point2D point2d, Point2D kingPoint) {
+  std::vector<Point2D> result(0);
+  std::vector<Point2D> northEastSpaces = getDiagonalSpacesHelper(point2d, true, true, kingPoint);
+  std::vector<Point2D> northWestSpaces = getDiagonalSpacesHelper(point2d, true, false, kingPoint);
+  std::vector<Point2D> southEastSpaces = getDiagonalSpacesHelper(point2d, false, true, kingPoint);
+  std::vector<Point2D> southWestSpaces = getDiagonalSpacesHelper(point2d, false, false, kingPoint);
+  result.insert(result.end(), northEastSpaces.begin(), northEastSpaces.end());
+  result.insert(result.end(), northWestSpaces.begin(), northWestSpaces.end());
+  result.insert(result.end(), southEastSpaces.begin(), southEastSpaces.end());
+  result.insert(result.end(), southWestSpaces.begin(), southWestSpaces.end());
+  return result;
+}
+
+std::vector<Point2D> ChessPiece::getCardinalSpaces(Point2D point2d, Point2D kingPoint) {
+  std::vector<Point2D> result(0);
+  std::vector<Point2D> firstEndSpaces = getCardinalSpacesHelper(point2d, true, true, kingPoint);
+  std::vector<Point2D> secondEndSpaces = getCardinalSpacesHelper(point2d, true, false, kingPoint);
+  std::vector<Point2D> thirdEndSpaces = getCardinalSpacesHelper(point2d, false, true, kingPoint);
+  std::vector<Point2D> fourthEndSpaces = getCardinalSpacesHelper(point2d, false, false, kingPoint);
+  result.insert(result.end(), firstEndSpaces.begin(), firstEndSpaces.end());
+  result.insert(result.end(), secondEndSpaces.begin(), secondEndSpaces.end());
+  result.insert(result.end(), thirdEndSpaces.begin(), thirdEndSpaces.end());
+  result.insert(result.end(), fourthEndSpaces.begin(), fourthEndSpaces.end());
+  return result;
+}
+
+std::vector<Point2D> ChessPiece::getQueenSpaces(Point2D point2d) {
+  std::vector<Point2D> firstEndSpaces = getCardinalSpaces(point2d);
+  std::vector<Point2D> secondEndSpaces = getDiagonalSpaces(point2d);
+  firstEndSpaces.reserve(firstEndSpaces.size() + secondEndSpaces.size());
+  firstEndSpaces.insert(firstEndSpaces.end(), secondEndSpaces.begin(), secondEndSpaces.end());
+  return firstEndSpaces;
+}
+
+void ChessPiece::afterPieceMoved(Point2DPair point2dPair) {
+  // captureTargets.clear();
+  // Point2D point2d(point2dPair.getSrcRow(), point2dPair.getSrcCol());
+  // setMovementTargets(point2d);
+}
+
+std::vector<Point2D> ChessPiece::getMovementTargets(Point2D point2d) {
+  std::vector<Point2D> movementTargets;
+  return movementTargets;
+}
+
+bool ChessPiece::hasPlayerId(PlayerID playerId) {
+  return this->playerId == playerId;
+}
+
+bool ChessPiece::hasOpponentPlayerId(PlayerID playerId) {
+  return this->playerId != playerId;
 }

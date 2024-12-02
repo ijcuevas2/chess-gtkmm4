@@ -33,3 +33,8 @@ Point2DPair Queen::getNextCoordinates(Point2DPair point2dPair) {
     return newCoordinates;
   }
 }
+
+std::vector<Point2D> Queen::getMovementTargets(Point2D point2d) {
+  std::vector<Point2D> movementTargets = ChessPiece::getQueenSpaces(point2d);
+  return movementTargets;
+}

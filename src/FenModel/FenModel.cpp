@@ -5,7 +5,7 @@
 #include "../../headers/FenModel/FenModel.h"
 
 FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediator) : chessBoardModel(chessBoardModel), chessMediator(chessMediator) {
-  chessMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadStateFromFile));
+  chessMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadGame));
   chessMediator.getOnUndoButtonClicked().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
   chessMediator.getSaveStateToFileSignal().connect(sigc::mem_fun(*this, &FenModel::saveStateToFile));
   chessMediator.getPointFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
@@ -338,7 +338,7 @@ void FenModel::saveStateToFile(std::string filePath = "") {
   }
 }
 
-void FenModel::loadStateFromFile(std::string filePath) {
+void FenModel::loadGame(std::string filePath) {
   fs::path fsFilePath = filePath;
 
   std::ifstream file(fsFilePath);

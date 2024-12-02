@@ -17,6 +17,7 @@ public:
     void afterPieceMoved(Point2DPair point2dPair) override;
     void setCanCastle(bool value);
     bool getCanCastle();
+    std::vector<Point2D> getMovementTargets(Point2D point2d) override;
 private:
     bool canCastle = true;
 };

@@ -1,3 +1,3 @@
 #!/bin/bash
 cd build
-cmake .. && make
+cmake .. && ninja && ./run_tests && ./chess

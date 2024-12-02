@@ -13,8 +13,8 @@ public:
     }
 
     bool getIsValidPath(Point2DPair point2dPair) override;
-
     bool isPieceBlockingPath(Point2DPair point2dPair) override;
+    std::vector<Point2D> getMovementTargets(Point2D point2d) override;
 };
 
 

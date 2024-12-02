@@ -100,11 +100,11 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           chessMediator.getSetPrevMoveSignal().emit(point2dPair);
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
-          chessBoardModel.calculateKingIsInCheck(chessBoardModel.getTurnPlayerId());
+          chessBoardModel.calculateOpponentKingIsInCheck(chessBoardModel.getTurnPlayerId());
           chessBoardModel.updateTurnPlayerId();
           fenModel.saveBoardState();
-          PlayerID playerId = getTurnPlayerId();
-          bool isCheckmate = chessBoardModel.getCurrentGameStatus(playerId);
+          PlayerID playerId = chessMediator.getTurnPlayerIdSignal().emit();
+          bool isCheckmate = chessBoardModel.getIsCheckmate(playerId);
           if (isCheckmate) {
             chessMediator.getOpenCheckmateDialogSignal().emit();
           }
@@ -136,16 +136,4 @@ void ChessBoardController::updateHalfTurnClock(ChessPiece* srcChessPiecePtr, Che
   } else {
     chessBoardModel.incrementHalfMoveClock();
   }
-}
-
-void ChessBoardController::initBoard() {
-  chessBoardModel.initBoard();
-}
-
-void ChessBoardController::clearBoard() {
-  chessBoardModel.clearBoard();
-}
-
-PlayerID ChessBoardController::getTurnPlayerId() {
-  return chessBoardModel.getTurnPlayerId();
 }

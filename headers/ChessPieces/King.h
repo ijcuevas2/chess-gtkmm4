@@ -18,13 +18,12 @@ public:
     King(PlayerID playerId, ChessMediator & chessMediator);
     bool getCanCastle();
     void setCanCastle(bool value);
-    bool getIsCheckmate();
-    void setIsCheckmate(bool value);
     void setIsInCheck(bool inCheck);
     bool getIsInCheck();
     bool getIsValidPath(Point2DPair point2dPair) override;
     void afterPieceMoved(Point2DPair point2dPair) override;
     bool isPieceBlockingPath(Point2DPair point2dPair) override;
+    std::vector<Point2D> getMovementTargets(Point2D point2d) override;
     bool isCastlingMove(Point2DPair point2dPair);
     bool wasCastlingMoveExecuted(Point2DPair point2dPair);
 };

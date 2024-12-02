@@ -24,6 +24,7 @@ void Rook::afterPieceMoved(Point2DPair point2dPair) {
   setCanCastle(false);
 }
 
+
 bool Rook::getCanCastle() {
   return canCastle;
 }
@@ -32,3 +33,7 @@ void Rook::setCanCastle(bool value) {
   canCastle = value;
 }
 
+std::vector<Point2D> Rook::getMovementTargets(Point2D point2d) {
+  std::vector<Point2D> movementTargets = ChessPiece::getCardinalSpaces(point2d);
+  return movementTargets;
+}

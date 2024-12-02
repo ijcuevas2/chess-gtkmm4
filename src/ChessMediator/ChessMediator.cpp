@@ -135,3 +135,11 @@ sigc::signal<bool(Point2D)> ChessMediator::getRookCanCastleSignal() {
 sigc::signal<void(Point2D)> ChessMediator::getMoveRookAfterCastleSignal() {
   return moveRookAfterCastle;
 }
+
+sigc::signal<void()> ChessMediator::getInitBoardWithCaptureInfo() {
+  return initBoardWithCaptureInfo;
+}
+
+sigc::signal<void()> ChessMediator::getClearBoard() {
+  return clearBoard;
+}

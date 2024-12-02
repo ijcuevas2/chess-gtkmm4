@@ -14,6 +14,9 @@ export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$LIBPREFIX/opt/libxml2/lib/pkgconfig"
 # where to install
 PREFIX="$PWD/install-prefix"
 
+# Get the SDK path
+SDK_PATH=$(xcrun --show-sdk-path)
+
 mkdir -p build
 cd build
 
@@ -21,6 +24,14 @@ cd build
 # ninja
 # ninja install
 
-cmake -G Ninja -DCMAKE_SHARED_LINKER_FLAGS="-L$LIBPREFIX/lib" -DCMAKE_EXE_LINKER_FLAGS="-L$LIBPREFIX/lib" -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DWITH_DBUS=OFF ..
+cmake -G Ninja \
+    -DCMAKE_OSX_SYSROOT="$SDK_PATH" \
+    -DCMAKE_SHARED_LINKER_FLAGS="-L$LIBPREFIX/lib" \
+    -DCMAKE_EXE_LINKER_FLAGS="-L$LIBPREFIX/lib" \
+    -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DCMAKE_C_COMPILER_LAUNCHER=ccache \
+    -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
+    -DWITH_DBUS=OFF \
+    ..
 
-ninja && ./chess
+ninja && ./run_tests && ./chess
