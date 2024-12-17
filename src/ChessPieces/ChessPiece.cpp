@@ -35,11 +35,6 @@ void ChessPiece::setPieceType(PieceType pieceType) {
   this->pieceType = pieceType;
 }
 
-void ChessPiece::copyChessPiece(ChessPiece *chessPiecePtr) {
-  this->setPlayerId(chessPiecePtr->playerId);
-  this->setPieceType(chessPiecePtr->pieceType);
-}
-
 bool ChessPiece::isValidPoint2D(Point2D point2d) {
   if (point2d.getRow() < 0 || point2d.getRow() > 7) {
     return false;
@@ -89,6 +84,13 @@ bool ChessPiece::canMoveToTarget(Point2DPair point2dPair) {
   }
 
   return false;
+}
+
+bool ChessPiece::canMoveToTargetWhileInCheck(Point2DPair point2dPair) {
+  bool canMoveToTargetBool = canMoveToTarget(point2dPair);
+  Point2D targetPoint(point2dPair.getTgtRow(), point2dPair.getTgtCol());
+  bool isPointContainedInKingMovementTargets = chessMediator.getIsPointContainedInKingMovementTargetsSignal().emit(playerId, targetPoint);
+  return canMoveToTargetBool && isPointContainedInKingMovementTargets;
 }
 
 bool ChessPiece::isPieceBlockingPath(Point2DPair point2dPair) {
@@ -249,10 +251,10 @@ std::vector<Point2D> ChessPiece::getQueenSpaces(Point2D point2d) {
   return firstEndSpaces;
 }
 
+std::vector<Point2D> ChessPiece::getAllSpacesHelper(Point2D point2d, Point2D kingPoint = Point2D(-1, -1)) {
+}
+
 void ChessPiece::afterPieceMoved(Point2DPair point2dPair) {
-  // captureTargets.clear();
-  // Point2D point2d(point2dPair.getSrcRow(), point2dPair.getSrcCol());
-  // setMovementTargets(point2d);
 }
 
 std::vector<Point2D> ChessPiece::getMovementTargets(Point2D point2d) {

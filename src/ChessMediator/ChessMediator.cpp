@@ -143,3 +143,7 @@ sigc::signal<void()> ChessMediator::getInitBoardWithCaptureInfo() {
 sigc::signal<void()> ChessMediator::getClearBoard() {
   return clearBoard;
 }
+
+sigc::signal<bool(PlayerID, Point2D)> ChessMediator::getIsPointContainedInKingMovementTargetsSignal() {
+  return getIsPointContainedInKingMovementTargets;
+}

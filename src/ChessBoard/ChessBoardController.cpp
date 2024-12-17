@@ -88,7 +88,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     if (!isSelectedBoardSpacePtr) {
       ChessPiece *srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
       Point2DPair point2dPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
-      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(point2dPair);
+      bool canMoveToTarget = chessBoardModel.canMoveToTarget2(srcChessPiecePtr, point2dPair);
       if (canMoveToTarget) {
         ChessPiece *targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
@@ -101,7 +101,10 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           chessBoardModel.assignChessPieceToBoardSpaceIndex(srcChessPiecePtr, row, col);
           chessBoardModel.clearSelectedBoardSpace();
           chessBoardModel.calculateOpponentKingIsInCheck(chessBoardModel.getTurnPlayerId());
+
+          // Calculate movement targets for each king
           chessBoardModel.updateTurnPlayerId();
+
           fenModel.saveBoardState();
           PlayerID playerId = chessMediator.getTurnPlayerIdSignal().emit();
           bool isCheckmate = chessBoardModel.getIsCheckmate(playerId);

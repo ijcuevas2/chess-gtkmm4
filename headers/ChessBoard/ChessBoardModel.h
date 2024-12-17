@@ -41,16 +41,12 @@ public:
     void setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col);
     ChessPiece *initEmptyPiece();
     Glib::RefPtr<Gdk::Pixbuf> getPieceImageContent(ChessPiece *chessPiece);
-    bool isValidEncoding(std::vector<std::vector<std::string>> & chessBoard);
     void setSelectedBoardSpacePtr(BoardSpace *boardSpacePtr);
     BoardSpace *getSelectedBoardSpacePtr();
     bool hasSelectedBoardSpacePtr();
     void clearSelectedBoardSpacePtr();
-    bool isEmptyPiece(ChessPiece *chessPiecePtr);
-    bool isSelectedBoardSpacePtr(BoardSpace *boardSpacePtr);
     bool isSelectedBoardSpacePtr(int row, int col);
     bool isBoardSpaceOccupied(int row, int col);
-    bool isTurnPlayersChessPiece(ChessPiece *chessPiece, int targetRow, int targetCol);
     bool isTurnPlayersChessPieceHelper(PlayerID playerId, int targetRow, int targetCol);
     void updateKingPosition(PlayerID playerId, int row, int col);
     void clearSelectedBoardSpace();
@@ -60,7 +56,6 @@ public:
     bool isTurnPlayer(BoardSpace *boardSpacePtr);
     bool isTurnPlayer(ChessPiece *chessPiecePtr);
     bool isTurnPlayerHelper(PlayerID playerId);
-    bool canOpponentsPiecesPutKingInCheck(PlayerID playerId, Point2DPair point2dPair);
     int getCurrentTurn();
     int getHalfMoveClock();
     void incrementHalfMoveClock();
@@ -80,39 +75,33 @@ public:
     Point2DPair getPrevMoves();
     bool isPlayerIdKingInCheck(PlayerID playerId);
     bool getIsCheckmate(PlayerID playerId);
-    // void initMovementTargets();
+    std::vector<Point2D> blackKingMovementTargets;
+    std::vector<Point2D> whiteKingMovementTargets;
+    bool canMoveToTarget2(ChessPiece* chessPiecePtr, Point2DPair point2dPair);
 private:
     const static int BOARD_SIZE = 8;
     int currentTurn = 1;
     int halfMoveClock = 0;
     Point2D enPassantSquare{-1, -1};
     Point2DPair prevMoves{-1, -1, -1, -1};
-    int whitePawnCaptureRow = 4;
-    int blackPawnCaptureRow = 3;
     BoardSpace* board[BOARD_SIZE][BOARD_SIZE];
     ChessImagesInfo chessImagesInfo{};
     ChessMediator & chessMediator;
     BoardSpace *selectedBoardSpacePtr = nullptr;
     PlayerID turnPlayerId{PlayerID::PLAYER_WHITE};
-    ChessPiece* initChessPieceFromStr(std::string chessPieceStr);
     void restoreCastlingState(std::string castlingStr);
     void restoreCastlingStateHelper(int row, int col);
     PlayerID getTurnPlayerFromStr(std::string turnPlayerId);
     ChessPiece *initChessPieceFromChar(char chessPieceChar);
-    int getCounterValue(int col, int counter);
-    void updateUndoButtonStatus();
-    bool isPawn(Point2D point2d);
     bool isPawnChessPiecePtr(ChessPiece* chessPiece);
     bool isKingChessPiecePtr(ChessPiece* chessPiece);
     bool isBishopChessPiecePtr(ChessPiece* chessPiece);
     bool isRookChessPiecePtr(ChessPiece* chessPiece);
     bool isQueenChessPiecePtr(ChessPiece* chessPiece);
-    bool isKnightChessPiecePtr(ChessPiece* chessPiece);
     void updatePawnFirstTurn(ChessPiece* chessPiece, int row);
     bool isEnPassantSquare(Point2D point2d);
     Point2D getEnPassantCoordinates(Point2DPair point2dPair);
     void clearEnPassantCaptureSpace(Point2DPair point2dPair);
-    bool isEnPassantCapture(Point2DPair point2dPair);
     void assignEmptySpaceToBoardSpaceIndex(int row, int col);
     Point2D getEnPassantSquare();
     void setPrevMovesFromStrings(std::string srcBoardSpace, std::string tgtBoardSpace);
@@ -124,7 +113,6 @@ private:
     void moveRookAfterCastle(Point2D point2d);
     PlayerID getOpponentTurnPlayerId();
     void initBoardWithCaptureInfo();
-    bool containsPoint(const std::vector<Point2D> & points, const Point2D & target);
     bool checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
     bool checkIfPawnBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
     bool checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
@@ -135,6 +123,9 @@ private:
     std::vector<Point2D> getPointsWithPiecesThatCardinalCapture(PlayerID playerId, Point2D targetPoint);
     std::vector<Point2D> getPawnsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint);
     std::vector<Point2D> getKnightsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint);
+    bool getIsPointContainedInKingMovementTargets(PlayerID playerId, Point2D targetPoint);
+    void storeKingMovementTargets(PlayerID playerId);
+    std::vector<Point2D> getKingMovementTargets(PlayerID playerId);
 };
 
 

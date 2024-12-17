@@ -48,6 +48,7 @@ public:
     sigc::signal<void()> getNewGameSignal();
     sigc::signal<void()> getInitBoardWithCaptureInfo();
     sigc::signal<void()> getClearBoard();
+    sigc::signal<bool(PlayerID, Point2D)> getIsPointContainedInKingMovementTargetsSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -84,6 +85,7 @@ private:
     sigc::signal<void()> newGame;
     sigc::signal<void()> initBoardWithCaptureInfo;
     sigc::signal<void()> clearBoard;
+    sigc::signal<bool(PlayerID, Point2D)> getIsPointContainedInKingMovementTargets;
 };
 
 
