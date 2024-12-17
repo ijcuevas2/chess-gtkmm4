@@ -28,6 +28,7 @@
 #include <cctype>
 #include "../../headers/Utils/MathUtils.h"
 #include "ChessMediator/ChessMediator.h"
+#include <type_traits>
 
 class ChessBoardModel : public Gtk::DrawingArea {
 public:
@@ -129,12 +130,39 @@ private:
     bool checkIfPawnBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
     bool checkIfOpponentKingBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
     bool checkIfDiagonalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
-    bool checkIfCardinalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
+    bool checkIfOrthogonalCaptureBlocksKingSpace(PlayerID playerId, Point2D targetPoint);
     std::vector<Point2D> getPointsByPlayerId(PlayerID playerId);
     std::vector<Point2D> getPointsWithPiecesThatDiagonalCapture(PlayerID playerId, Point2D targetPoint);
-    std::vector<Point2D> getPointsWithPiecesThatCardinalCapture(PlayerID playerId, Point2D targetPoint);
-    std::vector<Point2D> getPawnsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint);
-    std::vector<Point2D> getKnightsThatCanCapturePoint(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getPointsWithPiecesThatOrthogonalCapture(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getPawnPointsThatCanCapture(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getKnightPointsThatCanCapture(PlayerID playerId, Point2D targetPoint);
+    std::optional<std::vector<Point2D>> getBlockingCheckArr(PlayerID playerId, Point2D point2d);
+    template<typename T, typename... Args>
+    std::optional<std::vector<T>> hasOnlyOneArrWithElements(const std::vector<T> & first, const Args&... args) {
+      static_assert((std::is_same_v<std::vector<T>, Args> && ...), "All arguments must be vectors of the same type");
+      const std::vector<T>* nonEmptyVector = nullptr;
+      int count = 0;
+
+      auto checkVector = [&](const auto & vec) {
+        if (vec.size() > 0) {
+          count++;
+          nonEmptyVector = &vec;
+        }
+      };
+
+      checkVector(first);
+      (checkVector(args), ...);
+
+      if (count == 1 && nonEmptyVector != nullptr) {
+        return *nonEmptyVector;
+      }
+
+      return std::nullopt;
+    }
+
+    bool getCanBlockCheck(PlayerID playerId, Point2D targetPoint);
+    std::vector<Point2D> getDiagonalSpaces(Point2D point2d);
+    std::vector<Point2D> getOrthogonalSpaces(Point2D point2d);
 };
 
 

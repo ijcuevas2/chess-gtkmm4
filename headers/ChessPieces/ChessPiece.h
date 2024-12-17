@@ -33,12 +33,13 @@ public:
     virtual bool canMoveToTarget(Point2DPair point2dPair);
     virtual void afterPieceMoved(Point2DPair point2dPair);
     virtual std::vector<Point2D> getMovementTargets(Point2D point2d);
-    std::vector<Point2D> getCardinalSpaces(Point2D point2d, Point2D kingPoint = Point2D(-1, -1));
+    std::vector<Point2D> getOrthogonalSpaces(Point2D point2d, Point2D kingPoint = Point2D(-1, -1));
     std::vector<Point2D> getDiagonalSpaces(Point2D point2d, Point2D kingPoint = Point2D(-1, -1));
     std::vector<Point2D> getQueenSpaces(Point2D point2d);
 private:
-    std::vector<Point2D> getCardinalSpacesHelper(Point2D point2d, bool isHorizontal, bool isIncreasing, Point2D kingPoint = Point2D(-1, -1));
+    std::vector<Point2D> getOrthogonalSpacesHelper(Point2D point2d, bool isHorizontal, bool isIncreasing, Point2D kingPoint = Point2D(-1, -1));
     std::vector<Point2D> getDiagonalSpacesHelper(Point2D point2d, bool isNorth, bool isEast, Point2D kingPoint = Point2D(-1, -1));
+    std::vector<Point2D> getMovementTargetsIfKingIsInCheck(std::vector<Point2D> pointsArr);
 protected:
     bool canAddSpace(Point2D point2d);
     std::vector<Point2D> captureTargets{0};

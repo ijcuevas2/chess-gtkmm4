@@ -77,16 +77,16 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
 
   bool hasSelectedBoardSpacePtr = chessBoardModel.hasSelectedBoardSpacePtr();
   if (!hasSelectedBoardSpacePtr) {
-    BoardSpace *boardSpacePtr = chessBoardModel.getBoardSpacePtr(row, col);
+    BoardSpace* boardSpacePtr = chessBoardModel.getBoardSpacePtr(row, col);
     bool isTurnPlayer = chessBoardModel.isTurnPlayer(boardSpacePtr);
     if (isTurnPlayer) {
       chessBoardModel.setSelectedBoardSpacePtr(boardSpacePtr);
     }
   } else {
-    BoardSpace *selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
+    BoardSpace* selectedBoardSpacePtr = chessBoardModel.getSelectedBoardSpacePtr();
     bool isSelectedBoardSpacePtr = chessBoardModel.isSelectedBoardSpacePtr(row, col);
     if (!isSelectedBoardSpacePtr) {
-      ChessPiece *srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
+      ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
       Point2DPair point2dPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
       bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(point2dPair);
       if (canMoveToTarget) {

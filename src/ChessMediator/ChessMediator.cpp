@@ -136,10 +136,18 @@ sigc::signal<void(Point2D)> ChessMediator::getMoveRookAfterCastleSignal() {
   return moveRookAfterCastle;
 }
 
-sigc::signal<void()> ChessMediator::getInitBoardWithCaptureInfo() {
+sigc::signal<void()> ChessMediator::getInitBoardWithCaptureInfoSignal() {
   return initBoardWithCaptureInfo;
 }
 
-sigc::signal<void()> ChessMediator::getClearBoard() {
+sigc::signal<void()> ChessMediator::getClearBoardSignal() {
   return clearBoard;
+}
+
+sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> ChessMediator::getBlockingCheckArrSignal() {
+  return getBlockingCheckArr;
+}
+
+sigc::signal<Point2D(PlayerID)> ChessMediator::getKingCoordinatesSignal() {
+  return getKingCoordinates;
 }
