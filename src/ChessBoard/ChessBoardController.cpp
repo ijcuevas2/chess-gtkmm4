@@ -88,8 +88,8 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     if (!isSelectedBoardSpacePtr) {
       ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
       Point2DPair point2dPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
-      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(point2dPair);
-      if (canMoveToTarget) {
+      bool canMoveToTargetBool = chessBoardModel.canMoveToTarget(point2dPair);
+      if (canMoveToTargetBool) {
         ChessPiece *targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
         if (isDifferentPiece) {

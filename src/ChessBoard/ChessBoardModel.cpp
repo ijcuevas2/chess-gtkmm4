@@ -31,6 +31,8 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getCanBlockCheckPointsSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCanBlockCheckPointsArr));
   chessMediator.getKingMovementTargetSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getKingMovementTargets));
   chessMediator.getCommonElementsSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCommonElements));
+  chessMediator.getContainsPointSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::containsPoint));
+  chessMediator.getKingCoordinatesSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getKingPoint2D));
 }
 
 void ChessBoardModel::initBoardWithCaptureInfo() {
@@ -67,8 +69,7 @@ void ChessBoardModel::assignChessPieceToBoardSpaceIndex(ChessPiece *sourceChessP
 }
 
 void ChessBoardModel::assignEmptySpaceToBoardSpaceIndex(int row, int col) {
-  EmptyPiece* emptyPiece = new EmptyPiece(chessMediator);
-  assignChessPieceToBoardSpaceIndex(emptyPiece, row, col);
+  EmptyPiece* emptyPiece = new EmptyPiece(chessMediator);assignChessPieceToBoardSpaceIndex(emptyPiece, row, col);
 }
 
 void ChessBoardModel::setNewBoardSpaceAtIndex(ChessPiece *chessPiecePtr, int row, int col) {
@@ -296,13 +297,26 @@ int ChessBoardModel::getHalfMoveClock() {
 }
 
 void ChessBoardModel::showHintMarkers(BoardSpace *boardSpacePtr) {
-  ChessPiece *chessPiecePtr = boardSpacePtr->getChessPiecePtr();
   Point2D srcPoint2d(boardSpacePtr->getRow(), boardSpacePtr->getCol());
-  std::vector<Point2D> captureTargets = chessPiecePtr->getMovementTargets(srcPoint2d);
+  std::vector<Point2D> captureTargets = getMovementTargets(srcPoint2d);
   for (Point2D point2d : captureTargets) {
     BoardSpace* boardSpace = getBoardSpacePtr(point2d.getRow(), point2d.getCol());
     boardSpace->showMarker();
   }
+}
+
+std::vector<Point2D> ChessBoardModel::getMovementTargets(Point2D srcPoint2d) {
+  ChessPiece* chessPiecePtr = getChessPiecePtr(srcPoint2d.getRow(), srcPoint2d.getCol());
+  PlayerID playerId = chessPiecePtr->getPlayerId();
+  std::vector<Point2D> result;
+  bool isKingInCheck = chessMediator.getIsKingInCheckSignal().emit(playerId);
+  if (isKingInCheck) {
+    result = chessPiecePtr->getMovementTargetsIfKingIsInCheck(srcPoint2d);
+  } else {
+    result = chessPiecePtr->getMovementTargets(srcPoint2d);
+  }
+
+  return result;
 }
 
 void ChessBoardModel::hideHintMarkers() {
@@ -947,3 +961,21 @@ std::vector<Point2D> ChessBoardModel::getCommonElements(const std::vector<Point2
 
   return commonPoints;
 }
+
+bool ChessBoardModel::canMoveToTarget(Point2DPair point2DPair) {
+  Point2D srcPoint2d(point2DPair.getSrcRow(), point2DPair.getSrcCol());
+  ChessPiece* chessPiecePtr = getChessPiecePtr(srcPoint2d.getRow(), srcPoint2d.getCol());
+  PlayerID playerId = chessPiecePtr->getPlayerId();
+  bool isKingInCheck = chessMediator.getIsKingInCheckSignal().emit(playerId);
+  bool result = false;
+  if (isKingInCheck) {
+    std::vector<Point2D> movementTargets = chessPiecePtr->getMovementTargetsIfKingIsInCheck(srcPoint2d);
+    Point2D targetPoint2d(point2DPair.getTgtRow(), point2DPair.getTgtCol());
+    result = chessMediator.getContainsPointSignal().emit(movementTargets, targetPoint2d);
+  } else {
+    result = chessPiecePtr->canMoveToTarget(point2DPair);
+  }
+
+  return result;
+}
+

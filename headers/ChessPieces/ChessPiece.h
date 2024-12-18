@@ -36,10 +36,10 @@ public:
     std::vector<Point2D> getOrthogonalSpaces(Point2D point2d, Point2D kingPoint = Point2D(-1, -1));
     std::vector<Point2D> getDiagonalSpaces(Point2D point2d, Point2D kingPoint = Point2D(-1, -1));
     std::vector<Point2D> getQueenSpaces(Point2D point2d);
+    std::vector<Point2D> getMovementTargetsIfKingIsInCheck(Point2D point2d);
 private:
     std::vector<Point2D> getOrthogonalSpacesHelper(Point2D point2d, bool isHorizontal, bool isIncreasing, Point2D kingPoint = Point2D(-1, -1));
     std::vector<Point2D> getDiagonalSpacesHelper(Point2D point2d, bool isNorth, bool isEast, Point2D kingPoint = Point2D(-1, -1));
-    std::vector<Point2D> getMovementTargetsIfKingIsInCheck(Point2D point2d);
 protected:
     bool canAddSpace(Point2D point2d);
     std::vector<Point2D> captureTargets{0};

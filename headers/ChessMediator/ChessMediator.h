@@ -52,6 +52,7 @@ public:
     sigc::signal<Point2D(PlayerID)> getKingCoordinatesSignal();
     sigc::signal<std::vector<Point2D>(PlayerID)> getKingMovementTargetSignal();
     sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> getCommonElementsSignal();
+    sigc::signal<bool(const std::vector<Point2D>, const Point2D)> getContainsPointSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -92,6 +93,7 @@ private:
     sigc::signal<Point2D(PlayerID)> getKingCoordinates;
     sigc::signal<std::vector<Point2D>(PlayerID)> getKingMovementTarget;
     sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> getCommonElements;
+    sigc::signal<bool(const std::vector<Point2D>, const Point2D)> containsPoints;
 };
 
 

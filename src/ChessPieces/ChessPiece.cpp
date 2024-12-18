@@ -266,7 +266,8 @@ std::vector<Point2D> ChessPiece::getMovementTargetsIfKingIsInCheck(Point2D point
   if (isKingInCheck) {
     Point2D kingCoordinates = chessMediator.getKingCoordinatesSignal().emit(playerId);
     std::optional<std::vector<Point2D>> blockingCheckPoints = chessMediator.getCanBlockCheckPointsSignal().emit(playerId, kingCoordinates);
-    if (blockingCheckPoints.has_value()) {
+    bool hasValue = blockingCheckPoints.has_value();
+    if (hasValue) {
       std::vector<Point2D> checkPoints = blockingCheckPoints.value();
       movementTargets = chessMediator.getCommonElementsSignal().emit(movementTargets, checkPoints);
     }
