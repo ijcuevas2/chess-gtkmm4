@@ -22,7 +22,6 @@ private:
     void updateHalfTurnClock(ChessPiece* srcChessPiecePtr, ChessPiece* targetChessPiecePtr);
     void clearSelectedBoardSpacePtrUI();
     void tryClearingEnPassantCaptureSquare(ChessPiece *chessPiecePtr, Point2DPair point2dPair);
-    bool canMoveToTarget(Point2DPair point2DPair);
 };
 
 

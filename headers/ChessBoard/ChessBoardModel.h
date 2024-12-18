@@ -84,6 +84,7 @@ public:
     bool getIsCheckmate(PlayerID playerId);
     std::vector<Point2D> getMovementTargets();
     std::vector<Point2D> getMovementTargets(Point2D srcPoint2d);
+    bool canMoveToTarget(Point2DPair point2DPair);
 private:
     const static int BOARD_SIZE = 8;
     int currentTurn = 1;
