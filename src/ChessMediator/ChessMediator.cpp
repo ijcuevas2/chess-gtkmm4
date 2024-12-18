@@ -159,3 +159,7 @@ sigc::signal<std::vector<Point2D>(PlayerID)> ChessMediator::getKingMovementTarge
 sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> ChessMediator::getCommonElementsSignal() {
   return getCommonElements;
 }
+
+sigc::signal<bool(const std::vector<Point2D>, const Point2D)> ChessMediator::getContainsPointSignal() {
+  return containsPoints;
+}

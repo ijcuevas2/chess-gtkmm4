@@ -82,7 +82,8 @@ public:
     Point2DPair getPrevMoves();
     bool isPlayerIdKingInCheck(PlayerID playerId);
     bool getIsCheckmate(PlayerID playerId);
-    // void initMovementTargets();
+    std::vector<Point2D> getMovementTargets();
+    std::vector<Point2D> getMovementTargets(Point2D srcPoint2d);
 private:
     const static int BOARD_SIZE = 8;
     int currentTurn = 1;

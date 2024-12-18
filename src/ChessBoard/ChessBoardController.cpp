@@ -88,7 +88,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
     if (!isSelectedBoardSpacePtr) {
       ChessPiece* srcChessPiecePtr = selectedBoardSpacePtr->getChessPiecePtr();
       Point2DPair point2dPair(selectedBoardSpacePtr->getRow(), selectedBoardSpacePtr->getCol(), row, col);
-      bool canMoveToTarget = srcChessPiecePtr->canMoveToTarget(point2dPair);
+      bool canMoveToTarget = canMoveToTarget(point2dPair);
       if (canMoveToTarget) {
         ChessPiece *targetChessPiecePtr = chessBoardModel.getChessPiecePtr(row, col);
         bool isDifferentPiece = targetChessPiecePtr != srcChessPiecePtr;
@@ -114,6 +114,23 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
 
     clearSelectedBoardSpacePtrUI();
   }
+}
+
+bool ChessBoardController::canMoveToTarget(Point2DPair point2DPair) {
+  Point2D srcPoint2d(point2DPair.getSrcRow(), point2DPair.getSrcCol());
+  ChessPiece* chessPiecePtr = chessBoardModel.getChessPiecePtr(srcPoint2d);
+  PlayerID playerId = chessPiecePtr->getPlayerId();
+  bool isKingInCheck = chessMediator.getIsKingInCheckSignal().emit(playerId);
+  bool result = false;
+  if (isKingInCheck) {
+     result = chessPiecePtr->canMoveToTarget(point2DPair);
+  } else {
+     std::vector<Point2D> movementTargets = chessPiecePtr->getMovementTargetsIfKingIsInCheck(srcPoint2d);
+     Point2D targetPoint2d(point2DPair.getTgtRow(), point2DPair.getTgtCol());
+     result = chessMediator.getContainsPointSignal().emit(movementTargets, targetPoint2d);
+  }
+
+  return result;
 }
 
 void ChessBoardController::tryClearingEnPassantCaptureSquare(ChessPiece* chessPiecePtr, Point2DPair point2dPair) {

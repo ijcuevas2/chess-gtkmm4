@@ -31,6 +31,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getCanBlockCheckPointsSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCanBlockCheckPointsArr));
   chessMediator.getKingMovementTargetSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getKingMovementTargets));
   chessMediator.getCommonElementsSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCommonElements));
+  chessMediator.getContainsPointSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::containsPoint));
 }
 
 void ChessBoardModel::initBoardWithCaptureInfo() {
@@ -303,6 +304,20 @@ void ChessBoardModel::showHintMarkers(BoardSpace *boardSpacePtr) {
     BoardSpace* boardSpace = getBoardSpacePtr(point2d.getRow(), point2d.getCol());
     boardSpace->showMarker();
   }
+}
+
+std::vector<Point2D> ChessBoardModel::getMovementTargets(Point2D srcPoint2d) {
+  ChessPiece* chessPiecePtr = getChessPiecePtr(srcPoint2d.getRow(), srcPoint2d.getCol());
+  PlayerID playerId = chessPiecePtr->getPlayerId();
+  std::vector<Point2D> result;
+  bool isKingInCheck = chessMediator.getIsKingInCheckSignal().emit(playerId);
+  if (isKingInCheck) {
+    result = chessPiecePtr->getMovementTargetsIfKingIsInCheck();
+  } else {
+    result = chessPiecePtr->getMovementTargets(srcPoint2d);
+  }
+
+  return result;
 }
 
 void ChessBoardModel::hideHintMarkers() {
