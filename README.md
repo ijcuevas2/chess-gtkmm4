@@ -23,8 +23,6 @@ This is an implementation of the standard variant of Chess. This program is impl
 - Look into minimax 
 - Unit Tests
 - Automation Tests
-- Stopping king in check with another piece
-- Restoring being in check or checkmate after loading a saved state
 
 ### TODO: Improvements
 - Chess Movement Algorithm
