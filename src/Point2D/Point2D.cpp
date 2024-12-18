@@ -18,14 +18,18 @@ void Point2D::setCol(int col) {
   this->col = col;
 }
 
-int Point2D::getRow() {
+int Point2D::getRow() const {
   return row;
 }
 
-int Point2D::getCol() {
+int Point2D::getCol() const {
   return col;
 }
 
 bool Point2D::operator==(const Point2D & other) const {
   return this->row == other.row && this->col == other.col;
+}
+
+size_t Point2D::HashFunction::operator()(const Point2D& p) const {
+  return std::hash<int>()(p.getRow()) ^ (std::hash<int>()(p.getCol()) << 1);
 }

@@ -144,10 +144,18 @@ sigc::signal<void()> ChessMediator::getClearBoardSignal() {
   return clearBoard;
 }
 
-sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> ChessMediator::getBlockingCheckArrSignal() {
-  return getBlockingCheckArr;
+sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> ChessMediator::getCanBlockCheckPointsSignal() {
+  return getCanBlockCheckPoints;
 }
 
 sigc::signal<Point2D(PlayerID)> ChessMediator::getKingCoordinatesSignal() {
   return getKingCoordinates;
+}
+
+sigc::signal<std::vector<Point2D>(PlayerID)> ChessMediator::getKingMovementTargetSignal() {
+  return getKingMovementTarget;
+}
+
+sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> ChessMediator::getCommonElementsSignal() {
+  return getCommonElements;
 }

@@ -48,8 +48,10 @@ public:
     sigc::signal<void()> getNewGameSignal();
     sigc::signal<void()> getInitBoardWithCaptureInfoSignal();
     sigc::signal<void()> getClearBoardSignal();
-    sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> getBlockingCheckArrSignal();
+    sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> getCanBlockCheckPointsSignal();
     sigc::signal<Point2D(PlayerID)> getKingCoordinatesSignal();
+    sigc::signal<std::vector<Point2D>(PlayerID)> getKingMovementTargetSignal();
+    sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> getCommonElementsSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -86,8 +88,10 @@ private:
     sigc::signal<void()> newGame;
     sigc::signal<void()> initBoardWithCaptureInfo;
     sigc::signal<void()> clearBoard;
-    sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> getBlockingCheckArr;
+    sigc::signal<std::optional<std::vector<Point2D>>(PlayerID playerId, Point2D point2d)> getCanBlockCheckPoints;
     sigc::signal<Point2D(PlayerID)> getKingCoordinates;
+    sigc::signal<std::vector<Point2D>(PlayerID)> getKingMovementTarget;
+    sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> getCommonElements;
 };
 
 

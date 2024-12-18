@@ -28,7 +28,9 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getOpponentTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getOpponentTurnPlayerId));
   chessMediator.getInitBoardWithCaptureInfoSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::initBoardWithCaptureInfo));
   chessMediator.getClearBoardSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::clearBoard));
-  chessMediator.getBlockingCheckArrSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getBlockingCheckArr));
+  chessMediator.getCanBlockCheckPointsSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCanBlockCheckPointsArr));
+  chessMediator.getKingMovementTargetSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getKingMovementTargets));
+  chessMediator.getCommonElementsSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCommonElements));
 }
 
 void ChessBoardModel::initBoardWithCaptureInfo() {
@@ -239,19 +241,43 @@ PlayerID ChessBoardModel::getOpponentTurnPlayerId() {
 }
 
 void ChessBoardModel::updateTurnPlayerId() {
+  updateKingMovementTargets(turnPlayerId);
+
   if (turnPlayerId == PlayerID::PLAYER_WHITE) {
     turnPlayerId = PlayerID::PLAYER_BLACK;
   } else if (turnPlayerId == PlayerID::PLAYER_BLACK) {
     turnPlayerId = PlayerID::PLAYER_WHITE;
     currentTurn++;
   }
+
+  updateKingMovementTargets(turnPlayerId);
+}
+
+void ChessBoardModel::updateKingMovementTargets(PlayerID playerId) {
+  Point2D point2d = getKingPoint2D(playerId);
+  ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+  std::vector<Point2D> movementTargets = chessPiecePtr->getMovementTargets(point2d);
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    whiteKingMovementTargets = movementTargets;
+  } else if (playerId == PlayerID::PLAYER_BLACK) {
+    blackKingMovementTargets = movementTargets;
+  }
+}
+
+std::vector<Point2D> ChessBoardModel::getKingMovementTargets(PlayerID playerId) {
+  if (playerId == PlayerID::PLAYER_WHITE) {
+    return whiteKingMovementTargets;
+  } else if (playerId == PlayerID::PLAYER_BLACK) {
+    return blackKingMovementTargets;
+  }
+
+  return std::vector<Point2D>();
 }
 
 bool ChessBoardModel::isTurnPlayer(BoardSpace *boardSpacePtr) {
   ChessPiece *chessPiecePtr = boardSpacePtr->getChessPiecePtr();
   return isTurnPlayer(chessPiecePtr);
 }
-
 bool ChessBoardModel::isTurnPlayer(ChessPiece *chessPiecePtr) {
   PlayerID playerId = chessPiecePtr->getPlayerId();
   return isTurnPlayerHelper(playerId);
@@ -502,11 +528,6 @@ void ChessBoardModel::moveRookAfterCastle(Point2D point2d) {
   }
 }
 
-int ChessBoardModel::getCounterValue(int col, int counter) {
-  int actualCounter = std::max(0, counter);
-  return col + actualCounter;
-}
-
 void ChessBoardModel::initChessBoardFromBoardConfig(std::string boardConfigStr) {
   char delimiter = '/';
   std::vector<std::string> boardConfig = StringUtils::split(boardConfigStr, delimiter);
@@ -586,13 +607,6 @@ bool ChessBoardModel::isKnightChessPiecePtr(ChessPiece* chessPiecePtr) {
   return result;
 }
 
-bool ChessBoardModel::isPawn(Point2D point2d) {
-  int row = point2d.getRow();
-  int col = point2d.getCol();
-  ChessPiece* chessPiecePtr = getChessPiecePtr(row, col);
-  return isPawnChessPiecePtr(chessPiecePtr);
-}
-
 bool ChessBoardModel::isEnPassantSquare(Point2D point2d) {
   bool isSameRow = point2d.getRow() == enPassantSquare.getRow();
   bool isSameCol = point2d.getCol() == enPassantSquare.getCol();
@@ -654,17 +668,6 @@ King* ChessBoardModel::getPlayerIdKing(PlayerID playerId) {
   return nullptr;
 }
 
-bool ChessBoardModel::isPoint2dInArr(std::vector<Point2D> & point2dArr, Point2D point2d) {
-  for (int i = 0; i < point2dArr.size(); ++i) {
-    Point2D currentPoint = point2dArr[i];
-    if (point2d == currentPoint) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
 bool ChessBoardModel::getIsCheckmate(PlayerID playerId) {
   Point2D kingPoint2d = getKingPoint2D(playerId);
   King* kingPtr = getPlayerIdKing(playerId);
@@ -687,7 +690,7 @@ bool ChessBoardModel::getIsCheckmate(PlayerID playerId) {
 }
 
 bool ChessBoardModel::getCanBlockCheck(PlayerID playerId, Point2D targetPoint) {
-  std::optional<std::vector<Point2D>> blockingCheckArr = getBlockingCheckArr(playerId, targetPoint);
+  std::optional<std::vector<Point2D>> blockingCheckArr = getCanBlockCheckPointsArr(playerId, targetPoint);
   if (blockingCheckArr.has_value()) {
     std::vector<Point2D> playerIdPoints = getPointsByPlayerId(playerId);
     for (Point2D currPlayerIdPoints : playerIdPoints) {
@@ -705,7 +708,7 @@ bool ChessBoardModel::getCanBlockCheck(PlayerID playerId, Point2D targetPoint) {
   return false;
 }
 
-std::optional<std::vector<Point2D>> ChessBoardModel::getBlockingCheckArr(PlayerID playerId, Point2D point2d) {
+std::optional<std::vector<Point2D>> ChessBoardModel::getCanBlockCheckPointsArr(PlayerID playerId, Point2D point2d) {
   std::vector<Point2D> pawnCapturePoints = getPawnPointsThatCanCapture(playerId, point2d);
   std::vector<Point2D> knightCapturePoints = getKnightPointsThatCanCapture(playerId, point2d);
   std::vector<Point2D> diagonalCapturePoints = getDiagonalSpaces(point2d);
@@ -923,4 +926,24 @@ bool ChessBoardModel::checkIfOrthogonalCaptureBlocksKingSpace(PlayerID playerId,
   std::vector<Point2D> pointArr = getPointsWithPiecesThatOrthogonalCapture(playerId, targetPoint);
   bool hasPoints = !pointArr.empty();
   return hasPoints;
+}
+
+std::vector<Point2D> ChessBoardModel::getCommonElements(const std::vector<Point2D> & vec1, const std::vector<Point2D> & vec2) {
+  std::unordered_map<Point2D, int> pointCount;
+
+  for (const Point2D & point : vec1) {
+    pointCount[point]++;
+  }
+
+  std::vector<Point2D> commonPoints;
+
+  for (const Point2D & point : vec2) {
+    auto it = pointCount.find(point);
+    if (it != pointCount.end() && it->second > 0) {
+      commonPoints.push_back(point);
+      it->second--;
+    }
+  }
+
+  return commonPoints;
 }

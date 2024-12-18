@@ -29,6 +29,7 @@
 #include "../../headers/Utils/MathUtils.h"
 #include "ChessMediator/ChessMediator.h"
 #include <type_traits>
+#include <unordered_map>
 
 class ChessBoardModel : public Gtk::DrawingArea {
 public:
@@ -86,23 +87,19 @@ private:
     const static int BOARD_SIZE = 8;
     int currentTurn = 1;
     int halfMoveClock = 0;
+    std::vector<Point2D> blackKingMovementTargets;
+    std::vector<Point2D> whiteKingMovementTargets;
     Point2D enPassantSquare{-1, -1};
     Point2DPair prevMoves{-1, -1, -1, -1};
-    int whitePawnCaptureRow = 4;
-    int blackPawnCaptureRow = 3;
     BoardSpace* board[BOARD_SIZE][BOARD_SIZE];
     ChessImagesInfo chessImagesInfo{};
     ChessMediator & chessMediator;
     BoardSpace *selectedBoardSpacePtr = nullptr;
     PlayerID turnPlayerId{PlayerID::PLAYER_WHITE};
-    ChessPiece* initChessPieceFromStr(std::string chessPieceStr);
     void restoreCastlingState(std::string castlingStr);
     void restoreCastlingStateHelper(int row, int col);
     PlayerID getTurnPlayerFromStr(std::string turnPlayerId);
     ChessPiece *initChessPieceFromChar(char chessPieceChar);
-    int getCounterValue(int col, int counter);
-    void updateUndoButtonStatus();
-    bool isPawn(Point2D point2d);
     bool isPawnChessPiecePtr(ChessPiece* chessPiece);
     bool isKingChessPiecePtr(ChessPiece* chessPiece);
     bool isBishopChessPiecePtr(ChessPiece* chessPiece);
@@ -119,7 +116,6 @@ private:
     void setPrevMovesFromStrings(std::string srcBoardSpace, std::string tgtBoardSpace);
     void setPrevMoves(Point2DPair point2dPair);
     King *getPlayerIdKing(PlayerID playerId);
-    bool isPoint2dInArr(std::vector<Point2D> &opponentPoints, Point2D point2d);
     bool getIsValidKingSpace(PlayerID playerId, Point2D targetPoint);
     bool getRookCanCastle(Point2D point2d);
     void moveRookAfterCastle(Point2D point2d);
@@ -136,7 +132,7 @@ private:
     std::vector<Point2D> getPointsWithPiecesThatOrthogonalCapture(PlayerID playerId, Point2D targetPoint);
     std::vector<Point2D> getPawnPointsThatCanCapture(PlayerID playerId, Point2D targetPoint);
     std::vector<Point2D> getKnightPointsThatCanCapture(PlayerID playerId, Point2D targetPoint);
-    std::optional<std::vector<Point2D>> getBlockingCheckArr(PlayerID playerId, Point2D point2d);
+    std::optional<std::vector<Point2D>> getCanBlockCheckPointsArr(PlayerID playerId, Point2D point2d);
     template<typename T, typename... Args>
     std::optional<std::vector<T>> hasOnlyOneArrWithElements(const std::vector<T> & first, const Args&... args) {
       static_assert((std::is_same_v<std::vector<T>, Args> && ...), "All arguments must be vectors of the same type");
@@ -163,6 +159,9 @@ private:
     bool getCanBlockCheck(PlayerID playerId, Point2D targetPoint);
     std::vector<Point2D> getDiagonalSpaces(Point2D point2d);
     std::vector<Point2D> getOrthogonalSpaces(Point2D point2d);
+    void updateKingMovementTargets(PlayerID playerId);
+    std::vector<Point2D> getKingMovementTargets(PlayerID playerId);
+    std::vector<Point2D> getCommonElements(const std::vector<Point2D> & vec1, const std::vector<Point2D> & vec2);
 };
 
 

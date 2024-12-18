@@ -260,17 +260,19 @@ std::vector<Point2D> ChessPiece::getMovementTargets(Point2D point2d) {
   return movementTargets;
 }
 
-std::vector<Point2D> ChessPiece::getMovementTargetsIfKingIsInCheck(std::vector<Point2D> pointsArr) {
+std::vector<Point2D> ChessPiece::getMovementTargetsIfKingIsInCheck(Point2D point2d) {
   bool isKingInCheck = chessMediator.getIsKingInCheckSignal().emit(playerId);
-  std::vector<Point2D> checkPoint;
+  std::vector<Point2D> movementTargets = getMovementTargets(point2d);
   if (isKingInCheck) {
     Point2D kingCoordinates = chessMediator.getKingCoordinatesSignal().emit(playerId);
-    std::optional<std::vector<Point2D>> blockingCheckArr = chessMediator.getBlockingCheckArrSignal().emit(playerId, kingCoordinates);
-    if (blockingCheckArr.has_value()) {
+    std::optional<std::vector<Point2D>> blockingCheckPoints = chessMediator.getCanBlockCheckPointsSignal().emit(playerId, kingCoordinates);
+    if (blockingCheckPoints.has_value()) {
+      std::vector<Point2D> checkPoints = blockingCheckPoints.value();
+      movementTargets = chessMediator.getCommonElementsSignal().emit(movementTargets, checkPoints);
     }
   }
 
-  return pointsArr;
+  return movementTargets;
 }
 
 bool ChessPiece::hasPlayerId(PlayerID playerId) {
