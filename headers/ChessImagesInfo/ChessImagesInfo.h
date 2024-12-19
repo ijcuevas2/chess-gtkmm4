@@ -29,7 +29,6 @@ public:
 private:
     std::map<PieceType, std::map<PlayerID, std::string>> chessPieceMap;
     std::map<std::string, Glib::RefPtr<Gdk::Pixbuf>> piecesContentMap;
-    bool doesFileExist(const std::string & filePath);
 };
 
 #endif //CHESS_CHESSIMAGESINFO_H

@@ -34,15 +34,12 @@ ChessImagesInfo::ChessImagesInfo() {
 
   for (size_t i = 0; i < fileNames.size(); ++i) {
     fs::path filePath = imageDir / fileNames[i];
-    Glib::RefPtr<Gdk::Pixbuf> pixBuf;
+    Glib::RefPtr<Gdk::Pixbuf> pixBuf = Gdk::Pixbuf::create(Gdk::Colorspace::RGB, true, 8, 1, 1);
 
-    bool isValidFile = doesFileExist(filePath);
-    if (isValidFile) {
-      try {
-         pixBuf = Gdk::Pixbuf::create_from_resource(filePath.string());
-      } catch (const std::exception & ex) {
-         std::cerr << "Error loading asset:" << ex.what() << std::endl;
-      }
+    try {
+       pixBuf = Gdk::Pixbuf::create_from_resource(filePath.string());
+    } catch (const std::exception & ex) {
+       std::cerr << "Error loading asset:" << ex.what() << std::endl;
     }
 
     piecesContentMap[fileNames[i]] = pixBuf;
@@ -66,12 +63,4 @@ Glib::RefPtr<Gdk::Pixbuf> ChessImagesInfo::getPieceImageContent(ChessPiece *ches
   std::string chessImagePath = chessPieceMap[pieceType][playerId];
   Glib::RefPtr<Gdk::Pixbuf> pixBuf = piecesContentMap[chessImagePath];
   return pixBuf;
-}
-
-bool ChessImagesInfo::doesFileExist(const std::string & filePath) {
-  std::filesystem::path pathToCheck(filePath);
-
-  bool isValidPath = std::filesystem::exists(pathToCheck);
-  bool isRegularFile = std::filesystem::is_regular_file(pathToCheck);
-  return isValidPath && isRegularFile;
 }
