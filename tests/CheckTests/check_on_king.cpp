@@ -20,7 +20,7 @@ protected:
   }
 };
 
-TEST_F(CheckTest, BasicTest) {
+TEST_F(CheckTest, FirstRookTest) {
   int row = 0;
   int col = 0;
   ChessPiece* chessPiece = chessBoardModel.getChessPiecePtr(row, col);
