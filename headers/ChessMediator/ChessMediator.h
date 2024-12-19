@@ -10,6 +10,7 @@
 #include "Point2DPair/Point2DPair.h"
 #include "Point2D/Point2D.h"
 #include "../enum/Player.h"
+#include <optional>
 
 class ChessMediator {
 public:
