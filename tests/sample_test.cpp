@@ -1,5 +1,4 @@
 #include "test_chess.h"
-#include "ChessPiece.h"
 
 TEST(SampleTest, ExampleTest) {
   ChessMediator chessMediator;
