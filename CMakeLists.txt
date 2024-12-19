@@ -194,6 +194,7 @@ install(TARGETS ${PROJECT_NAME}
 add_executable(run_tests
         tests/sample_test.cpp
         tests/test_chess.h
+        tests/CheckTests/check_on_king.cpp
 )
 
 target_include_directories(run_tests PRIVATE

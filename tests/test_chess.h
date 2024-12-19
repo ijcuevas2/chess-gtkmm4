@@ -6,11 +6,13 @@
 #define CHESS_TEST_CHESS_H
 
 #include <gtest/gtest.h>
+#include "ApprovalTests.hpp"
 #include "../headers/ChessPieces/King.h"
 #include "../headers/ChessPieces/Bishop.h"
 #include "../headers/ChessPieces/Rook.h"
 #include "../headers/ChessPieces/Pawn.h"
 #include "../headers/ChessPieces/Knight.h"
 #include "../headers/ChessMediator/ChessMediator.h"
+#include "../headers/ChessBoard/ChessBoardModel.h"
 
 #endif //CHESS_TEST_CHESS_H
