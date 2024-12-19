@@ -33,3 +33,22 @@ std::string StringUtils::trim(std::string str) {
 bool StringUtils::containsCharacter(std::string str, char ch) {
   return std::find(str.begin(), str.end(), ch) != str.end();
 }
+
+std::string StringUtils::getPieceTypeName(PieceType pieceType) {
+  switch (pieceType) {
+    case PieceType::BISHOP:
+      return "Bishop";
+    case PieceType::EMPTY_PIECE:
+      return "Empty";
+    case PieceType::KING:
+      return "King";
+    case PieceType::KNIGHT:
+      return "Knight";
+    case PieceType::PAWN:
+      return "Pawn";
+    case PieceType::QUEEN:
+      return "Queen";
+    case PieceType::ROOK:
+      return "Rook";
+  }
+}

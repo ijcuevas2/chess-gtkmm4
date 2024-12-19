@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include "../../enum/PieceType.h"
 
 
 class StringUtils {
@@ -18,6 +19,7 @@ public:
     static std::string trim(std::string str);
     static bool containsCharacter(std::string str, char ch);
     static inline std::string DEFAULT_FEN_STATE_STR = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w AHah - 0 1 - -";
+    static std::string getPieceTypeName(PieceType pieceType);
 };
 
 #endif //STRINGUTILS_H

@@ -14,5 +14,7 @@
 #include "../headers/ChessPieces/Knight.h"
 #include "../headers/ChessMediator/ChessMediator.h"
 #include "../headers/ChessBoard/ChessBoardModel.h"
+#include "../enum/PieceType.h"
+#include "../headers/Utils/StringUtils.h"
 
 #endif //CHESS_TEST_CHESS_H

@@ -2,7 +2,6 @@
 // Created by Ismael Cuevas on 12/18/24.
 //
 #include "../test_chess.h"
-#include "ChessPiece.h"
 
 class CheckTest : public ::testing::Test {
 public:
@@ -21,5 +20,7 @@ TEST_F(CheckTest, BasicTest) {
   int row = 0;
   int col = 0;
   ChessPiece* chessPiece = chessBoardModel.getChessPiecePtr(row, col);
-  ApprovalTests::Approvals::verify(chessPiece->getPieceType());
+  PieceType pieceType  = chessPiece->getPieceType();
+  std::string pieceTypeString = StringUtils::getPieceTypeName(pieceType);
+  ApprovalTests::Approvals::verify(pieceTypeString);
 }
