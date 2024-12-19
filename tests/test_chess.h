@@ -4,10 +4,8 @@
 
 #ifndef CHESS_TEST_CHESS_H
 #define CHESS_TEST_CHESS_H
-#define APPROVALS_GOOGLETEST
 
 #include <gtest/gtest.h>
-#include "ApprovalTests.hpp"
 #include "../headers/ChessPieces/King.h"
 #include "../headers/ChessPieces/Bishop.h"
 #include "../headers/ChessPieces/Rook.h"

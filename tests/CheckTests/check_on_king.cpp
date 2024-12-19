@@ -3,6 +3,9 @@
 //
 #include "../test_chess.h"
 
+#define APPROVALS_GOOGLETEST
+#include "ApprovalTests.hpp"
+
 class CheckTest : public ::testing::Test {
 public:
     ChessMediator chessMediator;
