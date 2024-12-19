@@ -31,7 +31,7 @@
 #include <type_traits>
 #include <unordered_map>
 
-class ChessBoardModel : public Gtk::DrawingArea {
+class ChessBoardModel {
 public:
     ChessBoardModel(ChessMediator & chessMediator);
     void initBoard();

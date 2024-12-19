@@ -4,6 +4,7 @@
 
 #ifndef CHESS_TEST_CHESS_H
 #define CHESS_TEST_CHESS_H
+#define APPROVALS_GOOGLETEST
 
 #include <gtest/gtest.h>
 #include "ApprovalTests.hpp"
