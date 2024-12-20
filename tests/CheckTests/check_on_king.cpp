@@ -1,31 +1,8 @@
-//
-// Created by Ismael Cuevas on 12/18/24.
-//
-#include "../test_chess.h"
-
 #define APPROVALS_GOOGLETEST
 #include "ApprovalTests.hpp"
+#include "../test_chess.h"
 
-class CheckTest : public ::testing::Test {
-public:
-    ChessMediator chessMediator;
-    PlayerID playerId = PlayerID::PLAYER_BLACK;
-    ChessBoardModel chessBoardModel{chessMediator};
-protected:
-  void SetUp() override {
-    chessBoardModel.initBoard();
-  }
-
-  void TearDown() override {
-    // @TODO: Add TearDown logic
-  }
-};
-
-TEST_F(CheckTest, FirstRookTest) {
-  int row = 0;
-  int col = 0;
-  ChessPiece* chessPiece = chessBoardModel.getChessPiecePtr(row, col);
-  PieceType pieceType  = chessPiece->getPieceType();
-  std::string pieceTypeString = StringUtils::getPieceTypeName(pieceType);
-  ApprovalTests::Approvals::verify(pieceTypeString);
+TEST_F(WindowsApprovalTest, SampleTest) {
+    std::string output = "Test output";
+    verifyWithWindowsCompatibility(output, "SampleTest");
 }
