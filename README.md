@@ -4,12 +4,12 @@
 
 This is an implementation of the standard variant of Chess. This program is implemented using the GTKMM4 framework. 
 
-### Supported Operating Systems
+### Supported Operating Systems 
 - Windows 10 and 11
 - MacOS
 - Ubuntu
 
-### Features In Progress
+### Features: TODO 
 - Checkmate
 - Stalemate
 - Draw by agreement
@@ -21,8 +21,7 @@ This is an implementation of the standard variant of Chess. This program is impl
 - Undo for Single Player
 - AI for Single Player
 - Look into minimax 
-- Unit Tests
-- Automation Tests
+- Checking for Memory Leaks
 
-### TODO: Improvements
-- Memory Leaks
+### Features: In Progress
+- Unit Tests
