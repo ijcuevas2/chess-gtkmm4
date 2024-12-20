@@ -1,5 +1,5 @@
 #define APPROVALS_GOOGLETEST
-
+#include "ApprovalTests.hpp"
 #include "../test_chess.h"
 
 TEST_F(WindowsApprovalTest, SampleTest) {
