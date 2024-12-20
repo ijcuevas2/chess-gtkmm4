@@ -25,5 +25,4 @@ This is an implementation of the standard variant of Chess. This program is impl
 - Automation Tests
 
 ### TODO: Improvements
-- Chess Movement Algorithm
 - Memory Leaks
