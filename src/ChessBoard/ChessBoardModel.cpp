@@ -33,6 +33,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getCommonElementsSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getCommonElements));
   chessMediator.getContainsPointSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::containsPoint));
   chessMediator.getKingCoordinatesSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getKingPoint2D));
+  chessMediator.getIsStalemateSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsStalemate));
 }
 
 void ChessBoardModel::initBoardWithCaptureInfo() {
@@ -979,3 +980,16 @@ bool ChessBoardModel::canMoveToTarget(Point2DPair point2DPair) {
   return result;
 }
 
+bool ChessBoardModel::getIsStalemate() {
+  PlayerID playerId = getTurnPlayerId();
+  std::vector<Point2D> currPlayerPoints = getPointsByPlayerId(playerId);
+  for (Point2D point2d : currPlayerPoints) {
+    ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+    std::vector<Point2D> movementTargets = chessPiecePtr->getMovementTargets(point2d);
+    if (movementTargets.size() > 0) {
+      return false;
+    }
+  }
+
+  return true;
+}

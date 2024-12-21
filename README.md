@@ -10,14 +10,11 @@ This is an implementation of the standard variant of Chess. This program is impl
 - Ubuntu
 
 ### Features: TODO 
-- Checkmate
-- Stalemate
 - Draw by agreement
 - Insufficient material
 - Threefold repetition
 - Fifty-move rule
 - Resignation
-- Victory Message
 - Undo for Single Player
 - AI for Single Player
 - Look into minimax 
@@ -25,3 +22,5 @@ This is an implementation of the standard variant of Chess. This program is impl
 
 ### Features: In Progress
 - Unit Tests
+- Checkmate
+- Stalemate

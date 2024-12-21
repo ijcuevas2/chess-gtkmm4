@@ -163,3 +163,15 @@ sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> C
 sigc::signal<bool(const std::vector<Point2D>, const Point2D)> ChessMediator::getContainsPointSignal() {
   return containsPoints;
 }
+
+sigc::signal<bool()> ChessMediator::getIsStalemateSignal() {
+  return getIsStalemate;
+}
+
+sigc::signal<void()> ChessMediator::getOpenStalemateDialogSignal() {
+  return getOpenStalemateDialog;
+}
+
+sigc::signal<void()> ChessMediator::getLoadGameFromPathSignal() {
+  return loadGameFromPath;
+}

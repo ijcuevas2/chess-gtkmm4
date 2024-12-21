@@ -27,6 +27,7 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   chessMediator.getOpenFileDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openFileDialog));
   chessMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
   chessMediator.getOpenCheckmateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openCheckmateDialog));
+  chessMediator.getOpenStalemateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openStalemateDialog));
   set_child(*m_chessBoardView);
 
   // Create an event controller for key events
@@ -133,6 +134,18 @@ void ChessWindow::openFileDialog() {
 }
 
 void ChessWindow::openCheckmateDialog() {
+  PlayerID playerId = chessMediator.getOpponentTurnPlayerIdSignal().emit();
+  std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
+  std::string message = playerStr + " wins!";
+  this->openDialogWithMessage(message);
+}
+
+void ChessWindow::openStalemateDialog() {
+  std::string message = "Draw!";
+  this->openDialogWithMessage(message);
+}
+
+void ChessWindow::openDialogWithMessage(const std::string message) {
   auto dialog = Gtk::make_managed<Gtk::Window>();
   dialog->set_title("Checkmate!");
   dialog->set_transient_for(*this);
@@ -144,11 +157,6 @@ void ChessWindow::openCheckmateDialog() {
   content_area->set_margin(16);
   content_area->set_homogeneous(true);  // Distribute space evenly
   dialog->set_child(*content_area);
-
-  PlayerID playerId = chessMediator.getOpponentTurnPlayerIdSignal().emit();
-
-  std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
-  std::string message = playerStr + " wins!";
 
   auto label = Gtk::make_managed<Gtk::Label>(message);
   content_area->append(*label);
@@ -181,6 +189,7 @@ void ChessWindow::openCheckmateDialog() {
   }, false);
 
   dialog->present();
+
 }
 
 bool ChessWindow::on_key_pressed(guint keyval, guint keycode, Gdk::ModifierType state) {

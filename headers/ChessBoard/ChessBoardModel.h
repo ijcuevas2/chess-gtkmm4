@@ -164,6 +164,7 @@ private:
     void updateKingMovementTargets(PlayerID playerId);
     std::vector<Point2D> getKingMovementTargets(PlayerID playerId);
     std::vector<Point2D> getCommonElements(const std::vector<Point2D> & vec1, const std::vector<Point2D> & vec2);
+    bool getIsStalemate();
 };
 
 

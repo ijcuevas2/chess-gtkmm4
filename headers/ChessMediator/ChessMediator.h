@@ -54,6 +54,9 @@ public:
     sigc::signal<std::vector<Point2D>(PlayerID)> getKingMovementTargetSignal();
     sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> getCommonElementsSignal();
     sigc::signal<bool(const std::vector<Point2D>, const Point2D)> getContainsPointSignal();
+    sigc::signal<bool()> getIsStalemateSignal();
+    sigc::signal<void()> getOpenStalemateDialogSignal();
+    sigc::signal<void()> getLoadGameFromPathSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -95,6 +98,9 @@ private:
     sigc::signal<std::vector<Point2D>(PlayerID)> getKingMovementTarget;
     sigc::signal<std::vector<Point2D>(std::vector<Point2D>, std::vector<Point2D>)> getCommonElements;
     sigc::signal<bool(const std::vector<Point2D>, const Point2D)> containsPoints;
+    sigc::signal<bool()> getIsStalemate;
+    sigc::signal<void()> getOpenStalemateDialog;
+    sigc::signal<void()> loadGameFromPath;
 };
 
 

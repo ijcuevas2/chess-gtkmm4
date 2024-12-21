@@ -20,6 +20,7 @@ public:
     void saveBoardState();
     void saveStateToFile(std::string filePath);
     void loadGame(std::string filePath);
+    void loadGameFromPath();
 private:
     ChessBoardModel & chessBoardModel;
     ChessMediator & chessMediator;

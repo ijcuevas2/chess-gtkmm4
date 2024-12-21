@@ -10,6 +10,7 @@ FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediat
   chessMediator.getSaveStateToFileSignal().connect(sigc::mem_fun(*this, &FenModel::saveStateToFile));
   chessMediator.getPointFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
   chessMediator.getSetPrevMoveFromStringSignal().connect(sigc::mem_fun(*this, &FenModel::getPrevMoveHints));
+  chessMediator.getLoadGameFromPathSignal().connect(sigc::mem_fun(*this, &FenModel::loadGameFromPath));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -339,6 +340,10 @@ void FenModel::saveStateToFile(std::string filePath = "") {
 }
 
 void FenModel::loadGame(std::string filePath) {
+  if (filePath.empty()) {
+    return;
+  }
+
   fs::path fsFilePath = filePath;
 
   std::ifstream file(fsFilePath);
@@ -438,4 +443,9 @@ Point2DPair FenModel::getPrevMoveHints(std::string srcPoint2dEncoding, std::stri
   Point2D tgtPoint2d = fromAlgebraicNotation(tgtPoint2dEncoding);
   Point2DPair prevMovePoint2dPair(srcPoint2d.getRow(), srcPoint2d.getCol(), tgtPoint2d.getRow(), tgtPoint2d.getCol());
   return prevMovePoint2dPair;
+}
+
+void FenModel::loadGameFromPath() {
+  std::string path = "/Users/ismael/Documents/chess-gtkmm4/chess_saves/stalemate.chess";
+  loadGame(path);
 }

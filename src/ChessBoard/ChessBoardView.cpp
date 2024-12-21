@@ -104,6 +104,7 @@ void ChessBoardView::updateLabel() {
 void ChessBoardView::initBoard() {
   chessMediator.getInitBoardWithCaptureInfoSignal().emit();
   updateUndoButtonUi(false);
+  chessMediator.getLoadGameFromPathSignal().emit();
 }
 
 void ChessBoardView::onNewGame() {

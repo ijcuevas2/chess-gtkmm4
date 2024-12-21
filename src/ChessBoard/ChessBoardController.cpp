@@ -108,6 +108,11 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           if (isCheckmate) {
             chessMediator.getOpenCheckmateDialogSignal().emit();
           }
+
+          bool isStalemate = chessMediator.getIsStalemateSignal().emit();
+          if (isStalemate) {
+            chessMediator.getOpenStalemateDialogSignal().emit();
+          }
         }
       }
     }
