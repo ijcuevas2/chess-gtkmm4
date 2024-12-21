@@ -31,7 +31,7 @@ private:
     void set_titlebar_right_click_behavior();
     void openCheckmateDialog();
     void openStalemateDialog();
-    void openDialogWithMessage(const std::string message);
+    void openDialogWithMessage(const std::string message, const std::string title);
 };
 
 #endif //CHESS_CHESSWINDOW_H

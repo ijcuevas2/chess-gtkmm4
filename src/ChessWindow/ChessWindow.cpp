@@ -137,17 +137,19 @@ void ChessWindow::openCheckmateDialog() {
   PlayerID playerId = chessMediator.getOpponentTurnPlayerIdSignal().emit();
   std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
   std::string message = playerStr + " wins!";
-  this->openDialogWithMessage(message);
+  std::string title = "Checkmate";
+  this->openDialogWithMessage(message, title);
 }
 
 void ChessWindow::openStalemateDialog() {
   std::string message = "Draw!";
-  this->openDialogWithMessage(message);
+  std::string title = "Stalemate";
+  this->openDialogWithMessage(message, title);
 }
 
-void ChessWindow::openDialogWithMessage(const std::string message) {
+void ChessWindow::openDialogWithMessage(const std::string message, const std::string title) {
   auto dialog = Gtk::make_managed<Gtk::Window>();
-  dialog->set_title("Checkmate!");
+  dialog->set_title(title);
   dialog->set_transient_for(*this);
   dialog->set_modal(true);
   dialog->set_default_size(200, 100);
@@ -182,14 +184,14 @@ void ChessWindow::openDialogWithMessage(const std::string message) {
       this->close();
   });
 
-  dialog->signal_close_request().connect([dialog]() {
-      dialog->hide();
+  dialog->signal_close_request().connect([dialog, this]() {
+      dialog->close();
+      this->close();
       delete dialog;
       return true;
   }, false);
 
   dialog->present();
-
 }
 
 bool ChessWindow::on_key_pressed(guint keyval, guint keycode, Gdk::ModifierType state) {

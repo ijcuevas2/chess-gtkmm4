@@ -878,7 +878,7 @@ bool ChessBoardModel::checkIfKnightBlocksKingSpace(PlayerID playerId, Point2D ta
 std::vector<Point2D> ChessBoardModel::getPointsWithPiecesThatOrthogonalCapture(PlayerID playerId, Point2D targetPoint) {
   ChessPiece* targetPointPtr = getChessPiecePtr(targetPoint.getRow(), targetPoint.getCol());
   Point2D kingPoint = getKingPoint2D(playerId);
-  std::vector<Point2D> pointArr = targetPointPtr->getDiagonalSpaces(targetPoint, kingPoint);
+  std::vector<Point2D> pointArr = targetPointPtr->getOrthogonalSpaces(targetPoint, kingPoint);
   std::vector<Point2D> result;
   for (Point2D point2d : pointArr) {
     bool isValidPoint2d = MathUtils::isValidPoint2D(point2d);
