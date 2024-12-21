@@ -187,6 +187,7 @@ void ChessWindow::openDialogWithMessage(const std::string message, const std::st
   dialog->signal_close_request().connect([dialog, this]() {
       dialog->close();
       this->close();
+      // @TODO: look at this line, it may cause an issue
       delete dialog;
       return true;
   }, false);
