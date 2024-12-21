@@ -153,6 +153,14 @@ void ChessWindow::openDialogWithMessage(const std::string message, const std::st
   dialog->set_transient_for(*this);
   dialog->set_modal(true);
   dialog->set_default_size(200, 100);
+
+  header_bar = Gtk::make_managed<Gtk::HeaderBar>();
+  header_bar->set_show_title_buttons(true);
+  header_bar->set_decoration_layout(":close");
+  header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
+
+  dialog->set_titlebar(*header_bar);
+
   this->set_sensitive(false);
 
   auto content_area = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::VERTICAL, 8);
