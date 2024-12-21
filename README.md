@@ -22,5 +22,7 @@ This is an implementation of the standard variant of Chess. This program is impl
 
 ### Features: In Progress
 - Unit Tests
+
+# Features to be verified
 - Checkmate
 - Stalemate
