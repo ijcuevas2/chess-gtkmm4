@@ -18,7 +18,7 @@ public:
     sigc::signal<void()> getOpenFileDialogSignal();
     sigc::signal<void(std::string)> getAfterFileLoadedSignal();
     sigc::signal<void()> getUpdateUiSignal();
-    sigc::signal<void()> getOnUndoButtonClicked();
+    sigc::signal<void()> getOnUndoButtonClickedSignal();
     sigc::signal<void(bool)> getUpdateUndoButtonUiSignal();
     sigc::signal<void()> getUpdateLabelSignal();
     sigc::signal<int()> getCurrentTurnSignal();
@@ -57,6 +57,8 @@ public:
     sigc::signal<bool()> getIsStalemateSignal();
     sigc::signal<void()> getOpenStalemateDialogSignal();
     sigc::signal<void()> getLoadGameFromPathSignal();
+    sigc::signal<void()> getOnRequestDrawActionSignal();
+    sigc::signal<void()> getOnSurrenderActionSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -101,6 +103,8 @@ private:
     sigc::signal<bool()> getIsStalemate;
     sigc::signal<void()> getOpenStalemateDialog;
     sigc::signal<void()> loadGameFromPath;
+    sigc::signal<void()> onRequestDrawAction;
+    sigc::signal<void()> onSurrenderAction;
 };
 
 

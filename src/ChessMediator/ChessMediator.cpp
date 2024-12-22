@@ -20,7 +20,7 @@ sigc::signal<void()> ChessMediator::getUpdateUiSignal() {
   return updateUi;
 }
 
-sigc::signal<void()> ChessMediator::getOnUndoButtonClicked() {
+sigc::signal<void()> ChessMediator::getOnUndoButtonClickedSignal() {
   return onUndoButtonPressed;
 }
 
@@ -174,4 +174,12 @@ sigc::signal<void()> ChessMediator::getOpenStalemateDialogSignal() {
 
 sigc::signal<void()> ChessMediator::getLoadGameFromPathSignal() {
   return loadGameFromPath;
+}
+
+sigc::signal<void()> ChessMediator::getOnRequestDrawActionSignal() {
+  return onRequestDrawAction;
+}
+
+sigc::signal<void()> ChessMediator::getOnSurrenderActionSignal() {
+  return onSurrenderAction;
 }

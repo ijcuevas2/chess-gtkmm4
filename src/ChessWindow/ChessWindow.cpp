@@ -28,6 +28,8 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   chessMediator.getOpenSaveDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::saveFileDialog));
   chessMediator.getOpenCheckmateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openCheckmateDialog));
   chessMediator.getOpenStalemateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openStalemateDialog));
+  chessMediator.getOnRequestDrawActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestDrawAction));
+  chessMediator.getOnSurrenderActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestForfeitAction));
   set_child(*m_chessBoardView);
 
   // Create an event controller for key events
@@ -138,16 +140,16 @@ void ChessWindow::openCheckmateDialog() {
   std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
   std::string message = playerStr + " wins!";
   std::string title = "Checkmate";
-  this->openDialogWithMessage(message, title);
+  this->openNewGameExitDialogWithMessage(message, title);
 }
 
 void ChessWindow::openStalemateDialog() {
   std::string message = "Draw!";
   std::string title = "Stalemate";
-  this->openDialogWithMessage(message, title);
+  this->openNewGameExitDialogWithMessage(message, title);
 }
 
-void ChessWindow::openDialogWithMessage(const std::string message, const std::string title) {
+void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, const std::string title) {
   auto dialog = Gtk::make_managed<Gtk::Window>();
   dialog->set_title(title);
   dialog->set_transient_for(*this);
@@ -211,4 +213,119 @@ bool ChessWindow::on_key_pressed(guint keyval, guint keycode, Gdk::ModifierType 
   }
 
   return false;
+}
+
+void ChessWindow::onRequestDrawAction() {
+  std::string title = "Request for Draw";
+  std::string message = "Your opponent is requesting a draw!";
+  auto dialog = Gtk::make_managed<Gtk::Window>();
+  dialog->set_title(title);
+  dialog->set_transient_for(*this);
+  dialog->set_modal(true);
+  dialog->set_default_size(200, 100);
+
+  header_bar = Gtk::make_managed<Gtk::HeaderBar>();
+  header_bar->set_show_title_buttons(true);
+  header_bar->set_decoration_layout(":close");
+  header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
+
+  dialog->set_titlebar(*header_bar);
+
+  this->set_sensitive(false);
+
+  auto content_area = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::VERTICAL, 8);
+  content_area->set_margin(16);
+  content_area->set_homogeneous(true);  // Distribute space evenly
+  dialog->set_child(*content_area);
+
+  auto label = Gtk::make_managed<Gtk::Label>(message);
+  content_area->append(*label);
+
+  auto button_box = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 8);
+  button_box->set_halign(Gtk::Align::CENTER);  // Center the button box
+  button_box->set_valign(Gtk::Align::CENTER);  // Vertically center the button box
+  content_area->append(*button_box);
+
+  auto accept_button = Gtk::make_managed<Gtk::Button>("Accept");
+  auto reject_button = Gtk::make_managed<Gtk::Button>("Reject");
+  button_box->append(*accept_button);
+  button_box->append(*reject_button);
+
+  accept_button->signal_clicked().connect([dialog, this]() {
+      this->set_sensitive(true);
+      dialog->close();
+      chessMediator.getNewGameSignal().emit();
+  });
+
+  reject_button->signal_clicked().connect([dialog, this]() {
+      dialog->close();
+      this->close();
+  });
+
+  dialog->signal_close_request().connect([dialog]() {
+      dialog->close();
+      // @TODO: look at this line, it may cause an issue
+      delete dialog;
+      return true;
+  }, false);
+
+  dialog->present();
+}
+
+void ChessWindow::onRequestForfeitAction() {
+  std::string title = "";
+  std::string message = "Would you like to surrender?";
+  auto dialog = Gtk::make_managed<Gtk::Window>();
+  dialog->set_title(title);
+  dialog->set_transient_for(*this);
+  dialog->set_modal(true);
+  dialog->set_default_size(200, 100);
+
+  header_bar = Gtk::make_managed<Gtk::HeaderBar>();
+  header_bar->set_show_title_buttons(true);
+  header_bar->set_decoration_layout(":close");
+  header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
+
+  dialog->set_titlebar(*header_bar);
+
+  this->set_sensitive(false);
+
+  auto content_area = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::VERTICAL, 8);
+  content_area->set_margin(16);
+  content_area->set_homogeneous(true);  // Distribute space evenly
+  dialog->set_child(*content_area);
+
+  auto label = Gtk::make_managed<Gtk::Label>(message);
+  content_area->append(*label);
+
+  auto button_box = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 8);
+  button_box->set_halign(Gtk::Align::CENTER);  // Center the button box
+  button_box->set_valign(Gtk::Align::CENTER);  // Vertically center the button box
+  content_area->append(*button_box);
+
+  auto ok_button = Gtk::make_managed<Gtk::Button>("OK");
+  auto cancel_button = Gtk::make_managed<Gtk::Button>("Cancel");
+  button_box->append(*ok_button);
+  button_box->append(*cancel_button);
+
+  ok_button->signal_clicked().connect([dialog, this]() {
+      this->set_sensitive(true);
+      dialog->close();
+      chessMediator.getNewGameSignal().emit();
+  });
+
+  cancel_button->signal_clicked().connect([dialog, this]() {
+      dialog->close();
+      this->set_sensitive(true);
+  });
+
+  dialog->signal_close_request().connect([dialog, this]() {
+      dialog->close();
+      this->set_sensitive(true);
+      // @TODO: look at this line, it may cause an issue
+      delete dialog;
+      return true;
+  }, false);
+
+  dialog->present();
 }

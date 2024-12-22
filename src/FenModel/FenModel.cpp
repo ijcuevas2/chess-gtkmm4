@@ -6,7 +6,7 @@
 
 FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediator) : chessBoardModel(chessBoardModel), chessMediator(chessMediator) {
   chessMediator.getAfterFileLoadedSignal().connect(sigc::mem_fun(*this, &FenModel::loadGame));
-  chessMediator.getOnUndoButtonClicked().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
+  chessMediator.getOnUndoButtonClickedSignal().connect(sigc::mem_fun(*this, &FenModel::afterUndoButtonPressed));
   chessMediator.getSaveStateToFileSignal().connect(sigc::mem_fun(*this, &FenModel::saveStateToFile));
   chessMediator.getPointFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
   chessMediator.getSetPrevMoveFromStringSignal().connect(sigc::mem_fun(*this, &FenModel::getPrevMoveHints));
@@ -446,6 +446,6 @@ Point2DPair FenModel::getPrevMoveHints(std::string srcPoint2dEncoding, std::stri
 }
 
 void FenModel::loadGameFromPath() {
-  std::string path = "/Users/ismael/Documents/chess-gtkmm4/chess_saves/stalemate.chess";
+  std::string path = "";
   loadGame(path);
 }

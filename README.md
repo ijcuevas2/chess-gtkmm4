@@ -10,7 +10,6 @@ This is an implementation of the standard variant of Chess. This program is impl
 - Ubuntu
 
 ### Features: TODO 
-- Draw by agreement
 - Insufficient material
 - Threefold repetition
 - Fifty-move rule
@@ -23,6 +22,6 @@ This is an implementation of the standard variant of Chess. This program is impl
 ### Features: In Progress
 - Unit Tests
 
-# Features to be verified
+### Features to be verified
 - Checkmate
 - Stalemate

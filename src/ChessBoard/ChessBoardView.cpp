@@ -24,7 +24,9 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   m_newGameAction = Gio::SimpleAction::create("new_game");
   m_exitAction = Gio::SimpleAction::create("exit");
   m_saveAction = Gio::SimpleAction::create("save");
+  m_requestDrawAction = Gio::SimpleAction::create("request_draw");
   m_loadAction = Gio::SimpleAction::create("load");
+  m_surrenderAction = Gio::SimpleAction::create("surrender");
 
   m_newGameAction->signal_activate().connect([this](const Glib::VariantBase &) {
       this->onNewGame();
@@ -38,16 +40,26 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   m_loadAction->signal_activate().connect([this](const Glib::VariantBase &) {
       this->onLoadClicked();
   });
+  m_requestDrawAction->signal_activate().connect([this](const Glib::VariantBase &) {
+      this->onRequestDrawAction();
+  });
+  m_surrenderAction->signal_activate().connect([this](const Glib::VariantBase &) {
+      this->onSurrenderAction();
+  });
 
   auto app = Gtk::Application::get_default();
   app->add_action(m_newGameAction);
   app->add_action(m_exitAction);
   app->add_action(m_saveAction);
   app->add_action(m_loadAction);
+  app->add_action(m_requestDrawAction);
+  app->add_action(m_surrenderAction);
 
   fileMenu->append("New Game", "app.new_game");
   fileMenu->append("Save", "app.save");
   fileMenu->append("Load", "app.load");
+  // fileMenu->append("Request Draw", "app.request_draw");
+  fileMenu->append("Surrender", "app.surrender");
   fileMenu->append("Exit", "app.exit");
 
   m_menuBar = Gtk::make_managed<Gtk::PopoverMenuBar>(m_menuModel);
@@ -132,9 +144,17 @@ void ChessBoardView::onExitClicked() {
 }
 
 void ChessBoardView::onUndoButtonClicked() {
-  chessMediator.getOnUndoButtonClicked().emit();
+  chessMediator.getOnUndoButtonClickedSignal().emit();
 }
 
 void ChessBoardView::updateUndoButtonUi(bool isEnabled) {
   m_undoButton->set_sensitive(isEnabled);
+}
+
+void ChessBoardView::onRequestDrawAction() {
+  chessMediator.getOnRequestDrawActionSignal().emit();
+}
+
+void ChessBoardView::onSurrenderAction() {
+  chessMediator.getOnSurrenderActionSignal().emit();
 }

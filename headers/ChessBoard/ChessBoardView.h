@@ -31,6 +31,8 @@ private:
     Glib::RefPtr<Gio::SimpleAction> m_exitAction;
     Glib::RefPtr<Gio::SimpleAction> m_saveAction;
     Glib::RefPtr<Gio::SimpleAction> m_loadAction;
+    Glib::RefPtr<Gio::SimpleAction> m_requestDrawAction;
+    Glib::RefPtr<Gio::SimpleAction> m_surrenderAction;
     ChessMediator & chessMediator;
     ChessBoardController chessBoardController{chessMediator};
 
@@ -42,6 +44,8 @@ private:
     void handleLoad(std::string result);
     void updateUi();
     void updateUndoButtonUi(bool isEnabled);
+    void onRequestDrawAction();
+    void onSurrenderAction();
 };
 
 #endif //CHESS_CHESSBOARDVIEW_H
