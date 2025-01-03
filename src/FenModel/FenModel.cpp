@@ -101,9 +101,11 @@ void FenModel::saveBoardState() {
   std::string currentTurn = getCurrentTurn();
   resultEncoding += currentTurn;
 
+
   std::string lastPieceMovedEncoding = getLastPieceMovedEncoding();
   resultEncoding += lastPieceMovedEncoding;
 
+  updateFenStateCountMap(resultEncoding);
   fenDeque.push_back(resultEncoding);
   chessMediator.getUpdateUndoButtonUiSignal().emit(true);
 }
@@ -450,10 +452,16 @@ void FenModel::loadGameFromPath() {
   loadGame(path);
 }
 
-bool FenModel::getIsThreeFoldRepetitionVictory() {
+void FenModel::updateFenStateCountMap(std::string str) {
+  FenStateInfo fenStateInfo(str);
+  std::string coreString = fenStateInfo.getCoreString();
+  fenStateCountMap[coreString]++;
+}
+
+bool FenModel::getIsThreeFoldRepetitionDraw() {
   for (const auto & pair : fenStateCountMap) {
     int count = pair.second;
-    if (count > 2) {
+    if (count >= 3) {
       return true;
     }
   }

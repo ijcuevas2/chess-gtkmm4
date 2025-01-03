@@ -34,6 +34,8 @@ private:
     void openNewGameExitDialogWithMessage(const std::string message, const std::string title);
     void onRequestDrawAction();
     void onRequestForfeitAction();
+    void onThreefoldRepetitionDrawAction();
+    void onDrawConditionTrigger(std::string reason);
 };
 
 #endif //CHESS_CHESSWINDOW_H

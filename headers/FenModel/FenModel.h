@@ -21,6 +21,7 @@ public:
     void saveStateToFile(std::string filePath);
     void loadGame(std::string filePath);
     void loadGameFromPath();
+    bool getIsThreeFoldRepetitionDraw();
 private:
     ChessBoardModel & chessBoardModel;
     ChessMediator & chessMediator;
@@ -59,9 +60,8 @@ private:
     Point2D fromAlgebraicNotation(std::string algebraicNotation);
     Point2DPair getPrevMoveHints(std::string srcPoint2dEncoding, std::string tgtPoint2dEncoding);
     std::string getLastPieceMovedEncoding();
-    std::map<std::string, int> positionCount;
-    bool getIsThreeFoldRepetitionVictory();
     std::string getOrigFenState(std::string fenState);
+    void updateFenStateCountMap(std::string str);
 };
 
 #endif //CHESS_FENMODEL_H

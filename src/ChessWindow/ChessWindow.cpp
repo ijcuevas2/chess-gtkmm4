@@ -29,6 +29,7 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   chessMediator.getOpenStalemateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openStalemateDialog));
   chessMediator.getOnRequestDrawActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestDrawAction));
   chessMediator.getOnSurrenderActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestForfeitAction));
+  chessMediator.getOpenThreefoldRepetitionDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::onThreefoldRepetitionDrawAction));
   set_child(*m_chessBoardView);
 
   // Create an event controller for key events
@@ -177,18 +178,18 @@ void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, co
   button_box->set_valign(Gtk::Align::CENTER);  // Vertically center the button box
   content_area->append(*button_box);
 
-  auto ok_button = Gtk::make_managed<Gtk::Button>("New Game");
-  auto cancel_button = Gtk::make_managed<Gtk::Button>("Exit");
-  button_box->append(*ok_button);
-  button_box->append(*cancel_button);
+  auto new_game_button = Gtk::make_managed<Gtk::Button>("New Game");
+  auto exit_button = Gtk::make_managed<Gtk::Button>("Exit");
+  button_box->append(*new_game_button);
+  button_box->append(*exit_button);
 
-  ok_button->signal_clicked().connect([dialog, this]() {
+  new_game_button->signal_clicked().connect([dialog, this]() {
       this->set_sensitive(true);
       dialog->close();
       chessMediator.getNewGameSignal().emit();
   });
 
-  cancel_button->signal_clicked().connect([dialog, this]() {
+  exit_button->signal_clicked().connect([dialog, this]() {
       dialog->close();
       this->close();
   });
@@ -253,7 +254,8 @@ void ChessWindow::onRequestDrawAction() {
   accept_button->signal_clicked().connect([dialog, this]() {
       this->set_sensitive(true);
       dialog->close();
-      chessMediator.getNewGameSignal().emit();
+      std::string reason = "Accepted Draw";
+      this->onDrawConditionTrigger(reason);
   });
 
   reject_button->signal_clicked().connect([dialog, this]() {
@@ -273,7 +275,9 @@ void ChessWindow::onRequestDrawAction() {
 
 void ChessWindow::onRequestForfeitAction() {
   std::string title = "";
-  std::string message = "Would you like to surrender?";
+  PlayerID playerId = chessMediator.getTurnPlayerIdSignal().emit();
+  std::string playerIdStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
+  std::string message = "Would the following player like to surrender?: " + playerIdStr;
   auto dialog = Gtk::make_managed<Gtk::Window>();
   dialog->set_title(title);
   dialog->set_transient_for(*this);
@@ -302,20 +306,81 @@ void ChessWindow::onRequestForfeitAction() {
   button_box->set_valign(Gtk::Align::CENTER);  // Vertically center the button box
   content_area->append(*button_box);
 
-  auto ok_button = Gtk::make_managed<Gtk::Button>("OK");
-  auto cancel_button = Gtk::make_managed<Gtk::Button>("Cancel");
-  button_box->append(*ok_button);
-  button_box->append(*cancel_button);
+  auto yes_button = Gtk::make_managed<Gtk::Button>("Yes");
+  auto no_button = Gtk::make_managed<Gtk::Button>("No");
+  button_box->append(*yes_button);
+  button_box->append(*no_button);
 
-  ok_button->signal_clicked().connect([dialog, this]() {
+  yes_button->signal_clicked().connect([dialog, this]() {
       this->set_sensitive(true);
       dialog->close();
       chessMediator.getNewGameSignal().emit();
   });
 
-  cancel_button->signal_clicked().connect([dialog, this]() {
+  no_button->signal_clicked().connect([dialog, this]() {
       dialog->close();
       this->set_sensitive(true);
+  });
+
+  dialog->signal_close_request().connect([dialog, this]() {
+      dialog->close();
+      this->set_sensitive(true);
+      // @TODO: look at this line, it may cause an issue
+      delete dialog;
+      return true;
+  }, false);
+
+  dialog->present();
+}
+
+void ChessWindow::onThreefoldRepetitionDrawAction() {
+}
+
+void ChessWindow::onDrawConditionTrigger(std::string reason) {
+  std::string title = "Draw!";
+  std::string message = reason;
+  auto dialog = Gtk::make_managed<Gtk::Window>();
+  dialog->set_title(title);
+  dialog->set_transient_for(*this);
+  dialog->set_modal(true);
+  dialog->set_default_size(200, 100);
+
+  header_bar = Gtk::make_managed<Gtk::HeaderBar>();
+  header_bar->set_show_title_buttons(true);
+  header_bar->set_decoration_layout(":close");
+  header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
+
+  dialog->set_titlebar(*header_bar);
+
+  this->set_sensitive(false);
+
+  auto content_area = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::VERTICAL, 8);
+  content_area->set_margin(16);
+  content_area->set_homogeneous(true);  // Distribute space evenly
+  dialog->set_child(*content_area);
+
+  auto label = Gtk::make_managed<Gtk::Label>(message);
+  content_area->append(*label);
+
+  auto button_box = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 8);
+  button_box->set_halign(Gtk::Align::CENTER);  // Center the button box
+  button_box->set_valign(Gtk::Align::CENTER);  // Vertically center the button box
+  content_area->append(*button_box);
+
+  auto new_game_button = Gtk::make_managed<Gtk::Button>("New Game");
+  auto exit_button = Gtk::make_managed<Gtk::Button>("Exit");
+  button_box->append(*new_game_button);
+  button_box->append(*exit_button);
+
+  new_game_button->signal_clicked().connect([dialog, this]() {
+      this->set_sensitive(true);
+      dialog->close();
+      chessMediator.getNewGameSignal().emit();
+  });
+
+  exit_button->signal_clicked().connect([dialog, this]() {
+      dialog->close();
+      this->close();
   });
 
   dialog->signal_close_request().connect([dialog, this]() {

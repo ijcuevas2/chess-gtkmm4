@@ -59,6 +59,8 @@ public:
     sigc::signal<void()> getLoadGameFromPathSignal();
     sigc::signal<void()> getOnRequestDrawActionSignal();
     sigc::signal<void()> getOnSurrenderActionSignal();
+    sigc::signal<bool()> getIsThreefoldRepetitionDrawActionSignal();
+    sigc::signal<void()> getOpenThreefoldRepetitionDialogSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -105,6 +107,8 @@ private:
     sigc::signal<void()> loadGameFromPath;
     sigc::signal<void()> onRequestDrawAction;
     sigc::signal<void()> onSurrenderAction;
+    sigc::signal<bool()> isThreefoldRepetitionDrawAction;
+    sigc::signal<void()> openThreefoldRepetitionDialog;
 };
 
 

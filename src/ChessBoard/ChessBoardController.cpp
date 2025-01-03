@@ -113,6 +113,11 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
           if (isStalemate) {
             chessMediator.getOpenStalemateDialogSignal().emit();
           }
+
+          bool isThreefoldRepetitionDraw = chessMediator.getIsThreefoldRepetitionDrawActionSignal().emit();
+          if (isThreefoldRepetitionDraw) {
+            chessMediator.getOpenThreefoldRepetitionDialogSignal().emit();
+          }
         }
       }
     }
