@@ -15,8 +15,7 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
 
   auto primary_click_controller = Gtk::GestureClick::create();
   primary_click_controller->set_button(GDK_BUTTON_PRIMARY);  // Listen for any button
-  primary_click_controller->signal_released().connect(
-          sigc::mem_fun(*this, &ChessWindow::on_header_bar_primary_click_released));
+  primary_click_controller->signal_released().connect(sigc::mem_fun(*this, &ChessWindow::on_header_bar_primary_click_released));
   header_bar->add_controller(primary_click_controller);
 
   set_titlebar(*header_bar);

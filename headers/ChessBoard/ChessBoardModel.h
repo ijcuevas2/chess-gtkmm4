@@ -28,6 +28,7 @@
 #include <cctype>
 #include "../../headers/Utils/MathUtils.h"
 #include "ChessMediator/ChessMediator.h"
+#include "../FenModel/FenStateInfo.h"
 #include <type_traits>
 #include <unordered_map>
 

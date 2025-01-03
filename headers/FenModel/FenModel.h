@@ -24,6 +24,7 @@ public:
 private:
     ChessBoardModel & chessBoardModel;
     ChessMediator & chessMediator;
+    std::unordered_map<std::string, int> fenStateCountMap;
     int counter = 0;
     fs::path dirName;
     std::string encodeChessBoard();
@@ -58,6 +59,9 @@ private:
     Point2D fromAlgebraicNotation(std::string algebraicNotation);
     Point2DPair getPrevMoveHints(std::string srcPoint2dEncoding, std::string tgtPoint2dEncoding);
     std::string getLastPieceMovedEncoding();
+    std::map<std::string, int> positionCount;
+    bool getIsThreeFoldRepetitionVictory();
+    std::string getOrigFenState(std::string fenState);
 };
 
 #endif //CHESS_FENMODEL_H

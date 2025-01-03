@@ -13,7 +13,6 @@ This is an implementation of the standard variant of Chess. This program is impl
 - Insufficient material
 - Threefold repetition
 - Fifty-move rule
-- Resignation
 - Undo for Single Player
 - AI for Single Player
 - Look into minimax 

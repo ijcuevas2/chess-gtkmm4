@@ -449,3 +449,14 @@ void FenModel::loadGameFromPath() {
   std::string path = "";
   loadGame(path);
 }
+
+bool FenModel::getIsThreeFoldRepetitionVictory() {
+  for (const auto & pair : fenStateCountMap) {
+    int count = pair.second;
+    if (count > 2) {
+      return true;
+    }
+  }
+
+  return false;
+}

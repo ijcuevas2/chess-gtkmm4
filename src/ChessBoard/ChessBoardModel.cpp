@@ -433,25 +433,17 @@ ChessPiece* ChessBoardModel::initChessPieceFromChar(char chessPieceChar) {
 
 void ChessBoardModel::initChessBoardFromFenStateString(std::string fenStateStr) {
   char delimiter = ' ';
-  std::vector<std::string> fenSplitArr = StringUtils::split(fenStateStr, delimiter);
-  std::string boardConfigStr = fenSplitArr[0];
-  std::string turnPlayerStr = fenSplitArr[1];
-  std::string castlingStr = fenSplitArr[2];
-  std::string enPassantSquareStr = fenSplitArr[3];
-  std::string halfTurnClockStr = fenSplitArr[4];
-  std::string turnCounterStr = fenSplitArr[5];
-  std::string srcBoardSpace = fenSplitArr[6];
-  std::string tgtBoardSpace = fenSplitArr[7];
+  FenStateInfo fenStateInfo(fenStateStr);
 
-  enPassantSquare = chessMediator.getPointFromAlgebraicNotationSignal().emit(enPassantSquareStr);
-  halfMoveClock = std::stoi(halfTurnClockStr);
-  currentTurn = std::stoi(turnCounterStr);
+  enPassantSquare = chessMediator.getPointFromAlgebraicNotationSignal().emit(fenStateInfo.getEnPassantSquareStr());
+  halfMoveClock = std::stoi(fenStateInfo.getHalfTurnClockStr());
+  currentTurn = std::stoi(fenStateInfo.getTurnCounterStr());
 
-  initChessBoardFromBoardConfig(boardConfigStr);
-  turnPlayerId = getTurnPlayerFromStr(turnPlayerStr);
+  initChessBoardFromBoardConfig(fenStateInfo.getBoardConfigStr());
+  turnPlayerId = getTurnPlayerFromStr(fenStateInfo.getTurnPlayerStr());
   PlayerID opponentId = getOpponentPlayerId(turnPlayerId);
-  restoreCastlingState(castlingStr);
-  setPrevMovesFromStrings(srcBoardSpace, tgtBoardSpace);
+  restoreCastlingState(fenStateInfo.getCastlingStr());
+  setPrevMovesFromStrings(fenStateInfo.getSrcBoardSpace(), fenStateInfo.getTgtBoardSpace());
   calculateOpponentKingIsInCheck(opponentId);
 }
 

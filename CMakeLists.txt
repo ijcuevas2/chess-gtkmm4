@@ -106,6 +106,8 @@ set(LIB_SOURCES
         src/Utils/StringUtils.cpp
         src/Utils/FileUtils.cpp
         src/ChessMediator/ChessMediator.cpp
+        src/FenModel/FenStateInfo.cpp
+        headers/FenModel/FenStateInfo.h
 )
 
 add_library(chess_lib STATIC ${LIB_SOURCES})
