@@ -149,6 +149,14 @@ void ChessWindow::openStalemateDialog() {
   this->openNewGameExitDialogWithMessage(message, title);
 }
 
+void ChessWindow::openOpponentHasSurrenderedDialog() {
+  PlayerID playerId = chessMediator.getOpponentTurnPlayerIdSignal().emit();
+  std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
+  std::string message =  playerStr + " wins!";
+  std::string title = "Opponent Surrenders";
+  this->openNewGameExitDialogWithMessage(message, title);
+}
+
 void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, const std::string title) {
   auto dialog = Gtk::make_managed<Gtk::Window>();
   dialog->set_title(title);
@@ -190,9 +198,8 @@ void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, co
   });
 
   exit_button->signal_clicked().connect([dialog, this]() {
-      dialog->close();
       this->close();
-  });
+  }, false);
 
   dialog->signal_close_request().connect([dialog, this]() {
       dialog->close();
@@ -259,7 +266,6 @@ void ChessWindow::onRequestDrawAction() {
   });
 
   reject_button->signal_clicked().connect([dialog, this]() {
-      dialog->close();
       this->close();
   });
 
@@ -276,8 +282,6 @@ void ChessWindow::onRequestDrawAction() {
 void ChessWindow::onRequestForfeitAction() {
   std::string title = "";
   PlayerID playerId = chessMediator.getTurnPlayerIdSignal().emit();
-  std::string playerIdStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
-  std::string message = "Would the following player like to surrender?: " + playerIdStr;
   auto dialog = Gtk::make_managed<Gtk::Window>();
   dialog->set_title(title);
   dialog->set_transient_for(*this);
@@ -298,8 +302,13 @@ void ChessWindow::onRequestForfeitAction() {
   content_area->set_homogeneous(true);  // Distribute space evenly
   dialog->set_child(*content_area);
 
-  auto label = Gtk::make_managed<Gtk::Label>(message);
-  content_area->append(*label);
+  std::string message = "Would the following player like to surrender?";
+  auto messageLabel = Gtk::make_managed<Gtk::Label>(message);
+  content_area->append(*messageLabel);
+
+  std::string playerIdStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
+  auto playerIdLabel = Gtk::make_managed<Gtk::Label>(playerIdStr);
+  content_area->append(*playerIdLabel);
 
   auto button_box = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 8);
   button_box->set_halign(Gtk::Align::CENTER);  // Center the button box
@@ -314,7 +323,7 @@ void ChessWindow::onRequestForfeitAction() {
   yes_button->signal_clicked().connect([dialog, this]() {
       this->set_sensitive(true);
       dialog->close();
-      chessMediator.getNewGameSignal().emit();
+      openOpponentHasSurrenderedDialog();
   });
 
   no_button->signal_clicked().connect([dialog, this]() {
@@ -379,7 +388,6 @@ void ChessWindow::onDrawConditionTrigger(std::string reason) {
   });
 
   exit_button->signal_clicked().connect([dialog, this]() {
-      dialog->close();
       this->close();
   });
 

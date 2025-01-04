@@ -36,6 +36,7 @@ private:
     void onRequestForfeitAction();
     void onThreefoldRepetitionDrawAction();
     void onDrawConditionTrigger(std::string reason);
+    void openOpponentHasSurrenderedDialog();
 };
 
 #endif //CHESS_CHESSWINDOW_H
