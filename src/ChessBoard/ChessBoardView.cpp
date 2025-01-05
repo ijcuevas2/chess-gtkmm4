@@ -58,7 +58,7 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   fileMenu->append("New Game", "app.new_game");
   fileMenu->append("Save", "app.save");
   fileMenu->append("Load", "app.load");
-  // fileMenu->append("Request Draw", "app.request_draw");
+  fileMenu->append("Request Draw", "app.request_draw");
   fileMenu->append("Surrender", "app.surrender");
   fileMenu->append("Exit", "app.exit");
 

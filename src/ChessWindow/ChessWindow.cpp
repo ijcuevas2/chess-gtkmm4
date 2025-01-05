@@ -165,8 +165,8 @@ void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, co
   dialog->set_default_size(200, 100);
 
   header_bar = Gtk::make_managed<Gtk::HeaderBar>();
-  header_bar->set_show_title_buttons(true);
-  header_bar->set_decoration_layout(":close");
+  header_bar->set_show_title_buttons(false);
+  // header_bar->set_decoration_layout(":close");
   header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
 
   dialog->set_titlebar(*header_bar);
@@ -187,9 +187,9 @@ void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, co
   content_area->append(*button_box);
 
   auto new_game_button = Gtk::make_managed<Gtk::Button>("New Game");
-  auto exit_button = Gtk::make_managed<Gtk::Button>("Exit");
+  auto quit_button = Gtk::make_managed<Gtk::Button>("Quit");
   button_box->append(*new_game_button);
-  button_box->append(*exit_button);
+  button_box->append(*quit_button);
 
   new_game_button->signal_clicked().connect([dialog, this]() {
       this->set_sensitive(true);
@@ -197,17 +197,9 @@ void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, co
       chessMediator.getNewGameSignal().emit();
   });
 
-  exit_button->signal_clicked().connect([dialog, this]() {
+  quit_button->signal_clicked().connect([dialog, this]() {
       this->close();
-  }, false);
-
-  dialog->signal_close_request().connect([dialog, this]() {
-      dialog->close();
-      this->close();
-      // @TODO: look at this line, it may cause an issue
-      delete dialog;
-      return true;
-  }, false);
+  });
 
   dialog->present();
 }
@@ -247,7 +239,6 @@ void ChessWindow::onRequestDrawAction() {
 
   auto label = Gtk::make_managed<Gtk::Label>(message);
   content_area->append(*label);
-
   auto button_box = Gtk::make_managed<Gtk::Box>(Gtk::Orientation::HORIZONTAL, 8);
   button_box->set_halign(Gtk::Align::CENTER);  // Center the button box
   button_box->set_valign(Gtk::Align::CENTER);  // Vertically center the button box
@@ -259,22 +250,15 @@ void ChessWindow::onRequestDrawAction() {
   button_box->append(*reject_button);
 
   accept_button->signal_clicked().connect([dialog, this]() {
-      this->set_sensitive(true);
       dialog->close();
-      std::string reason = "Accepted Draw";
+      std::string reason = "The request for a draw has been accepted";
       this->onDrawConditionTrigger(reason);
   });
 
   reject_button->signal_clicked().connect([dialog, this]() {
-      this->close();
-  });
-
-  dialog->signal_close_request().connect([dialog]() {
+      this->set_sensitive(true);
       dialog->close();
-      // @TODO: look at this line, it may cause an issue
-      delete dialog;
-      return true;
-  }, false);
+  });
 
   dialog->present();
 }
