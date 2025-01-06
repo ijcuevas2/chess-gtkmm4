@@ -22,7 +22,7 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   m_menuModel->append_submenu("File", fileMenu);
 
   m_newGameAction = Gio::SimpleAction::create("new_game");
-  m_exitAction = Gio::SimpleAction::create("exit");
+  m_quitAction = Gio::SimpleAction::create("quit");
   m_saveAction = Gio::SimpleAction::create("save");
   m_requestDrawAction = Gio::SimpleAction::create("request_draw");
   m_loadAction = Gio::SimpleAction::create("load");
@@ -31,12 +31,15 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   m_newGameAction->signal_activate().connect([this](const Glib::VariantBase &) {
       this->onNewGame();
   });
-  m_exitAction->signal_activate().connect([this](const Glib::VariantBase &) {
-      this->onExitClicked();
+
+  m_quitAction->signal_activate().connect([this](const Glib::VariantBase &) {
+      this->onQuitClicked();
   });
+
   m_saveAction->signal_activate().connect([this](const Glib::VariantBase &) {
       this->onSaveClicked();
   });
+
   m_loadAction->signal_activate().connect([this](const Glib::VariantBase &) {
       this->onLoadClicked();
   });
@@ -49,7 +52,7 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
 
   auto app = Gtk::Application::get_default();
   app->add_action(m_newGameAction);
-  app->add_action(m_exitAction);
+  app->add_action(m_quitAction);
   app->add_action(m_saveAction);
   app->add_action(m_loadAction);
   app->add_action(m_requestDrawAction);
@@ -58,9 +61,9 @@ ChessBoardView::ChessBoardView(ChessMediator & chessMediatorRef) : Gtk::Box(Gtk:
   fileMenu->append("New Game", "app.new_game");
   fileMenu->append("Save", "app.save");
   fileMenu->append("Load", "app.load");
-  // fileMenu->append("Request Draw", "app.request_draw");
+  fileMenu->append("Request Draw", "app.request_draw");
   fileMenu->append("Surrender", "app.surrender");
-  fileMenu->append("Exit", "app.exit");
+  fileMenu->append("Quit", "app.quit");
 
   m_menuBar = Gtk::make_managed<Gtk::PopoverMenuBar>(m_menuModel);
 
@@ -138,7 +141,7 @@ void ChessBoardView::updateUi() {
   m_drawingArea.queue_draw();
 }
 
-void ChessBoardView::onExitClicked() {
+void ChessBoardView::onQuitClicked() {
   auto app = Gtk::Application::get_default();
   app->quit();
 }

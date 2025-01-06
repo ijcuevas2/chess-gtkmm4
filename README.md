@@ -11,9 +11,9 @@ This is an implementation of the standard variant of Chess. This program is impl
 
 ### Features: TODO 
 - Insufficient material
+- Request for drawing
 - Threefold repetition
 - Fifty-move rule
-- Resignation
 - Undo for Single Player
 - AI for Single Player
 - Look into minimax 

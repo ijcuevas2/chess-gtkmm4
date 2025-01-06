@@ -11,6 +11,7 @@ FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediat
   chessMediator.getPointFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
   chessMediator.getSetPrevMoveFromStringSignal().connect(sigc::mem_fun(*this, &FenModel::getPrevMoveHints));
   chessMediator.getLoadGameFromPathSignal().connect(sigc::mem_fun(*this, &FenModel::loadGameFromPath));
+  chessMediator.getIsThreefoldRepetitionDrawActionSignal().connect(sigc::mem_fun(*this, &FenModel::getIsThreeFoldRepetitionDraw));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -83,15 +84,14 @@ std::string FenModel::getBoardState() {
 void FenModel::saveBoardState() {
   std::string resultEncoding = "";
 
-  std::string chessEncoding = encodeChessBoard();
-  resultEncoding += chessEncoding;
+  std::string chessBoardEncoding = encodeChessBoard();
+  resultEncoding += chessBoardEncoding;
 
   std::string turnPlayerEncoding = getTurnPlayerEncoding();
   resultEncoding += turnPlayerEncoding;
 
   std::string castlingAvailabilityEncoding = getCastlingAvailability();
   resultEncoding += castlingAvailabilityEncoding;
-
   std::string enPassantSquare = getEnpassantSquare();
   resultEncoding += enPassantSquare;
 
@@ -101,9 +101,11 @@ void FenModel::saveBoardState() {
   std::string currentTurn = getCurrentTurn();
   resultEncoding += currentTurn;
 
+
   std::string lastPieceMovedEncoding = getLastPieceMovedEncoding();
   resultEncoding += lastPieceMovedEncoding;
 
+  updateFenStateCountMap(chessBoardEncoding);
   fenDeque.push_back(resultEncoding);
   chessMediator.getUpdateUndoButtonUiSignal().emit(true);
 }
@@ -448,4 +450,19 @@ Point2DPair FenModel::getPrevMoveHints(std::string srcPoint2dEncoding, std::stri
 void FenModel::loadGameFromPath() {
   std::string path = "";
   loadGame(path);
+}
+
+void FenModel::updateFenStateCountMap(std::string chessBoardEncoding) {
+  fenStateCountMap[chessBoardEncoding]++;
+}
+
+bool FenModel::getIsThreeFoldRepetitionDraw() {
+  for (const auto & pair : fenStateCountMap) {
+    int count = pair.second;
+    if (count >= 3) {
+      return true;
+    }
+  }
+
+  return false;
 }

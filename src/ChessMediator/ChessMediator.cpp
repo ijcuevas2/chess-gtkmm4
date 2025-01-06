@@ -183,3 +183,11 @@ sigc::signal<void()> ChessMediator::getOnRequestDrawActionSignal() {
 sigc::signal<void()> ChessMediator::getOnSurrenderActionSignal() {
   return onSurrenderAction;
 }
+
+sigc::signal<bool()> ChessMediator::getIsThreefoldRepetitionDrawActionSignal() {
+  return isThreefoldRepetitionDrawAction;
+}
+
+sigc::signal<void()> ChessMediator::getOpenThreefoldRepetitionDialogSignal() {
+  return openThreefoldRepetitionDialog;
+}

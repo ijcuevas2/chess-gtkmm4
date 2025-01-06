@@ -31,9 +31,12 @@ private:
     void set_titlebar_right_click_behavior();
     void openCheckmateDialog();
     void openStalemateDialog();
-    void openNewGameExitDialogWithMessage(const std::string message, const std::string title);
+    void openNewGameQuitDialogWithMessage(const std::string message, const std::string title);
     void onRequestDrawAction();
     void onRequestForfeitAction();
+    void onThreefoldRepetitionDrawAction();
+    void onDrawConditionTrigger(std::string reason);
+    void openOpponentHasSurrenderedDialog();
 };
 
 #endif //CHESS_CHESSWINDOW_H
