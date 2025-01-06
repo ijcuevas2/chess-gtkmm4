@@ -11,6 +11,7 @@ FenModel::FenModel(ChessBoardModel &chessBoardModel, ChessMediator & chessMediat
   chessMediator.getPointFromAlgebraicNotationSignal().connect(sigc::mem_fun(*this, &FenModel::fromAlgebraicNotation));
   chessMediator.getSetPrevMoveFromStringSignal().connect(sigc::mem_fun(*this, &FenModel::getPrevMoveHints));
   chessMediator.getLoadGameFromPathSignal().connect(sigc::mem_fun(*this, &FenModel::loadGameFromPath));
+  chessMediator.getIsThreefoldRepetitionDrawActionSignal().connect(sigc::mem_fun(*this, &FenModel::getIsThreeFoldRepetitionDraw));
 }
 
 std::string FenModel::encodeChessBoard() {
@@ -83,15 +84,14 @@ std::string FenModel::getBoardState() {
 void FenModel::saveBoardState() {
   std::string resultEncoding = "";
 
-  std::string chessEncoding = encodeChessBoard();
-  resultEncoding += chessEncoding;
+  std::string chessBoardEncoding = encodeChessBoard();
+  resultEncoding += chessBoardEncoding;
 
   std::string turnPlayerEncoding = getTurnPlayerEncoding();
   resultEncoding += turnPlayerEncoding;
 
   std::string castlingAvailabilityEncoding = getCastlingAvailability();
   resultEncoding += castlingAvailabilityEncoding;
-
   std::string enPassantSquare = getEnpassantSquare();
   resultEncoding += enPassantSquare;
 
@@ -105,7 +105,7 @@ void FenModel::saveBoardState() {
   std::string lastPieceMovedEncoding = getLastPieceMovedEncoding();
   resultEncoding += lastPieceMovedEncoding;
 
-  updateFenStateCountMap(resultEncoding);
+  updateFenStateCountMap(chessBoardEncoding);
   fenDeque.push_back(resultEncoding);
   chessMediator.getUpdateUndoButtonUiSignal().emit(true);
 }
@@ -452,10 +452,8 @@ void FenModel::loadGameFromPath() {
   loadGame(path);
 }
 
-void FenModel::updateFenStateCountMap(std::string str) {
-  FenStateInfo fenStateInfo(str);
-  std::string coreString = fenStateInfo.getCoreString();
-  fenStateCountMap[coreString]++;
+void FenModel::updateFenStateCountMap(std::string chessBoardEncoding) {
+  fenStateCountMap[chessBoardEncoding]++;
 }
 
 bool FenModel::getIsThreeFoldRepetitionDraw() {

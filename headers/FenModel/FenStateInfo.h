@@ -12,7 +12,6 @@
 class FenStateInfo {
 private:
     std::string coreStr;
-    std::string origStr;
     std::string boardConfigStr;
     std::string turnPlayerStr;
     std::string castlingStr;

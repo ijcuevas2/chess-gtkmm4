@@ -18,7 +18,7 @@ private:
     void on_draw(const Cairo::RefPtr<Cairo::Context> &cr, int width, int height);
     void on_pressed(int n_press, double x, double y);
     void onNewGame();
-    void onExitClicked();
+    void onQuitClicked();
     void onSaveClicked();
     void onLoadClicked();
     void initBoard();
@@ -28,7 +28,7 @@ private:
     Glib::RefPtr<Gio::Menu> m_menuModel;
     Gtk::PopoverMenuBar *m_menuBar;
     Glib::RefPtr<Gio::SimpleAction> m_newGameAction;
-    Glib::RefPtr<Gio::SimpleAction> m_exitAction;
+    Glib::RefPtr<Gio::SimpleAction> m_quitAction;
     Glib::RefPtr<Gio::SimpleAction> m_saveAction;
     Glib::RefPtr<Gio::SimpleAction> m_loadAction;
     Glib::RefPtr<Gio::SimpleAction> m_requestDrawAction;

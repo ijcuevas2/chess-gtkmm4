@@ -140,13 +140,13 @@ void ChessWindow::openCheckmateDialog() {
   std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
   std::string message = playerStr + " wins!";
   std::string title = "Checkmate";
-  this->openNewGameExitDialogWithMessage(message, title);
+  this->openNewGameQuitDialogWithMessage(message, title);
 }
 
 void ChessWindow::openStalemateDialog() {
   std::string message = "Draw!";
   std::string title = "Stalemate";
-  this->openNewGameExitDialogWithMessage(message, title);
+  this->openNewGameQuitDialogWithMessage(message, title);
 }
 
 void ChessWindow::openOpponentHasSurrenderedDialog() {
@@ -154,10 +154,10 @@ void ChessWindow::openOpponentHasSurrenderedDialog() {
   std::string playerStr = playerId == PlayerID::PLAYER_WHITE ? "White" : "Black";
   std::string message =  playerStr + " wins!";
   std::string title = "Opponent Surrenders";
-  this->openNewGameExitDialogWithMessage(message, title);
+  this->openNewGameQuitDialogWithMessage(message, title);
 }
 
-void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, const std::string title) {
+void ChessWindow::openNewGameQuitDialogWithMessage(const std::string message, const std::string title) {
   auto dialog = Gtk::make_managed<Gtk::Window>();
   dialog->set_title(title);
   dialog->set_transient_for(*this);
@@ -166,7 +166,6 @@ void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, co
 
   header_bar = Gtk::make_managed<Gtk::HeaderBar>();
   header_bar->set_show_title_buttons(false);
-  // header_bar->set_decoration_layout(":close");
   header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
 
   dialog->set_titlebar(*header_bar);
@@ -190,7 +189,6 @@ void ChessWindow::openNewGameExitDialogWithMessage(const std::string message, co
   auto quit_button = Gtk::make_managed<Gtk::Button>("Quit");
   button_box->append(*new_game_button);
   button_box->append(*quit_button);
-
   new_game_button->signal_clicked().connect([dialog, this]() {
       this->set_sensitive(true);
       dialog->close();
@@ -224,8 +222,7 @@ void ChessWindow::onRequestDrawAction() {
   dialog->set_default_size(200, 100);
 
   header_bar = Gtk::make_managed<Gtk::HeaderBar>();
-  header_bar->set_show_title_buttons(true);
-  header_bar->set_decoration_layout(":close");
+  header_bar->set_show_title_buttons(false);
   header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
 
   dialog->set_titlebar(*header_bar);
@@ -273,8 +270,7 @@ void ChessWindow::onRequestForfeitAction() {
   dialog->set_default_size(200, 100);
 
   header_bar = Gtk::make_managed<Gtk::HeaderBar>();
-  header_bar->set_show_title_buttons(true);
-  header_bar->set_decoration_layout(":close");
+  header_bar->set_show_title_buttons(false);
   header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
 
   dialog->set_titlebar(*header_bar);
@@ -327,6 +323,8 @@ void ChessWindow::onRequestForfeitAction() {
 }
 
 void ChessWindow::onThreefoldRepetitionDrawAction() {
+  std::string reason = "Threefold Repetition Draw!";
+  onDrawConditionTrigger(reason);
 }
 
 void ChessWindow::onDrawConditionTrigger(std::string reason) {
@@ -339,8 +337,7 @@ void ChessWindow::onDrawConditionTrigger(std::string reason) {
   dialog->set_default_size(200, 100);
 
   header_bar = Gtk::make_managed<Gtk::HeaderBar>();
-  header_bar->set_show_title_buttons(true);
-  header_bar->set_decoration_layout(":close");
+  header_bar->set_show_title_buttons(false);
   header_bar->set_title_widget(*Gtk::make_managed<Gtk::Label>(title));
 
   dialog->set_titlebar(*header_bar);
@@ -361,9 +358,9 @@ void ChessWindow::onDrawConditionTrigger(std::string reason) {
   content_area->append(*button_box);
 
   auto new_game_button = Gtk::make_managed<Gtk::Button>("New Game");
-  auto exit_button = Gtk::make_managed<Gtk::Button>("Exit");
+  auto quit_button = Gtk::make_managed<Gtk::Button>("Quit");
   button_box->append(*new_game_button);
-  button_box->append(*exit_button);
+  button_box->append(*quit_button);
 
   new_game_button->signal_clicked().connect([dialog, this]() {
       this->set_sensitive(true);
@@ -371,17 +368,9 @@ void ChessWindow::onDrawConditionTrigger(std::string reason) {
       chessMediator.getNewGameSignal().emit();
   });
 
-  exit_button->signal_clicked().connect([dialog, this]() {
+  quit_button->signal_clicked().connect([dialog, this]() {
       this->close();
   });
-
-  dialog->signal_close_request().connect([dialog, this]() {
-      dialog->close();
-      this->set_sensitive(true);
-      // @TODO: look at this line, it may cause an issue
-      delete dialog;
-      return true;
-  }, false);
 
   dialog->present();
 }

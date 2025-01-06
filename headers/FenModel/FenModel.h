@@ -61,7 +61,7 @@ private:
     Point2DPair getPrevMoveHints(std::string srcPoint2dEncoding, std::string tgtPoint2dEncoding);
     std::string getLastPieceMovedEncoding();
     std::string getOrigFenState(std::string fenState);
-    void updateFenStateCountMap(std::string str);
+    void updateFenStateCountMap(std::string chessBoardEncoding);
 };
 
 #endif //CHESS_FENMODEL_H

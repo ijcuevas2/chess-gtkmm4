@@ -43,10 +43,5 @@ const std::string & FenStateInfo::getCoreString() const {
 void FenStateInfo::assignValueToCoreString() {
   std::stringstream ss;
   ss << getBoardConfigStr() << " ";
-  ss << getTurnPlayerStr() << " ";
-  ss << getCastlingStr() << " ";
-  ss << getEnPassantSquareStr() << " ";
-  ss << getHalfTurnClockStr() << " ";
-  ss << getTurnCounterStr();
   coreStr = ss.str();
 }
