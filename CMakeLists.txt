@@ -10,20 +10,33 @@ set(CMAKE_BUILD_TYPE Debug)
 
 find_package(PkgConfig REQUIRED)
 
-pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
+pkg_check_modules(GTK4 REQUIRED gtk4)
 if(NOT GTK4_FOUND)
     message(FATAL_ERROR "GTK4 not found. Please install GTK4 development files")
 endif()
 message(STATUS "Found GTK4 version: ${GTK4_VERSION}")
 message(STATUS "GTK4 include dirs: ${GTK4_INCLUDE_DIRS}")
 
-pkg_check_modules(GLIB REQUIRED IMPORTED_TARGET glib-2.0)
+pkg_check_modules(GLIB REQUIRED glib-2.0)
 if(NOT GLIB_FOUND)
     message(FATAL_ERROR "glib-2.0 not found. Please install glib development files")
 endif()
+
+# Get the include paths from pkg-config dynamically
+execute_process(
+        COMMAND pkg-config --cflags glib-2.0
+        OUTPUT_VARIABLE GLIB_CFLAGS
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+# Convert the flags into a list and add them
+separate_arguments(GLIB_CFLAGS_LIST UNIX_COMMAND "${GLIB_CFLAGS}")
+add_compile_options(${GLIB_CFLAGS_LIST})
+
 message(STATUS "Found glib-2.0 version: ${GLIB_VERSION}")
 message(STATUS "GLIB library dirs: ${GLIB_LIBRARY_DIRS}")
 message(STATUS "GLIB libraries: ${GLIB_LIBRARIES}")
+message(STATUS "GLIB CFLAGS: ${GLIB_CFLAGS}")
 
 pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
 if(NOT GTKMM_FOUND)
@@ -125,7 +138,6 @@ target_include_directories(chess_lib PUBLIC
         ${CMAKE_BINARY_DIR}
         ${GTKMM_INCLUDE_DIRS}
         ${GTK4_INCLUDE_DIRS}
-        ${GLIB_INCLUDE_DIRS}
         ${HARFBUZZ_INCLUDE_DIRS}
 )
 
