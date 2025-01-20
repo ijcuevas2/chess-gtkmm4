@@ -45,3 +45,4 @@ void FenStateInfo::assignValueToCoreString() {
   ss << getBoardConfigStr() << " ";
   coreStr = ss.str();
 }
+

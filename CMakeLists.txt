@@ -29,7 +29,6 @@ pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
 if(NOT GTKMM_FOUND)
     message(FATAL_ERROR "GTKMM4 not found. Please install GTKMM4 development files")
 endif()
-
 set(CMAKE_INSTALL_RPATH "${GLIB_LIBRARY_DIRS}")
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 
