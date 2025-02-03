@@ -985,3 +985,89 @@ bool ChessBoardModel::getIsStalemate() {
 
   return true;
 }
+
+bool ChessBoardModel::calculateHasSinglePieceVsTwoPieceDraw(std::vector<Point2D> opponentPoints) {
+  Point2D firstOpponentPoint = opponentPoints[0];
+  Point2D secondOpponentPoint = opponentPoints[1];
+  ChessPiece* firstOpponentChessPiece = getChessPiecePtr(firstOpponentPoint.getRow(), firstOpponentPoint.getCol());
+  ChessPiece* secondOpponentChessPiece = getChessPiecePtr(secondOpponentPoint.getRow(), secondOpponentPoint.getCol());
+  PieceType otherPieceType;
+
+  if (isKingChessPiecePtr(firstOpponentChessPiece)) {
+    otherPieceType = secondOpponentChessPiece->getPieceType();
+  } else {
+    otherPieceType = firstOpponentChessPiece->getPieceType();
+  }
+
+  if (otherPieceType == PieceType::BISHOP || otherPieceType == PieceType::KNIGHT) {
+    return true;
+  }
+
+  return false;
+}
+
+std::vector<ChessPiece*> ChessBoardModel::getNonKingChessPiecePtrs(std::vector<Point2D> points) {
+  std::vector<ChessPiece*> nonKingChessPiecePtrs;
+  for (Point2D point2d : points) {
+    ChessPiece* chessPiecePtr = getChessPiecePtr(point2d.getRow(), point2d.getCol());
+    bool isKingPtr = isKingChessPiecePtr(chessPiecePtr);
+    if (!isKingPtr) {
+      nonKingChessPiecePtrs.push_back(chessPiecePtr);
+    }
+  }
+
+  return nonKingChessPiecePtrs;
+}
+
+bool ChessBoardModel::calculateHasSinglePieceVsThreePieceDraw(std::vector<Point2D> opponentPoints) {
+  std::vector<ChessPiece*> opponentNonKingChessPiecePtrs;
+  opponentNonKingChessPiecePtrs = getNonKingChessPiecePtrs(opponentPoints);
+
+  PieceType firstPieceType = opponentNonKingChessPiecePtrs[0]->getPieceType();
+  PieceType secondPieceType = opponentNonKingChessPiecePtrs[1]->getPieceType();
+
+  if (firstPieceType == PieceType::KNIGHT && secondPieceType == PieceType::KNIGHT) {
+    return true;
+  }
+
+  return false;
+}
+
+bool ChessBoardModel::calculateHasTwoPieceVsTwoPieceDraw(std::vector<Point2D> playerPoints, std::vector<Point2D> opponentPoints) {
+  std::vector<ChessPiece*> playerNonKingChessPiecePtrs = getNonKingChessPiecePtrs(playerPoints);
+  std::vector<ChessPiece*> opponentNonKingChessPiecePtrs = getNonKingChessPiecePtrs(opponentPoints);
+
+  ChessPiece* playerChessPiecePtr = playerNonKingChessPiecePtrs[0];
+  ChessPiece* opponentChessPiecePtr = opponentNonKingChessPiecePtrs[0];
+  PieceType playerChessPieceType = playerChessPiecePtr->getPieceType();
+  PieceType opponentChessPieceType = opponentChessPiecePtr->getPieceType();
+
+  if (playerChessPieceType == PieceType::BISHOP && opponentChessPieceType == PieceType::BISHOP) {
+    return true;
+  }
+
+  return false;
+}
+
+bool ChessBoardModel::hasInsufficientMaterial(PlayerID playerId) {
+  std::vector<Point2D> playerPoints = getPointsByPlayerId(playerId);
+  PlayerID opponentId = getOpponentPlayerId(playerId);
+  std::vector<Point2D> opponentPoints = getPointsByPlayerId(opponentId);
+
+  int playerPointsSize = playerPoints.size();
+  int opponentPointsSize = opponentPointsSize();
+
+  bool result = false;
+
+  if (playerPointsSize == 1 && opponentPointsSize == 1) {
+    return true;
+  } else if (playerPointsSize == 1 && opponentPointsSize == 2) {
+    result = calculateHasSinglePieceVsTwoPieceDraw(opponentPoints);
+  } else if (playerPointsSize == 1 && opponentPointsSize == 3) {
+    result = calculateHasSinglePieceVsThreePieceDraw(opponentPoints);
+  } else if (playerPointsSize == 2 && opponentPointsSize == 2) {
+    result = calculateHasTwoPieceVsTwoPieceDraw(playerPoints, opponentPoints);
+  }
+
+  return result;
+}

@@ -166,6 +166,11 @@ private:
     std::vector<Point2D> getKingMovementTargets(PlayerID playerId);
     std::vector<Point2D> getCommonElements(const std::vector<Point2D> & vec1, const std::vector<Point2D> & vec2);
     bool getIsStalemate();
+    bool hasInsufficientMaterial(PlayerID playerId);
+    bool calculateHasSinglePieceVsTwoPieceDraw(std::vector<Point2D> opponentPoints);
+    bool calculateHasSinglePieceVsThreePieceDraw(std::vector<Point2D> opponentPoints);
+    bool calculateHasTwoPieceVsTwoPieceDraw(std::vector<Point2D> playerPoints, std::vector<Point2D> opponentPoints);
+    std::vector<ChessPiece*> getNonKingChessPiecePtrs(std::vector<Point2D> points);
 };
 
 
