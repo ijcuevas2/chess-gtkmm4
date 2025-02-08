@@ -30,6 +30,7 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   chessMediator.getOnRequestDrawActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestDrawAction));
   chessMediator.getOnSurrenderActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestForfeitAction));
   chessMediator.getOpenThreefoldRepetitionDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::onThreefoldRepetitionDrawAction));
+  chessMediator.getOpenInsufficientMaterialDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::onInsufficientMaterialDrawAction));
   set_child(*m_chessBoardView);
 
   // Create an event controller for key events
@@ -373,4 +374,7 @@ void ChessWindow::onDrawConditionTrigger(std::string reason) {
   });
 
   dialog->present();
+}
+
+void ChessWindow::onInsufficientMaterialDrawAction() {
 }

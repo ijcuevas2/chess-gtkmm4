@@ -20,8 +20,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getClearEnPassantCaptureSpaceSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::clearEnPassantCaptureSpace));
   chessMediator.getEnPassantSquareSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getEnPassantSquare));
   chessMediator.getSetPrevMoveSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::setPrevMoves));
-  chessMediator.getIsKingInCheckSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isPlayerIdKingInCheck));
-  chessMediator.getIsKingValidPathSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsValidKingSpace));
+  chessMediator.getIsKingInCheckSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::isPlayerIdKingInCheck));chessMediator.getIsKingValidPathSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsValidKingSpace));
   chessMediator.getTurnPlayerIdSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getTurnPlayerId));
   chessMediator.getRookCanCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getRookCanCastle));
   chessMediator.getMoveRookAfterCastleSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::moveRookAfterCastle));
@@ -34,6 +33,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getContainsPointSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::containsPoint));
   chessMediator.getKingCoordinatesSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getKingPoint2D));
   chessMediator.getIsStalemateSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsStalemate));
+  chessMediator.getIsInsufficientMaterialDrawAction().connect(sigc::mem_fun(*this, &ChessBoardModel::hasInsufficientMaterial));
 }
 
 void ChessBoardModel::initBoardWithCaptureInfo() {
@@ -1054,8 +1054,7 @@ bool ChessBoardModel::hasInsufficientMaterial(PlayerID playerId) {
   PlayerID opponentId = getOpponentPlayerId(playerId);
   std::vector<Point2D> opponentPoints = getPointsByPlayerId(opponentId);
 
-  int playerPointsSize = playerPoints.size();
-  int opponentPointsSize = opponentPointsSize();
+  int playerPointsSize = playerPoints.size();int opponentPointsSize = opponentPointsSize();
 
   bool result = false;
 

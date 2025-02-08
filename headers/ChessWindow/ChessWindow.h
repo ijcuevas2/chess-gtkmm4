@@ -35,6 +35,7 @@ private:
     void onRequestDrawAction();
     void onRequestForfeitAction();
     void onThreefoldRepetitionDrawAction();
+    void onInsufficientMaterialDrawAction();
     void onDrawConditionTrigger(std::string reason);
     void openOpponentHasSurrenderedDialog();
 };
