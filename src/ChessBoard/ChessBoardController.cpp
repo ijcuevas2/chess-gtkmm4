@@ -119,7 +119,7 @@ void ChessBoardController::on_pressed(int n_press, double x, double y, int width
             chessMediator.getOpenThreefoldRepetitionDialogSignal().emit();
           }
 
-          bool hasInsufficientMaterial = chessMediator.getIsInsufficientMaterialDrawAction().emit();
+          bool hasInsufficientMaterial = chessMediator.getHasInsufficientMaterial().emit(playerId);
           if (hasInsufficientMaterial) {
             chessMediator.getOpenInsufficientMaterialDialogSignal().emit();
           }

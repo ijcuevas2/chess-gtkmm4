@@ -192,7 +192,7 @@ sigc::signal<void()> ChessMediator::getOpenThreefoldRepetitionDialogSignal() {
   return openThreefoldRepetitionDialog;
 }
 
-sigc::signal<bool()> ChessMediator::getIsInsufficientMaterialDrawAction() {
+sigc::signal<bool(PlayerID)> ChessMediator::getHasInsufficientMaterial() {
   return isInsufficientMaterialDrawAction;
 }
 

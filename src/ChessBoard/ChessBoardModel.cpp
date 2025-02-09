@@ -33,7 +33,7 @@ ChessBoardModel::ChessBoardModel(ChessMediator & chessMediator) : chessMediator(
   chessMediator.getContainsPointSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::containsPoint));
   chessMediator.getKingCoordinatesSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getKingPoint2D));
   chessMediator.getIsStalemateSignal().connect(sigc::mem_fun(*this, &ChessBoardModel::getIsStalemate));
-  chessMediator.getIsInsufficientMaterialDrawAction().connect(sigc::mem_fun(*this, &ChessBoardModel::hasInsufficientMaterial));
+  chessMediator.getHasInsufficientMaterial().connect(sigc::mem_fun(*this, &ChessBoardModel::hasInsufficientMaterial));
 }
 
 void ChessBoardModel::initBoardWithCaptureInfo() {
@@ -1054,7 +1054,8 @@ bool ChessBoardModel::hasInsufficientMaterial(PlayerID playerId) {
   PlayerID opponentId = getOpponentPlayerId(playerId);
   std::vector<Point2D> opponentPoints = getPointsByPlayerId(opponentId);
 
-  int playerPointsSize = playerPoints.size();int opponentPointsSize = opponentPointsSize();
+  int playerPointsSize = playerPoints.size();
+  int opponentPointsSize = opponentPoints.size();
 
   bool result = false;
 

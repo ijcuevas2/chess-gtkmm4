@@ -29,8 +29,8 @@ ChessWindow::ChessWindow() : m_box(Gtk::Orientation::VERTICAL) {
   chessMediator.getOpenStalemateDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openStalemateDialog));
   chessMediator.getOnRequestDrawActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestDrawAction));
   chessMediator.getOnSurrenderActionSignal().connect(sigc::mem_fun(*this, &ChessWindow::onRequestForfeitAction));
-  chessMediator.getOpenThreefoldRepetitionDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::onThreefoldRepetitionDrawAction));
-  chessMediator.getOpenInsufficientMaterialDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::onInsufficientMaterialDrawAction));
+  chessMediator.getOpenThreefoldRepetitionDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openThreefoldRepetitionDialog));
+  chessMediator.getOpenInsufficientMaterialDialogSignal().connect(sigc::mem_fun(*this, &ChessWindow::openInsufficientMaterialDialog));
   set_child(*m_chessBoardView);
 
   // Create an event controller for key events
@@ -323,8 +323,8 @@ void ChessWindow::onRequestForfeitAction() {
   dialog->present();
 }
 
-void ChessWindow::onThreefoldRepetitionDrawAction() {
-  std::string reason = "Threefold Repetition Draw!";
+void ChessWindow::openThreefoldRepetitionDialog() {
+  std::string reason = "Draw due to Threefold Repetition!";
   onDrawConditionTrigger(reason);
 }
 
@@ -376,5 +376,7 @@ void ChessWindow::onDrawConditionTrigger(std::string reason) {
   dialog->present();
 }
 
-void ChessWindow::onInsufficientMaterialDrawAction() {
+void ChessWindow::openInsufficientMaterialDialog() {
+  std::string reason = "Draw due to Insufficient Material!";
+  onDrawConditionTrigger(reason);
 }

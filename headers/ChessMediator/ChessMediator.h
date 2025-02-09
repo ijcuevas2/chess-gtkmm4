@@ -61,7 +61,7 @@ public:
     sigc::signal<void()> getOnSurrenderActionSignal();
     sigc::signal<bool()> getIsThreefoldRepetitionDrawActionSignal();
     sigc::signal<void()> getOpenThreefoldRepetitionDialogSignal();
-    sigc::signal<bool()> getIsInsufficientMaterialDrawAction();
+    sigc::signal<bool(PlayerID)> getHasInsufficientMaterial();
     sigc::signal<void()> getOpenInsufficientMaterialDialogSignal();
 private:
     sigc::signal<void()> openSaveDialog;
@@ -111,7 +111,7 @@ private:
     sigc::signal<void()> onSurrenderAction;
     sigc::signal<bool()> isThreefoldRepetitionDrawAction;
     sigc::signal<void()> openThreefoldRepetitionDialog;
-    sigc::signal<bool()> isInsufficientMaterialDrawAction;
+    sigc::signal<bool(PlayerID)> isInsufficientMaterialDrawAction;
     sigc::signal<void()> openInsufficientMaterialDialog;
 };
 
