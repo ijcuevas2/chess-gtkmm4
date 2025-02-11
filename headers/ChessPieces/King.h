@@ -11,9 +11,9 @@
 
 class King : public virtual ChessPiece {
 private:
-    bool canCastle;
-    bool isInCheck;
-    bool isCheckmate;
+    bool canCastle = true;
+    bool isInCheck = false;
+    bool isCheckmate = false;
 public:
     King(PlayerID playerId, ChessMediator & chessMediator);
     bool getCanCastle();
