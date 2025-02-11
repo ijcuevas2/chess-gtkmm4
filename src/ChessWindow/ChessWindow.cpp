@@ -107,7 +107,8 @@ void ChessWindow::openFileDialog() {
   Glib::RefPtr<Gio::ListStore<Gtk::FileFilter>> filters = Gio::ListStore<Gtk::FileFilter>::create();
   std::string chessSavesDir = "chess_saves";
   fs::path currentPath = fs::current_path() / chessSavesDir;
-  Glib::RefPtr<Gio::File> initial_folder = Gio::File::create_for_path(currentPath.string());
+  std::string pathString = currentPath.string();
+  Glib::RefPtr<Gio::File> initial_folder = Gio::File::create_for_path(pathString);
   dialog->set_initial_folder(initial_folder);
 
   Glib::RefPtr<Gtk::FileFilter> filter_any = Gtk::FileFilter::create();
