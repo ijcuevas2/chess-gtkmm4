@@ -329,6 +329,11 @@ void ChessWindow::openThreefoldRepetitionDialog() {
   onDrawConditionTrigger(reason);
 }
 
+void ChessWindow::openFivefoldRepetitionDialog() {
+  std::string reason = "Draw due to Fivefold Repetition!";
+  onDrawConditionTrigger(reason);
+}
+
 void ChessWindow::onDrawConditionTrigger(std::string reason) {
   std::string title = "Draw!";
   std::string message = reason;

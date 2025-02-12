@@ -10,6 +10,8 @@ This is an implementation of the standard variant of Chess. This program is impl
 - Ubuntu
 
 ### Features: TODO 
+- Five Fold Repetition
+- Threefold Repetition
 - Fifty-move rule
 - Undo for Single Player
 - AI for Single Player
