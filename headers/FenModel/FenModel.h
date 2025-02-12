@@ -22,6 +22,7 @@ public:
     void loadGame(std::string filePath);
     void loadGameFromPath();
     bool getIsThreeFoldRepetitionDraw();
+    bool getIsFiveFoldRepetitionDraw();
 private:
     ChessBoardModel & chessBoardModel;
     ChessMediator & chessMediator;

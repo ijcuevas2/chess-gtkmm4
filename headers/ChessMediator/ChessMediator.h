@@ -63,6 +63,8 @@ public:
     sigc::signal<void()> getOpenThreefoldRepetitionDialogSignal();
     sigc::signal<bool(PlayerID)> getHasInsufficientMaterial();
     sigc::signal<void()> getOpenInsufficientMaterialDialogSignal();
+    sigc::signal<bool()> getIsFivefoldRepetitionDrawActionSignal();
+    sigc::signal<void()> getOpenFivefoldRepetitionDialogSignal();
 private:
     sigc::signal<void()> openSaveDialog;
     sigc::signal<void()> openFileDialog;
@@ -113,6 +115,8 @@ private:
     sigc::signal<void()> openThreefoldRepetitionDialog;
     sigc::signal<bool(PlayerID)> isInsufficientMaterialDrawAction;
     sigc::signal<void()> openInsufficientMaterialDialog;
+    sigc::signal<bool()> isFivefoldRepetitionDrawAction;
+    sigc::signal<void()> openFivefoldRepetitionDialog;
 };
 
 

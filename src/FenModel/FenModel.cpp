@@ -457,9 +457,22 @@ void FenModel::updateFenStateCountMap(std::string chessBoardEncoding) {
 }
 
 bool FenModel::getIsThreeFoldRepetitionDraw() {
+  int upperBound = 3;
   for (const auto & pair : fenStateCountMap) {
     int count = pair.second;
-    if (count >= 3) {
+    if (upperBound <= count && upperBound < 5) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool FenModel::getIsFiveFoldRepetitionDraw() {
+  int upperBound = 5;
+  for (const auto & pair : fenStateCountMap) {
+    int count = pair.second;
+    if (upperBound <= count) {
       return true;
     }
   }
